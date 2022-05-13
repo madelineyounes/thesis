@@ -1,0 +1,1 @@
+{"rule":"MORFOLOGIK_RULE_EN_US","sentence":"^\\QEnglish/Feature MSA LEV GLF EGY Money nqwd mSAry flws flws I want Aryd bdy Abγý ςAyz Now AlĀn hlq AlHyn dlwqt When?\\E$"}
