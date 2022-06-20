@@ -1,0 +1,185 @@
+# Generated 2021-03-20 from:
+# /network/tmp1/ravanelm/speechbrain_slu/recipes/Google-speech-commands/hparams/xvect.yaml
+# yamllint disable
+# ################################
+# Model: Classification with xvector
+# Authors: Hwidong Na & Mirco Ravanelli
+#          Script adapted by Madeline Younes 2021
+# ################################
+
+# Basic parameters
+seed: 1986
+__set_seed: !apply:torch.manual_seed [1986]
+
+# Use 12 for V2 12 task and 35 for V2 35 task
+number_of_commands: 12
+output_folder: results/
+save_folder: results/save
+train_log: results/train_log.txt
+
+# Data files
+data_folder: /localscratch/GSC
+                           # e.g. /path/to/GSC
+train_annotation: results/xvect_v12/1986/train.csv
+valid_annotation: results/xvect_v12/1986/valid.csv
+test_annotation: results/xvect_v12/1986/test.csv
+
+# Folder to extract data augmentation files
+rir_folder: /localscratch/GSC  # Change it if needed
+
+# Percentage of files used for validation and test
+validation_percentage: 10
+testing_percentage: 10
+
+# Percentage of unknown and silence examples
+# (relative to total of known word samples) to include
+percentage_unknown: 10
+percentage_silence: 10
+
+# Wether to use data augmentation
+apply_data_augmentation: true
+skip_prep: false
+ckpt_interval_minutes: 15 # save checkpoint every N min
+
+# Training parameters
+number_of_epochs: 100
+batch_size: 32
+lr: 0.001
+lr_final: 0.0001
+
+sample_rate: 16000
+shuffle: true
+
+
+# Feature parameters
+n_mels: 24
+left_frames: 0
+right_frames: 0
+deltas: false
+
+# Number of classes (i.e. different commands)
+out_n_neurons: 12                         #includes core commands & auxiliary words
+
+dataloader_options:
+  batch_size: 32
+  shuffle: true
+  num_workers: 2
+
+# Functions
+compute_features: &id006 !new:speechbrain.lobes.features.Fbank
+  n_mels: 24
+  left_frames: 0
+  right_frames: 0
+  deltas: false
+
+embedding_model: &id007 !new:speechbrain.lobes.models.Xvector.Xvector
+  in_channels: 24
+  activation: !name:torch.nn.LeakyReLU
+  tdnn_blocks: 5
+  tdnn_channels: [512, 512, 512, 512, 1500]
+  tdnn_kernel_sizes: [5, 3, 3, 1, 1]
+  tdnn_dilations: [1, 2, 3, 1, 1]
+  lin_neurons: 512
+
+classifier: &id008 !new:speechbrain.lobes.models.Xvector.Classifier
+  input_shape: [null, null, 512]
+  activation: !name:torch.nn.LeakyReLU
+  lin_blocks: 1
+  lin_neurons: 512
+  out_neurons: 12
+
+softmax: &id009 !new:speechbrain.nnet.activations.Softmax
+  apply_log: true
+
+epoch_counter: &id011 !new:speechbrain.utils.epoch_loop.EpochCounter
+  limit: 100
+
+
+augment_wavedrop: &id001 !new:speechbrain.lobes.augment.TimeDomainSpecAugment
+  sample_rate: 16000
+  speeds: [100]
+
+augment_speed: &id002 !new:speechbrain.lobes.augment.TimeDomainSpecAugment
+  sample_rate: 16000
+  speeds: [95, 100, 105]
+
+add_rev: &id003 !new:speechbrain.lobes.augment.EnvCorrupt
+  openrir_folder: /localscratch/GSC
+  openrir_max_noise_len: 1.0    # seconds
+  reverb_prob: 1.0
+  noise_prob: 0.0
+  noise_snr_low: 0
+  noise_snr_high: 15
+  rir_scale_factor: 1.0
+
+add_noise: &id004 !new:speechbrain.lobes.augment.EnvCorrupt
+  openrir_folder: /localscratch/GSC
+  openrir_max_noise_len: 1.0    # seconds
+  reverb_prob: 0.0
+  noise_prob: 1.0
+  noise_snr_low: 0
+  noise_snr_high: 15
+  rir_scale_factor: 1.0
+
+add_rev_noise: &id005 !new:speechbrain.lobes.augment.EnvCorrupt
+  openrir_folder: /localscratch/GSC
+  openrir_max_noise_len: 1.0    # seconds
+  reverb_prob: 1.0
+  noise_prob: 1.0
+  noise_snr_low: 0
+  noise_snr_high: 15
+  rir_scale_factor: 1.0
+
+
+# Definition of the augmentation pipeline.
+# If concat_augment = False, the augmentation techniques are applied
+# in sequence. If concat_augment = True, all the augmented signals
+# # are concatenated in a single big batch.
+augment_pipeline: [*id001, *id002, *id003, *id004, *id005]
+concat_augment: true
+
+mean_var_norm: &id010 !new:speechbrain.processing.features.InputNormalization
+
+
+# Cost + optimization
+  norm_type: sentence
+  std_norm: false
+
+modules:
+  compute_features: *id006
+  augment_wavedrop: *id001
+  augment_speed: *id002
+  add_rev: *id003
+  add_noise: *id004
+  add_rev_noise: *id005
+  embedding_model: *id007
+  classifier: *id008
+  softmax: *id009
+  mean_var_norm: *id010
+compute_cost: !name:speechbrain.nnet.losses.nll_loss
+compute_error: !name:speechbrain.nnet.losses.classification_error
+
+opt_class: !name:torch.optim.Adam
+  lr: 0.001
+  weight_decay: 0.000002
+
+lr_annealing: !new:speechbrain.nnet.schedulers.LinearScheduler
+  initial_value: 0.001
+  final_value: 0.0001
+  epoch_count: 100
+
+# Logging + checkpoints
+train_logger: !new:speechbrain.utils.train_logger.FileTrainLogger
+  save_file: results/xvect_v12/1986/train_log.txt
+
+error_stats: !name:speechbrain.utils.metric_stats.MetricStats
+  metric: !name:speechbrain.nnet.losses.classification_error
+    reduction: batch
+
+checkpointer: !new:speechbrain.utils.checkpoints.Checkpointer
+  checkpoints_dir: results/xvect_v12/1986/save
+  recoverables:
+    embedding_model: *id007
+    classifier: *id008
+    normalizer: *id010
+    counter: *id011
