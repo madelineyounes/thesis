@@ -50,10 +50,11 @@ def gen_txt(dialect_group, total_time):
     Function that generates a txt file which will contain a list of the files to be used as training data. 
     '''
     counter = 0
-    filename = output_path+"data_{dialect_group}_{time}_hrs_{counter:string}.csv"
-    while os.path.isfile(filename.format(dialect_group, str(int(total_time)), counter)):
+    filename = output_path + "data_{d}_{t}_hrs_{c}.csv".format(
+            d=dialect_group, t=str(int(total_time)))
+    while os.path.isfile(filename.format(c=counter)):
         counter += 1
-    filename = filename.format(dialect_group, str(int(total_time)), counter)
+    filename = filename.format(c=counter)
     f = open(filename, 'w')
     f.write("id,label\n")
     f.close()
