@@ -63,6 +63,7 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
     train_lines = tuple(open(data_label_path+'adi17_official_dev_label.txt', 'r'))
     out_lines = tuple(open(file, 'r'))
     out_file = open(file, 'a+')
+    info_time = 0
     for line in train_lines:
         if dialect in line and time_counter < total_time:
             filename = line.split(' ')[0]
@@ -100,7 +101,7 @@ def main():
     txt_file = gen_txt(dialect_group, total_time/3600)
     print("Generated the file " + txt_file)
 
-    if dialect_group is 'r':
+    if dialect_group == 'r':
         for dialect in regional_dialects:
             populate_txt(txt_file, dialect, total_time, dialect_group, 0)
     else:
