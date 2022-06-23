@@ -51,7 +51,7 @@ def gen_txt(dialect_group, total_time):
     '''
     counter = 0
     filename = output_path + "data_{d}_{t}_hrs_{c}.csv".format(
-            d=dialect_group, t=str(int(total_time)))
+        d=dialect_group, t=str(int(total_time), c=counter))
     while os.path.isfile(filename.format(c=counter)):
         counter += 1
     filename = filename.format(c=counter)
