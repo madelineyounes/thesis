@@ -10,7 +10,7 @@ ROOT_DIR = os.path.realpath(os.path.join(os.path.dirname(__file__), '..'))
 source_dir = os.path.join(ROOT_DIR, 'data')
 input_label = os.path.join(ROOT_DIR, 'train_label.txt')
 output_path = "../data/"
-data_label_path = "../../dataset/"
+data_label_path = "/srv/scratch/z5208494/dataset/"
 data_path = data_label_path+"dev_segments/"
 
 '''
