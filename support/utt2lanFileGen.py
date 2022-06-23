@@ -61,6 +61,7 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
     '''
 
     train_lines = tuple(open(data_label_path+'adi17_official_dev_label.txt', 'r'))
+    print(train_lines)
     out_lines = tuple(open(file, 'r'))
     out_file = open(file, 'a+')
     info_time = 0
@@ -68,6 +69,7 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
         if dialect in line and time_counter < total_time:
             filename = line.split(' ')[0]
             filepath = data_path+line.split(' ')[0]
+            print(filepath)
             info = WavInfoReader(filepath+".wav")
             if dialect_group == 'r':
                 out_file.write(line)
@@ -88,9 +90,6 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
                     out_file.write(filename + ",NUL\n")
             # iterate time counter
             info_time = info.data.frame_count / info.fmt.sample_rate
-            print("counter: " + str(time_counter))
-            print("\ntotal time: " + str(total_time))
-            print("\ninfo: " + str(info_time))
             break       
     out_file.close()
     return info_time
