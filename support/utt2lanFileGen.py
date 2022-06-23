@@ -58,7 +58,7 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
     '''
     time_counter = 0
 
-    train_lines = tuple(open('../data/adi17_official_dev_label.txt', 'r'))
+    train_lines = tuple(open('../../dataset/adi17_official_dev_label.txt', 'r'))
     out_lines = tuple(open(file, 'r'))
     out_file = open(file, 'a+')
     for line in train_lines:
