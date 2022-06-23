@@ -64,7 +64,7 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
     out_lines = tuple(open(file, 'r'))
     out_file = open(file, 'a+')
     for line in train_lines:
-        if dialect in line and time_counter < total_time:
+        if dialect in line and line.rstrip() not in out_lines and line not in out_lines and time_counter < total_time:
             filename = line.split(' ')[0]
             filepath = data_path+line.split(' ')[0]
             info = WavInfoReader(filepath+".wav")
@@ -86,6 +86,7 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
             info_time = info.data.frame_count / info.fmt.sample_rate
             time_counter = time_counter + info_time
             print("counter: " + str(time_counter))
+            print("total time: " + str(total_time))
             print("\ninfo: " + str(info_time))
             break
     out_file.close()
