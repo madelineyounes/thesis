@@ -42,7 +42,7 @@ def start_prompt():
     '''
     print(start_messag)
     dialect_group = input("Which dialect grouping do you want to use? The 4 umbrella dialects or the 17 regional dialects [u/r]?")
-    total_time = float(input("How much data for each data in hrs?"))
+    total_time = float(input("How much data for each dialect in hrs?"))
     return dialect_group, total_time
 
 def gen_txt(dialect_group, total_time):
@@ -88,8 +88,8 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
                 else :
                     out_file.write(filename + ",NUL\n")
             # iterate time counter
-            time_counter += time_counter
-            info_time = info.data.frame_count / info.fmt.sample_rate      
+            info_time = info.data.frame_count / info.fmt.sample_rate 
+            time_counter += info_time
     out_file.close()
     return time_counter
 
