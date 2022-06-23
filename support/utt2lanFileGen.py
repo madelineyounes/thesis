@@ -71,7 +71,6 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
     info_time = 0
     for line in train_lines:
         if dialect in line.rstrip("\n") and time_counter < total_time:
-            print ('here')
             filename = line.split(' ')[0]
             filepath = data_path+line.split(' ')[0]
             info = WavInfoReader(filepath+".wav")
