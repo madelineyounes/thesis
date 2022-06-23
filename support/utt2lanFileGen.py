@@ -51,7 +51,7 @@ def gen_txt(dialect_group, total_time):
     Function that generates a txt file which will contain a list of the files to be used as training data. 
     '''
     counter = 0
-    filename = output_path+"data_"+dialect_group + "_" + str(int(total_time)) + "hrs_{}.csv"
+    filename = output_path+"data_"+dialect_group + "_" + str(int(total_time)) + "hrs_{counter}.csv"
     while os.path.isfile(filename.format(counter)):
         counter += 1
     filename = filename.format(counter)
@@ -111,7 +111,9 @@ def main():
         for dialect in umbrella_dialects: 
             time_counter = 0
             for d in regional_dialects: 
+                print(d, dialect_dict[dialect])
                 if d in dialect_dict[dialect]:
+                    print ("in if")
                     time_counter += populate_txt(txt_file, d,
                                                  total_time, dialect_group, time_counter)
 
