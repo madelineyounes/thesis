@@ -45,7 +45,7 @@ def gen_txt(dialect_group, total_time):
     Function that generates a txt file which will contain a list of the files to be used as training data. 
     '''
     counter = 0
-    filename = output_path+"data_"+dialect_group + "_" + str(int(total_time)) + "_{}.csv"
+    filename = output_path+"data_"+dialect_group + "_" + str(int(total_time)) + "hrs_{}.csv"
     while os.path.isfile(filename.format(counter)):
         counter += 1
     filename = filename.format(counter)
@@ -94,7 +94,7 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
 def main():
     dialect_group, total_time = start_prompt()
     total_time = 3600*total_time # convert hours to seconds
-    txt_file = gen_txt(dialect_group, total_time)
+    txt_file = gen_txt(dialect_group, total_time/3600)
     print("Generated the file " + txt_file)
 
     if dialect_group is 'r':
