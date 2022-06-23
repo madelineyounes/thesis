@@ -85,8 +85,8 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
             # iterate time counter
             info_time = info.data.frame_count / info.fmt.sample_rate
             time_counter = time_counter + info_time
-            print("counter: " + time_counter)
-            print("\ninfo: " + info_time)
+            print("counter: " + str(time_counter))
+            print("\ninfo: " + str(info_time))
             break
     out_file.close()
 
