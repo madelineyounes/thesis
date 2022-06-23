@@ -20,15 +20,15 @@ or the 17 specific regional dialects. The program will select enough data for a 
 '''
 
 regional_EGY_dialects = ['EGY', 'SDN']
-regional_GLF_dialects = ['IRQ', 'KWT', 'ARE', 'QAT', 'OMN', 'SAU', 'YEM']
+regional_GLF_dialects = ['IRQ', 'KWT', 'UAE', 'ARE', 'QAT', 'OMN', 'SAU', 'YEM']
 regional_LEV_dialects = ['PSE', 'LBN', 'SYR', 'JOR']
-regional_NOR_dialects = ['MRT', 'MAR', 'DZA', 'LBY']
+regional_NOR_dialects = ['MOR', 'MAU', 'ALG', 'LIB']
 
 dialect_dict = {
     "EGY": ['EGY', 'SDN'],
-    "GLF": ['IRQ', 'KWT', 'ARE', 'QAT', 'OMN', 'SAU', 'YEM'],
+    "GLF": ['IRQ', 'KWT', 'UAE', 'ARE', 'QAT', 'OMN', 'SAU', 'YEM'],
     "LEV": ['PSE', 'LBN', 'SYR', 'JOR'],
-    "NOR": ['MRT', 'MAR', 'DZA', 'LBY']
+    "NOR": ['MOR', 'MAU', 'ALG', 'LIB']
 }
 
 regional_dialects = regional_NOR_dialects + regional_EGY_dialects + regional_GLF_dialects + regional_LEV_dialects
