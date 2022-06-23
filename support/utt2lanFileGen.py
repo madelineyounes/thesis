@@ -72,15 +72,15 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
                 out_file.write(line)
             else:
                 if dialect in regional_EGY_dialects:
-                    out_file.write(filename + ",EGY")
+                    out_file.write(filename + ",EGY\n")
                 elif dialect in regional_GLF_dialects:
-                    out_file.write(filename + ",GLF")
+                    out_file.write(filename + ",GLF\n")
                 elif dialect in regional_LEV_dialects:
-                    out_file.write(filename + ",LEV")
+                    out_file.write(filename + ",LEV\n")
                 elif dialect in regional_NOR_dialects:
-                    out_file.write(filename + ",NOR")
+                    out_file.write(filename + ",NOR\n")
                 else :
-                    out_file.write(filename + ",NUL")
+                    out_file.write(filename + ",NUL\n")
 
             # iterate time counter
             info_time = info.data.frame_count / info.fmt.sample_rate
