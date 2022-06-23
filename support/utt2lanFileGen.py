@@ -70,9 +70,7 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
     out_file = open(file, 'a+')
     info_time = 0
     for line in train_lines:
-        if dialect not in line.rstrip("\n"):
-            print(dialect, line.rstrip("\n"))
-        if dialect in line.rstrip("\n")  and time_counter < total_time:
+        if dialect in line.rstrip("\n") and time_counter < total_time:
             print ('here')
             filename = line.split(' ')[0]
             filepath = data_path+line.split(' ')[0]
@@ -81,22 +79,17 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
                 out_file.write(line)
             else:
                 if dialect in regional_EGY_dialects:
-                    print(filename + dialect + ",EGY\n")
                     out_file.write(filename + ",EGY\n")
                 elif dialect in regional_GLF_dialects:
-                    print(filename + dialect + ",GLF\n")
                     out_file.write(filename + ",GLF\n")
                 elif dialect in regional_LEV_dialects:
-                    print(filename + dialect + ",LEV\n")
                     out_file.write(filename + ",LEV\n")
                 elif dialect in regional_NOR_dialects:
-                    print(filename + dialect + ",NOR\n")
                     out_file.write(filename + ",NOR\n")
                 else :
                     out_file.write(filename + ",NUL\n")
             # iterate time counter
-            info_time = info.data.frame_count / info.fmt.sample_rate
-            break       
+            info_time = info.data.frame_count / info.fmt.sample_rate      
     out_file.close()
     return info_time
 
