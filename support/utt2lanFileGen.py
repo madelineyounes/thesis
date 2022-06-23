@@ -64,7 +64,6 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
     out_lines = tuple(open(file, 'r'))
     out_file = open(file, 'a+')
     for line in train_lines:
-        print (line)
         if dialect in line and time_counter < total_time:
             filename = line.split(' ')[0]
             filepath = data_path+line.split(' ')[0]
@@ -104,6 +103,7 @@ def main():
     else:
         for dialect in umbrella_dialects: 
             for d in regional_dialects: 
+                print(dialect)
                 selected = "regional_" + dialect + "_dialects"
                 if dialect in selected: 
                     populate_txt(txt_file, d, total_time, dialect_group, 0)
