@@ -31,8 +31,8 @@ dialect_dict = {
     "NOR": ['MRT', 'MAR', 'DZA', 'LBY']
 }
 
-regional_dialects = regional_EGY_dialects + regional_GLF_dialects + regional_LEV_dialects + regional_NOR_dialects
-umbrella_dialects = ['EGY', 'GLF', 'LEV', 'NOR']
+regional_dialects = regional_NOR_dialects + regional_EGY_dialects + regional_GLF_dialects + regional_LEV_dialects
+umbrella_dialects = ['NOR', 'EGY', 'GLF', 'LEV']
 
 def start_prompt():
     start_messag = '''
