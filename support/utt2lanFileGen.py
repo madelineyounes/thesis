@@ -64,7 +64,7 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
     Function that takes in the txt file, the dialect abbrevation and 
     the total time of the training data. 
     '''
-
+    print("populating doc ...")
     train_lines = tuple(open(data_label_path+'adi17_official_dev_label.txt', 'r'))
     out_lines = tuple(open(file, 'r'))
     out_file = open(file, 'a+')
@@ -89,9 +89,10 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
                 else :
                     out_file.write(filename + ",NUL\n")
             # iterate time counter
+            time_counter += time_counter
             info_time = info.data.frame_count / info.fmt.sample_rate      
     out_file.close()
-    return info_time
+    return time_counter
 
 def main():
     dialect_group, total_time = start_prompt()
@@ -106,9 +107,7 @@ def main():
         for dialect in umbrella_dialects: 
             time_counter = 0
             for d in regional_dialects: 
-                print(d, dialect_dict[dialect])
                 if d in dialect_dict[dialect]:
-                    print ("in if")
                     time_counter += populate_txt(txt_file, d,
                                                  total_time, dialect_group, time_counter)
 
