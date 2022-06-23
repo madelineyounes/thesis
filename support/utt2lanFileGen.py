@@ -105,7 +105,7 @@ def main():
         for dialect in umbrella_dialects: 
             time_counter = 0
             for d in regional_dialects: 
-                selected = 'regional_' + dialect + '_dialects'
+                selected = exec('regional_' + dialect + '_dialects')
                 print(d, selected)
                 if dialect in selected: 
                     print("in if")
