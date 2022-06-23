@@ -72,25 +72,27 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
                 out_file.write(line)
             else:
                 if dialect in regional_EGY_dialects:
+                    print(filename + dialect + ",EGY\n")
                     out_file.write(filename + ",EGY\n")
                 elif dialect in regional_GLF_dialects:
+                    print(filename + dialect + ",GLF\n")
                     out_file.write(filename + ",GLF\n")
                 elif dialect in regional_LEV_dialects:
+                    print(filename + dialect + ",LEV\n")
                     out_file.write(filename + ",LEV\n")
                 elif dialect in regional_NOR_dialects:
-                    print(filename + ",NOR\n")
+                    print(filename + dialect + ",NOR\n")
                     out_file.write(filename + ",NOR\n")
                 else :
                     out_file.write(filename + ",NUL\n")
             # iterate time counter
             info_time = info.data.frame_count / info.fmt.sample_rate
-            time_counter = time_counter + info_time
             print("counter: " + str(time_counter))
             print("\ntotal time: " + str(total_time))
             print("\ninfo: " + str(info_time))
             break       
     out_file.close()
-
+    return info_time
 
 def main():
     dialect_group, total_time = start_prompt()
@@ -103,12 +105,14 @@ def main():
             populate_txt(txt_file, dialect, total_time, dialect_group, 0)
     else:
         for dialect in umbrella_dialects: 
+            time_counter = 0
             for d in regional_dialects: 
                 print(dialect)
-                selected = "regional_" + dialect + "_dialects"
+                selected = 'regional_' + dialect + '_dialects'
                 if dialect in selected: 
-                    populate_txt(txt_file, d, total_time, dialect_group, 0)
-            
+                    time_counter += populate_txt(txt_file, d,
+                                                 total_time, dialect_group, time_counter)
+
 
 if __name__ == "__main__":
     main()
