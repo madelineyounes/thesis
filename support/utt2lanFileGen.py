@@ -3,6 +3,7 @@ import os
 import string
 import mutagen
 from mutagen.wave import WAVE
+from regex import D
 from wavinfo import WavInfoReader
 
 ROOT_DIR = os.path.realpath(os.path.join(os.path.dirname(__file__), '..'))
@@ -101,9 +102,17 @@ def main():
     total_time = 3600*total_time # convert hours to seconds
     txt_file = gen_txt(dialect_group, total_time)
     print("Generated the file " + txt_file)
-    for dialect in regional_dialects:
-        print (dialect)
-        populate_txt(txt_file, dialect, total_time, dialect_group)
+
+    if dialect_group is 'r':
+        for dialect in regional_dialects:
+            populate_txt(txt_file, dialect, total_time, dialect_group)
+    else:
+        for dialect in umbrella_dialects: 
+            for d in regional_dialects: 
+                selected = "regional_" + dialect + "_dialects"
+                if dialect in selected: 
+                    populate_txt(txt_file, d, total_time, dialect_group)
+            
 
 if __name__ == "__main__":
     main()
