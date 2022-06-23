@@ -105,9 +105,10 @@ def main():
         for dialect in umbrella_dialects: 
             time_counter = 0
             for d in regional_dialects: 
-                print(d)
                 selected = 'regional_' + dialect + '_dialects'
+                print(d, selected)
                 if dialect in selected: 
+                    print("in if")
                     time_counter += populate_txt(txt_file, d,
                                                  total_time, dialect_group, time_counter)
 
