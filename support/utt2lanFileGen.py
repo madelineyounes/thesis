@@ -54,19 +54,18 @@ def gen_txt(dialect_group, total_time):
     f.close()
     return filename
 
-def populate_txt(file:string, dialect:string, total_time:float, dialect_group:string):
+def populate_txt(file:string, dialect:string, total_time:float, dialect_group:string, time_counter: float):
     '''
     Function that takes in the txt file, the dialect abbrevation and 
     the total time of the training data. 
     '''
-    time_counter = 0
 
     train_lines = tuple(open(data_label_path+'adi17_official_dev_label.txt', 'r'))
     out_lines = tuple(open(file, 'r'))
     out_file = open(file, 'a+')
     for line in train_lines:
         print (line)
-        if dialect in line and line.rstrip() not in out_lines and line not in out_lines and time_counter < total_time:
+        if dialect in line and time_counter < total_time:
             filename = line.split(' ')[0]
             filepath = data_path+line.split(' ')[0]
             info = WavInfoReader(filepath+".wav")
@@ -83,17 +82,13 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
                     out_file.write(filename + ",NOR\n")
                 else :
                     out_file.write(filename + ",NUL\n")
-
+            # iterate time counter
             info_time = info.data.frame_count / info.fmt.sample_rate
             time_counter = time_counter + info_time
             print("counter: " + str(time_counter))
             print("\ntotal time: " + str(total_time))
             print("\ninfo: " + str(info_time))
-            break
-        else:
-            print("in else")
-            # iterate time counter
-       
+            break       
     out_file.close()
 
 
@@ -105,13 +100,13 @@ def main():
 
     if dialect_group is 'r':
         for dialect in regional_dialects:
-            populate_txt(txt_file, dialect, total_time, dialect_group)
+            populate_txt(txt_file, dialect, total_time, dialect_group, 0)
     else:
         for dialect in umbrella_dialects: 
             for d in regional_dialects: 
                 selected = "regional_" + dialect + "_dialects"
                 if dialect in selected: 
-                    populate_txt(txt_file, d, total_time, dialect_group)
+                    populate_txt(txt_file, d, total_time, dialect_group, 0)
             
 
 if __name__ == "__main__":
