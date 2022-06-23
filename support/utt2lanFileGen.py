@@ -68,6 +68,7 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
             filename = line.split(' ')[0]
             filepath = data_path+line.split(' ')[0]
             info = WavInfoReader(filepath+".wav")
+            print(info_time)
             if dialect_group == 'r':
                 out_file.write(line)
             else:
@@ -85,6 +86,7 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
             # iterate time counter
             info_time = info.data.frame_count / info.fmt.sample_rate
             time_counter = time_counter + info_time
+            print(info_time)
             break
     out_file.close()
 
@@ -94,12 +96,8 @@ def main():
     total_time = 3600*total_time # convert hours to seconds
     txt_file = gen_txt(dialect_group, total_time)
     print("Generated the file " + txt_file)
-    if dialect_group == 'r':
-        for dialect in regional_dialects:
-            populate_txt(txt_file, dialect, total_time, dialect_group)
-    else:
-        for dialect in umbrella_dialects:
-            populate_txt(txt_file, dialect, total_time, dialect_group)
+    for dialect in regional_dialects:
+        populate_txt(txt_file, dialect, total_time, dialect_group)
 
 if __name__ == "__main__":
     main()
