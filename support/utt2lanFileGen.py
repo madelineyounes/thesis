@@ -24,6 +24,13 @@ regional_GLF_dialects = ['IRQ', 'KWT', 'ARE', 'QAT', 'OMN', 'SAU', 'YEM']
 regional_LEV_dialects = ['PSE', 'LBN', 'SYR', 'JOR']
 regional_NOR_dialects = ['MRT', 'MAR', 'DZA', 'LBY']
 
+dialect_dict = {
+    "EGY": ['EGY', 'SDN'],
+    "GLF": ['IRQ', 'KWT', 'ARE', 'QAT', 'OMN', 'SAU', 'YEM'],
+    "LEV": ['PSE', 'LBN', 'SYR', 'JOR'],
+    "NOR": ['MRT', 'MAR', 'DZA', 'LBY']
+}
+
 regional_dialects = regional_EGY_dialects + regional_GLF_dialects + regional_LEV_dialects + regional_NOR_dialects
 print(regional_dialects)
 umbrella_dialects = ['EGY', 'GLF', 'LEV', 'NOR']
@@ -105,9 +112,7 @@ def main():
         for dialect in umbrella_dialects: 
             time_counter = 0
             for d in regional_dialects: 
-                selected = exec('regional_' + dialect + '_dialects')
-                print(d, selected)
-                if dialect in selected: 
+                if dialect in dialect_dict[d]:
                     print("in if")
                     time_counter += populate_txt(txt_file, d,
                                                  total_time, dialect_group, time_counter)
