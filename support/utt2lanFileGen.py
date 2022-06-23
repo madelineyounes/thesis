@@ -8,7 +8,7 @@ from wavinfo import WavInfoReader
 ROOT_DIR = os.path.realpath(os.path.join(os.path.dirname(__file__), '..'))
 source_dir = os.path.join(ROOT_DIR, 'data')
 input_label = os.path.join(ROOT_DIR, 'train_label.txt')
-output_path = "../data"
+output_path = "../data/"
 data_label_path = "../../dataset/"
 data_path = data_label_path+"dev_segments/"
 
@@ -49,7 +49,7 @@ def gen_txt(dialect_group, total_time):
         counter += 1
     filename = filename.format(counter)
     f = open(filename, 'w')
-    f.write("id,label")
+    f.write("id,label\n")
     f.close()
     return filename
 
@@ -65,8 +65,9 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
     out_file = open(file, 'a+')
     for line in train_lines:
         if dialect in line and line.rstrip() not in out_lines and line not in out_lines and time_counter < total_time:
-            filename = data_path+line.split(' ')[0]
-            info = WavInfoReader(filename+".wav")
+            filename = line.split(' ')[0]
+            filepath = data_path+line.split(' ')[0]
+            info = WavInfoReader(filepath+".wav")
             if dialect_group == 'r':
                 out_file.write(line)
             else:
