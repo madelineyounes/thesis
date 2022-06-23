@@ -78,6 +78,7 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
                 elif dialect in regional_LEV_dialects:
                     out_file.write(filename + ",LEV\n")
                 elif dialect in regional_NOR_dialects:
+                    print(filename + ",NOR\n")
                     out_file.write(filename + ",NOR\n")
                 else :
                     out_file.write(filename + ",NUL\n")
