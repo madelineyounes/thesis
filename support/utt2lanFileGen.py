@@ -68,7 +68,6 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
             filename = line.split(' ')[0]
             filepath = data_path+line.split(' ')[0]
             info = WavInfoReader(filepath+".wav")
-            print(info_time)
             if dialect_group == 'r':
                 out_file.write(line)
             else:
