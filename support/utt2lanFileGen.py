@@ -44,7 +44,7 @@ def gen_txt(dialect_group, total_time):
     Function that generates a txt file which will contain a list of the files to be used as training data. 
     '''
     counter = 0
-    filename = output_path+"data_"+dialect_group + "_" + total_time + "_{}.csv"
+    filename = output_path+"data_"+dialect_group + "_" + str(total_time) + "_{}.csv"
     while os.path.isfile(filename.format(counter)):
         counter += 1
     filename = filename.format(counter)
