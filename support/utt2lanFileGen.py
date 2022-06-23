@@ -82,15 +82,17 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
                     out_file.write(filename + ",NOR\n")
                 else :
                     out_file.write(filename + ",NUL\n")
+
+            info_time = info.data.frame_count / info.fmt.sample_rate
+            time_counter = time_counter + info_time
+            print("counter: " + str(time_counter))
+            print("\ntotal time: " + str(total_time))
+            print("\ninfo: " + str(info_time))
+            break
         else:
             print("in else")
             # iterate time counter
-        info_time = info.data.frame_count / info.fmt.sample_rate
-        time_counter = time_counter + info_time
-        print("counter: " + str(time_counter))
-        print("\ntotal time: " + str(total_time))
-        print("\ninfo: " + str(info_time))
-        break
+       
     out_file.close()
 
 
