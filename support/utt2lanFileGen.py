@@ -64,6 +64,7 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
     out_lines = tuple(open(file, 'r'))
     out_file = open(file, 'a+')
     for line in train_lines:
+        print (line)
         if dialect in line and line.rstrip() not in out_lines and line not in out_lines and time_counter < total_time:
             filename = line.split(' ')[0]
             filepath = data_path+line.split(' ')[0]
@@ -81,7 +82,8 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
                     out_file.write(filename + ",NOR\n")
                 else :
                     out_file.write(filename + ",NUL\n")
-
+        else:
+            print("in else")
             # iterate time counter
             info_time = info.data.frame_count / info.fmt.sample_rate
             time_counter = time_counter + info_time
