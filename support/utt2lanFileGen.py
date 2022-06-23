@@ -10,7 +10,7 @@ source_dir = os.path.join(ROOT_DIR, 'data')
 input_label = os.path.join(ROOT_DIR, 'train_label.txt')
 output_path = "../data"
 data_label_path = "../../dataset/"
-data_path = data_label_path+"dev_segments"
+data_path = data_label_path+"dev_segments/"
 
 '''
 Program to generate a text file with all the file names to be used in trainging. 
