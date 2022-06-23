@@ -35,7 +35,6 @@ regional_dialects = regional_EGY_dialects + regional_GLF_dialects + regional_LEV
 print(regional_dialects)
 umbrella_dialects = ['EGY', 'GLF', 'LEV', 'NOR']
 
-
 def start_prompt():
     start_messag = '''
     This program generates a text file with a list of file names to be used as training data 
@@ -112,11 +111,9 @@ def main():
         for dialect in umbrella_dialects: 
             time_counter = 0
             for d in regional_dialects: 
-                if dialect in dialect_dict[d]:
-                    print("in if")
+                if d in dialect_dict[dialect]:
                     time_counter += populate_txt(txt_file, d,
                                                  total_time, dialect_group, time_counter)
-
 
 if __name__ == "__main__":
     main()
