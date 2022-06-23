@@ -61,15 +61,13 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
     '''
 
     train_lines = tuple(open(data_label_path+'adi17_official_dev_label.txt', 'r'))
-    print(train_lines)
     out_lines = tuple(open(file, 'r'))
     out_file = open(file, 'a+')
     info_time = 0
     for line in train_lines:
-        if dialect in line and time_counter < total_time:
+        if dialect in line.rstrip("\n")  and time_counter < total_time:
             filename = line.split(' ')[0]
             filepath = data_path+line.split(' ')[0]
-            print(filepath)
             info = WavInfoReader(filepath+".wav")
             if dialect_group == 'r':
                 out_file.write(line)
@@ -107,7 +105,7 @@ def main():
         for dialect in umbrella_dialects: 
             time_counter = 0
             for d in regional_dialects: 
-                print(dialect)
+                print(d)
                 selected = 'regional_' + dialect + '_dialects'
                 if dialect in selected: 
                     time_counter += populate_txt(txt_file, d,
