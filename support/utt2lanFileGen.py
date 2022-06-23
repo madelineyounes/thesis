@@ -85,7 +85,8 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
             # iterate time counter
             info_time = info.data.frame_count / info.fmt.sample_rate
             time_counter = time_counter + info_time
-            print(info_time)
+            print("counter: " + time_counter)
+            print("\ninfo: " + info_time)
             break
     out_file.close()
 
@@ -96,6 +97,7 @@ def main():
     txt_file = gen_txt(dialect_group, total_time)
     print("Generated the file " + txt_file)
     for dialect in regional_dialects:
+        print (dialect)
         populate_txt(txt_file, dialect, total_time, dialect_group)
 
 if __name__ == "__main__":
