@@ -70,6 +70,8 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
     out_file = open(file, 'a+')
     info_time = 0
     for line in train_lines:
+        if dialect not in line.rstrip("\n"):
+            print(dialect, line.rstrip("\n"))
         if dialect in line.rstrip("\n")  and time_counter < total_time:
             print ('here')
             filename = line.split(' ')[0]
