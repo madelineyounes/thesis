@@ -8,6 +8,9 @@ from wavinfo import WavInfoReader
 ROOT_DIR = os.path.realpath(os.path.join(os.path.dirname(__file__), '..'))
 source_dir = os.path.join(ROOT_DIR, 'data')
 input_label = os.path.join(ROOT_DIR, 'train_label.txt')
+output_path = "../data"
+data_label_path = "../../dataset/"
+data_path = data_label_path+"dev_segments"
 
 '''
 Program to generate a text file with all the file names to be used in trainging. 
@@ -36,12 +39,12 @@ def start_prompt():
     total_time = float(input("How much data for each data in hrs?"))
     return dialect_group, total_time
 
-def gen_txt():
+def gen_txt(dialect_group, total_time):
     '''
     Function that generates a txt file which will contain a list of the files to be used as training data. 
     '''
     counter = 0
-    filename = "data_selected{}.txt"
+    filename = output_path+"data_"+dialect_group + "_" + total_time + "_{}.csv"
     while os.path.isfile(filename.format(counter)):
         counter += 1
     filename = filename.format(counter)
@@ -50,7 +53,6 @@ def gen_txt():
     f.close()
     return filename
 
-
 def populate_txt(file:string, dialect:string, total_time:float, dialect_group:string):
     '''
     Function that takes in the txt file, the dialect abbrevation and 
@@ -58,14 +60,13 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
     '''
     time_counter = 0
 
-    train_lines = tuple(open('../../dataset/adi17_official_dev_label.txt', 'r'))
+    train_lines = tuple(open(data_label_path+'adi17_official_dev_label.txt', 'r'))
     out_lines = tuple(open(file, 'r'))
     out_file = open(file, 'a+')
     for line in train_lines:
         if dialect in line and line.rstrip() not in out_lines and line not in out_lines and time_counter < total_time:
-            filename = line.split(' ')[0]
+            filename = data_path.split(' ')[0]
             info = WavInfoReader(filename+".wav")
-
             if dialect_group == 'r':
                 out_file.write(line)
             else:
@@ -91,7 +92,7 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
 def main():
     dialect_group, total_time = start_prompt()
     total_time = 3600*total_time # convert hours to seconds
-    txt_file = gen_txt()
+    txt_file = gen_txt(dialect_group, total_time)
     print(txt_file)
     if dialect_group == 'r':
         for dialect in regional_dialects:
