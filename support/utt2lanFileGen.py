@@ -46,20 +46,21 @@ def gen_txt():
         counter += 1
     filename = filename.format(counter)
     f = open(filename, 'w')
+    f.write("id,label")
     f.close()
     return filename
 
 
-def populate_txt(txt_file, dialect:string, total_time:float, dialect_group:string):
+def populate_txt(file:string, dialect:string, total_time:float, dialect_group:string):
     '''
     Function that takes in the txt file, the dialect abbrevation and 
     the total time of the training data. 
     '''
     time_counter = 0
 
-    train_lines = tuple(open('train_label.txt', 'r'))
-    out_lines = tuple(open(txt_file, 'r'))
-    out_file = open(txt_file, 'a+')
+    train_lines = tuple(open('../data/adi17_official_dev_label.txt', 'r'))
+    out_lines = tuple(open(file, 'r'))
+    out_file = open(file, 'a+')
     for line in train_lines:
         if dialect in line and line.rstrip() not in out_lines and line not in out_lines and time_counter < total_time:
             filename = line.split(' ')[0]
@@ -70,15 +71,15 @@ def populate_txt(txt_file, dialect:string, total_time:float, dialect_group:strin
             else:
                 print(dialect)
                 if dialect in regional_EGY_dialects:
-                    out_file.write(filename + " EGY")
+                    out_file.write(filename + ",EGY")
                 elif dialect in regional_GLF_dialects:
-                    out_file.write(filename + " GLF")
+                    out_file.write(filename + ",GLF")
                 elif dialect in regional_LEV_dialects:
-                    out_file.write(filename + " LEV")
+                    out_file.write(filename + ",LEV")
                 elif dialect in regional_NOR_dialects:
-                    out_file.write(filename + " NOR")
+                    out_file.write(filename + ",NOR")
                 else :
-                    out_file.write(filename + " NUL")
+                    out_file.write(filename + ",NUL")
 
             # iterate time counter
             info_time = info.data.frame_count / info.fmt.sample_rate
