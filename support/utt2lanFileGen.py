@@ -32,7 +32,6 @@ dialect_dict = {
 }
 
 regional_dialects = regional_EGY_dialects + regional_GLF_dialects + regional_LEV_dialects + regional_NOR_dialects
-print(regional_dialects)
 umbrella_dialects = ['EGY', 'GLF', 'LEV', 'NOR']
 
 def start_prompt():
@@ -51,10 +50,10 @@ def gen_txt(dialect_group, total_time):
     Function that generates a txt file which will contain a list of the files to be used as training data. 
     '''
     counter = 0
-    filename = output_path+"data_"+dialect_group + "_" + str(int(total_time)) + "hrs_{counter}.csv"
-    while os.path.isfile(filename.format(counter)):
+    filename = output_path+"data_{dialect_group}_{time}_hrs_{counter:string}.csv"
+    while os.path.isfile(filename.format(dialect_group, str(int(total_time)), counter)):
         counter += 1
-    filename = filename.format(counter)
+    filename = filename.format(dialect_group, str(int(total_time)), counter)
     f = open(filename, 'w')
     f.write("id,label\n")
     f.close()
