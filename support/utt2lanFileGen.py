@@ -23,13 +23,13 @@ or the 17 specific regional dialects. The program will select enough data for a 
 regional_EGY_dialects = ['EGY', 'SDN']
 regional_GLF_dialects = ['IRQ', 'KWT', 'ARE', 'QAT', 'OMN', 'SAU', 'YEM']
 regional_LEV_dialects = ['PSE', 'LBN', 'SYR', 'JOR']
-regional_NOR_dialects = ['MRT', 'MAU', 'DZA', 'LBY']
+regional_NOR_dialects = ['MRT', 'MAR', 'DZA', 'LBY']
 
 dialect_dict = {
     "EGY": ['EGY', 'SDN'],
     "GLF": ['IRQ', 'KWT', 'ARE', 'QAT', 'OMN', 'SAU', 'YEM'],
     "LEV": ['PSE', 'LBN', 'SYR', 'JOR'],
-    "NOR": ['MRT', 'MAU', 'DZA', 'LIB']
+    "NOR": ['MRT', 'MAR', 'DZA', 'LIB']
 }
 
 regional_dialects = regional_NOR_dialects + regional_EGY_dialects + regional_GLF_dialects + regional_LEV_dialects
@@ -68,7 +68,7 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
     the total time of the training data. 
     '''
     print("populating doc ...")
-    train_lines = tuple(open(data_label_path+'adi17_official_test_label.txt', 'r'))
+    train_lines = tuple(open(data_label_path+'adi17_official_test_label.csv', 'r'))
     out_lines = tuple(open(file, 'r'))
     out_file = open(file, 'a+')
     info_time = 0
