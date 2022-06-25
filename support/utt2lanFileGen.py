@@ -21,7 +21,8 @@ or the 17 specific regional dialects. The program will select enough data for a 
 '''
 
 regional_EGY_dialects = ['EGY', 'SDN']
-regional_GLF_dialects = ['IRQ', 'KWT', 'UAE', 'ARE', 'QAT', 'OMN', 'SAU', 'YEM']
+regional_GLF_dialects = ['IRQ', 'KWT', 'UAE',
+                         'ARE', 'QAT', 'OMN', 'SAU', 'YEM', 'KSA']
 regional_LEV_dialects = ['PSE', 'LBN', 'SYR', 'JOR']
 regional_NOR_dialects = ['MOR', 'MAU', 'ALG', 'LIB']
 
