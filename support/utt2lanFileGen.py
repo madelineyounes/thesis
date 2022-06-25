@@ -52,7 +52,7 @@ def gen_txt(dialect_group, total_time):
     '''
     print("generating txt file...")
     counter = 0
-    name  = "adi17_test_umbrella_label.txt"
+    name  = "adi17_test_umbrella_label.csv"
     filename = output_path + "data_{d}_{t}_hrs_{count}_.csv".format(d=dialect_group, t=str(int(total_time)), count = counter)
     while os.path.isfile(filename.format(count=counter)):
         counter += 1
@@ -68,7 +68,7 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
     the total time of the training data. 
     '''
     print("populating doc ...")
-    train_lines = tuple(open(data_label_path+'adi17_official_test_label.csv', 'r'))
+    train_lines = tuple(open(data_label_path+'adi17_official_test_label.txt', 'r'))
     out_lines = tuple(open(file, 'r'))
     out_file = open(file, 'a+')
     info_time = 0
