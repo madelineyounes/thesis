@@ -89,9 +89,9 @@ training = True
 print("training:", training)
 
 # Experiment ID
-# For 1) naming vocab.json file and
-#     2) naming model output directory
-#     3) naming results file
+# For 
+#     1) naming model output directory
+#     2) naming results file
 experiment_id = "xlsr-ADI17-initialtest"
 print("experiment_id:", experiment_id)
 
@@ -113,13 +113,14 @@ base_cache_fp = "/srv/scratch/z5208494 .cache/huggingface/datasets/"
 # Training dataset name and filename
 # Dataset name and filename of the csv file containing the training data
 # For generating filepath to file location
+train_name = "umbrella_1hr"
 train_filename = "data_u_1_hrs_0_.csv"
+print("train_name:", train_name)
 print("train_filename:", train_filename)
 
 # Evaluation dataset name and filename
 # Dataset name and filename of the csv file containing the evaluation data
 # For generating filepath to file location
-evaluation_name = "adi17_test_umbrella_label"
 evaluation_filename = "adi17_test_umbrella_label"
 print("evaluation_filename:", evaluation_filename)
 
@@ -185,11 +186,11 @@ print("gradient_checkpointing:", set_gradient_checkpointing)
 print("\n------> TRAINING ARGUMENTS... ----------------------------------------\n")
 # For setting training_args = TrainingArguments()
 
-set_evaluation_strategy = "steps"           # Default = "no"
+set_evaluation_strategy = "epoch"           # Default = "no"
 print("evaluation strategy:", set_evaluation_strategy)
-set_per_device_train_batch_size = 8         # Default = 8
+set_per_device_train_batch_size = 32         # Default = 32
 print("per_device_train_batch_size:", set_per_device_train_batch_size)
-set_gradient_accumulation_steps = 1         # Default = 1
+set_gradient_accumulation_steps = 4         # Default = 4
 print("gradient_accumulation_steps:", set_gradient_accumulation_steps)
 set_learning_rate = 0.00004                 # Default = 0.00005
 print("learning_rate:", set_learning_rate)
@@ -201,7 +202,7 @@ set_adam_beta2 = 0.98                       # Default = 0.999
 print("adam_beta2:", set_adam_beta2)
 set_adam_epsilon = 0.00000001               # Default = 0.00000001
 print("adam_epsilon:", set_adam_epsilon)
-set_num_train_epochs = 22                   # Default = 3.0
+set_num_train_epochs = 5                   # Default = 3.0
 print("num_train_epochs:", set_num_train_epochs)
 set_max_steps = 35000                       # Default = -1, overrides epochs
 print("max_steps:", set_max_steps)
@@ -211,9 +212,9 @@ set_warmup_ratio = 0.1                      # Default = 0.0
 print("warmup_ratio:", set_warmup_ratio)
 set_logging_strategy = "steps"              # Default = "steps"
 print("logging_strategy:", set_logging_strategy)
-set_logging_steps = 1000                      # Default = 500
+set_logging_steps = 10                      # Default = 500
 print("logging_steps:", set_logging_steps)
-set_save_strategy = "steps"                 # Default = "steps"
+set_save_strategy = "epoch"                 # Default = "steps"
 print("save_strategy:", set_save_strategy)
 set_save_steps = 1000                         # Default = 500
 print("save_steps:", set_save_steps)
@@ -231,6 +232,8 @@ set_greater_is_better = False               # Optional
 print("greater_is_better:", set_greater_is_better)
 set_group_by_length = True                  # Default = False
 print("group_by_length:", set_group_by_length)
+set_push_to_hub = True                      # Default = False
+print("push_to_hub:", set_push_to_hub)
 
 # ------------------------------------------
 #        Generating file paths
@@ -258,9 +261,6 @@ print("--> data_test_fp:", data_test_fp)
 # Path to datasets cache
 data_cache_fp = base_cache_fp + datasetdict_id
 print("--> data_cache_fp:", data_cache_fp)
-# Path to save vocab.json
-vocab_fp = base_fp + train_name + "_local/vocab_" + experiment_id + ".json"
-print("--> vocab_fp:", vocab_fp)
 # Path to save model output
 model_fp = base_fp + train_name + "_local/" + experiment_id
 print("--> model_fp:", model_fp)
@@ -301,6 +301,12 @@ data = load_dataset('csv',
                     data_files={'train': data_train_fp,
                                 'test': data_test_fp},
                     cache_dir=data_cache_fp)
+
+labels = data["train"].features["label"].names
+label2id, id2label = dict(), dict()
+for i, label in enumerate(labels):
+    label2id[label] = str(i)
+    id2label[str(i)] = label
 # Remove the "duration" and "spkr_id" column
 #data = data.remove_columns(["duration", "spkr_id"])
 #data = data.remove_columns(["duration"])
@@ -322,74 +328,13 @@ def show_random_elements(dataset, num_examples=10):
     df = pd.DataFrame(dataset[picks])
     print(df)
 
-
 show_random_elements(data["train"], num_examples=5)
 print("SUCCESS: Prepared dataset.")
 # ------------------------------------------
 #       Processing transcription
 # ------------------------------------------
-# Create vocab.json
 # Extracting all distinct letters of train and test set
-# and building vocab from this set of letters
-print("\n------> PROCESSING TRANSCRIPTION... ---------------------------------------\n")
-# Mapping function that concatenates all transcriptions
-# into one long transcription and then transforms the
-# string into a set of chars. Set batched=True to the
-# map(...) function so that the mapping function has access
-# to all transcriptions at once.
 
-#chars_to_ignore_regex = '[\,\?\.\!\-\;\:\"]'
-
-
-def process_transcription(batch):
-    #batch["transcription_clean"] = re.sub(chars_to_ignore_regex, '', batch["transcription_clean"]).upper()
-    batch["transcription_clean"] = batch["transcription_clean"].upper()
-    batch["transcription_clean"] = batch["transcription_clean"].replace(
-        "<UNK>", "<unk>")
-    return batch
-
-
-data = data.map(process_transcription)
-
-
-def extract_all_chars(batch):
-    all_text = " ".join(batch["transcription_clean"])
-    vocab = list(set(all_text))
-    return {"vocab": [vocab], "all_text": [all_text]}
-
-
-if not use_pretrained_tokenizer:
-    print("--> Creating map(...) function for vocab...")
-    vocabs = data.map(extract_all_chars, batched=True, batch_size=-1,
-                      keep_in_memory=True, remove_columns=data.column_names["train"])
-    # Create union of all distinct letters in train and test set
-    # and convert resulting list into enumerated dictionary
-    # Vocab includes a-z, ' , space, UNK, PAD
-    vocab_list = list(set(vocabs["train"]["vocab"][0])
-                      | set(vocabs["test"]["vocab"][0]))
-    vocab_dict = {v: k for k, v in enumerate(vocab_list)}
-    print("--> Vocab len:", len(vocab_dict), "\n", vocab_dict)
-    # Give space " " a visible character " | "
-    # Include "unknown" [UNK] token for dealing with characters
-    # not encountered in training.
-    # Add padding token to corresponds to CTC's "blank token".
-    vocab_dict["|"] = vocab_dict[" "]
-    del vocab_dict[" "]
-    vocab_dict["[UNK]"] = len(vocab_dict)
-    vocab_dict["[PAD]"] = len(vocab_dict)
-    print("--> Vocab len:", len(vocab_dict), "\n", vocab_dict)
-    # Save vocab as a json file
-    with open(vocab_fp, 'w') as vocab_file:
-        json.dump(vocab_dict, vocab_file)
-    print("SUCCESS: Created vocabulary file at", vocab_fp)
-# Use json file to instantiate an object of the
-# Wav2VecCTCTokenziser class if not using pretrained tokenizer
-if use_pretrained_tokenizer:
-    tokenizer = Wav2Vec2CTCTokenizer.from_pretrained(pretrained_tokenizer)
-else:
-    tokenizer = Wav2Vec2CTCTokenizer(
-        vocab_fp, unk_token="[UNK]", pad_token="[PAD]", word_delimiter_token="|")
-#tokenizer = save_pretrained(model_fp)
 # ------------------------------------------
 #    Create Wav2Vec2 Feature Extractor
 # ------------------------------------------
@@ -407,7 +352,7 @@ feature_extractor = AutoFeatureExtractor.from_pretrained(model_name)
 # Feature extractor and tokenizer wrapped into a single
 # Wav2Vec2Processor class so we only need a model and processor object
 processor = Wav2Vec2Processor(
-    feature_extractor=feature_extractor, tokenizer=tokenizer)
+    feature_extractor=feature_extractor, tokenizer=pretrained_tokenizer)
 # Save to re-use the just created processor and the fine-tuned model
 processor.save_pretrained(model_fp)
 print("SUCCESS: Created feature extractor.")
@@ -422,16 +367,19 @@ print("\n------> PRE-PROCESSING DATA... ----------------------------------------
 # We write a map(...) function accordingly.
 
 
-def speech_file_to_array_fn(batch):
-    speech_array, sampling_rate = sf.read(batch["filepath"])
-    batch["speech"] = speech_array
-    batch["sampling_rate"] = sampling_rate
-    batch["target_text"] = batch["transcription_clean"]
-    return batch
+def preprocess_function(examples):
+    audio_arrays = [x["array"] for x in examples["audio"]]
+    inputs = feature_extractor(
+        audio_arrays,
+        sampling_rate=feature_extractor.sampling_rate,
+        max_length=int(feature_extractor.sampling_rate * max_duration),
+        truncation=True,
+    )
+    return inputs
 
+data = data.map(preprocess_function, remove_columns=[
+                               "audio", "file"], batched=True)
 
-data = data.map(speech_file_to_array_fn,
-                remove_columns=data.column_names["train"], num_proc=4)
 # Check a few rows of data to verify data properly loaded
 print("--> Verifying data with a random sample...")
 rand_int = random.randint(0, len(data["train"])-1)
@@ -447,7 +395,6 @@ print("Sampling rate:", data["train"][rand_int]["sampling_rate"])
 #    to extracting log-mel features
 # 3) Encode the transcriptions to label ids
 
-
 def prepare_dataset(batch):
     # check that all files have the correct sampling rate
     assert (
@@ -460,7 +407,6 @@ def prepare_dataset(batch):
     with processor.as_target_processor():
         batch["labels"] = processor(batch["target_text"]).input_ids
     return batch
-
 
 data_prepared = data.map(
     prepare_dataset, remove_columns=data.column_names["train"], batch_size=8, num_proc=4, batched=True)
@@ -554,7 +500,7 @@ data_collator = DataCollatorCTCWithPadding(processor=processor, padding=True)
 print("SUCCESS: Data collator defined.")
 
 # 2) Evaluation metric
-#    Using word error rate (WER)
+#    Using Accuaracy 
 print("--> Defining evaluation metric...")
 # The model will return a sequence of logit vectors y.
 # A lADI17t vector yi contains the log-odds for each word in the
@@ -651,7 +597,8 @@ training_args = TrainingArguments(
     load_best_model_at_end=set_load_best_model_at_end,
     metric_for_best_model=set_metric_for_best_model,
     greater_is_better=set_greater_is_better,
-    group_by_length=set_group_by_length
+    group_by_length=set_group_by_length,
+    push_to_hub=set_push_to_hub
 )
 # All instances can be passed to Trainer and
 # we are ready to start training!
