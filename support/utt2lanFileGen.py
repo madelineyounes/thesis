@@ -76,23 +76,26 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
         if dialect in line.rstrip("\n") and time_counter < total_time:
             filename = line.split(' ')[0]
             filepath = data_path+line.split(' ')[0]
-            info = WavInfoReader(filepath+".wav")
-            if dialect_group == 'r':
-                out_file.write(line)
-            else:
-                if dialect in regional_EGY_dialects:
-                    out_file.write(filename + ",EGY\n")
-                elif dialect in regional_GLF_dialects:
-                    out_file.write(filename + ",GLF\n")
-                elif dialect in regional_LEV_dialects:
-                    out_file.write(filename + ",LEV\n")
-                elif dialect in regional_NOR_dialects:
-                    out_file.write(filename + ",NOR\n")
-                else :
-                    out_file.write(filename + ",NUL\n")
-            # iterate time counter
-            info_time = info.data.frame_count / info.fmt.sample_rate 
-            time_counter += info_time
+            try:
+                info = WavInfoReader(filepath+".wav")
+                if dialect_group == 'r':
+                    out_file.write(line)
+                else:
+                    if dialect in regional_EGY_dialects:
+                        out_file.write(filename + ",EGY\n")
+                    elif dialect in regional_GLF_dialects:
+                        out_file.write(filename + ",GLF\n")
+                    elif dialect in regional_LEV_dialects:
+                        out_file.write(filename + ",LEV\n")
+                    elif dialect in regional_NOR_dialects:
+                        out_file.write(filename + ",NOR\n")
+                    else :
+                        out_file.write(filename + ",NUL\n")
+                # iterate time counter
+                info_time = info.data.frame_count / info.fmt.sample_rate 
+                time_counter += info_time
+            except: 
+                pass
     out_file.close()
     return time_counter
 
