@@ -59,7 +59,7 @@ def gen_txt(dialect_group, total_time):
     f = open(filename, 'w')
     f.write("id,label\n")
     f.close()
-    return name
+    return filename
 
 def populate_txt(file:string, dialect:string, total_time:float, dialect_group:string, time_counter: float):
     '''
