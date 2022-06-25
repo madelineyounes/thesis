@@ -113,17 +113,14 @@ base_cache_fp = "/srv/scratch/z5208494 .cache/huggingface/datasets/"
 # Training dataset name and filename
 # Dataset name and filename of the csv file containing the training data
 # For generating filepath to file location
-train_name = "ADI17"
 train_filename = "data_u_1_hrs_0_.csv"
-print("train_name:", train_name)
 print("train_filename:", train_filename)
 
 # Evaluation dataset name and filename
 # Dataset name and filename of the csv file containing the evaluation data
 # For generating filepath to file location
 evaluation_name = "adi17_test_umbrella_label"
-evaluation_filename = "data/train_label"
-print("evaluation_name:", evaluation_name)
+evaluation_filename = "adi17_test_umbrella_label"
 print("evaluation_filename:", evaluation_filename)
 
 # Resume training from/ use checkpoint (True/False)
@@ -240,11 +237,11 @@ print("group_by_length:", set_group_by_length)
 # ------------------------------------------
 print("\n------> GENERATING FILEPATHS... --------------------------------------\n")
 # Path to dataframe csv for train dataset
-data_train_fp = base_fp + train_name + "_local/" + train_filename + ".csv"
+data_base_fp = "../data/"
+data_train_fp = data_base_fp + train_filename + ".csv"
 print("--> data_train_fp:", data_train_fp)
 # Path to dataframe csv for test dataset
-data_test_fp = base_fp + evaluation_name + \
-    "_local/" + evaluation_filename + ".csv"
+data_test_fp = data_base_fp + evaluation_filename + ".csv"
 print("--> data_test_fp:", data_test_fp)
 
 # Dataframe file
