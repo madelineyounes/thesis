@@ -95,7 +95,7 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
                 info_time = info.data.frame_count / info.fmt.sample_rate 
                 time_counter += info_time
             except: 
-                pass
+                print("File not found: " + filepath)
     out_file.close()
     return time_counter
 
