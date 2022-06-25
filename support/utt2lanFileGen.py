@@ -11,7 +11,7 @@ source_dir = os.path.join(ROOT_DIR, 'data')
 input_label = os.path.join(ROOT_DIR, 'train_label.txt')
 output_path = "../data/"
 data_label_path = "/srv/scratch/z5208494/dataset/"
-data_path = data_label_path+"dev_segments/"
+data_path = data_label_path+"test_segments/"
 
 '''
 Program to generate a text file with all the file names to be used in trainging. 
@@ -51,14 +51,15 @@ def gen_txt(dialect_group, total_time):
     '''
     print("generating txt file...")
     counter = 0
+    name  = "adi17_test_umbrella_label.txt"
     filename = output_path + "data_{d}_{t}_hrs_{count}_.csv".format(d=dialect_group, t=str(int(total_time)), count = counter)
     while os.path.isfile(filename.format(count=counter)):
         counter += 1
     filename = filename.format(count=counter)
-    f = open(filename, 'w')
+    f = open(name, 'w')
     f.write("id,label\n")
     f.close()
-    return filename
+    return name
 
 def populate_txt(file:string, dialect:string, total_time:float, dialect_group:string, time_counter: float):
     '''
@@ -66,7 +67,7 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
     the total time of the training data. 
     '''
     print("populating doc ...")
-    train_lines = tuple(open(data_label_path+'adi17_official_dev_label.txt', 'r'))
+    train_lines = tuple(open(data_label_path+'adi17_official_test_label.txt', 'r'))
     out_lines = tuple(open(file, 'r'))
     out_file = open(file, 'a+')
     info_time = 0

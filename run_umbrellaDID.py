@@ -1,7 +1,7 @@
 #----------------------------------------------------------
-# run_finetune_kids.py
-# Purpose: Uses wav2vec2 to fine tune for kids speech
-#          with children's speech corpus.
+# run_umbrellaDID.py
+# Purpose: Uses xlsr to create a audio classifer that 
+# identifies arabic dialects using the ADI17 dataset. 
 # Based on source:
 # https://colab.research.google.com/github/huggingface/notebooks/blob/main/examples/audio_classification.ipynb#scrollTo=pdcMxVGEA9Cd 
 # & Code by: Renee Lu
@@ -40,7 +40,7 @@ from datetime import date
 import os
 print(
     "------------------------------------------------------------------------")
-print("                 run_finetune_umbrellaDID.py                            ")
+print("                         run_umbrellaDID.py                            ")
 print("------------------------------------------------------------------------")
 # ------------------------------------------
 #       Import required packages
@@ -98,23 +98,23 @@ print("experiment_id:", experiment_id)
 # DatasetDict Id
 # For 1) naming cache directory and
 #     2) saving the DatasetDict object
-datasetdict_id = "ADI17-finetune"
+datasetdict_id = "ADI17_cache"
 print("datasetdict_id:", datasetdict_id)
 
 # Base filepath
 # For setting the base filepath to direct output to
-base_fp = "/home/z5208494/thesis/output/"
+base_fp = "/srv/scratch/z5208494/output"
 print("base_fp:", base_fp)
 
 # Base cache directory filepath
 # For setting directory for cache files
-base_cache_fp = "/srv/scratch/chacmod/.cache/huggingface/datasets/"
+base_cache_fp = "/srv/scratch/z5208494 .cache/huggingface/datasets/"
 
 # Training dataset name and filename
 # Dataset name and filename of the csv file containing the training data
 # For generating filepath to file location
 train_name = "ADI17"
-train_filename = "data/train_label"
+train_filename = "data_u_1_hrs_0_.csv"
 print("train_name:", train_name)
 print("train_filename:", train_filename)
 
