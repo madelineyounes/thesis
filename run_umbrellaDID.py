@@ -302,7 +302,8 @@ data = load_dataset('csv',
                                 'test': data_test_fp},
                     cache_dir=data_cache_fp)
 
-labels = data["train"].features["label"].names
+labels = data["train"].features["label"]
+print(labels)
 label2id, id2label = dict(), dict()
 for i, label in enumerate(labels):
     label2id[label] = str(i)
