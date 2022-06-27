@@ -240,7 +240,7 @@ print("push_to_hub:", set_push_to_hub)
 # ------------------------------------------
 print("\n------> GENERATING FILEPATHS... --------------------------------------\n")
 # Path to dataframe csv for train dataset
-data_base_fp = "../data/"
+data_base_fp = "data/"
 data_train_fp = data_base_fp + train_filename + ".csv"
 print("--> data_train_fp:", data_train_fp)
 # Path to dataframe csv for test dataset
