@@ -108,7 +108,7 @@ print("base_fp:", base_fp)
 
 # Base cache directory filepath
 # For setting directory for cache files
-base_cache_fp = "/srv/scratch/z5208494 .cache/huggingface/datasets/"
+base_cache_fp = "/srv/scratch/z5208494/cache/huggingface/datasets/"
 
 # Training dataset name and filename
 # Dataset name and filename of the csv file containing the training data
