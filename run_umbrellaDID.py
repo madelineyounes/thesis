@@ -137,7 +137,7 @@ if use_checkpoint:
     print("checkpoint:", checkpoint)
 
 # Use pretrained model
-model_name = 'facebook/wav2vec2-xls-r-1b'
+model_name = "facebook/wav2vec2-base-960h"
 
 # Use a pretrained tokenizer (True/False)
 #     True: Use existing tokenizer (if custom dataset has same vocab)
