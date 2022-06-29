@@ -282,6 +282,7 @@ print("--> pretrained_mod:", pretrained_mod)
 # If use_pretrained_tokenizer = True
 if use_pretrained_tokenizer:
     print("--> pretrained_tokenizer:", pretrained_tokenizer)
+    tokenizer = Wav2Vec2CTCTokenizer.from_pretrained(pretrained_tokenizer)
 
 # ------------------------------------------
 #         Preparing dataset
@@ -304,7 +305,6 @@ data = load_dataset('csv',
                     cache_dir=data_cache_fp)
 
 labels = ['NOR', 'EGY', 'GLF', 'LEV']
-print(labels)
 label2id, id2label = dict(), dict()
 for i, label in enumerate(labels):
     label2id[label] = str(i)
@@ -354,7 +354,7 @@ feature_extractor = AutoFeatureExtractor.from_pretrained(model_name)
 # Feature extractor and tokenizer wrapped into a single
 # Wav2Vec2Processor class so we only need a model and processor object
 processor = Wav2Vec2Processor(
-    feature_extractor=feature_extractor, tokenizer=pretrained_tokenizer)
+    feature_extractor=feature_extractor, tokenizer=tokenizer)
 # Save to re-use the just created processor and the fine-tuned model
 processor.save_pretrained(model_fp)
 print("SUCCESS: Created feature extractor.")
