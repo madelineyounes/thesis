@@ -300,9 +300,10 @@ print("\n------> PREPARING DATASET... ------------------------------------\n")
 data = load_dataset('csv',
                     data_files={'train': data_train_fp,
                                 'test': data_test_fp},
+                    delimiter=",",
                     cache_dir=data_cache_fp)
 
-labels = data["train"].features["label"]
+labels = ['NOR', 'EGY', 'GLF', 'LEV']
 print(labels)
 label2id, id2label = dict(), dict()
 for i, label in enumerate(labels):
