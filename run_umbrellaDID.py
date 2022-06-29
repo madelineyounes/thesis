@@ -380,7 +380,7 @@ def preprocess_function(examples):
     return inputs
 
 data = data.map(preprocess_function, remove_columns=[
-                               "audio", "file"], batched=True)
+                               "id", "label"], batched=True)
 
 # Check a few rows of data to verify data properly loaded
 print("--> Verifying data with a random sample...")
