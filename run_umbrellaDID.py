@@ -398,10 +398,11 @@ def audio_to_array_fn(batch):
 
 
 data = data.map(audio_to_array_fn,
-                remove_columns=data.column_names["train"], num_proc=4)
+                remove_columns=data.column_names["train"], num_proc=5)
 
 # Check a few rows of data to verify data properly loaded
 print("--> Verifying data with a random sample...")
+print(len(data["train"]))
 rand_int = random.randint(0, len(data["train"])-1)
 print(rand_int)
 print(data["train"][rand_int])
