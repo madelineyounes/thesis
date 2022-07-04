@@ -397,22 +397,21 @@ def audio_to_array_fn(batch):
  
     return batch
 
-
-print(audio_to_array_fn)
 data = data.map(audio_to_array_fn,
-                remove_columns=data.column_names["train"], num_proc=5)
+                remove_columns=data.column_names["train"], num_proc=4)
 
 # Check a few rows of data to verify data properly loaded
 print("--> Verifying data with a random sample...")
 
 print(len(data["train"]))
-rand_int = random.randint(0, len(data["train"])-1)
-print(rand_int)
-print(data["train"][rand_int])
-print("Dialect Label:", data["train"][rand_int]["label"])
-print("Input array shape:", np.asarray(
-    data["train"][rand_int]["audio"]).shape)
-print("Sampling rate:", data["train"][rand_int]["sampling_rate"])
+if ((data["train"]) > 0):
+    rand_int = random.randint(0, len(data["train"])-1)
+    print(rand_int)
+    print(data["train"][rand_int])
+    print("Dialect Label:", data["train"][rand_int]["label"])
+    print("Input array shape:", np.asarray(
+        data["train"][rand_int]["audio"]).shape)
+    print("Sampling rate:", data["train"][rand_int]["sampling_rate"])
 # Process dataset to the format expected by model for training
 # Using map(...)
 # 1) Check all data samples have same sampling rate (16kHz)
@@ -437,6 +436,7 @@ def prepare_dataset(batch):
 data_prepared = data.map(
     prepare_dataset, remove_columns=data.column_names["train"], batch_size=8, num_proc=4, batched=True)
 
+print(data_prepared)
 print("SUCCESS: Data ready for training and evaluation.")
 
 # ------------------------------------------
