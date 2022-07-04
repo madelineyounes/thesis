@@ -3,7 +3,7 @@
 
 #PBS -l select=1:ncpus=32:ngpus=4:mem=184gb
 #PBS -l walltime=20:00:00
-#PBS -M renee.lu@unsw.edu.au
+#PBS -M z5208494@unsw.edu.au
 #PBS -m ae
 #PBS -j oe
 #PBS -o /home/z5160268/Output0_wav2vec_Report
