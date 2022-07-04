@@ -380,6 +380,7 @@ def audio_to_array_fn(batch):
     
     try:
         filepath = training_data_path + batch["id"] + ".wav"
+        print(filepath)
         audio_array, sampling_rate = sf.read(filepath)
         batch["label"] = batch["labels"]
         batch["audio"] = audio_array
@@ -402,6 +403,7 @@ data = data.map(audio_to_array_fn,
 
 # Check a few rows of data to verify data properly loaded
 print("--> Verifying data with a random sample...")
+print(data)
 print(len(data["train"]))
 rand_int = random.randint(0, len(data["train"])-1)
 print(rand_int)
