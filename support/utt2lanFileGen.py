@@ -57,7 +57,7 @@ def gen_txt(dialect_group, total_time):
         counter += 1
     filename = filename.format(count=counter)
     f = open(filename, 'w')
-    f.write("id,label\n")
+    f.write("filepath,label\n")
     f.close()
     return filename
 
@@ -81,15 +81,15 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
                     out_file.write(line)
                 else:
                     if dialect in regional_EGY_dialects:
-                        out_file.write(filename + ",EGY\n")
+                        out_file.write(filepath+".wav" + ",EGY\n")
                     elif dialect in regional_GLF_dialects:
-                        out_file.write(filename + ",GLF\n")
+                        out_file.write(filepath+".wav" + ",GLF\n")
                     elif dialect in regional_LEV_dialects:
-                        out_file.write(filename + ",LEV\n")
+                        out_file.write(filepath+".wav" + ",LEV\n")
                     elif dialect in regional_NOR_dialects:
-                        out_file.write(filename + ",NOR\n")
+                        out_file.write(filepath+".wav" + ",NOR\n")
                     else :
-                        out_file.write(filename + ",NUL\n")
+                        out_file.write(filepath+".wav" + ",NUL\n")
                 # iterate time counter
                 info_time = info.data.frame_count / info.fmt.sample_rate 
                 time_counter += info_time
