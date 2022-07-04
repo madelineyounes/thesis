@@ -101,8 +101,14 @@ print("experiment_id:", experiment_id)
 datasetdict_id = "ADI17_cache"
 print("datasetdict_id:", datasetdict_id)
 
-data_path = "/srv/scratch/z5208494/dataset/dev_segments/"
+data_path = "/srv/scratch/z5208494/dataset/"
 print("data path:", data_path)
+
+training_data_path = "/srv/scratch/z5208494/dataset/dev_segments/"
+print("training data path:", trainging_data_path)
+
+test_data_path = "/srv/scratch/z5208494/dataset/test_segments/"
+print("test data path:", test_data_path)
 # Base filepath
 # For setting the base filepath to direct output to
 base_fp = "/srv/scratch/z5208494/output"
@@ -372,8 +378,17 @@ print("\n------> PRE-PROCESSING DATA... ----------------------------------------
 
 
 def audio_to_array_fn(batch):
-    filepath = data_path + batch["id"] + ".wav"
-    audio_array, sampling_rate = sf.read(filepath)
+    
+    try:
+        filepath = training_data_path + batch["id"] + ".wav"
+        audio_array, sampling_rate = sf.read(filepath)
+    except:
+        print("File " + batch["id"] + ".wav not found in training.")
+        try:
+            filepath = training_data_path + batch["id"] + ".wav"
+            audio_array, sampling_rate = sf.read(filepath)
+        except: 
+            print("File " + batch["id"] + ".wav not found in test.")
     batch["audio"] = audio_array
     batch["sampling_rate"] = sampling_rate
     return batch
@@ -657,7 +672,7 @@ else:
 def map_to_result(batch):
   model.to("cuda")
   input_values = processor(
-      batch["speech"],
+      batch["audio"],
       sampling_rate=batch["sampling_rate"],
       return_tensors="pt"
   ).input_values.to("cuda")
@@ -674,7 +689,7 @@ def map_to_result(batch):
 results = data["test"].map(map_to_result)
 # Save results to csv
 results_df = results.to_pandas()
-results_df = results_df.drop(columns=['speech', 'sampling_rate'])
+results_df = results_df.drop(columns=['audio', 'sampling_rate'])
 results_df.to_csv(finetuned_results_fp)
 print("Saved results to:", finetuned_results_fp)
 
@@ -687,7 +702,7 @@ print("Fine-tuned Test Accuracy: {:.3f}".format(acc_metric.compute(predictions=r
 # take the predicted ids and convert them to their corresponding tokens.
 print("--> Taking a deeper look...")
 model.to("cuda")
-input_values = processor(data["test"][0]["speech"], sampling_rate=data["test"]
+input_values = processor(data["test"][0]["audio"], sampling_rate=data["test"]
                          [0]["sampling_rate"], return_tensors="pt").input_values.to("cuda")
 
 with torch.no_grad():
