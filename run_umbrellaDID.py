@@ -113,8 +113,8 @@ base_cache_fp = "/srv/scratch/z5208494/cache/huggingface/datasets/"
 # Training dataset name and filename
 # Dataset name and filename of the csv file containing the training data
 # For generating filepath to file location
-train_name = "umbrella_1hr"
-train_filename = "data_u_1_hrs_0_"
+train_name = "umbrella_alldevdata"
+train_filename = "data_u_1000000000_hrs_0_"
 print("train_name:", train_name)
 print("train_filename:", train_filename)
 
