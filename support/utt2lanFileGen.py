@@ -58,7 +58,7 @@ def gen_txt(dialect_group, total_time):
         counter += 1
     filename = filename.format(count=counter)
     f = open(filename, 'w')
-    f.write("filepath,label\n")
+    f.write("id,label\n")
     f.close()
     return filename
 

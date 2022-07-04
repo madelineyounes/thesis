@@ -101,6 +101,8 @@ print("experiment_id:", experiment_id)
 datasetdict_id = "ADI17_cache"
 print("datasetdict_id:", datasetdict_id)
 
+data_path = "/srv/scratch/z5208494/dataset/dev_segments/"
+print("data path:", data_path)
 # Base filepath
 # For setting the base filepath to direct output to
 base_fp = "/srv/scratch/z5208494/output"
@@ -114,7 +116,7 @@ base_cache_fp = "/srv/scratch/z5208494/cache/huggingface/datasets/"
 # Dataset name and filename of the csv file containing the training data
 # For generating filepath to file location
 train_name = "umbrella_alldevdata"
-train_filename = "data_u_100_hrs_0_"
+train_filename = "data_u_1_hrs_0_"
 print("train_name:", train_name)
 print("train_filename:", train_filename)
 
@@ -370,7 +372,8 @@ print("\n------> PRE-PROCESSING DATA... ----------------------------------------
 
 
 def audio_to_array_fn(batch):
-    audio_array, sampling_rate = sf.read(batch["filepath"])
+    filepath = data_path + batch["id"] + ".wav"
+    audio_array, sampling_rate = sf.read(filepath)
     batch["audio"] = audio_array
     batch["sampling_rate"] = sampling_rate
     return batch
