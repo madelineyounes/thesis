@@ -381,15 +381,18 @@ def audio_to_array_fn(batch):
     try:
         filepath = training_data_path + batch["id"] + ".wav"
         audio_array, sampling_rate = sf.read(filepath)
+        batch["audio"] = audio_array
+        batch["sampling_rate"] = sampling_rate
     except:
         print("File " + batch["id"] + ".wav not found in training.")
         try:
             filepath = training_data_path + batch["id"] + ".wav"
             audio_array, sampling_rate = sf.read(filepath)
+            batch["audio"] = audio_array
+            batch["sampling_rate"] = sampling_rate
         except: 
             print("File " + batch["id"] + ".wav not found in test.")
-    batch["audio"] = audio_array
-    batch["sampling_rate"] = sampling_rate
+ 
     return batch
 
 
