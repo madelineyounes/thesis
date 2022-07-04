@@ -384,14 +384,13 @@ def audio_to_array_fn(batch):
         batch["audio"] = audio_array
         batch["sampling_rate"] = sampling_rate
     except:
-        print("File " + batch["id"] + ".wav not found in training.")
         try:
             filepath = training_data_path + batch["id"] + ".wav"
             audio_array, sampling_rate = sf.read(filepath)
             batch["audio"] = audio_array
             batch["sampling_rate"] = sampling_rate
         except: 
-            print("File " + batch["id"] + ".wav not found in test.")
+            print("File " + batch["id"] + ".wav not found in test or training.")
  
     return batch
 
@@ -402,7 +401,7 @@ data = data.map(audio_to_array_fn,
 # Check a few rows of data to verify data properly loaded
 print("--> Verifying data with a random sample...")
 rand_int = random.randint(0, len(data["train"])-1)
-print("Target text:", data["train"][rand_int]["target_text"])
+print("Dialect Labels:", data["train"][rand_int]["labels"])
 print("Input array shape:", np.asarray(
     data["train"][rand_int]["audio"]).shape)
 print("Sampling rate:", data["train"][rand_int]["sampling_rate"])
