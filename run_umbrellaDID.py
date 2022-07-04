@@ -403,6 +403,7 @@ data = data.map(audio_to_array_fn,
 # Check a few rows of data to verify data properly loaded
 print("--> Verifying data with a random sample...")
 rand_int = random.randint(0, len(data["train"])-1)
+print(rand_int)
 print(data["train"][rand_int])
 print("Dialect Label:", data["train"][rand_int]["label"])
 print("Input array shape:", np.asarray(
