@@ -376,29 +376,18 @@ def audio_to_array_fn(batch):
     audio_array, sampling_rate = sf.read(filepath)
     batch["audio"] = audio_array
     batch["sampling_rate"] = sampling_rate
-    print (batch)
     return batch
-
-def preprocess_function(examples):
-    audio_arrays = [x["array"] for x in examples["id"]]
-    inputs = feature_extractor(
-        audio_arrays,
-        sampling_rate=feature_extractor.sampling_rate,
-        max_length=int(feature_extractor.sampling_rate * max_duration),
-        truncation=True,
-    )
-    return inputs
 
 
 data = data.map(audio_to_array_fn,
-                remove_columns=data.column_names["train"], num_proc=4)
+                remove_columns=data.column_names["train"], num_proc=5)
 
 # Check a few rows of data to verify data properly loaded
 print("--> Verifying data with a random sample...")
 rand_int = random.randint(0, len(data["train"])-1)
 print("Target text:", data["train"][rand_int]["target_text"])
 print("Input array shape:", np.asarray(
-    data["train"][rand_int]["speech"]).shape)
+    data["train"][rand_int]["audio"]).shape)
 print("Sampling rate:", data["train"][rand_int]["sampling_rate"])
 # Process dataset to the format expected by model for training
 # Using map(...)
@@ -415,14 +404,14 @@ def prepare_dataset(batch):
     ), f"Make sure all inputs have the same sampling rate of {processor.feature_extractor.sampling_rate}."
 
     batch["input_values"] = processor(
-        batch["speech"], sampling_rate=batch["sampling_rate"][0]).input_values
+        batch["audio"], sampling_rate=batch["sampling_rate"][0]).input_values
 
     with processor.as_target_processor():
         batch["labels"] = processor(batch["target_text"]).input_ids
     return batch
 
 data_prepared = data.map(
-    prepare_dataset, remove_columns=data.column_names["train"], batch_size=8, num_proc=4, batched=True)
+    prepare_dataset, remove_columns=data.column_names["train"], batch_size=8, num_proc=5, batched=True)
 
 print("SUCCESS: Data ready for training and evaluation.")
 
