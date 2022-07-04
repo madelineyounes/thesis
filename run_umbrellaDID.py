@@ -380,6 +380,7 @@ def audio_to_array_fn(batch):
     
     try:
         filepath = training_data_path + batch["id"] + ".wav"
+        print(filepath)
         audio_array, sampling_rate = sf.read(filepath)
         batch["label"] = batch["labels"]
         batch["audio"] = audio_array
@@ -397,13 +398,21 @@ def audio_to_array_fn(batch):
     return batch
 
 
-data_audio = data.map(audio_to_array_fn,
+print(audio_to_array_fn)
+data = data.map(audio_to_array_fn,
                 remove_columns=data.column_names["train"], num_proc=5)
 
 # Check a few rows of data to verify data properly loaded
 print("--> Verifying data with a random sample...")
-print(data_audio)
-show_random_elements(data_audio["train"], num_examples=5)
+
+print(len(data["train"]))
+rand_int = random.randint(0, len(data["train"])-1)
+print(rand_int)
+print(data["train"][rand_int])
+print("Dialect Label:", data["train"][rand_int]["label"])
+print("Input array shape:", np.asarray(
+    data["train"][rand_int]["audio"]).shape)
+print("Sampling rate:", data["train"][rand_int]["sampling_rate"])
 # Process dataset to the format expected by model for training
 # Using map(...)
 # 1) Check all data samples have same sampling rate (16kHz)
