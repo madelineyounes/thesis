@@ -1,0 +1,1409 @@
+------------------------------------------------------------------------
+                         run_umbrellaDID.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_umbrellaDID.py
+Started: 27/06/2022 10:38:45
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing re...
+-->Importing json...
+-->Importing Wav2VecCTC...
+-->Importing soundfile...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: xlsr-ADI17-initialtest
+datasetdict_id: ADI17_cache
+base_fp: /srv/scratch/z5208494/output
+train_name: umbrella_1hr
+train_filename: data_u_1_hrs_0_.csv
+evaluation_filename: adi17_test_umbrella_label
+use_checkpoint: False
+use_pretrained_tokenizer: True
+pretrained_tokenizer: facebook/wav2vec2-xls-r-1b
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.05
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: epoch
+per_device_train_batch_size: 32
+gradient_accumulation_steps: 4
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+num_train_epochs: 5
+max_steps: 35000
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 1000
+save_total_limit: 40
+fp16: True
+eval_steps: 1000
+load_best_model_at_end: True
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: True
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: ../data/data_u_1_hrs_0_.csv.csv
+--> data_test_fp: ../data/adi17_test_umbrella_label.csv
+--> data_cache_fp: /srv/scratch/z5208494 .cache/huggingface/datasets/ADI17_cache
+--> model_fp: /srv/scratch/z5208494/outputumbrella_1hr_local/xlsr-ADI17-initialtest
+--> finetuned_results_fp: /srv/scratch/z5208494/outputumbrella_1hr_local/xlsr-ADI17-initialtest_finetuned_results.csv
+--> pretrained_mod: facebook/wav2vec2-xls-r-1b
+--> pretrained_tokenizer: facebook/wav2vec2-xls-r-1b
+
+------> PREPARING DATASET... ------------------------------------
+
+Traceback (most recent call last):
+  File "run_umbrellaDID.py", line 300, in <module>
+    data = load_dataset('csv',
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/load.py", line 1656, in load_dataset
+    builder_instance = load_dataset_builder(
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/load.py", line 1439, in load_dataset_builder
+    dataset_module = dataset_module_factory(
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/load.py", line 1097, in dataset_module_factory
+    return PackagedDatasetModuleFactory(
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/load.py", line 743, in get_module
+    data_files = DataFilesDict.from_local_or_remote(
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/data_files.py", line 590, in from_local_or_remote
+    DataFilesList.from_local_or_remote(
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/data_files.py", line 558, in from_local_or_remote
+    data_files = resolve_patterns_locally_or_by_urls(base_path, patterns, allowed_extensions)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/data_files.py", line 195, in resolve_patterns_locally_or_by_urls
+    for path in _resolve_single_pattern_locally(base_path, pattern, allowed_extensions):
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/data_files.py", line 145, in _resolve_single_pattern_locally
+    raise FileNotFoundError(error_msg)
+FileNotFoundError: Unable to find '/home/z5208494/thesis/../data/data_u_1_hrs_0_.csv.csv' at /home/z5208494/thesis
+------------------------------------------------------------------------
+                         run_umbrellaDID.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_umbrellaDID.py
+Started: 27/06/2022 10:47:48
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing re...
+-->Importing json...
+-->Importing Wav2VecCTC...
+-->Importing soundfile...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: xlsr-ADI17-initialtest
+datasetdict_id: ADI17_cache
+base_fp: /srv/scratch/z5208494/output
+train_name: umbrella_1hr
+train_filename: data_u_1_hrs_0_
+evaluation_filename: adi17_test_umbrella_label
+use_checkpoint: False
+use_pretrained_tokenizer: True
+pretrained_tokenizer: facebook/wav2vec2-xls-r-1b
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.05
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: epoch
+per_device_train_batch_size: 32
+gradient_accumulation_steps: 4
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+num_train_epochs: 5
+max_steps: 35000
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 1000
+save_total_limit: 40
+fp16: True
+eval_steps: 1000
+load_best_model_at_end: True
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: True
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: ../data/data_u_1_hrs_0_.csv
+--> data_test_fp: ../data/adi17_test_umbrella_label.csv
+--> data_cache_fp: /srv/scratch/z5208494 .cache/huggingface/datasets/ADI17_cache
+--> model_fp: /srv/scratch/z5208494/outputumbrella_1hr_local/xlsr-ADI17-initialtest
+--> finetuned_results_fp: /srv/scratch/z5208494/outputumbrella_1hr_local/xlsr-ADI17-initialtest_finetuned_results.csv
+--> pretrained_mod: facebook/wav2vec2-xls-r-1b
+--> pretrained_tokenizer: facebook/wav2vec2-xls-r-1b
+
+------> PREPARING DATASET... ------------------------------------
+
+Traceback (most recent call last):
+  File "run_umbrellaDID.py", line 300, in <module>
+    data = load_dataset('csv',
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/load.py", line 1656, in load_dataset
+    builder_instance = load_dataset_builder(
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/load.py", line 1439, in load_dataset_builder
+    dataset_module = dataset_module_factory(
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/load.py", line 1097, in dataset_module_factory
+    return PackagedDatasetModuleFactory(
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/load.py", line 743, in get_module
+    data_files = DataFilesDict.from_local_or_remote(
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/data_files.py", line 590, in from_local_or_remote
+    DataFilesList.from_local_or_remote(
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/data_files.py", line 558, in from_local_or_remote
+    data_files = resolve_patterns_locally_or_by_urls(base_path, patterns, allowed_extensions)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/data_files.py", line 195, in resolve_patterns_locally_or_by_urls
+    for path in _resolve_single_pattern_locally(base_path, pattern, allowed_extensions):
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/data_files.py", line 145, in _resolve_single_pattern_locally
+    raise FileNotFoundError(error_msg)
+FileNotFoundError: Unable to find '/home/z5208494/thesis/../data/data_u_1_hrs_0_.csv' at /home/z5208494/thesis
+Using custom data configuration default-e6b8c0c55b9e6f20
+------------------------------------------------------------------------
+                         run_umbrellaDID.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_umbrellaDID.py
+Started: 27/06/2022 11:00:18
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing re...
+-->Importing json...
+-->Importing Wav2VecCTC...
+-->Importing soundfile...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: xlsr-ADI17-initialtest
+datasetdict_id: ADI17_cache
+base_fp: /srv/scratch/z5208494/output
+train_name: umbrella_1hr
+train_filename: data_u_1_hrs_0_
+evaluation_filename: adi17_test_umbrella_label
+use_checkpoint: False
+use_pretrained_tokenizer: True
+pretrained_tokenizer: facebook/wav2vec2-xls-r-1b
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.05
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: epoch
+per_device_train_batch_size: 32
+gradient_accumulation_steps: 4
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+num_train_epochs: 5
+max_steps: 35000
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 1000
+save_total_limit: 40
+fp16: True
+eval_steps: 1000
+load_best_model_at_end: True
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: True
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/data_u_1_hrs_0_.csv
+--> data_test_fp: data/adi17_test_umbrella_label.csv
+--> data_cache_fp: /srv/scratch/z5208494 .cache/huggingface/datasets/ADI17_cache
+--> model_fp: /srv/scratch/z5208494/outputumbrella_1hr_local/xlsr-ADI17-initialtest
+--> finetuned_results_fp: /srv/scratch/z5208494/outputumbrella_1hr_local/xlsr-ADI17-initialtest_finetuned_results.csv
+--> pretrained_mod: facebook/wav2vec2-xls-r-1b
+--> pretrained_tokenizer: facebook/wav2vec2-xls-r-1b
+
+------> PREPARING DATASET... ------------------------------------
+
+Traceback (most recent call last):
+  File "run_umbrellaDID.py", line 300, in <module>
+    data = load_dataset('csv',
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/load.py", line 1656, in load_dataset
+    builder_instance = load_dataset_builder(
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/load.py", line 1465, in load_dataset_builder
+    builder_instance: DatasetBuilder = builder_cls(
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/builder.py", line 335, in __init__
+    os.makedirs(self._cache_dir_root, exist_ok=True)
+  File "/apps/python/3.8.3/lib/python3.8/os.py", line 213, in makedirs
+    makedirs(head, exist_ok=exist_ok)
+  File "/apps/python/3.8.3/lib/python3.8/os.py", line 213, in makedirs
+    makedirs(head, exist_ok=exist_ok)
+  File "/apps/python/3.8.3/lib/python3.8/os.py", line 213, in makedirs
+    makedirs(head, exist_ok=exist_ok)
+  File "/apps/python/3.8.3/lib/python3.8/os.py", line 223, in makedirs
+    mkdir(name, mode)
+PermissionError: [Errno 13] Permission denied: '/srv/scratch/z5208494 .cache'
+Using custom data configuration default-e6b8c0c55b9e6f20
+------------------------------------------------------------------------
+                         run_umbrellaDID.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_umbrellaDID.py
+Started: 27/06/2022 11:06:49
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing re...
+-->Importing json...
+-->Importing Wav2VecCTC...
+-->Importing soundfile...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: xlsr-ADI17-initialtest
+datasetdict_id: ADI17_cache
+base_fp: /srv/scratch/z5208494/output
+train_name: umbrella_1hr
+train_filename: data_u_1_hrs_0_
+evaluation_filename: adi17_test_umbrella_label
+use_checkpoint: False
+use_pretrained_tokenizer: True
+pretrained_tokenizer: facebook/wav2vec2-xls-r-1b
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.05
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: epoch
+per_device_train_batch_size: 32
+gradient_accumulation_steps: 4
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+num_train_epochs: 5
+max_steps: 35000
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 1000
+save_total_limit: 40
+fp16: True
+eval_steps: 1000
+load_best_model_at_end: True
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: True
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/data_u_1_hrs_0_.csv
+--> data_test_fp: data/adi17_test_umbrella_label.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/ADI17_cache
+--> model_fp: /srv/scratch/z5208494/outputumbrella_1hr_local/xlsr-ADI17-initialtest
+--> finetuned_results_fp: /srv/scratch/z5208494/outputumbrella_1hr_local/xlsr-ADI17-initialtest_finetuned_results.csv
+--> pretrained_mod: facebook/wav2vec2-xls-r-1b
+--> pretrained_tokenizer: facebook/wav2vec2-xls-r-1b
+
+------> PREPARING DATASET... ------------------------------------
+
+Downloading and preparing dataset csv/default to /srv/scratch/z5208494/cache/huggingface/datasets/ADI17_cache/csv/default-e6b8c0c55b9e6f20/0.0.0/51cce309a08df9c4d82ffd9363bbe090bf173197fc01a71b034e8594995a1a58...
+Downloading data files:   0%|          | 0/2 [00:00<?, ?it/s]Downloading data files: 100%|██████████| 2/2 [00:00<00:00, 10242.50it/s]
+Extracting data files:   0%|          | 0/2 [00:00<?, ?it/s]Extracting data files: 100%|██████████| 2/2 [00:00<00:00, 1058.90it/s]
+0 tables [00:00, ? tables/s]                            0 tables [00:00, ? tables/s]                            Dataset csv downloaded and prepared to /srv/scratch/z5208494/cache/huggingface/datasets/ADI17_cache/csv/default-e6b8c0c55b9e6f20/0.0.0/51cce309a08df9c4d82ffd9363bbe090bf173197fc01a71b034e8594995a1a58. Subsequent calls will reuse this data.
+  0%|          | 0/2 [00:00<?, ?it/s]100%|██████████| 2/2 [00:00<00:00, 404.08it/s]
+Traceback (most recent call last):
+  File "run_umbrellaDID.py", line 305, in <module>
+    labels = data["train"].features["label"].names
+AttributeError: 'Value' object has no attribute 'names'
+Using custom data configuration default-e6b8c0c55b9e6f20
+Using custom data configuration default-e6b8c0c55b9e6f20
+Reusing dataset csv (/srv/scratch/z5208494/cache/huggingface/datasets/ADI17_cache/csv/default-e6b8c0c55b9e6f20/0.0.0/51cce309a08df9c4d82ffd9363bbe090bf173197fc01a71b034e8594995a1a58)
+------------------------------------------------------------------------
+                         run_umbrellaDID.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_umbrellaDID.py
+Started: 27/06/2022 11:34:12
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing re...
+-->Importing json...
+-->Importing Wav2VecCTC...
+-->Importing soundfile...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: xlsr-ADI17-initialtest
+datasetdict_id: ADI17_cache
+base_fp: /srv/scratch/z5208494/output
+train_name: umbrella_1hr
+train_filename: data_u_1_hrs_0_
+evaluation_filename: adi17_test_umbrella_label
+use_checkpoint: False
+use_pretrained_tokenizer: True
+pretrained_tokenizer: facebook/wav2vec2-xls-r-1b
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.05
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: epoch
+per_device_train_batch_size: 32
+gradient_accumulation_steps: 4
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+num_train_epochs: 5
+max_steps: 35000
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 1000
+save_total_limit: 40
+fp16: True
+eval_steps: 1000
+load_best_model_at_end: True
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: True
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/data_u_1_hrs_0_.csv
+--> data_test_fp: data/adi17_test_umbrella_label.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/ADI17_cache
+--> model_fp: /srv/scratch/z5208494/outputumbrella_1hr_local/xlsr-ADI17-initialtest
+--> finetuned_results_fp: /srv/scratch/z5208494/outputumbrella_1hr_local/xlsr-ADI17-initialtest_finetuned_results.csv
+--> pretrained_mod: facebook/wav2vec2-xls-r-1b
+--> pretrained_tokenizer: facebook/wav2vec2-xls-r-1b
+
+------> PREPARING DATASET... ------------------------------------
+
+  0%|          | 0/2 [00:00<?, ?it/s]100%|██████████| 2/2 [00:00<00:00, 26.44it/s]
+Value(dtype='string', id=None)
+Traceback (most recent call last):
+  File "run_umbrellaDID.py", line 308, in <module>
+    for i, label in enumerate(labels):
+TypeError: 'Value' object is not iterable
+Using custom data configuration default-5e4f8c95c8357bb6
+------------------------------------------------------------------------
+                         run_umbrellaDID.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_umbrellaDID.py
+Started: 29/06/2022 12:32:19
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing re...
+-->Importing json...
+-->Importing Wav2VecCTC...
+-->Importing soundfile...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: xlsr-ADI17-initialtest
+datasetdict_id: ADI17_cache
+base_fp: /srv/scratch/z5208494/output
+train_name: umbrella_1hr
+train_filename: data_u_1_hrs_0_
+evaluation_filename: adi17_test_umbrella_label
+use_checkpoint: False
+use_pretrained_tokenizer: True
+pretrained_tokenizer: facebook/wav2vec2-xls-r-1b
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.05
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: epoch
+per_device_train_batch_size: 32
+gradient_accumulation_steps: 4
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+num_train_epochs: 5
+max_steps: 35000
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 1000
+save_total_limit: 40
+fp16: True
+eval_steps: 1000
+load_best_model_at_end: True
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: True
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/data_u_1_hrs_0_.csv
+--> data_test_fp: data/adi17_test_umbrella_label.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/ADI17_cache
+--> model_fp: /srv/scratch/z5208494/outputumbrella_1hr_local/xlsr-ADI17-initialtest
+--> finetuned_results_fp: /srv/scratch/z5208494/outputumbrella_1hr_local/xlsr-ADI17-initialtest_finetuned_results.csv
+--> pretrained_mod: facebook/wav2vec2-xls-r-1b
+--> pretrained_tokenizer: facebook/wav2vec2-xls-r-1b
+
+------> PREPARING DATASET... ------------------------------------
+
+Downloading and preparing dataset csv/default to /srv/scratch/z5208494/cache/huggingface/datasets/ADI17_cache/csv/default-5e4f8c95c8357bb6/0.0.0/51cce309a08df9c4d82ffd9363bbe090bf173197fc01a71b034e8594995a1a58...
+Downloading data files:   0%|          | 0/2 [00:00<?, ?it/s]Downloading data files: 100%|██████████| 2/2 [00:00<00:00, 10106.76it/s]
+Extracting data files:   0%|          | 0/2 [00:00<?, ?it/s]Extracting data files: 100%|██████████| 2/2 [00:00<00:00, 1128.11it/s]
+0 tables [00:00, ? tables/s]                            0 tables [00:00, ? tables/s]                            Dataset csv downloaded and prepared to /srv/scratch/z5208494/cache/huggingface/datasets/ADI17_cache/csv/default-5e4f8c95c8357bb6/0.0.0/51cce309a08df9c4d82ffd9363bbe090bf173197fc01a71b034e8594995a1a58. Subsequent calls will reuse this data.
+  0%|          | 0/2 [00:00<?, ?it/s]100%|██████████| 2/2 [00:00<00:00, 389.12it/s]
+['NOR', 'EGY', 'GLF', 'LEV']
+--> dataset...
+DatasetDict({
+    train: Dataset({
+        features: ['id', 'label'],
+        num_rows: 1082
+    })
+    test: Dataset({
+        features: ['id', 'label'],
+        num_rows: 11854
+    })
+})
+--> Printing some random samples...
+                          id label
+0  7XP3d2vbc5k_075183-075637   EGY
+1  v5Y8e5V2aDI_066121-066445   LEV
+2  DoBBNMHlguE_092637-093009   GLF
+3  jPrHUMq3f8c_033234-034720   GLF
+4  v5Y8e5V2aDI_127706-128098   LEV
+SUCCESS: Prepared dataset.
+
+------> CREATING WAV2VEC2 FEATURE EXTRACTOR... -----------------------
+
+Downloading:   0%|          | 0.00/212 [00:00<?, ?B/s]Downloading: 100%|██████████| 212/212 [00:00<00:00, 215kB/s]
+Traceback (most recent call last):
+  File "run_umbrellaDID.py", line 356, in <module>
+    processor = Wav2Vec2Processor(
+  File "/home/z5208494/.local/lib/python3.8/site-packages/transformers/models/wav2vec2/processing_wav2vec2.py", line 44, in __init__
+    super().__init__(feature_extractor, tokenizer)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/transformers/processing_utils.py", line 83, in __init__
+    raise ValueError(
+ValueError: Received a str for argument tokenizer, but a PreTrainedTokenizerBase was expected.
+------------------------------------------------------------------------
+                         run_umbrellaDID.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_umbrellaDID.py
+Started: 29/06/2022 12:39:48
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing re...
+-->Importing json...
+-->Importing Wav2VecCTC...
+-->Importing soundfile...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: xlsr-ADI17-initialtest
+datasetdict_id: ADI17_cache
+base_fp: /srv/scratch/z5208494/output
+train_name: umbrella_1hr
+train_filename: data_u_1_hrs_0_
+evaluation_filename: adi17_test_umbrella_label
+use_checkpoint: False
+use_pretrained_tokenizer: True
+pretrained_tokenizer: facebook/wav2vec2-xls-r-1b
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.05
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: epoch
+per_device_train_batch_size: 32
+gradient_accumulation_steps: 4
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+num_train_epochs: 5
+max_steps: 35000
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 1000
+save_total_limit: 40
+fp16: True
+eval_steps: 1000
+load_best_model_at_end: True
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: True
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/data_u_1_hrs_0_.csv
+--> data_test_fp: data/adi17_test_umbrella_label.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/ADI17_cache
+--> model_fp: /srv/scratch/z5208494/outputumbrella_1hr_local/xlsr-ADI17-initialtest
+--> finetuned_results_fp: /srv/scratch/z5208494/outputumbrella_1hr_local/xlsr-ADI17-initialtest_finetuned_results.csv
+--> pretrained_mod: facebook/wav2vec2-xls-r-1b
+--> pretrained_tokenizer: facebook/wav2vec2-xls-r-1b
+Traceback (most recent call last):
+  File "run_umbrellaDID.py", line 285, in <module>
+    tokenizer = Wav2Vec2CTCTokenizer.from_pretrained(pretrained_tokenizer)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/transformers/tokenization_utils_base.py", line 1767, in from_pretrained
+    raise EnvironmentError(
+OSError: Can't load tokenizer for 'facebook/wav2vec2-xls-r-1b'. If you were trying to load it from 'https://huggingface.co/models', make sure you don't have a local directory with the same name. Otherwise, make sure 'facebook/wav2vec2-xls-r-1b' is the correct path to a directory containing all relevant files for a Wav2Vec2CTCTokenizer tokenizer.
+------------------------------------------------------------------------
+                         run_umbrellaDID.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_umbrellaDID.py
+Started: 29/06/2022 12:44:58
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing re...
+-->Importing json...
+-->Importing Wav2VecCTC...
+-->Importing soundfile...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: xlsr-ADI17-initialtest
+datasetdict_id: ADI17_cache
+base_fp: /srv/scratch/z5208494/output
+train_name: umbrella_1hr
+train_filename: data_u_1_hrs_0_
+evaluation_filename: adi17_test_umbrella_label
+use_checkpoint: False
+use_pretrained_tokenizer: True
+pretrained_tokenizer: facebook/wav2vec2-xls-r-1b
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.05
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: epoch
+per_device_train_batch_size: 32
+gradient_accumulation_steps: 4
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+num_train_epochs: 5
+max_steps: 35000
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 1000
+save_total_limit: 40
+fp16: True
+eval_steps: 1000
+load_best_model_at_end: True
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: True
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/data_u_1_hrs_0_.csv
+--> data_test_fp: data/adi17_test_umbrella_label.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/ADI17_cache
+--> model_fp: /srv/scratch/z5208494/outputumbrella_1hr_local/xlsr-ADI17-initialtest
+--> finetuned_results_fp: /srv/scratch/z5208494/outputumbrella_1hr_local/xlsr-ADI17-initialtest_finetuned_results.csv
+--> pretrained_mod: facebook/wav2vec2-xls-r-1b
+--> pretrained_tokenizer: facebook/wav2vec2-xls-r-1b
+Traceback (most recent call last):
+  File "run_umbrellaDID.py", line 285, in <module>
+    tokenizer = Wav2Vec2CTCTokenizer.from_pretrained(pretrained_tokenizer)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/transformers/tokenization_utils_base.py", line 1767, in from_pretrained
+    raise EnvironmentError(
+OSError: Can't load tokenizer for 'facebook/wav2vec2-xls-r-1b'. If you were trying to load it from 'https://huggingface.co/models', make sure you don't have a local directory with the same name. Otherwise, make sure 'facebook/wav2vec2-xls-r-1b' is the correct path to a directory containing all relevant files for a Wav2Vec2CTCTokenizer tokenizer.
+------------------------------------------------------------------------
+                         run_umbrellaDID.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_umbrellaDID.py
+Started: 29/06/2022 12:45:15
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing re...
+-->Importing json...
+-->Importing Wav2VecCTC...
+-->Importing soundfile...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: xlsr-ADI17-initialtest
+datasetdict_id: ADI17_cache
+base_fp: /srv/scratch/z5208494/output
+train_name: umbrella_1hr
+train_filename: data_u_1_hrs_0_
+evaluation_filename: adi17_test_umbrella_label
+use_checkpoint: False
+use_pretrained_tokenizer: True
+pretrained_tokenizer: facebook/wav2vec2-base-960h
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.05
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: epoch
+per_device_train_batch_size: 32
+gradient_accumulation_steps: 4
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+num_train_epochs: 5
+max_steps: 35000
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 1000
+save_total_limit: 40
+fp16: True
+eval_steps: 1000
+load_best_model_at_end: True
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: True
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/data_u_1_hrs_0_.csv
+--> data_test_fp: data/adi17_test_umbrella_label.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/ADI17_cache
+--> model_fp: /srv/scratch/z5208494/outputumbrella_1hr_local/xlsr-ADI17-initialtest
+--> finetuned_results_fp: /srv/scratch/z5208494/outputumbrella_1hr_local/xlsr-ADI17-initialtest_finetuned_results.csv
+--> pretrained_mod: facebook/wav2vec2-base-960h
+--> pretrained_tokenizer: facebook/wav2vec2-base-960h
+Downloading:   0%|          | 0.00/291 [00:00<?, ?B/s]Downloading: 100%|██████████| 291/291 [00:00<00:00, 346kB/s]
+Downloading:   0%|          | 0.00/163 [00:00<?, ?B/s]Downloading: 100%|██████████| 163/163 [00:00<00:00, 164kB/s]
+Downloading:   0%|          | 0.00/85.0 [00:00<?, ?B/s]Downloading: 100%|██████████| 85.0/85.0 [00:00<00:00, 86.5kB/s]
+Downloading:   0%|          | 0.00/1.56k [00:00<?, ?B/s]Downloading: 100%|██████████| 1.56k/1.56k [00:00<00:00, 1.68MB/s]
+Using custom data configuration default-5e4f8c95c8357bb6
+Reusing dataset csv (/srv/scratch/z5208494/cache/huggingface/datasets/ADI17_cache/csv/default-5e4f8c95c8357bb6/0.0.0/51cce309a08df9c4d82ffd9363bbe090bf173197fc01a71b034e8594995a1a58)
+
+------> PREPARING DATASET... ------------------------------------
+
+  0%|          | 0/2 [00:00<?, ?it/s]100%|██████████| 2/2 [00:00<00:00, 406.33it/s]
+--> dataset...
+DatasetDict({
+    train: Dataset({
+        features: ['id', 'label'],
+        num_rows: 1082
+    })
+    test: Dataset({
+        features: ['id', 'label'],
+        num_rows: 11854
+    })
+})
+--> Printing some random samples...
+                          id label
+0  gRE1v4nUn0g_029187-029570   GLF
+1  mXvnqqOnICA_000361-001235   EGY
+2  Q1ajvrk1mRc_000027-000479   EGY
+3  FztwISruXEk_114768-115166   LEV
+4  I7hSpNb44KE_142897-144463   LEV
+SUCCESS: Prepared dataset.
+
+------> CREATING WAV2VEC2 FEATURE EXTRACTOR... -----------------------
+
+Downloading:   0%|          | 0.00/159 [00:00<?, ?B/s]Downloading: 100%|██████████| 159/159 [00:00<00:00, 157kB/s]
+SUCCESS: Created feature extractor.
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Traceback (most recent call last):
+  File "run_umbrellaDID.py", line 382, in <module>
+    data = data.map(preprocess_function, remove_columns=[
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/dataset_dict.py", line 770, in map
+    {
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/dataset_dict.py", line 771, in <dictcomp>
+    k: dataset.map(
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/arrow_dataset.py", line 2358, in map
+    raise ValueError(
+ValueError: Column to remove ['audio', 'file'] not in the dataset. Current columns in the dataset: ['id', 'label']
+Using custom data configuration default-5e4f8c95c8357bb6
+Reusing dataset csv (/srv/scratch/z5208494/cache/huggingface/datasets/ADI17_cache/csv/default-5e4f8c95c8357bb6/0.0.0/51cce309a08df9c4d82ffd9363bbe090bf173197fc01a71b034e8594995a1a58)
+------------------------------------------------------------------------
+                         run_umbrellaDID.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_umbrellaDID.py
+Started: 29/06/2022 12:48:48
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing re...
+-->Importing json...
+-->Importing Wav2VecCTC...
+-->Importing soundfile...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: xlsr-ADI17-initialtest
+datasetdict_id: ADI17_cache
+base_fp: /srv/scratch/z5208494/output
+train_name: umbrella_1hr
+train_filename: data_u_1_hrs_0_
+evaluation_filename: adi17_test_umbrella_label
+use_checkpoint: False
+use_pretrained_tokenizer: True
+pretrained_tokenizer: facebook/wav2vec2-base-960h
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.05
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: epoch
+per_device_train_batch_size: 32
+gradient_accumulation_steps: 4
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+num_train_epochs: 5
+max_steps: 35000
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 1000
+save_total_limit: 40
+fp16: True
+eval_steps: 1000
+load_best_model_at_end: True
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: True
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/data_u_1_hrs_0_.csv
+--> data_test_fp: data/adi17_test_umbrella_label.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/ADI17_cache
+--> model_fp: /srv/scratch/z5208494/outputumbrella_1hr_local/xlsr-ADI17-initialtest
+--> finetuned_results_fp: /srv/scratch/z5208494/outputumbrella_1hr_local/xlsr-ADI17-initialtest_finetuned_results.csv
+--> pretrained_mod: facebook/wav2vec2-base-960h
+--> pretrained_tokenizer: facebook/wav2vec2-base-960h
+
+------> PREPARING DATASET... ------------------------------------
+
+  0%|          | 0/2 [00:00<?, ?it/s]100%|██████████| 2/2 [00:00<00:00, 412.26it/s]
+--> dataset...
+DatasetDict({
+    train: Dataset({
+        features: ['id', 'label'],
+        num_rows: 1082
+    })
+    test: Dataset({
+        features: ['id', 'label'],
+        num_rows: 11854
+    })
+})
+--> Printing some random samples...
+                          id label
+0  v5Y8e5V2aDI_210358-210826   LEV
+1  FztwISruXEk_062022-062444   LEV
+2  ls0g5kHz22w_076201-076823   EGY
+3  DoBBNMHlguE_029580-030277   GLF
+4  TS60Otck0wA_035042-035798   EGY
+SUCCESS: Prepared dataset.
+
+------> CREATING WAV2VEC2 FEATURE EXTRACTOR... -----------------------
+
+SUCCESS: Created feature extractor.
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+  0%|          | 0/2 [00:00<?, ?ba/s]  0%|          | 0/2 [00:00<?, ?ba/s]
+Traceback (most recent call last):
+  File "run_umbrellaDID.py", line 382, in <module>
+    data = data.map(preprocess_function, remove_columns=[
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/dataset_dict.py", line 770, in map
+    {
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/dataset_dict.py", line 771, in <dictcomp>
+    k: dataset.map(
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/arrow_dataset.py", line 2376, in map
+    return self._map_single(
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/arrow_dataset.py", line 551, in wrapper
+    out: Union["Dataset", "DatasetDict"] = func(self, *args, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/arrow_dataset.py", line 518, in wrapper
+    out: Union["Dataset", "DatasetDict"] = func(self, *args, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/fingerprint.py", line 458, in wrapper
+    out = func(self, *args, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/arrow_dataset.py", line 2764, in _map_single
+    batch = apply_function_on_filtered_inputs(
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/arrow_dataset.py", line 2644, in apply_function_on_filtered_inputs
+    processed_inputs = function(*fn_args, *additional_args, **fn_kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/arrow_dataset.py", line 2336, in decorated
+    result = f(decorated_item, *args, **kwargs)
+  File "run_umbrellaDID.py", line 373, in preprocess_function
+    audio_arrays = [x["array"] for x in examples["audio"]]
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/arrow_dataset.py", line 132, in __getitem__
+    values = super().__getitem__(key)
+  File "/apps/python/3.8.3/lib/python3.8/collections/__init__.py", line 1010, in __getitem__
+    raise KeyError(key)
+KeyError: 'audio'
+Using custom data configuration default-5e4f8c95c8357bb6
+Reusing dataset csv (/srv/scratch/z5208494/cache/huggingface/datasets/ADI17_cache/csv/default-5e4f8c95c8357bb6/0.0.0/51cce309a08df9c4d82ffd9363bbe090bf173197fc01a71b034e8594995a1a58)
+------------------------------------------------------------------------
+                         run_umbrellaDID.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_umbrellaDID.py
+Started: 04/07/2022 10:52:27
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing re...
+-->Importing json...
+-->Importing Wav2VecCTC...
+-->Importing soundfile...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: xlsr-ADI17-initialtest
+datasetdict_id: ADI17_cache
+base_fp: /srv/scratch/z5208494/output
+train_name: umbrella_1hr
+train_filename: data_u_1_hrs_0_
+evaluation_filename: adi17_test_umbrella_label
+use_checkpoint: False
+use_pretrained_tokenizer: True
+pretrained_tokenizer: facebook/wav2vec2-base-960h
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.05
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: epoch
+per_device_train_batch_size: 32
+gradient_accumulation_steps: 4
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+num_train_epochs: 5
+max_steps: 35000
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 1000
+save_total_limit: 40
+fp16: True
+eval_steps: 1000
+load_best_model_at_end: True
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: True
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/data_u_1_hrs_0_.csv
+--> data_test_fp: data/adi17_test_umbrella_label.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/ADI17_cache
+--> model_fp: /srv/scratch/z5208494/outputumbrella_1hr_local/xlsr-ADI17-initialtest
+--> finetuned_results_fp: /srv/scratch/z5208494/outputumbrella_1hr_local/xlsr-ADI17-initialtest_finetuned_results.csv
+--> pretrained_mod: facebook/wav2vec2-base-960h
+--> pretrained_tokenizer: facebook/wav2vec2-base-960h
+
+------> PREPARING DATASET... ------------------------------------
+
+  0%|          | 0/2 [00:00<?, ?it/s]100%|██████████| 2/2 [00:00<00:00, 40.62it/s]--> dataset...
+DatasetDict({
+    train: Dataset({
+        features: ['id', 'label'],
+        num_rows: 1082
+    })
+    test: Dataset({
+        features: ['id', 'label'],
+        num_rows: 11854
+    })
+})
+--> Printing some random samples...
+                          id label
+0  v5Y8e5V2aDI_088541-089525   LEV
+1  QbkHUIBVnpc_001232-002866   LEV
+2  DoBBNMHlguE_118563-119039   GLF
+3  TS60Otck0wA_017537-018947   EGY
+4  v5Y8e5V2aDI_169125-170941   LEV
+SUCCESS: Prepared dataset.
+
+------> CREATING WAV2VEC2 FEATURE EXTRACTOR... -----------------------
+
+SUCCESS: Created feature extractor.
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+
+#0:   0%|          | 0/271 [00:00<?, ?ex/s]#0:   0%|          | 0/271 [00:00<?, ?ex/s]
+
+#2:   0%|          | 0/270 [00:00<?, ?ex/s][A[A#2:   0%|          | 0/270 [00:00<?, ?ex/s]
+#1:   0%|          | 0/271 [00:00<?, ?ex/s][A#1:   0%|          | 0/271 [00:00<?, ?ex/s]
+
+
+#3:   0%|          | 0/270 [00:00<?, ?ex/s][A[A[A#3:   0%|          | 0/270 [00:00<?, ?ex/s]
+
+
+multiprocess.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/apps/python/3.8.3/lib/python3.8/site-packages/multiprocess/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/arrow_dataset.py", line 551, in wrapper
+    out: Union["Dataset", "DatasetDict"] = func(self, *args, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/arrow_dataset.py", line 518, in wrapper
+    out: Union["Dataset", "DatasetDict"] = func(self, *args, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/fingerprint.py", line 458, in wrapper
+    out = func(self, *args, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/arrow_dataset.py", line 2745, in _map_single
+    example = apply_function_on_filtered_inputs(example, i, offset=offset)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/arrow_dataset.py", line 2644, in apply_function_on_filtered_inputs
+    processed_inputs = function(*fn_args, *additional_args, **fn_kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/arrow_dataset.py", line 2336, in decorated
+    result = f(decorated_item, *args, **kwargs)
+  File "run_umbrellaDID.py", line 373, in audio_to_array_fn
+    audio_array, sampling_rate = sf.read(batch["filepath"])
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/arrow_dataset.py", line 122, in __getitem__
+    value = super().__getitem__(key)
+  File "/apps/python/3.8.3/lib/python3.8/collections/__init__.py", line 1010, in __getitem__
+    raise KeyError(key)
+KeyError: 'filepath'
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "run_umbrellaDID.py", line 389, in <module>
+    data = data.map(audio_to_array_fn,
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/dataset_dict.py", line 770, in map
+    {
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/dataset_dict.py", line 771, in <dictcomp>
+    k: dataset.map(
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/arrow_dataset.py", line 2489, in map
+    transformed_shards[index] = async_result.get()
+  File "/apps/python/3.8.3/lib/python3.8/site-packages/multiprocess/pool.py", line 771, in get
+    raise self._value
+KeyError: 'filepath'
+Using custom data configuration default-b19744f6505f42f0
+------------------------------------------------------------------------
+                         run_umbrellaDID.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_umbrellaDID.py
+Started: 04/07/2022 11:09:08
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing re...
+-->Importing json...
+-->Importing Wav2VecCTC...
+-->Importing soundfile...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: xlsr-ADI17-initialtest
+datasetdict_id: ADI17_cache
+base_fp: /srv/scratch/z5208494/output
+train_name: umbrella_alldevdata
+train_filename: data_u_1000000000_hrs_0_
+evaluation_filename: adi17_test_umbrella_label
+use_checkpoint: False
+use_pretrained_tokenizer: True
+pretrained_tokenizer: facebook/wav2vec2-base-960h
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.05
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: epoch
+per_device_train_batch_size: 32
+gradient_accumulation_steps: 4
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+num_train_epochs: 5
+max_steps: 35000
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 1000
+save_total_limit: 40
+fp16: True
+eval_steps: 1000
+load_best_model_at_end: True
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: True
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/data_u_1000000000_hrs_0_.csv
+--> data_test_fp: data/adi17_test_umbrella_label.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/ADI17_cache
+--> model_fp: /srv/scratch/z5208494/outputumbrella_alldevdata_local/xlsr-ADI17-initialtest
+--> finetuned_results_fp: /srv/scratch/z5208494/outputumbrella_alldevdata_local/xlsr-ADI17-initialtest_finetuned_results.csv
+--> pretrained_mod: facebook/wav2vec2-base-960h
+--> pretrained_tokenizer: facebook/wav2vec2-base-960h
+
+------> PREPARING DATASET... ------------------------------------
+
+Downloading and preparing dataset csv/default to /srv/scratch/z5208494/cache/huggingface/datasets/ADI17_cache/csv/default-b19744f6505f42f0/0.0.0/51cce309a08df9c4d82ffd9363bbe090bf173197fc01a71b034e8594995a1a58...
+Downloading data files:   0%|          | 0/2 [00:00<?, ?it/s]Downloading data files: 100%|██████████| 2/2 [00:00<00:00, 4951.95it/s]
+Extracting data files:   0%|          | 0/2 [00:00<?, ?it/s]Extracting data files: 100%|██████████| 2/2 [00:00<00:00, 484.92it/s]
+0 tables [00:00, ? tables/s]                            0 tables [00:00, ? tables/s]                            Dataset csv downloaded and prepared to /srv/scratch/z5208494/cache/huggingface/datasets/ADI17_cache/csv/default-b19744f6505f42f0/0.0.0/51cce309a08df9c4d82ffd9363bbe090bf173197fc01a71b034e8594995a1a58. Subsequent calls will reuse this data.
+  0%|          | 0/2 [00:00<?, ?it/s]100%|██████████| 2/2 [00:00<00:00, 297.94it/s]--> dataset...
+DatasetDict({
+    train: Dataset({
+        features: ['id', 'label'],
+        num_rows: 3041
+    })
+    test: Dataset({
+        features: ['id', 'label'],
+        num_rows: 11854
+    })
+})
+--> Printing some random samples...
+                          id label
+0  gFFy3Pjt-sE_145725-146123   GLF
+1  EhHVMLDejMs_049650-050208   LEV
+2  VG9HhSy14Do_063882-064754   GLF
+3  I7hSpNb44KE_073263-074399   LEV
+4  DjY_uUgcKek_219798-220281   GLF
+SUCCESS: Prepared dataset.
+
+------> CREATING WAV2VEC2 FEATURE EXTRACTOR... -----------------------
+
+SUCCESS: Created feature extractor.
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+
+#0:   0%|          | 0/761 [00:00<?, ?ex/s]#0:   0%|          | 0/761 [00:00<?, ?ex/s]
+
+#2:   0%|          | 0/760 [00:00<?, ?ex/s][A[A
+multiprocess.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/apps/python/3.8.3/lib/python3.8/site-packages/multiprocess/pool.py", line 125, in worker
+    result = (True, func(*args, **kwds))
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/arrow_dataset.py", line 551, in wrapper
+    out: Union["Dataset", "DatasetDict"] = func(self, *args, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/arrow_dataset.py", line 518, in wrapper
+    out: Union["Dataset", "DatasetDict"] = func(self, *args, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/fingerprint.py", line 458, in wrapper
+    out = func(self, *args, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/arrow_dataset.py", line 2745, in _map_single
+    example = apply_function_on_filtered_inputs(example, i, offset=offset)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/arrow_dataset.py", line 2644, in apply_function_on_filtered_inputs
+    processed_inputs = function(*fn_args, *additional_args, **fn_kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/arrow_dataset.py", line 2336, in decorated
+    result = f(decorated_item, *args, **kwargs)
+  File "run_umbrellaDID.py", line 373, in audio_to_array_fn
+    audio_array, sampling_rate = sf.read(batch["filepath"])
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/arrow_dataset.py", line 122, in __getitem__
+    value = super().__getitem__(key)
+  File "/apps/python/3.8.3/lib/python3.8/collections/__init__.py", line 1010, in __getitem__
+    raise KeyError(key)
+KeyError: 'filepath'
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "run_umbrellaDID.py", line 389, in <module>
+    data = data.map(audio_to_array_fn,
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/dataset_dict.py", line 770, in map
+    {
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/dataset_dict.py", line 771, in <dictcomp>
+    k: dataset.map(
+  File "/home/z5208494/.local/lib/python3.8/site-packages/datasets/arrow_dataset.py", line 2489, in map
+    transformed_shards[index] = async_result.get()
+  File "/apps/python/3.8.3/lib/python3.8/site-packages/multiprocess/pool.py", line 771, in get
+    raise self._value
+KeyError: 'filepath'
