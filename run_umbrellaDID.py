@@ -398,11 +398,12 @@ def audio_to_array_fn(batch):
     return batch
 
 
-data_audio = data.map(audio_to_array_fn, remove_columns=data.remove_columns["test"], num_proc=4)
+data_audio = data.map(
+    audio_to_array_fn, remove_columns=data.column_names["test"], num_proc=4)
 print(data_audio)
 
 dataremove = data.map(
-    audio_to_array_fn, remove_columns=data.remove_columns["train"], num_proc=4)
+    audio_to_array_fn, remove_columns=data.column_names["train"], num_proc=4)
 print(dataremove)
 
 # Check a few rows of data to verify data properly loaded
