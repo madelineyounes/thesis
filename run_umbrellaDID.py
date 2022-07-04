@@ -400,6 +400,10 @@ def audio_to_array_fn(batch):
 data_audio = data.map(audio_to_array_fn, num_proc=4)
 print(data_audio)
 
+dataremove = data.map(
+    audio_to_array_fn, remove_columns=data.column_names["train"], num_proc=4)
+print(dataremove)
+
 # Check a few rows of data to verify data properly loaded
 print("--> Verifying data with a random sample...")
 
