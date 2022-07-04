@@ -1,0 +1,18 @@
+#!/bin/bash
+#!/bin/bash
+
+#PBS -l select=1:ncpus=32:ngpus=4:mem=184gb
+#PBS -l walltime=20:00:00
+#PBS -M renee.lu@unsw.edu.au
+#PBS -m ae
+#PBS -j oe
+#PBS -o /home/z5160268/Output0_wav2vec_Report
+
+# Go into thesis folder
+cd /home/z5208494/thesis/
+
+echo ""$(date)"" 2>&1 | tee -a output/output1.txt
+
+# This runs the test script
+python3 run_umbrellaDID.py 2>&1 | tee -a output/output1.txt
+
