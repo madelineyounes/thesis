@@ -369,8 +369,14 @@ print("\n------> PRE-PROCESSING DATA... ----------------------------------------
 # We write a map(...) function accordingly.
 
 
+def audio_to_array_fn(batch):
+    audio_array, sampling_rate = sf.read(batch["filepath"])
+    batch["audio"] = audio_array
+    batch["sampling_rate"] = sampling_rate
+    return batch
+
 def preprocess_function(examples):
-    audio_arrays = [x["array"] for x in examples["audio"]]
+    audio_arrays = [x["array"] for x in examples["id"]]
     inputs = feature_extractor(
         audio_arrays,
         sampling_rate=feature_extractor.sampling_rate,
@@ -379,8 +385,9 @@ def preprocess_function(examples):
     )
     return inputs
 
-data = data.map(preprocess_function, remove_columns=[
-                               "id", "label"], batched=True)
+
+data = data.map(audio_to_array_fn,
+                remove_columns=data.column_names["train"], num_proc=4)
 
 # Check a few rows of data to verify data properly loaded
 print("--> Verifying data with a random sample...")
