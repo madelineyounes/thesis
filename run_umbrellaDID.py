@@ -376,6 +376,7 @@ def audio_to_array_fn(batch):
     audio_array, sampling_rate = sf.read(filepath)
     batch["audio"] = audio_array
     batch["sampling_rate"] = sampling_rate
+    print (batch)
     return batch
 
 def preprocess_function(examples):
