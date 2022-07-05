@@ -389,7 +389,6 @@ def audio_to_array_fn(batch):
             audio_array,
             sampling_rate=sampling_rate,
         )
-        print(inputs)
         return inputs
     except:
         try:
@@ -406,7 +405,6 @@ def audio_to_array_fn(batch):
             audio_array,
             sampling_rate=sampling_rate,
         )
-            print(inputs)
             return inputs
         except: 
             print("File " + batch["id"] + ".wav not found in test or training.")
@@ -424,6 +422,7 @@ print(len(encoded_data["train"]))
 if (len(encoded_data["train"]) > 0):
     rand_int = random.randint(0, len(encoded_data["train"])-1)
     print(rand_int)
+    print(encoded_data["train"][rand_int])
     print(encoded_data["train"][rand_int])
     print("Dialect Label:", encoded_data["train"][rand_int]["label"])
     print("Input array shape:", np.asarray(
