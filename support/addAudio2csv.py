@@ -8,7 +8,7 @@ out_file = open(file, 'a+')
 
 for line in lines:
     filename = line.split(',')[0]
-    filepath = datapath+filename
+    filepath = datapath+filename+'.wav'
     try:
         audio_array, sampling_rate = sf.read(filepath)
         out_file.write('{name},{d},{a},{sr}'.format(
