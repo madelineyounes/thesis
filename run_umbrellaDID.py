@@ -409,7 +409,7 @@ def audio_to_array_fn(batch):
         except: 
             print("File " + batch["id"] + ".wav not found in test or training.")
 
-encoded_data = data.map(audio_to_array_fn, remove_columns=["id"], num_proc=4)
+encoded_data = data.map(audio_to_array_fn, num_proc=4)
 
 # Check a few rows of data to verify data properly loaded
 print("--> Verifying data with a random sample...")
