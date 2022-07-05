@@ -240,7 +240,7 @@ set_greater_is_better = False               # Optional
 print("greater_is_better:", set_greater_is_better)
 set_group_by_length = True                  # Default = False
 print("group_by_length:", set_group_by_length)
-set_push_to_hub = True                      # Default = False
+set_push_to_hub = False                      # Default = False
 print("push_to_hub:", set_push_to_hub)
 
 # ------------------------------------------
