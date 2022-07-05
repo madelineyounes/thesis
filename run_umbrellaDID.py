@@ -397,9 +397,9 @@ def audio_to_array_fn(batch):
     return batch
 
 
-data_audio = data.map(
+data = data.map(
     audio_to_array_fn, remove_columns=data.column_names["test"], num_proc=4)
-print(data_audio)
+print(data)
 
 dataremove = data.map(
     audio_to_array_fn, remove_columns=data.column_names["train"], num_proc=4)
