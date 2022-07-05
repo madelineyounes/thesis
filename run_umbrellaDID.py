@@ -428,7 +428,7 @@ if (len(encoded_data["train"]) > 0):
 #    This only involves normalisation but could also correspond
 #    to extracting log-mel features
 # 3) Encode the transcriptions to label ids
-
+"""
 def prepare_dataset(batch):
     # check that all files have the correct sampling rate
     assert (
@@ -446,7 +446,7 @@ def prepare_dataset(batch):
 data_prepared = encoded_data.map(
     prepare_dataset, remove_columns=data.column_names["train"], batch_size=8, num_proc=4, batched=True)
 
-print(data_prepared)
+print(data_prepared)"""
 print("SUCCESS: Data ready for training and evaluation.")
 
 # ------------------------------------------
