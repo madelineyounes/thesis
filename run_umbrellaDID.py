@@ -642,8 +642,8 @@ trainer = Trainer(
     data_collator=data_collator,
     args=training_args,
     compute_metrics=compute_metrics,
-    train_dataset=data_prepared["train"],
-    eval_dataset=data_prepared["test"],
+    train_dataset=encoded_data["train"],
+    eval_dataset=encoded_data["test"],
     tokenizer=processor.feature_extractor,
 )
 
