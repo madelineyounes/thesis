@@ -386,9 +386,8 @@ def audio_to_array_fn(batch):
         batch["sampling_rate"] = sampling_rate
         """
         inputs = feature_extractor(
-            audio=audio_array,
+            audio_array,
             sampling_rate=sampling_rate,
-            label=batch["label"],
         )
         print(inputs)
         return inputs
@@ -404,14 +403,15 @@ def audio_to_array_fn(batch):
             """
             
             inputs = feature_extractor(
-            audio=audio_array,
+            audio_array,
             sampling_rate=sampling_rate,
-            label=batch["label"],
         )
             print(inputs)
             return inputs
         except: 
             print("File " + batch["id"] + ".wav not found in test or training.")
+
+
 
 encoded_data = data.map(
     audio_to_array_fn, remove_columns=["id"], num_proc=4)
@@ -420,6 +420,7 @@ print(encoded_data)
 # Check a few rows of data to verify data properly loaded
 print("--> Verifying data with a random sample...")
 
+print(len(encoded_data["train"]))
 if (len(encoded_data["train"]) > 0):
     rand_int = random.randint(0, len(encoded_data["train"])-1)
     print(rand_int)
