@@ -92,7 +92,7 @@ print("training:", training)
 # For 
 #     1) naming model output directory
 #     2) naming results file
-experiment_id = "xlsr-ADI17-initialtest"
+experiment_id = "xlsr-ADI17-initialtest/"
 print("experiment_id:", experiment_id)
 
 # DatasetDict Id
@@ -111,7 +111,7 @@ test_data_path = "/srv/scratch/z5208494/dataset/test_segments/"
 print("test data path:", test_data_path)
 # Base filepath
 # For setting the base filepath to direct output to
-base_fp = "/srv/scratch/z5208494/output"
+base_fp = "/srv/scratch/z5208494/output/"
 print("base_fp:", base_fp)
 
 # Base cache directory filepath
