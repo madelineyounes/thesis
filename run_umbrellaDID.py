@@ -386,8 +386,9 @@ def audio_to_array_fn(batch):
         batch["sampling_rate"] = sampling_rate
         """
         inputs = feature_extractor(
-            audio_array,
+            audio=audio_array,
             sampling_rate=sampling_rate,
+            label=batch["label"],
         )
         print(inputs)
         return inputs
@@ -403,8 +404,9 @@ def audio_to_array_fn(batch):
             """
             
             inputs = feature_extractor(
-            audio_array,
+            audio=audio_array,
             sampling_rate=sampling_rate,
+            label=batch["label"],
         )
             print(inputs)
             return inputs
@@ -413,26 +415,21 @@ def audio_to_array_fn(batch):
 
 
 
-data = data.map(
+encoded_data = data.map(
     audio_to_array_fn, remove_columns=["id"], num_proc=4)
-print(data)
-
-dataremove = data.map(
-    audio_to_array_fn, remove_columns=["train"], num_proc=4)
-print(dataremove)
+print(encoded_data)
 
 # Check a few rows of data to verify data properly loaded
 print("--> Verifying data with a random sample...")
 
-print(len(data_audio["train"]))
 if (len(data_audio["train"]) > 0):
-    rand_int = random.randint(0, len(data_audio["train"])-1)
+    rand_int = random.randint(0, len(encoded_data["train"])-1)
     print(rand_int)
-    print(data_audio["train"][rand_int])
-    print("Dialect Label:", data_audio["train"][rand_int]["label"])
+    print(encoded_data["train"][rand_int])
+    print("Dialect Label:", encoded_data["train"][rand_int]["label"])
     print("Input array shape:", np.asarray(
-        data_audio["train"][rand_int]["audio"]).shape)
-    print("Sampling rate:", data_audio["train"][rand_int]["sampling_rate"])
+        encoded_data["train"][rand_int]["audio"]).shape)
+    print("Sampling rate:", encoded_data["train"][rand_int]["sampling_rate"])
 # Process dataset to the format expected by model for training
 # Using map(...)
 # 1) Check all data samples have same sampling rate (16kHz)
