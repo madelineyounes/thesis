@@ -407,10 +407,11 @@ def audio_to_array_fn(batch):
         )
             return inputs
         except: 
-            print("File " + batch["id"] + ".wav not found in test or training.")
+            pass
+            #print("File " + batch["id"] + ".wav not found in test or training.")
 
 encoded_data = data.map(audio_to_array_fn, num_proc=4)
-
+print(encoded_data)
 # Check a few rows of data to verify data properly loaded
 print("--> Verifying data with a random sample...")
 
@@ -655,6 +656,7 @@ if training:
     if use_checkpoint:
         trainer.train(pretrained_mod)
     else:
+        print("here")
         trainer.train()
     # Save the model
     model.save_pretrained(model_fp)
