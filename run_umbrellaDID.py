@@ -574,7 +574,6 @@ print("SUCCESS: Defined Accuracy evaluation metric.")
 print("--> Loading pre-trained checkpoint...")
 
 # 1) Define model
-
 num_labels = len(id2label)
 model = AutoModelForAudioClassification.from_pretrained(
     model_name,
@@ -590,7 +589,7 @@ model = AutoModelForAudioClassification.from_pretrained(
 # as stated in the paper does not need to be fine-tuned anymore.
 # Thus, we can set the requires_grad to False for all parameters of
 # the feature extraction part.
-model.freeze_feature_extractor()
+#model.freeze_feature_extractor()
 print("SUCCESS: Pre-trained checkpoint loaded.")
 
 # 4) Configure training parameters
@@ -635,7 +634,6 @@ training_args = TrainingArguments(
 # we are ready to start training!
 trainer = Trainer(
     model=model,
-    data_collator=data_collator,
     args=training_args,
     compute_metrics=compute_metrics,
     train_dataset=encoded_data["train"],
