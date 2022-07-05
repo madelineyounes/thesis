@@ -410,16 +410,6 @@ def audio_to_array_fn(batch):
             pass
             #print("File " + batch["id"] + ".wav not found in test or training.")
 
-
-def preprocess_function(examples):
-    audio_arrays = [x["array"] for x in examples]
-    inputs = feature_extractor(
-        audio_arrays,
-        sampling_rate=feature_extractor.sampling_rate,
-    )
-    return inputs
-
-
 encoded_data = data.map(audio_to_array_fn, num_proc=4, batched=True)
 print(encoded_data)
 # Check a few rows of data to verify data properly loaded
