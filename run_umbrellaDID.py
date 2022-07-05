@@ -270,7 +270,7 @@ print("--> data_test_fp:", data_test_fp)
 data_cache_fp = base_cache_fp + datasetdict_id
 print("--> data_cache_fp:", data_cache_fp)
 # Path to save model output
-model_fp = base_fp + train_name + "_local/" + experiment_id
+model_fp = "../output/" + train_name + "_local/" + experiment_id
 print("--> model_fp:", model_fp)
 # Path to save results output
 finetuned_results_fp = base_fp + train_name + \
