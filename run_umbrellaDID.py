@@ -409,11 +409,7 @@ def audio_to_array_fn(batch):
         except: 
             print("File " + batch["id"] + ".wav not found in test or training.")
 
-
-
-encoded_data = data.map(
-    audio_to_array_fn, remove_columns=["id"], num_proc=4)
-print(encoded_data)
+encoded_data = data.map(audio_to_array_fn, remove_columns=["id"], num_proc=4)
 
 # Check a few rows of data to verify data properly loaded
 print("--> Verifying data with a random sample...")
@@ -426,7 +422,7 @@ if (len(encoded_data["train"]) > 0):
     print(encoded_data["train"][rand_int])
     print("Dialect Label:", encoded_data["train"][rand_int]["label"])
     print("Input array shape:", np.asarray(
-        encoded_data["train"][rand_int]["audio"]).shape)
+        encoded_data["train"][rand_int]["input_values"]).shape)
     print("Sampling rate:", encoded_data["train"][rand_int]["sampling_rate"])
 # Process dataset to the format expected by model for training
 # Using map(...)
