@@ -418,13 +418,11 @@ print(len(encoded_data["train"]))
 if (len(encoded_data["train"]) > 0):
     rand_int = random.randint(0, len(encoded_data["train"])-1)
     print(rand_int)
-    print(encoded_data["train"][rand_int])
-    print(encoded_data["train"][rand_int])
     print("Dialect Label:", encoded_data["train"][rand_int]["label"])
     print("Input array shape:", np.asarray(
         encoded_data["train"][rand_int]["input_values"]).shape)
     print("Sampling rate:", encoded_data["train"]
-          [rand_int]["input_values"]["sampling_rate"])
+          [rand_int]["input_values"].sampling_rate)
 # Process dataset to the format expected by model for training
 # Using map(...)
 # 1) Check all data samples have same sampling rate (16kHz)
