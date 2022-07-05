@@ -422,7 +422,7 @@ print(encoded_data)
 # Check a few rows of data to verify data properly loaded
 print("--> Verifying data with a random sample...")
 
-if (len(data_audio["train"]) > 0):
+if (len(encoded_data["train"]) > 0):
     rand_int = random.randint(0, len(encoded_data["train"])-1)
     print(rand_int)
     print(encoded_data["train"][rand_int])
