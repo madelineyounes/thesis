@@ -381,28 +381,42 @@ def audio_to_array_fn(batch):
     try:
         filepath = training_data_path + batch["id"] + ".wav"
         audio_array, sampling_rate = sf.read(filepath)
-        batch["label"] = batch["labels"]
+        """
+         batch["label"] = batch["labels"]
         batch["audio"] = audio_array
         batch["sampling_rate"] = sampling_rate
+        """
+        inputs = feature_extractor(
+            audio_array,
+            sampling_rate=sampling_rate,
+        )
     except:
         try:
             filepath = training_data_path + batch["id"] + ".wav"
             audio_array, sampling_rate = sf.read(filepath)
+
+            """
             batch["label"] = batch["labels"]
             batch["audio"] = audio_array
-            batch["sampling_rate"] = sampling_rate 
+            batch["sampling_rate"] = sampling_rate
+            """
+            
+            inputs = feature_extractor(
+            audio_array,
+            sampling_rate=sampling_rate,
+        )
         except: 
             print("File " + batch["id"] + ".wav not found in test or training.")
-    print(batch)
-    return batch
+    print(inputs)
+    return inputs
 
 
 data = data.map(
-    audio_to_array_fn, remove_columns=data.column_names["test"], num_proc=4)
+    audio_to_array_fn, remove_columns=["id"], num_proc=4)
 print(data)
 
 dataremove = data.map(
-    audio_to_array_fn, remove_columns=data.column_names["train"], num_proc=4)
+    audio_to_array_fn, remove_columns=["train"], num_proc=4)
 print(dataremove)
 
 # Check a few rows of data to verify data properly loaded
