@@ -465,15 +465,6 @@ print("SUCCESS: Data ready for training and evaluation.")
 # 3) Load a pre-trained checkpoint
 # 4) Define the training configuration
 print("\n------> PREPARING FOR TRAINING & EVALUATION... ----------------------- \n")
-# 1) Define model 
-
-num_labels = len(id2label)
-model = AutoModelForAudioClassification.from_pretrained(
-    model_name,
-    num_labels=num_labels,
-    label2id=label2id,
-    id2label=id2label,
-)
 # 1) Defining data collator
 print("--> Defining data collator...")
 
@@ -581,20 +572,15 @@ print("SUCCESS: Defined Accuracy evaluation metric.")
 # also CTC's blank token. To save GPU memory, we enable PyTorch's gradient
 # checkpointing and also set the loss reduction to "mean".
 print("--> Loading pre-trained checkpoint...")
-model = Wav2Vec2ForCTC.from_pretrained(
-    pretrained_mod,
-    vocab_size=len(processor.tokenizer),
-    hidden_dropout=set_hidden_dropout,
-    activation_dropout=set_activation_dropout,
-    attention_dropout=set_attention_dropout,
-    feat_proj_dropout=set_feat_proj_dropout,
-    layerdrop=set_layerdrop,
-    mask_time_prob=set_mask_time_prob,
-    mask_time_length=set_mask_time_length,
-    ctc_loss_reduction=set_ctc_loss_reduction,
-    ctc_zero_infinity=set_ctc_zero_infinity,
-    gradient_checkpointing=set_gradient_checkpointing,
-    pad_token_id=processor.tokenizer.pad_token_id
+
+# 1) Define model
+
+num_labels = len(id2label)
+model = AutoModelForAudioClassification.from_pretrained(
+    model_name,
+    num_labels=num_labels,
+    label2id=label2id,
+    id2label=id2label,
 )
 
 # The first component of Wav2Vec2 consists of a stack of CNN layers
