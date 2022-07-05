@@ -420,7 +420,7 @@ def preprocess_function(examples):
     return inputs
 
 
-encoded_data = data.map(preprocess_function, num_proc=4, batched=True)
+encoded_data = data.map(audio_to_array_fn, num_proc=4, batched=True)
 print(encoded_data)
 # Check a few rows of data to verify data properly loaded
 print("--> Verifying data with a random sample...")
