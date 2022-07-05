@@ -25,7 +25,7 @@ import torch
 import soundfile as sf
 from transformers import AutoFeatureExtractor
 from transformers import Wav2Vec2Processor
-from transformers import Wav2Vec2FeatureExtractor
+from transformers import AutoModelForAudioClassification
 from transformers import Wav2Vec2ForCTC
 from transformers import Wav2Vec2CTCTokenizer
 import json
@@ -145,7 +145,7 @@ if use_checkpoint:
     print("checkpoint:", checkpoint)
 
 # Use pretrained model
-model_name = "facebook/wav2vec2-base-960h"
+model_name = "facebook/wav2vec2-base"
 
 # Use a pretrained tokenizer (True/False)
 #     True: Use existing tokenizer (if custom dataset has same vocab)
@@ -240,7 +240,7 @@ set_greater_is_better = False               # Optional
 print("greater_is_better:", set_greater_is_better)
 set_group_by_length = True                  # Default = False
 print("group_by_length:", set_group_by_length)
-set_push_to_hub = False                      # Default = False
+set_push_to_hub = True                      # Default = False
 print("push_to_hub:", set_push_to_hub)
 
 # ------------------------------------------
@@ -465,6 +465,15 @@ print("SUCCESS: Data ready for training and evaluation.")
 # 3) Load a pre-trained checkpoint
 # 4) Define the training configuration
 print("\n------> PREPARING FOR TRAINING & EVALUATION... ----------------------- \n")
+# 1) Define model 
+
+num_labels = len(id2label)
+model = AutoModelForAudioClassification.from_pretrained(
+    model_name,
+    num_labels=num_labels,
+    label2id=label2id,
+    id2label=id2label,
+)
 # 1) Defining data collator
 print("--> Defining data collator...")
 
