@@ -421,8 +421,6 @@ if (len(encoded_data["train"]) > 0):
     print("Dialect Label:", encoded_data["train"][rand_int]["label"])
     print("Input array shape:", np.asarray(
         encoded_data["train"][rand_int]["input_values"]).shape)
-    print("Sampling rate:", encoded_data["train"]
-          [rand_int]["input_values"].sampling_rate)
 # Process dataset to the format expected by model for training
 # Using map(...)
 # 1) Check all data samples have same sampling rate (16kHz)
@@ -444,7 +442,8 @@ def prepare_dataset(batch):
         batch["label"] = processor(batch["label"]).input_ids
     return batch
 
-data_prepared = data.map(
+
+data_prepared = encoded_data.map(
     prepare_dataset, remove_columns=data.column_names["train"], batch_size=8, num_proc=4, batched=True)
 
 print(data_prepared)
