@@ -633,6 +633,7 @@ training_args = TrainingArguments(
     metric_for_best_model=set_metric_for_best_model,
     greater_is_better=set_greater_is_better,
     group_by_length=set_group_by_length,
+    hub_token='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',
     push_to_hub=set_push_to_hub
 )
 # All instances can be passed to Trainer and
