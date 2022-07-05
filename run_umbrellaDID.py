@@ -377,7 +377,6 @@ print("\n------> PRE-PROCESSING DATA... ----------------------------------------
 # We write a map(...) function accordingly.
 
 def audio_to_array_fn(batch):
-    
     try:
         filepath = training_data_path + batch["id"] + ".wav"
         audio_array, sampling_rate = sf.read(filepath)
@@ -390,6 +389,8 @@ def audio_to_array_fn(batch):
             audio_array,
             sampling_rate=sampling_rate,
         )
+        print(inputs)
+        return inputs
     except:
         try:
             filepath = training_data_path + batch["id"] + ".wav"
@@ -405,10 +406,11 @@ def audio_to_array_fn(batch):
             audio_array,
             sampling_rate=sampling_rate,
         )
+            print(inputs)
+            return inputs
         except: 
             print("File " + batch["id"] + ".wav not found in test or training.")
-    print(inputs)
-    return inputs
+
 
 
 data = data.map(
