@@ -412,7 +412,7 @@ def audio_to_array_fn(batch):
 
 
 def preprocess_function(examples):
-    audio_arrays = [x["array"] for x in examples["audio"]]
+    audio_arrays = [x["array"] for x in examples]
     inputs = feature_extractor(
         audio_arrays,
         sampling_rate=feature_extractor.sampling_rate,
