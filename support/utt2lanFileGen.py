@@ -12,8 +12,8 @@ input_label = os.path.join(ROOT_DIR, 'train_label.txt')
 output_path = "../data/"
 data_label_path = "/srv/scratch/z5208494/dataset/"
 #data_label_path = "../data/"
-data_path = data_label_path+"dev_segments/"
-#data_path = "/srv/scratch/z5208494/dataset/test_segments/"
+#data_path = data_label_path+"dev_segments/"
+data_path = "/srv/scratch/z5208494/dataset/test_segments/"
 '''
 Program to generate a text file with all the file names to be used in trainging. 
 The training data will be selected and using the 4 umbrella dialect categories (EGY, LEV, NOR, GLF) 
@@ -57,6 +57,7 @@ def gen_txt(dialect_group, total_time):
         print(filename.format(count=counter))
         counter += 1
     filename = filename.format(count=counter)
+    filename = output_path+"adi17_test_small.csv"
     f = open(filename, 'w')
     f.write("id,label\n")
     f.close()
