@@ -8,7 +8,6 @@ from wavinfo import WavInfoReader
 
 ROOT_DIR = os.path.realpath(os.path.join(os.path.dirname(__file__), '..'))
 source_dir = os.path.join(ROOT_DIR, 'data')
-input_label = os.path.join(ROOT_DIR, 'adi17_official_test_label.txt')
 output_path = "../data/"
 data_label_path = "/srv/scratch/z5208494/dataset/"
 #data_label_path = "../data/"
@@ -69,7 +68,8 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
     the total time of the training data. 
     '''
     print("populating doc ...")
-    train_lines = tuple(open(data_label_path+'adi17_official_dev_label.txt', 'r'))
+    train_lines = tuple(
+        open(data_label_path+'adi17_official_test_label.txt', 'r'))
     out_lines = tuple(open(file, 'r'))
     out_file = open(file, 'a+')
     info_time = 0
