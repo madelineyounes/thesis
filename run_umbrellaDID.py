@@ -339,6 +339,7 @@ def show_random_elements(dataset, num_examples=10):
     print(df)
 
 show_random_elements(data["train"], num_examples=5)
+show_random_elements(data["test"], num_examples=5)
 print("SUCCESS: Prepared dataset.")
 # ------------------------------------------
 #       Processing transcription
@@ -410,8 +411,6 @@ def audio_to_array_fn(batch):
             pass
             #print("File " + batch["id"] + ".wav not found in test or training.")
 encoded_data = data.map(audio_to_array_fn,remove_columns=["id"], num_proc=4)
-encoded_data = encoded_data.map(
-    audio_to_array_fn, remove_columns=["id"], num_proc=4)
 
 print(encoded_data)
 # Check a few rows of data to verify data properly loaded
