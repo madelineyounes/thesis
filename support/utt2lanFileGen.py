@@ -69,7 +69,7 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
     '''
     print("populating doc ...")
     train_lines = tuple(
-        open(data_label_path+'adi17_official_test_label.txt', 'r'))
+        open('../data/adi17_official_test_label.txt', 'r'))
     out_lines = tuple(open(file, 'r'))
     out_file = open(file, 'a+')
     info_time = 0

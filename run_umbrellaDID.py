@@ -129,7 +129,7 @@ print("train_filename:", train_filename)
 # Evaluation dataset name and filename
 # Dataset name and filename of the csv file containing the evaluation data
 # For generating filepath to file location
-evaluation_filename = "adi17_test_umbrella_label"
+evaluation_filename = "adi17_test_small"
 print("evaluation_filename:", evaluation_filename)
 
 # Resume training from/ use checkpoint (True/False)
