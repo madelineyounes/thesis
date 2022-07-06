@@ -421,6 +421,15 @@ if (len(encoded_data["train"]) > 0):
     print("Dialect Label:", encoded_data["train"][rand_int]["label"])
     print("Input array shape:", np.asarray(
         encoded_data["train"][rand_int]["input_values"]).shape)
+
+
+print(len(encoded_data["test"]))
+if (len(encoded_data["test"]) > 0):
+    rand_int = random.randint(0, len(encoded_data["train"])-1)
+    print(rand_int)
+    print("Dialect Label:", encoded_data["test"][rand_int]["label"])
+    print("Input array shape:", np.asarray(
+        encoded_data["test"][rand_int]["input_values"]).shape)
 # Process dataset to the format expected by model for training
 # Using map(...)
 # 1) Check all data samples have same sampling rate (16kHz)
@@ -603,7 +612,6 @@ print("SUCCESS: Pre-trained checkpoint loaded.")
 # For more info: https://huggingface.co/transformers/master/main_classes/trainer.html?highlight=trainer#trainingarguments
 
 training_args = TrainingArguments(
-    f"{model_name}-finetuned-ks",
     output_dir=model_fp,
     evaluation_strategy=set_evaluation_strategy,
     per_device_train_batch_size=set_per_device_train_batch_size,
@@ -634,6 +642,7 @@ training_args = TrainingArguments(
 )
 # All instances can be passed to Trainer and
 # we are ready to start training!
+
 trainer = Trainer(
     model=model,
     args=training_args,
