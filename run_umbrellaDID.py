@@ -312,9 +312,9 @@ data = load_dataset('csv',
                     delimiter=",",
                     cache_dir=data_cache_fp)
 
-labels = ['NOR', 'EGY', 'GLF', 'LEV']
+label = ['NOR', 'EGY', 'GLF', 'LEV']
 label2id, id2label = dict(), dict()
-for i, label in enumerate(labels):
+for i, label in enumerate(label):
     label2id[label] = str(i)
     id2label[str(i)] = label
 # Remove the "duration" and "spkr_id" column
@@ -381,7 +381,7 @@ def audio_to_array_fn(batch):
         filepath = training_data_path + batch["id"] + ".wav"
         audio_array, sampling_rate = sf.read(filepath)
         """
-         batch["label"] = batch["labels"]
+         batch["label"] = batch["label"]
         batch["audio"] = audio_array
         batch["sampling_rate"] = sampling_rate
         """
@@ -396,7 +396,7 @@ def audio_to_array_fn(batch):
             audio_array, sampling_rate = sf.read(filepath)
 
             """
-            batch["label"] = batch["labels"]
+            batch["label"] = batch["label"]
             batch["audio"] = audio_array
             batch["sampling_rate"] = sampling_rate
             """
@@ -499,8 +499,8 @@ class DataCollatorCTCWithPadding:
               different lengths).
         max_length (:obj:`int`, `optional`):
             Maximum length of the ``input_values`` of the returned list and optionally padding length (see above).
-        max_length_labels (:obj:`int`, `optional`):
-            Maximum length of the ``labels`` returned list and optionally padding length (see above).
+        max_length_label (:obj:`int`, `optional`):
+            Maximum length of the ``label`` returned list and optionally padding length (see above).
         pad_to_multiple_of (:obj:`int`, `optional`):
             If set will pad the sequence to a multiple of the provided value.
             This is especially useful to enable the use of Tensor Cores on NVIDIA hardware with compute capability >=
@@ -510,16 +510,16 @@ class DataCollatorCTCWithPadding:
     processor: Wav2Vec2Processor
     padding: Union[bool, str] = True
     max_length: Optional[int] = None
-    max_length_labels: Optional[int] = None
+    max_length_label: Optional[int] = None
     pad_to_multiple_of: Optional[int] = None
-    pad_to_multiple_of_labels: Optional[int] = None
+    pad_to_multiple_of_label: Optional[int] = None
 
     def __call__(self, features: List[Dict[str, Union[List[int], torch.Tensor]]]) -> Dict[str, torch.Tensor]:
-        # split inputs and labels since they have to be of different lenghts and need
+        # split inputs and label since they have to be of different lenghts and need
         # different padding methods
         input_features = [{"input_values": feature["input_values"]}
                           for feature in features]
-        label_features = [{"input_ids": feature["labels"]}
+        label_features = [{"input_ids": feature["label"]}
                           for feature in features]
 
         batch = self.processor.pad(
@@ -530,17 +530,17 @@ class DataCollatorCTCWithPadding:
             return_tensors="pt",
         )
         with self.processor.as_target_processor():
-            labels_batch = self.processor.pad(
+            label_batch = self.processor.pad(
                 label_features,
                 padding=self.padding,
-                max_length=self.max_length_labels,
-                pad_to_multiple_of=self.pad_to_multiple_of_labels,
+                max_length=self.max_length_label,
+                pad_to_multiple_of=self.pad_to_multiple_of_label,
                 return_tensors="pt",
             )
         # replace padding with -100 to ignore loss correctly
-        labels = labels_batch["input_ids"].masked_fill(
-            labels_batch.attention_mask.ne(1), -100)
-        batch["labels"] = labels
+        label = label_batch["input_ids"].masked_fill(
+            label_batch.attention_mask.ne(1), -100)
+        batch["label"] = label
         return batch
 
 
@@ -555,7 +555,7 @@ print("--> Defining evaluation metric...")
 # vocabulary defined earlier, thus len(yi) = config.vocab_size
 # We are interested in the most likely prediction of the mode and
 # thus take argmax(...) of the logits. We also transform the
-# encoded labels back to the original string by replacing -100
+# encoded label back to the original string by replacing -100
 # with the pad_token_id and decoding the ids while making sure
 # that consecutive tokens are not grouped to the same token in
 # CTC style.
@@ -586,10 +586,10 @@ print("SUCCESS: Defined Accuracy evaluation metric.")
 print("--> Loading pre-trained checkpoint...")
 
 # 1) Define model
-num_labels = len(id2label)
+num_label = len(id2label)
 model = AutoModelForAudioClassification.from_pretrained(
     model_name,
-    num_labels=num_labels,
+    num_label=num_label,
     label2id=label2id,
     id2label=id2label,
 )
