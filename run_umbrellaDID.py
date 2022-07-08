@@ -376,7 +376,7 @@ print("\n------> PRE-PROCESSING DATA... ----------------------------------------
 # We want to store both audio values and sampling rate
 # in the dataset.
 # We write a map(...) function accordingly.
-max_duration = 1.0 
+max_duration = 10.0 
 print ("Max Duration:",  max_duration)
 
 def audio_to_array_fn(batch):
@@ -654,7 +654,7 @@ training_args = TrainingArguments(
 )
 # All instances can be passed to Trainer and
 # we are ready to start training!
-
+model.gradient_checkpointing_enable()
 trainer = Trainer(
     model=model,
     args=training_args,
