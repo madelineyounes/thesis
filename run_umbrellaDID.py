@@ -405,10 +405,7 @@ def audio_to_array_fn(batch):
         except: 
             pass
 
-
 encoded_data = data.map(audio_to_array_fn, remove_columns=["id"], num_proc=4, batched=False)
-
-
 print(encoded_data)
 # Check a few rows of data to verify data properly loaded
 print("--> Verifying data with a random sample...")
@@ -420,7 +417,6 @@ if (len(encoded_data["train"]) > 0):
     print("Dialect Label:", encoded_data["train"][rand_int]["label"])
     print("Input array shape:", np.asarray(
         encoded_data["train"][rand_int]["input_values"]).shape)
-
 
 print(len(encoded_data["test"]))
 if (len(encoded_data["test"]) > 0):
