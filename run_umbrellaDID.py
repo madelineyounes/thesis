@@ -377,7 +377,7 @@ print("\n------> PRE-PROCESSING DATA... ----------------------------------------
 # in the dataset.
 # We write a map(...) function accordingly.
 max_duration = 1.0 
-print ("Max Duration: %d",  max_duration)
+print ("Max Duration:",  max_duration)
 
 def audio_to_array_fn(batch):
     try:
@@ -409,6 +409,8 @@ def audio_to_array_fn(batch):
             inputs = feature_extractor(
             audio_array,
             sampling_rate=sampling_rate,
+            max_length=int(feature_extractor.sampling_rate * max_duration),
+            truncation=True,
         )
             return inputs
         except: 
@@ -417,7 +419,7 @@ def audio_to_array_fn(batch):
             #print("File " + batch["id"] + ".wav not found in test or training.")
 
 
-encoded_data = data.map(audio_to_array_fn, remove_columns=["id"], num_proc=4, batched=True)
+encoded_data = data.map(audio_to_array_fn, remove_columns=["id"], num_proc=4, batched=False)
 
 
 print(encoded_data)
