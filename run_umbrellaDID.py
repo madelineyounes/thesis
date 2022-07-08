@@ -419,7 +419,7 @@ def audio_to_array_fn(batch):
             #print("File " + batch["id"] + ".wav not found in test or training.")
 
 
-encoded_data = data.map(audio_to_array_fn, remove_columns=["id"], num_proc=4, batched=False)
+encoded_data = data.map(audio_to_array_fn, remove_columns=["id"], num_proc=4, batched=True)
 
 
 print(encoded_data)
