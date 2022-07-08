@@ -383,11 +383,6 @@ def audio_to_array_fn(batch):
     try:
         filepath = training_data_path + batch["id"] + ".wav"
         audio_array, sampling_rate = sf.read(filepath)
-        """
-         batch["label"] = batch["label"]
-        batch["audio"] = audio_array
-        batch["sampling_rate"] = sampling_rate
-        """
         inputs = feature_extractor(
             audio_array,
             sampling_rate=sampling_rate,
@@ -400,12 +395,6 @@ def audio_to_array_fn(batch):
             filepath = test_data_path + batch["id"] + ".wav"
             audio_array, sampling_rate = sf.read(filepath)
 
-            """
-            batch["label"] = batch["label"]
-            batch["audio"] = audio_array
-            batch["sampling_rate"] = sampling_rate
-            """
-            
             inputs = feature_extractor(
             audio_array,
             sampling_rate=sampling_rate,
@@ -416,10 +405,8 @@ def audio_to_array_fn(batch):
         except: 
             pass
 
-            #print("File " + batch["id"] + ".wav not found in test or training.")
 
-
-encoded_data = data.map(audio_to_array_fn, remove_columns=["id"], num_proc=4, batched=True)
+encoded_data = data.map(audio_to_array_fn, remove_columns=["id"], num_proc=4, batched=False)
 
 
 print(encoded_data)
