@@ -601,6 +601,7 @@ model = AutoModelForAudioClassification.from_pretrained(
     model_name,
     label2id=label2id,
     id2label=id2label,
+    num_labels=num_labels
 )
 
 # The first component of Wav2Vec2 consists of a stack of CNN layers
