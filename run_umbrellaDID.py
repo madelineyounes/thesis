@@ -599,7 +599,6 @@ num_label = len(id2label)
 print("num label", num_label)
 model = AutoModelForAudioClassification.from_pretrained(
     model_name,
-    num_label=num_label,
     label2id=label2id,
     id2label=id2label,
 )
