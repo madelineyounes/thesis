@@ -652,7 +652,6 @@ training_args = TrainingArguments(
 model.gradient_checkpointing_enable()
 trainer = Trainer(
     model=model,
-    outputs=model(inputs),
     args=training_args,
     compute_metrics=compute_metrics,
     train_dataset=encoded_data["train"],
