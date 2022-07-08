@@ -376,6 +376,8 @@ print("\n------> PRE-PROCESSING DATA... ----------------------------------------
 # We want to store both audio values and sampling rate
 # in the dataset.
 # We write a map(...) function accordingly.
+max_duration = 1.0 
+print ("Max Duration: %d",  max_duration)
 
 def audio_to_array_fn(batch):
     try:
@@ -389,6 +391,8 @@ def audio_to_array_fn(batch):
         inputs = feature_extractor(
             audio_array,
             sampling_rate=sampling_rate,
+            max_length=int(feature_extractor.sampling_rate * max_duration),
+            truncation=True,
         )
         return inputs
     except:
