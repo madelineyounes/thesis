@@ -207,7 +207,7 @@ print("pooling_mode:", set_pooling_mode)
 print("\n------> TRAINING ARGUMENTS... ----------------------------------------\n")
 # For setting training_args = TrainingArguments()
 
-set_evaluation_strategy = "steps"           # Default = "no"
+set_evaluation_strategy = "epoch"           # Default = "no"
 print("evaluation strategy:", set_evaluation_strategy)
 set_per_device_train_batch_size = 10         # Default = 8
 print("per_device_train_batch_size:", set_per_device_train_batch_size)
@@ -419,8 +419,7 @@ def audio_to_array_fn(batch):
             max_length=int(feature_extractor.sampling_rate * max_duration),
             truncation=True,
         )
-        inputs["labels"] = [label_to_id(label, label_list)
-                                for label in batch["label"]]
+        inputs["labels"] = label2id[batch["label"]]
         return inputs
     except:
         try:
@@ -432,8 +431,7 @@ def audio_to_array_fn(batch):
             max_length=int(feature_extractor.sampling_rate * max_duration),
             truncation=True,
         )
-            inputs["labels"] = [label_to_id(label, label_list)
-                                for label in batch["label"]]
+            inputs["labels"] = label2id[batch["label"]]
             return inputs
         except: 
             pass
