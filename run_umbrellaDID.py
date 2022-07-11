@@ -460,7 +460,8 @@ if (len(encoded_data["test"]) > 0):
         encoded_data["test"][rand_int]["input_values"]).shape)
 
     idx = 0
-    print("Training labels", {encoded_data["test"][idx]['labels']},{encoded_data["test"][idx]['label']})
+    print(encoded_data["test"][idx]['labels'])
+    print("Training labels", encoded_data["test"][idx]['labels'],{encoded_data["test"][idx]['label']})
 # Process dataset to the format expected by model for training
 # Using map(...)
 # 1) Check all data samples have same sampling rate (16kHz)
