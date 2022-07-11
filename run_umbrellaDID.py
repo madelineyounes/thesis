@@ -207,7 +207,7 @@ print("pooling_mode:", set_pooling_mode)
 print("\n------> TRAINING ARGUMENTS... ----------------------------------------\n")
 # For setting training_args = TrainingArguments()
 
-set_evaluation_strategy = "epoch"           # Default = "no"
+set_evaluation_strategy = "steps"           # Default = "no"
 print("evaluation strategy:", set_evaluation_strategy)
 set_per_device_train_batch_size = 10         # Default = 8
 print("per_device_train_batch_size:", set_per_device_train_batch_size)
@@ -458,6 +458,9 @@ if (len(encoded_data["test"]) > 0):
     print("Dialect Label:", encoded_data["test"][rand_int]["label"])
     print("Input array shape:", np.asarray(
         encoded_data["test"][rand_int]["input_values"]).shape)
+
+    idx = 0
+    print("Training labels", {encoded_data["test"][idx]['labels']},{encoded_data["test"][idx]['label']})
 # Process dataset to the format expected by model for training
 # Using map(...)
 # 1) Check all data samples have same sampling rate (16kHz)
@@ -525,7 +528,6 @@ class SpeechClassifierOutput(ModelOutput):
     logits: torch.FloatTensor = None
     hidden_states: Optional[Tuple[torch.FloatTensor]] = None
     attentions: Optional[Tuple[torch.FloatTensor]] = None
-
 
 class Wav2Vec2ClassificationHead(nn.Module):
     """Head for wav2vec classification task."""
@@ -761,7 +763,6 @@ model = AutoModelForAudioClassification.from_pretrained(
 # as stated in the paper does not need to be fine-tuned anymore.
 # Thus, we can set the requires_grad to False for all parameters of
 # the feature extraction part.
-#model.freeze_feature_extractor()
 print("SUCCESS: Pre-trained checkpoint loaded.")
 
 
@@ -801,6 +802,8 @@ class CTCTrainer(Trainer):
             loss.backward()
 
         return loss.detach()
+
+
 # 4) Configure training parameters
 #    - group_by_length: makes training more efficient by grouping
 #      training samples of similar input length into one batch.
@@ -810,6 +813,7 @@ class CTCTrainer(Trainer):
 #      depend on Timit dataset and might be suboptimal for this
 #      dataset.
 # For more info: https://huggingface.co/transformers/master/main_classes/trainer.html?highlight=trainer#trainingarguments
+model.freeze_feature_extractor()
 
 training_args = TrainingArguments(
     output_dir=model_fp,
