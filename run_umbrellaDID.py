@@ -20,9 +20,14 @@ import pyarrow as pa
 from transformers import Trainer
 from transformers import TrainingArguments
 from dataclasses import dataclass
-from typing import Optional, Tuple
+from typing import Optional, Tuple, Any, Dict, Union
 import torch
 import torchaudio
+from packaging import version
+from transformers import (
+    Trainer,
+    is_apex_available,
+)
 from transformers.file_utils import ModelOutput
 from typing import Any, Dict, List, Optional, Union
 from dataclasses import dataclass, field
@@ -438,7 +443,7 @@ def audio_to_array_fn(batch):
         except: 
             pass
 
-encoded_data = data.map(audio_to_array_fn, remove_columns=["id"], num_proc=4, batched=False)
+encoded_data = data.map(audio_to_array_fn, remove_columns=["id"], num_proc=4, batched=True, batch_size=10 )
 print(encoded_data)
 # Check a few rows of data to verify data properly loaded
 print("--> Verifying data with a random sample...")
@@ -764,6 +769,60 @@ model = AutoModelForAudioClassification.from_pretrained(
 #model.freeze_feature_extractor()
 print("SUCCESS: Pre-trained checkpoint loaded.")
 
+
+print("--> Defining CTC Trainer...")
+
+if is_apex_available():
+    from apex import amp
+
+if version.parse(torch.__version__) >= version.parse("1.6"):
+    _is_native_amp_available = True
+    from torch.cuda.amp import autocast
+
+
+class CTCTrainer(Trainer):
+    def training_step(self, model: nn.Module, inputs: Dict[str, Union[torch.Tensor, Any]]) -> torch.Tensor:
+        """
+        Perform a training step on a batch of inputs.
+
+        Subclass and override to inject custom behavior.
+
+        Args:
+            model (:obj:`nn.Module`):
+                The model to train.
+            inputs (:obj:`Dict[str, Union[torch.Tensor, Any]]`):
+                The inputs and targets of the model.
+
+                The dictionary will be unpacked before being fed to the model. Most models expect the targets under the
+                argument :obj:`labels`. Check your model's documentation for all accepted arguments.
+
+        Return:
+            :obj:`torch.Tensor`: The tensor with training loss on this batch.
+        """
+
+        model.train()
+        inputs = self._prepare_inputs(inputs)
+
+        if self.use_amp:
+            with autocast():
+                loss = self.compute_loss(model, inputs)
+        else:
+            loss = self.compute_loss(model, inputs)
+
+        if self.args.gradient_accumulation_steps > 1:
+            loss = loss / self.args.gradient_accumulation_steps
+
+        if self.use_amp:
+            self.scaler.scale(loss).backward()
+        elif self.use_apex:
+            with amp.scale_loss(loss, self.optimizer) as scaled_loss:
+                scaled_loss.backward()
+        elif self.deepspeed:
+            self.deepspeed.backward(loss)
+        else:
+            loss.backward()
+
+        return loss.detach()
 # 4) Configure training parameters
 #    - group_by_length: makes training more efficient by grouping
 #      training samples of similar input length into one batch.
@@ -806,7 +865,7 @@ training_args = TrainingArguments(
 # All instances can be passed to Trainer and
 # we are ready to start training!
 model.gradient_checkpointing_enable()
-trainer = Trainer(
+trainer = CTCTrainer(
     model=model,
     data_collator=data_collator,
     args=training_args,
