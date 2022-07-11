@@ -516,9 +516,9 @@ config = AutoConfig.from_pretrained(
     label2id={label: i for i, label in enumerate(label_list)},
     id2label={i: label for i, label in enumerate(label_list)},
     finetuning_task="wav2vec2_clf",
+    problem_type= "multi_label_classification",
 )
 setattr(config, 'pooling_mode', set_pooling_mode)
-
 
 print("--> Defining Classifer")
 @dataclass
