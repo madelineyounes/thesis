@@ -674,6 +674,9 @@ class DataCollatorCTCWithPadding:
 
         d_type = torch.long if isinstance(label_features[0], int) else torch.float
 
+        self.feature_extractor=feature_extractor
+        self.padding = True
+
         batch = self.feature_extractor.pad(
             input_features,
             padding=self.padding,
