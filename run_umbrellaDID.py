@@ -19,15 +19,26 @@ import pyarrow.csv as csv
 import pyarrow as pa
 from transformers import Trainer
 from transformers import TrainingArguments
+from dataclasses import dataclass
+from typing import Optional, Tuple
+import torch
+import torchaudio
+from transformers.file_utils import ModelOutput
 from typing import Any, Dict, List, Optional, Union
 from dataclasses import dataclass, field
 import torch
+import torch.nn as nn
+from torch.nn import BCEWithLogitsLoss, CrossEntropyLoss, MSELoss
 import soundfile as sf
 from transformers import AutoFeatureExtractor
-from transformers import Wav2Vec2Processor
-from transformers import AutoModelForAudioClassification
+from transformers import Wav2Vec2Processor, Wav2Vec2FeatureExtractor
+from transformers import AutoModelForAudioClassification, AutoConfig
 from transformers import Wav2Vec2ForCTC
 from transformers import Wav2Vec2CTCTokenizer
+from transformers.models.wav2vec2.modeling_wav2vec2 import (
+    Wav2Vec2PreTrainedModel,
+    Wav2Vec2Model
+)
 import json
 import re
 import numpy as np
@@ -190,6 +201,8 @@ set_ctc_zero_infinity = False               # Default = False
 print("ctc_zero_infinity:", set_ctc_zero_infinity)
 set_gradient_checkpointing = False           # Default = False
 print("gradient_checkpointing:", set_gradient_checkpointing)
+set_pooling_mode = "mean"
+print("pooling_mode:", set_pooling_mode)
 
 print("\n------> TRAINING ARGUMENTS... ----------------------------------------\n")
 # For setting training_args = TrainingArguments()
@@ -312,9 +325,9 @@ data = load_dataset('csv',
                     delimiter=",",
                     cache_dir=data_cache_fp)
 
-label = ['NOR', 'EGY', 'GLF', 'LEV']
+label_list = ['NOR', 'EGY', 'GLF', 'LEV']
 label2id, id2label = dict(), dict()
-for i, label in enumerate(label):
+for i, label in enumerate(label_list):
     label2id[label] = str(i)
     id2label[str(i)] = label
 # Remove the "duration" and "spkr_id" column
@@ -372,35 +385,55 @@ print("SUCCESS: Created feature extractor.")
 #             Pre-process Data
 # ------------------------------------------
 print("\n------> PRE-PROCESSING DATA... ----------------------------------------- \n")
+
+target_sampling_rate = feature_extractor.sampling_rate
+def speech_file_to_array_fn(path):
+    speech_array, sampling_rate = torchaudio.load(path)
+    resampler = torchaudio.transforms.Resample(
+        sampling_rate, target_sampling_rate)
+    speech = resampler(speech_array).squeeze().numpy()
+    return speech
+
+def label_to_id(label, label_list):
+
+    if len(label_list) > 0:
+        return label_list.index(label) if label in label_list else -1
+
+    return label
+
 # Audio files are stored as .wav format
 # We want to store both audio values and sampling rate
 # in the dataset.
 # We write a map(...) function accordingly.
 max_duration = 0.10 
 print ("Max Duration:",  max_duration)
-
+sampling_rate = feature_extractor.sampling_rate
+print ("Ssampling Rate Duration:",  sampling_rate)
 def audio_to_array_fn(batch):
     try:
         filepath = training_data_path + batch["id"] + ".wav"
-        audio_array, sampling_rate = sf.read(filepath)
+        audio_array = speech_file_to_array_fn(filepath)
         inputs = feature_extractor(
             audio_array,
             sampling_rate=sampling_rate,
             max_length=int(feature_extractor.sampling_rate * max_duration),
             truncation=True,
         )
+        inputs["labels"] = [label_to_id(label, label_list)
+                                for label in batch["label"]]
         return inputs
     except:
         try:
             filepath = test_data_path + batch["id"] + ".wav"
-            audio_array, sampling_rate = sf.read(filepath)
-
+            audio_array = speech_file_to_array_fn(filepath)
             inputs = feature_extractor(
             audio_array,
             sampling_rate=sampling_rate,
             max_length=int(feature_extractor.sampling_rate * max_duration),
             truncation=True,
         )
+            inputs["labels"] = [label_to_id(label, label_list)
+                                for label in batch["label"]]
             return inputs
         except: 
             pass
@@ -469,82 +502,199 @@ print("SUCCESS: Data ready for training and evaluation.")
 # 3) Load a pre-trained checkpoint
 # 4) Define the training configuration
 print("\n------> PREPARING FOR TRAINING & EVALUATION... ----------------------- \n")
+
+print("--> Defining pooling layer...")
+
+num_labels = len(id2label)
+print("Number of labels:", num_labels)
+
+config = AutoConfig.from_pretrained(
+    pretrained_mod,
+    num_labels=num_labels,
+    label2id={label: i for i, label in enumerate(label_list)},
+    id2label={i: label for i, label in enumerate(label_list)},
+    finetuning_task="wav2vec2_clf",
+)
+setattr(config, 'pooling_mode', set_pooling_mode)
+
+
+print("--> Defining Classifer")
+@dataclass
+class SpeechClassifierOutput(ModelOutput):
+    loss: Optional[torch.FloatTensor] = None
+    logits: torch.FloatTensor = None
+    hidden_states: Optional[Tuple[torch.FloatTensor]] = None
+    attentions: Optional[Tuple[torch.FloatTensor]] = None
+
+
+class Wav2Vec2ClassificationHead(nn.Module):
+    """Head for wav2vec classification task."""
+
+    def __init__(self, config):
+        super().__init__()
+        self.dense = nn.Linear(config.hidden_size, config.hidden_size)
+        self.dropout = nn.Dropout(config.final_dropout)
+        self.out_proj = nn.Linear(config.hidden_size, config.num_labels)
+
+    def forward(self, features, **kwargs):
+        x = features
+        x = self.dropout(x)
+        x = self.dense(x)
+        x = torch.tanh(x)
+        x = self.dropout(x)
+        x = self.out_proj(x)
+        return x
+
+
+class Wav2Vec2ForSpeechClassification(Wav2Vec2PreTrainedModel):
+    def __init__(self, config):
+        super().__init__(config)
+        self.num_labels = config.num_labels
+        self.pooling_mode = config.pooling_mode
+        self.config = config
+
+        self.wav2vec2 = Wav2Vec2Model(config)
+        self.classifier = Wav2Vec2ClassificationHead(config)
+
+        self.init_weights()
+
+    def freeze_feature_extractor(self):
+        self.wav2vec2.feature_extractor._freeze_parameters()
+
+    def merged_strategy(
+            self,
+            hidden_states,
+            mode="mean"
+    ):
+        if mode == "mean":
+            outputs = torch.mean(hidden_states, dim=1)
+        elif mode == "sum":
+            outputs = torch.sum(hidden_states, dim=1)
+        elif mode == "max":
+            outputs = torch.max(hidden_states, dim=1)[0]
+        else:
+            raise Exception(
+                "The pooling method hasn't been defined! Your pooling mode must be one of these ['mean', 'sum', 'max']")
+
+        return outputs
+
+    def forward(
+            self,
+            input_values,
+            attention_mask=None,
+            output_attentions=None,
+            output_hidden_states=None,
+            return_dict=None,
+            labels=None,
+    ):
+        return_dict = return_dict if return_dict is not None else self.config.use_return_dict
+        outputs = self.wav2vec2(
+            input_values,
+            attention_mask=attention_mask,
+            output_attentions=output_attentions,
+            output_hidden_states=output_hidden_states,
+            return_dict=return_dict,
+        )
+        hidden_states = outputs[0]
+        hidden_states = self.merged_strategy(
+            hidden_states, mode=self.pooling_mode)
+        logits = self.classifier(hidden_states)
+
+        loss = None
+        if labels is not None:
+            if self.config.problem_type is None:
+                if self.num_labels == 1:
+                    self.config.problem_type = "regression"
+                elif self.num_labels > 1 and (labels.dtype == torch.long or labels.dtype == torch.int):
+                    self.config.problem_type = "single_label_classification"
+                else:
+                    self.config.problem_type = "multi_label_classification"
+
+            if self.config.problem_type == "regression":
+                loss_fct = MSELoss()
+                loss = loss_fct(logits.view(-1, self.num_labels), labels)
+            elif self.config.problem_type == "single_label_classification":
+                loss_fct = CrossEntropyLoss()
+                loss = loss_fct(
+                    logits.view(-1, self.num_labels), labels.view(-1))
+            elif self.config.problem_type == "multi_label_classification":
+                loss_fct = BCEWithLogitsLoss()
+                loss = loss_fct(logits, labels)
+
+        if not return_dict:
+            output = (logits,) + outputs[2:]
+            return ((loss,) + output) if loss is not None else output
+
+        return SpeechClassifierOutput(
+            loss=loss,
+            logits=logits,
+            hidden_states=outputs.hidden_states,
+            attentions=outputs.attentions,
+        )
+
+
 # 1) Defining data collator
 print("--> Defining data collator...")
 
-
-@dataclass
 class DataCollatorCTCWithPadding:
     """
     Data collator that will dynamically pad the inputs received.
     Args:
-        processor (:class:`~transformers.Wav2Vec2Processor`)
-            The processor used for proccessing the data.
+        feature_extractor (:class:`~transformers.Wav2Vec2FeatureExtractor`)
+            The feature_extractor used for proccessing the data.
         padding (:obj:`bool`, :obj:`str` or :class:`~transformers.tokenization_utils_base.PaddingStrategy`, `optional`, defaults to :obj:`True`):
             Select a strategy to pad the returned sequences (according to the model's padding side and padding index)
             among:
             * :obj:`True` or :obj:`'longest'`: Pad to the longest sequence in the batch (or no padding if only a single
-                sequence if provided).
+              sequence if provided).
             * :obj:`'max_length'`: Pad to a maximum length specified with the argument :obj:`max_length` or to the
-                maximum acceptable input length for the model if that argument is not provided.
+              maximum acceptable input length for the model if that argument is not provided.
             * :obj:`False` or :obj:`'do_not_pad'` (default): No padding (i.e., can output a batch with sequences of
               different lengths).
         max_length (:obj:`int`, `optional`):
             Maximum length of the ``input_values`` of the returned list and optionally padding length (see above).
-        max_length_label (:obj:`int`, `optional`):
-            Maximum length of the ``label`` returned list and optionally padding length (see above).
+        max_length_labels (:obj:`int`, `optional`):
+            Maximum length of the ``labels`` returned list and optionally padding length (see above).
         pad_to_multiple_of (:obj:`int`, `optional`):
             If set will pad the sequence to a multiple of the provided value.
             This is especially useful to enable the use of Tensor Cores on NVIDIA hardware with compute capability >=
             7.5 (Volta).
     """
 
-    processor: Wav2Vec2Processor
+    feature_extractor: Wav2Vec2FeatureExtractor
     padding: Union[bool, str] = True
     max_length: Optional[int] = None
-    max_length_label: Optional[int] = None
+    max_length_labels: Optional[int] = None
     pad_to_multiple_of: Optional[int] = None
-    pad_to_multiple_of_label: Optional[int] = None
+    pad_to_multiple_of_labels: Optional[int] = None
 
     def __call__(self, features: List[Dict[str, Union[List[int], torch.Tensor]]]) -> Dict[str, torch.Tensor]:
-        # split inputs and label since they have to be of different lenghts and need
-        # different padding methods
-        input_features = [{"input_values": feature["input_values"]}
-                          for feature in features]
-        label_features = [{"input_ids": feature["label"]}
-                          for feature in features]
+        input_features = [{"input_values": feature["input_values"]} for feature in features]
+        label_features = [feature["label"] for feature in features]
 
-        batch = self.processor.pad(
+        d_type = torch.long if isinstance(label_features[0], int) else torch.float
+
+        batch = self.feature_extractor.pad(
             input_features,
             padding=self.padding,
             max_length=self.max_length,
             pad_to_multiple_of=self.pad_to_multiple_of,
             return_tensors="pt",
         )
-        with self.processor.as_target_processor():
-            label_batch = self.processor.pad(
-                label_features,
-                padding=self.padding,
-                max_length=self.max_length_label,
-                pad_to_multiple_of=self.pad_to_multiple_of_label,
-                return_tensors="pt",
-            )
-        # replace padding with -100 to ignore loss correctly
-        label = label_batch["input_ids"].masked_fill(
-            label_batch.attention_mask.ne(1), -100)
-        batch["label"] = label
+
+        batch["label"] = torch.tensor(label_features, dtype=d_type)
         return batch
 
 
-data_collator = DataCollatorCTCWithPadding(processor=processor, padding=True)
+data_collator = DataCollatorCTCWithPadding(
+    feature_extractor=feature_extractor, padding=True)
+
 print("SUCCESS: Data collator defined.")
 
 # 2) Evaluation metric
 #    Using Accuaracy 
 print("--> Defining evaluation metric...")
 # The model will return a sequence of logit vectors y.
-# A lADI17t vector yi contains the log-odds for each word in the
-# vocabulary defined earlier, thus len(yi) = config.vocab_size
 # We are interested in the most likely prediction of the mode and
 # thus take argmax(...) of the logits. We also transform the
 # encoded label back to the original string by replacing -100
@@ -577,14 +727,19 @@ print("SUCCESS: Defined Accuracy evaluation metric.")
 # checkpointing and also set the loss reduction to "mean".
 print("--> Loading pre-trained checkpoint...")
 
+
+model = Wav2Vec2ForSpeechClassification.from_pretrained(
+    pretrained_mod,
+    config=config,
+)
+
 # 1) Define model
-num_label = len(id2label)
-print("num label", num_label)
+"""
 model = AutoModelForAudioClassification.from_pretrained(
     pretrained_mod,
     label2id=label2id,
     id2label=id2label,
-    num_labels=num_label,
+    num_labels=num_labels,
     hidden_dropout=set_hidden_dropout,
     activation_dropout=set_activation_dropout,
     attention_dropout=set_attention_dropout,
@@ -597,7 +752,7 @@ model = AutoModelForAudioClassification.from_pretrained(
     gradient_checkpointing=set_gradient_checkpointing,
     pad_token_id=processor.tokenizer.pad_token_id
 )
-
+"""
 # The first component of Wav2Vec2 consists of a stack of CNN layers
 # that are used to extract acoustically meaningful - but contextually
 # independent - features from the raw speech signal. This part of the
@@ -652,11 +807,12 @@ training_args = TrainingArguments(
 model.gradient_checkpointing_enable()
 trainer = Trainer(
     model=model,
+    data_collator=data_collator,
     args=training_args,
     compute_metrics=compute_metrics,
     train_dataset=encoded_data["train"],
     eval_dataset=encoded_data["test"],
-    tokenizer=processor.feature_extractor,
+    tokenizer=feature_extractor,
 )
 
 # ------------------------------------------
