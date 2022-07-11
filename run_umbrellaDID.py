@@ -685,9 +685,7 @@ class DataCollatorCTCWithPadding:
         batch["label"] = torch.tensor(label_features, dtype=d_type)
         return batch
 
-
-data_collator = DataCollatorCTCWithPadding(
-    feature_extractor=feature_extractor, padding=True)
+data_collator = DataCollatorCTCWithPadding()
 
 print("SUCCESS: Data collator defined.")
 
