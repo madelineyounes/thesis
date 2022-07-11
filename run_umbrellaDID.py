@@ -443,7 +443,7 @@ def audio_to_array_fn(batch):
         except: 
             pass
 
-encoded_data = data["train"].map(audio_to_array_fn, remove_columns=["id"], num_proc=4)
+encoded_data = data.map(audio_to_array_fn, remove_columns=["id"], num_proc=4)
 print(encoded_data)
 # Check a few rows of data to verify data properly loaded
 print("--> Verifying data with a random sample...")
