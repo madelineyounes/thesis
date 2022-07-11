@@ -419,7 +419,7 @@ def audio_to_array_fn(batch):
             max_length=int(feature_extractor.sampling_rate * max_duration),
             truncation=True,
         )
-        inputs["labels"] = label2id[batch["label"]]
+        inputs["labels"] = int(label2id[batch["label"]])
         return inputs
     except:
         try:
@@ -431,7 +431,7 @@ def audio_to_array_fn(batch):
             max_length=int(feature_extractor.sampling_rate * max_duration),
             truncation=True,
         )
-            inputs["labels"] = label2id[batch["label"]]
+            inputs["labels"] = int(label2id[batch["label"]])
             return inputs
         except: 
             pass
@@ -459,7 +459,7 @@ if (len(encoded_data["test"]) > 0):
 
     idx = 0
     print(encoded_data["test"][idx]['labels'])
-    print("Training labels", encoded_data["test"][idx]['labels'],{encoded_data["test"][idx]['label']})
+    print("Training labels", encoded_data["test"][idx]['labels'],encoded_data["test"][idx]['label'])
 # Process dataset to the format expected by model for training
 # Using map(...)
 # 1) Check all data samples have same sampling rate (16kHz)
