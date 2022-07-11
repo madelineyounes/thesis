@@ -23,7 +23,6 @@ from dataclasses import dataclass
 from typing import Optional, Tuple, Any, Dict, Union
 import torch
 import torchaudio
-from packaging import version
 from transformers.file_utils import ModelOutput
 from typing import Any, Dict, List, Optional, Union
 from dataclasses import dataclass, field
