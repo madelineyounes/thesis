@@ -442,10 +442,11 @@ def preprocess_function(examples):
     for item in examples:
         try:
             print("here")
+            print(item)
             speech_list.append(speech_file_to_array_fn(item["id"]))
             target_list.append(int(label2id[item["label"]]))
         except: 
-            pass
+            print("except")
     print ("length",len(target_list))
     print("length", len(speech_list))
     result = feature_extractor(speech_list, sampling_rate=target_sampling_rate)
