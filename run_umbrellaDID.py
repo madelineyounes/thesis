@@ -437,10 +437,14 @@ def audio_to_array_fn(batch):
             pass
 
 def preprocess_function(examples):
-    speech_list = [speech_file_to_array_fn(
-        path) for path in examples["id"]]
-    target_list = [label_to_id(label, label_list)
-                   for label in examples["label"]]
+    speech_list = []
+    target_list = []
+    for item in examples:
+        try: 
+            speech_list.append(speech_file_to_array_fn(item["id"]))
+            target_list.append(label_to_id(item["label"], label_list))
+        except: 
+            pass
 
     result = feature_extractor(speech_list, sampling_rate=target_sampling_rate)
     result["labels"] = list(target_list)

@@ -26,7 +26,6 @@ for line in lines:
     else:
         out_file.write(line)
 out_file.close() 
-data_file.close()
 lines = tuple(open(test_file, 'r'))
 out_file = open(out_test_file, 'w')
 
@@ -42,4 +41,3 @@ for line in lines:
     else:
         out_file.write(line)
 out_file.close()
-data_file.close()
