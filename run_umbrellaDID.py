@@ -437,8 +437,8 @@ def audio_to_array_fn(batch):
             pass
 
 encoded_data = data.map(audio_to_array_fn, remove_columns=["id"], num_proc=4)
-training_data = data["train"].map(audio_to_array_fn, remove_columns=["id"], num_proc=4, batched=True, batch_size = 4)
-test_data = data["test"].map(audio_to_array_fn, remove_columns=["id"], num_proc=4, batched=True, batch_size = 4)
+training_data = data["train"].map(audio_to_array_fn, remove_columns=["id"], num_proc=4, batched=True, batch_size = 1)
+test_data = data["test"].map(audio_to_array_fn, remove_columns=["id"], num_proc=4, batched=True, batch_size = 1)
 print(encoded_data)
 print(training_data)
 print(test_data)
@@ -598,7 +598,7 @@ class Wav2Vec2ForSpeechClassification(Wav2Vec2PreTrainedModel):
             input_values.reshape(-1),
             attention_mask=attention_mask,
             output_attentions=output_attentions,
-            output_hidden_states=output_hidden_states.reshape(-1),
+            output_hidden_states=output_hidden_states,
             return_dict=return_dict,
         )
         print ("post reshape out size " + outputs.size())
