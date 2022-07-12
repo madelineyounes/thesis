@@ -785,17 +785,20 @@ class CTCTrainer(Trainer):
         Return:
             :obj:`torch.Tensor`: The tensor with training loss on this batch.
         """
-
+        print ("before model train")
         model.train()
-        inputs = self._prepare_inputs(inputs).reshape(-1)
+        print ("before inputs train")
+        inputs = self._prepare_inputs(inputs)
 
       
-        loss = self.compute_loss(model, inputs).reshape(-1)
+        loss = self.compute_loss(model, inputs)
 
         if self.args.gradient_accumulation_steps > 1:
+            print("before loss train")
             loss = loss / self.args.gradient_accumulation_steps
 
         if self.deepspeed:
+            print ("before backward train")
             self.deepspeed.backward(loss)
         else:
             loss.backward()
