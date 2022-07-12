@@ -787,10 +787,9 @@ class CTCTrainer(Trainer):
         """
 
         model.train()
-        inputs = self._prepare_inputs(inputs)
+        inputs = self._prepare_inputs(inputs.reshape(-1))
 
-      
-        loss = self.compute_loss(model, inputs)
+        loss = self.compute_loss(model, inputs.reshape(-1))
 
         if self.args.gradient_accumulation_steps > 1:
             loss = loss / self.args.gradient_accumulation_steps
