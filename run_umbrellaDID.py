@@ -569,11 +569,11 @@ class Wav2Vec2ForSpeechClassification(Wav2Vec2PreTrainedModel):
             mode="mean"
     ):
         if mode == "mean":
-            outputs = torch.mean(hidden_states, dim=1)
+            outputs = torch.mean(hidden_states, dim=1).reshape(-1)
         elif mode == "sum":
-            outputs = torch.sum(hidden_states, dim=1)
+            outputs = torch.sum(hidden_states, dim=1).reshape(-1)
         elif mode == "max":
-            outputs = torch.max(hidden_states, dim=1)[0]
+            outputs = torch.max(hidden_states, dim=1)[0].reshape(-1)
         else:
             raise Exception(
                 "The pooling method hasn't been defined! Your pooling mode must be one of these ['mean', 'sum', 'max']")
@@ -596,7 +596,10 @@ class Wav2Vec2ForSpeechClassification(Wav2Vec2PreTrainedModel):
             output_attentions=output_attentions,
             output_hidden_states=output_hidden_states,
             return_dict=return_dict,
-        ).reshape(-1)
+        )
+        print ("out size " + outputs.size())
+        outputs.reshape(-1)
+        print ("post reshape out size " + outputs.size())
         hidden_states = outputs[0]
         hidden_states = self.merged_strategy(
             hidden_states, mode=self.pooling_mode)
@@ -791,8 +794,7 @@ class CTCTrainer(Trainer):
         print ("before inputs train")
         inputs = self._prepare_inputs(inputs)
 
-      
-        loss = self.compute_loss(model, inputs)
+        loss = self.compute_loss(model, inputs).reshape(-1)
 
         if self.args.gradient_accumulation_steps > 1:
             print("before loss train")
