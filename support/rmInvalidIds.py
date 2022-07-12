@@ -10,7 +10,7 @@ training_data_path = "/srv/scratch/z5208494/dataset/dev_segments/"
 test_data_path = "/srv/scratch/z5208494/dataset/test_segments/"
 
 lines = tuple(open(data_file, 'r'))
-out_file = open(data_file, 'a+')
+out_file = open(data_file, 'w+')
 
 for line in lines:
     if line != ("id,label"):
@@ -26,7 +26,7 @@ for line in lines:
 out_file.close() 
 
 lines = tuple(open(test_file, 'r'))
-out_file = open(test_file, 'a+')
+out_file = open(test_file, 'w+')
 
 for line in lines:
     if line != ("id,label"):
