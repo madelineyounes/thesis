@@ -408,7 +408,7 @@ def label_to_id(label, label_list):
 max_duration = 0.10 
 print ("Max Duration:",  max_duration)
 sampling_rate = feature_extractor.sampling_rate
-print ("Ssampling Rate Duration:",  sampling_rate)
+print ("Sampling Rate Duration:",  sampling_rate)
 def audio_to_array_fn(batch):
     try:
         filepath = training_data_path + batch["id"] + ".wav"
@@ -435,12 +435,25 @@ def audio_to_array_fn(batch):
             return inputs
         except: 
             pass
+
+def preprocess_function(examples):
+    speech_list = [speech_file_to_array_fn(
+        path) for path in examples["id"]]
+    target_list = [label_to_id(label, label_list)
+                   for label in examples["label"]]
+
+    result = feature_extractor(speech_list, sampling_rate=target_sampling_rate)
+    result["labels"] = list(target_list)
+
+    return result
+
+
 training_data = data["train"]
 test_data = data["test"]
 encoded_data = data.map(audio_to_array_fn, remove_columns=["id"], num_proc=4)
-training_data = training_data.map(audio_to_array_fn, remove_columns=[
+training_data = training_data.map(preprocess_function, remove_columns=[
                                   "id"], batched=True, batch_size=1)
-test_data = test_data.map(audio_to_array_fn, remove_columns=["id"],  batched=True, batch_size = 1)
+test_data = test_data.map(preprocess_function, remove_columns=["id"],  batched=True, batch_size = 1)
 print(encoded_data)
 print(training_data)
 print(test_data)
@@ -678,7 +691,7 @@ class DataCollatorCTCWithPadding:
     pad_to_multiple_of_labels: Optional[int] = None
 
     def __call__(self, features: List[Dict[str, Union[List[int], torch.Tensor]]]) -> Dict[str, torch.Tensor]:
-        input_features = [{"input_values": feature["input_values"].reshape(-1)} for feature in features]
+        input_features = [{"input_values": feature["input_values"]} for feature in features]
         label_features = [feature["labels"] for feature in features]
 
         d_type = torch.long if isinstance(label_features[0], int) else torch.float
