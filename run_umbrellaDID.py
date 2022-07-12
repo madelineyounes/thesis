@@ -435,10 +435,12 @@ def audio_to_array_fn(batch):
             return inputs
         except: 
             pass
-
+training_data = data["train"]
+test_data = data["test"]
 encoded_data = data.map(audio_to_array_fn, remove_columns=["id"], num_proc=4)
-training_data = data["train"].map(audio_to_array_fn, remove_columns=["id"], num_proc=4, batched=True, batch_size = 1)
-test_data = data["test"].map(audio_to_array_fn, remove_columns=["id"], num_proc=4, batched=True, batch_size = 1)
+training_data = training_data.map(audio_to_array_fn, remove_columns=[
+                                  "id"], num_proc=4, batched=True, batch_size=1)
+test_data = test_data.map(audio_to_array_fn, remove_columns=["id"], num_proc=4, batched=True, batch_size = 1)
 print(encoded_data)
 print(training_data)
 print(test_data)
@@ -595,7 +597,7 @@ class Wav2Vec2ForSpeechClassification(Wav2Vec2PreTrainedModel):
         return_dict = return_dict if return_dict is not None else self.config.use_return_dict
         print("out size ", input_values.size())
         outputs = self.wav2vec2(
-            input_values.reshape(-1),
+            input_values.reshape(-2),
             attention_mask=attention_mask,
             output_attentions=output_attentions,
             output_hidden_states=output_hidden_states,
