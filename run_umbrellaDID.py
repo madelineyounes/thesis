@@ -767,7 +767,7 @@ print("SUCCESS: Pre-trained checkpoint loaded.")
 
 print("--> Defining CTC Trainer...")
 class CTCTrainer(Trainer):
-    def training_step(self, model: nn.Module, inputs: Dict[str, Union[torch.Tensor, Any]]) -> torch.Tensor.reshape(-1):
+    def training_step(self, model: nn.Module, inputs: Dict[str, Union[torch.Tensor, Any]]) -> torch.Tensor:
         """
         Perform a training step on a batch of inputs.
 
@@ -787,10 +787,10 @@ class CTCTrainer(Trainer):
         """
 
         model.train()
-        inputs = self._prepare_inputs(inputs)
+        inputs = self._prepare_inputs(inputs).reshape(-1)
 
       
-        loss = self.compute_loss(model, inputs)
+        loss = self.compute_loss(model, inputs).reshape(-1)
 
         if self.args.gradient_accumulation_steps > 1:
             loss = loss / self.args.gradient_accumulation_steps
