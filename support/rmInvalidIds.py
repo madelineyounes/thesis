@@ -15,9 +15,9 @@ lines = tuple(open(data_file, 'r'))
 out_file = open(out_data_file, 'w')
 
 for line in lines:
-    if line != ("id,label"):
-        filename = line.split(' ')[0]
-        filepath = training_data_path+filename
+    if lines.index(line) == 0:
+        filename = line.split(',')[0]
+        filepath = training_data_path+filename+'wav'
         try:
             audio_array = torchaudio.load(filepath)
             out_file.write(line)
@@ -26,20 +26,19 @@ for line in lines:
     else:
         out_file.write(line)
 out_file.close() 
-data_file.close()
 lines = tuple(open(test_file, 'r'))
 out_file = open(out_test_file, 'w')
 
 for line in lines:
-    if line != ("id,label"):
-        filename = line.split(' ')[0]
-        filepath = training_data_path+filename
+    if lines.index(line)== 0:
+        filename = line.split(',')[0]
+        filepath = training_data_path+filename+'wav'
         try:
             audio_array = torchaudio.load(filepath)
             out_file.write(line)
         except:
             print("removed ", filename)
     else:
+        print(line)
         out_file.write(line)
 out_file.close()
-data_file.close()
