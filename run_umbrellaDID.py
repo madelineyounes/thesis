@@ -439,8 +439,8 @@ training_data = data["train"]
 test_data = data["test"]
 encoded_data = data.map(audio_to_array_fn, remove_columns=["id"], num_proc=4)
 training_data = training_data.map(audio_to_array_fn, remove_columns=[
-                                  "id"], num_proc=4, batched=True, batch_size=1)
-test_data = test_data.map(audio_to_array_fn, remove_columns=["id"], num_proc=4, batched=True, batch_size = 1)
+                                  "id"], batched=True, batch_size=1)
+test_data = test_data.map(audio_to_array_fn, remove_columns=["id"],  batched=True, batch_size = 1)
 print(encoded_data)
 print(training_data)
 print(test_data)
@@ -597,7 +597,7 @@ class Wav2Vec2ForSpeechClassification(Wav2Vec2PreTrainedModel):
         return_dict = return_dict if return_dict is not None else self.config.use_return_dict
         print("out size ", input_values.size())
         outputs = self.wav2vec2(
-            input_values.reshape(-2),
+            input_values.reshape(-1),
             attention_mask=attention_mask,
             output_attentions=output_attentions,
             output_hidden_states=output_hidden_states,
@@ -678,7 +678,7 @@ class DataCollatorCTCWithPadding:
     pad_to_multiple_of_labels: Optional[int] = None
 
     def __call__(self, features: List[Dict[str, Union[List[int], torch.Tensor]]]) -> Dict[str, torch.Tensor]:
-        input_features = [{"input_values": feature["input_values"]} for feature in features]
+        input_features = [{"input_values": feature["input_values"].reshape(-1)} for feature in features]
         label_features = [feature["labels"] for feature in features]
 
         d_type = torch.long if isinstance(label_features[0], int) else torch.float
