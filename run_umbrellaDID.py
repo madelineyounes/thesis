@@ -544,6 +544,7 @@ class Wav2Vec2ClassificationHead(nn.Module):
         x = torch.tanh(x)
         x = self.dropout(x)
         x = self.out_proj(x)
+        x.reshape(-1)
         return x
 
 
