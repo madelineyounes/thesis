@@ -4,7 +4,7 @@ from matplotlib.pyplot import xcorr
 import torchaudio
 
 data_file = "../data/data_1file.csv"
-test_file = "../data/adi17_test_small"
+test_file = "../data/adi17_test_small.csv"
 
 training_data_path = "/srv/scratch/z5208494/dataset/dev_segments/"
 test_data_path = "/srv/scratch/z5208494/dataset/test_segments/"
