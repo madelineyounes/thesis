@@ -445,8 +445,8 @@ def preprocess_function(examples):
             target_list.append(label_to_id(item["label"], label_list))
         except: 
             pass
-    print ("length",target_list.length())
-    print("length", speech_list.length())
+    print ("length",target_list.len())
+    print("length", speech_list.len())
     result = feature_extractor(speech_list, sampling_rate=target_sampling_rate)
     result["labels"] = list(target_list)
 
