@@ -590,15 +590,14 @@ class Wav2Vec2ForSpeechClassification(Wav2Vec2PreTrainedModel):
             labels=None,
     ):
         return_dict = return_dict if return_dict is not None else self.config.use_return_dict
+        print("out size " + input_values.size())
         outputs = self.wav2vec2(
-            input_values,
+            input_values.reshape(-1),
             attention_mask=attention_mask,
             output_attentions=output_attentions,
             output_hidden_states=output_hidden_states,
             return_dict=return_dict,
         )
-        print ("out size " + outputs.size())
-        outputs.reshape(-1)
         print ("post reshape out size " + outputs.size())
         hidden_states = outputs[0]
         hidden_states = self.merged_strategy(
