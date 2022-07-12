@@ -596,7 +596,7 @@ class Wav2Vec2ForSpeechClassification(Wav2Vec2PreTrainedModel):
             output_attentions=output_attentions,
             output_hidden_states=output_hidden_states,
             return_dict=return_dict,
-        )
+        ).reshape(-1)
         hidden_states = outputs[0]
         hidden_states = self.merged_strategy(
             hidden_states, mode=self.pooling_mode)
