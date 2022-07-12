@@ -440,9 +440,9 @@ def preprocess_function(examples):
     speech_list = []
     target_list = []
     for item in examples:
-        try: 
+        try:
             speech_list.append(speech_file_to_array_fn(item["id"]))
-            target_list.append(label_to_id(item["label"], label_list))
+            target_list.append(int(label2id[item["label"]]))
         except: 
             pass
     print ("length",len(target_list))
