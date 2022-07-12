@@ -453,12 +453,14 @@ def preprocess_function(examples):
     return result
 
 
+training_data = data["train"]
+test_data = data["test"]
 encoded_data = data.map(audio_to_array_fn, remove_columns=["id"], num_proc=4)
-training_data = training_data.map(preprocess_function, batched=True, batch_size=4)
-test_data = test_data.map(preprocess_function, batched=True, batch_size = 4)
+en_training_data = training_data.map(preprocess_function, batched=True, batch_size=4)
+en_test_data = test_data.map(preprocess_function, batched=True, batch_size = 4)
 print(encoded_data)
-print(training_data)
-print(test_data)
+print(en_training_data)
+print(en_test_data)
 # Check a few rows of data to verify data properly loaded
 print("--> Verifying data with a random sample...")
 
