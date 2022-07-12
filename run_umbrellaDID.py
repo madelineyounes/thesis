@@ -437,7 +437,11 @@ def audio_to_array_fn(batch):
             pass
 
 encoded_data = data.map(audio_to_array_fn, remove_columns=["id"], num_proc=4)
+training_data = data["train"].map(audio_to_array_fn, remove_columns=["id"], num_proc=4, batched=True, batch_size = 4)
+test_data = data["test"].map(audio_to_array_fn, remove_columns=["id"], num_proc=4, batched=True, batch_size = 4)
 print(encoded_data)
+print(training_data)
+print(test_data)
 # Check a few rows of data to verify data properly loaded
 print("--> Verifying data with a random sample...")
 
@@ -544,7 +548,6 @@ class Wav2Vec2ClassificationHead(nn.Module):
         x = torch.tanh(x)
         x = self.dropout(x)
         x = self.out_proj(x)
-        x.reshape(-1)
         return x
 
 
@@ -569,11 +572,11 @@ class Wav2Vec2ForSpeechClassification(Wav2Vec2PreTrainedModel):
             mode="mean"
     ):
         if mode == "mean":
-            outputs = torch.mean(hidden_states, dim=1).reshape(-1)
+            outputs = torch.mean(hidden_states, dim=1)
         elif mode == "sum":
-            outputs = torch.sum(hidden_states, dim=1).reshape(-1)
+            outputs = torch.sum(hidden_states, dim=1)
         elif mode == "max":
-            outputs = torch.max(hidden_states, dim=1)[0].reshape(-1)
+            outputs = torch.max(hidden_states, dim=1)[0]
         else:
             raise Exception(
                 "The pooling method hasn't been defined! Your pooling mode must be one of these ['mean', 'sum', 'max']")
@@ -595,7 +598,7 @@ class Wav2Vec2ForSpeechClassification(Wav2Vec2PreTrainedModel):
             input_values.reshape(-1),
             attention_mask=attention_mask,
             output_attentions=output_attentions,
-            output_hidden_states=output_hidden_states,
+            output_hidden_states=output_hidden_states.reshape(-1),
             return_dict=return_dict,
         )
         print ("post reshape out size " + outputs.size())
@@ -793,7 +796,7 @@ class CTCTrainer(Trainer):
         print ("before inputs train")
         inputs = self._prepare_inputs(inputs)
 
-        loss = self.compute_loss(model, inputs).reshape(-1)
+        loss = self.compute_loss(model, inputs)
 
         if self.args.gradient_accumulation_steps > 1:
             print("before loss train")
