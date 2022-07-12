@@ -455,9 +455,8 @@ def preprocess_function(examples):
 training_data = data["train"]
 test_data = data["test"]
 encoded_data = data.map(audio_to_array_fn, remove_columns=["id"], num_proc=4)
-training_data = training_data.map(preprocess_function, remove_columns=[
-                                  "id"], batched=True, batch_size=1)
-test_data = test_data.map(preprocess_function, remove_columns=["id"],  batched=True, batch_size = 1)
+training_data = training_data.map(preprocess_function, batched=True, batch_size=4)
+test_data = test_data.map(preprocess_function, batched=True, batch_size = 4)
 print(encoded_data)
 print(training_data)
 print(test_data)

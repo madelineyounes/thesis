@@ -41,8 +41,4 @@ for line in lines:
     else:
         print(line)
         out_file.write(line)
-<<<<<<< HEAD
 out_file.close()
-=======
-out_file.close()
->>>>>>> d796adf3be586c6845fa4081c9d46d11efa4f642
