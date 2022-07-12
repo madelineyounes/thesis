@@ -4,13 +4,15 @@ from matplotlib.pyplot import xcorr
 import torchaudio
 
 data_file = "../data/data_1file.csv"
+out_data_file = "../data/newdata_1file.csv"
 test_file = "../data/adi17_test_small.csv"
+out_test_file = "../data/new_adi17_test_small.csv"
 
 training_data_path = "/srv/scratch/z5208494/dataset/dev_segments/"
 test_data_path = "/srv/scratch/z5208494/dataset/test_segments/"
 
 lines = tuple(open(data_file, 'r'))
-out_file = open(data_file, 'w+')
+out_file = open(out_data_file, 'a+')
 
 for line in lines:
     if line != ("id,label"):
@@ -26,7 +28,7 @@ for line in lines:
 out_file.close() 
 
 lines = tuple(open(test_file, 'r'))
-out_file = open(test_file, 'w+')
+out_file = open(out_test_file, 'a+')
 
 for line in lines:
     if line != ("id,label"):
