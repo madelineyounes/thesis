@@ -617,7 +617,7 @@ class Wav2Vec2ForSpeechClassification(Wav2Vec2PreTrainedModel):
         return_dict = return_dict if return_dict is not None else self.config.use_return_dict
         print("out size ", input_values.size())
         outputs = self.wav2vec2(
-            input_values.reshape(-1),
+            input_values,
             attention_mask=attention_mask,
             output_attentions=output_attentions,
             output_hidden_states=output_hidden_states,
