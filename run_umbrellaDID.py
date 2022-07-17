@@ -441,9 +441,11 @@ def preprocess_function(batch):
     print(batch)
     speech_list = []
     target_list = []
-    for i in range(0, len(batch)):
+    for i in range(0, len(batch["id"])):
         try:
             speech = speech_file_to_array_fn(batch["id"][i])
+            print("speach", speech)
+            print("id", int(label2id[batch["label"][i]]))
             speech_list.append(speech)
             target_list.append(int(label2id[batch["label"][i]]))
         except:
