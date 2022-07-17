@@ -436,20 +436,19 @@ def audio_to_array_fn(batch):
         except: 
             pass
 
-def preprocess_function(examples):
+def preprocess_function(batch):
     print("printing examples")
-    print(examples)
+    print(batch)
     speech_list = []
     target_list = []
-    for item in examples:
+    for i in range(0, len(batch)):
         try:
-            print("here")
-            print(item)
-            speech = speech_file_to_array_fn(item["id"])
+            speech = speech_file_to_array_fn(batch["id"][i])
             speech_list.append(speech)
-            target_list.append(int(label2id[item["label"]]))
-        except: 
+            target_list.append(int(label2id[batch["label"][i]]))
+        except:
             print("except")
+
     print ("length",len(target_list))
     print("length", len(speech_list))
     result = feature_extractor(speech_list, sampling_rate=target_sampling_rate)
