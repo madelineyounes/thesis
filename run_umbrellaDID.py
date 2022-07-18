@@ -443,22 +443,13 @@ def preprocess_function(batch):
     target_list = []
     for i in range(0, len(batch["id"])):
         try:
-            print("id", batch["id"][i])
             filepath = training_data_path + batch["id"][i] + ".wav"
             speech = speech_file_to_array_fn(filepath)
             speech_list.append(speech)
-            print("speach", speech)
+            target_list.append(int(label2id[batch["label"][i]]))
         except: 
             print("speech except")
 
-        try:
-            print("id", int(label2id[batch["label"][i]]))
-            target_list.append(int(label2id[batch["label"][i]]))
-        except:
-            print("label except")
-
-    print ("length",len(target_list))
-    print("length", len(speech_list))
     result = feature_extractor(speech_list, sampling_rate=target_sampling_rate)
     result["labels"] = list(target_list)
     return result
@@ -468,10 +459,10 @@ training_data = data["train"]
 test_data = data["test"]
 encoded_data = data.map(audio_to_array_fn, remove_columns=["id"], num_proc=4)
 en_training_data = training_data.map(preprocess_function, batched=True, batch_size=4)
-#en_test_data = test_data.map(preprocess_function, batched=True, batch_size = 4)
+en_test_data = test_data.map(preprocess_function, batched=True, batch_size = 4)
 print(encoded_data)
 print(en_training_data)
-#print(en_test_data)
+print(en_test_data)
 # Check a few rows of data to verify data properly loaded
 print("--> Verifying data with a random sample...")
 
@@ -889,8 +880,8 @@ trainer = CTCTrainer(
     data_collator=data_collator,
     args=training_args,
     compute_metrics=compute_metrics,
-    train_dataset=encoded_data["train"],
-    eval_dataset=encoded_data["test"],
+    train_dataset=en_training_data,
+    eval_dataset=en_test_data,
     tokenizer=feature_extractor,
 )
 
