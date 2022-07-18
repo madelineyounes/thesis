@@ -448,7 +448,13 @@ def preprocess_function(batch):
             speech_list.append(speech)
             target_list.append(int(label2id[batch["label"][i]]))
         except: 
-            print("speech except")
+            try:
+                filepath = test_data_path + batch["id"][i] + ".wav"
+                speech = speech_file_to_array_fn(filepath)
+                speech_list.append(speech)
+                target_list.append(int(label2id[batch["label"][i]]))
+            except: 
+                print("speech except")
 
     result = feature_extractor(speech_list, sampling_rate=target_sampling_rate)
     result["labels"] = list(target_list)
