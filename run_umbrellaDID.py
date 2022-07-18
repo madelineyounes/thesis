@@ -811,10 +811,10 @@ class CTCTrainer(Trainer):
         train_dataloader = trainDataLoader
         #self.callback_handler.train_dataloader = train_dataloader
         self.callback_handler.train_dataloader = train_dataloader
-        
+
     def predict(
         self, test_dataset: Dataset, ignore_keys: Optional[List[str]] = None, metric_key_prefix: str = "eval"
-    ) -> PredictionOutput:
+    ):
         #test_dataloader = self.get_test_dataloader(test_dataset)
         test_dataloader = testnDataLoader
         #output = self.prediction_loop(
