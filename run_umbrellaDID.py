@@ -444,7 +444,8 @@ def preprocess_function(batch):
     for i in range(0, len(batch["id"])):
         try:
             print("id", batch["id"][i])
-            speech = speech_file_to_array_fn(batch["id"][i])
+            filepath = training_data_path + batch["id"][i] + ".wav"
+            speech = speech_file_to_array_fn(filepath)
             speech_list.append(speech)
             print("speach", speech)
         except: 
