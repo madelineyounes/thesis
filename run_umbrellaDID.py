@@ -19,9 +19,9 @@ import pyarrow.csv as csv
 import pyarrow as pa
 from transformers import Trainer
 from transformers import TrainingArguments
-from dataclasses import dataclass
 from typing import Optional, Tuple, Any, Dict, Union
 import torch
+from torch.utils.data import Dataset, DataLoader
 import torchaudio
 from transformers.file_utils import ModelOutput
 from typing import Any, Dict, List, Optional, Union
@@ -329,9 +329,7 @@ label2id, id2label = dict(), dict()
 for i, label in enumerate(label_list):
     label2id[label] = str(i)
     id2label[str(i)] = label
-# Remove the "duration" and "spkr_id" column
-#data = data.remove_columns(["duration", "spkr_id"])
-#data = data.remove_columns(["duration"])
+
 print("--> dataset...")
 print(data)
 # Display some random samples of the dataset
@@ -489,32 +487,42 @@ if (len(encoded_data["test"]) > 0):
     idx = 0
     print(encoded_data["test"][idx]['labels'])
     print("Training labels", encoded_data["test"][idx]['labels'],encoded_data["test"][idx]['label'])
-# Process dataset to the format expected by model for training
-# Using map(...)
-# 1) Check all data samples have same sampling rate (16kHz)
-# 2) Extract input_values from loaded audio file.
-#    This only involves normalisation but could also correspond
-#    to extracting log-mel features
-# 3) Encode the transcriptions to label ids
-"""
-def prepare_dataset(batch):
-    # check that all files have the correct sampling rate
-    assert (
-        len(set(batch["sampling_rate"])) == 1
-    ), f"Make sure all inputs have the same sampling rate of {processor.feature_extractor.sampling_rate}."
-
-    batch["input_values"] = processor(
-        batch["audio"], sampling_rate=batch["sampling_rate"][0]).input_values
-
-    with processor.as_target_processor():
-        batch["label"] = processor(batch["label"]).input_ids
-    return batch
 
 
-data_prepared = encoded_data.map(
-    prepare_dataset, remove_columns=data.column_names["train"], batch_size=8, num_proc=4, batched=True)
+# create custom dataset class
+print("Create a custom dataset ---> ")
+class CustomDataset(Dataset):
+    def __init__(self, csv_fp, data_fp):
+        """
+        Args:
+        csv_fp (string): Path to csv with audio file ids and labels.
+        data_fp (string): Path to audio files
+        """
+        self.data_frame = pd.read_csv(csv_fp, delimiter=',')
+        self.data_fp = data_fp
 
-print(data_prepared)"""
+    def __len__(self):
+        return len(self.data_frame)
+
+    def __getitem__(self, idx):
+        if torch.is_tensor(idx):
+            idx = idx.tolist()
+
+        audiopath = self.data_fp + self.data_frame.iloc[idx,0] + ".wav"
+        speech = speech_file_to_array_fn(audiopath)
+        speech_features = feature_extractor(speech, sampling_rate=target_sampling_rate)
+
+        label = int(label2id[self.data_frame.iloc[idx, 1]])
+        sample = {"input_values": speech_features, "label": label}
+        return sample
+
+
+traincustomdata = CustomDataset(csv_fp=data_train_fp, data_fp=training_data_path)
+testcustomdata = CustomDataset(csv_fp=data_test_fp, data_fp=test_data_path)
+
+trainDataLoader = DataLoader(traincustomdata, batch_size=set_per_device_train_batch_size, shuffle=True, num_workers=0)
+testDataLoader = DataLoader(testcustomdata, batch_size=set_per_device_train_batch_size, shuffle=True, num_workers=0)
+
 print("SUCCESS: Data ready for training and evaluation.")
 
 # ------------------------------------------
@@ -798,6 +806,28 @@ print("SUCCESS: Pre-trained checkpoint loaded.")
 
 print("--> Defining CTC Trainer...")
 class CTCTrainer(Trainer):
+    def train(self, model_path: Optional[str] = None, trial: Union["optuna.Trial", Dict[str, Any]] = None):
+        #train_dataloader = self.get_train_dataloader()
+        train_dataloader = trainDataLoader
+        #self.callback_handler.train_dataloader = train_dataloader
+        self.callback_handler.train_dataloader = train_dataloader
+
+    @Overide 
+    def predict(
+        self, test_dataset: Dataset, ignore_keys: Optional[List[str]] = None, metric_key_prefix: str = "eval"
+    ) -> PredictionOutput:
+        #test_dataloader = self.get_test_dataloader(test_dataset)
+        test_dataloader = testnDataLoader
+        #output = self.prediction_loop(
+        #    test_dataloader, description="Prediction", ignore_keys=ignore_keys, metric_key_prefix=metric_key_prefix
+        #)
+
+        output = self.prediction_loop(
+            test_dataloader, description="Prediction", ignore_keys=ignore_keys, metric_key_prefix=metric_key_prefix
+        )
+        output.metrics.update(speed_metrics(metric_key_prefix, start_time, len(test_dataset)))
+        return output
+
     def training_step(self, model: nn.Module, inputs: Dict[str, Union[torch.Tensor, Any]]) -> torch.Tensor:
         """
         Perform a training step on a batch of inputs.
@@ -884,8 +914,6 @@ trainer = CTCTrainer(
     data_collator=data_collator,
     args=training_args,
     compute_metrics=compute_metrics,
-    train_dataset=en_training_data,
-    eval_dataset=en_test_data,
     tokenizer=feature_extractor,
 )
 

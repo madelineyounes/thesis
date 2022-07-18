@@ -1,14 +1,6 @@
-from numpy import var
+import pandas as pd
+path = "/Users/myounes/Documents/Code/thesis/data/data_1file.csv" 
 
 
-regional_NOR_dialects = ['MRT', 'MAR', 'DZA', 'LBY']
-dialects = {
-    "NOR": ['MRT', 'MAR', 'DZA', 'LBY']
-}
-
-dialect = 'NOR'
-a = 'regional_' + dialect + '_dialects'
-
-print(dialects["NOR"])
-print(dialects)
-
+data_frame = pd.read_csv(path, delimiter=',')
+print(data_frame.iloc[0, 0])
