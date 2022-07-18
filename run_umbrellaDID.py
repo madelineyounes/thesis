@@ -209,7 +209,7 @@ print("\n------> TRAINING ARGUMENTS... ----------------------------------------\
 
 set_evaluation_strategy = "epoch"           # Default = "no"
 print("evaluation strategy:", set_evaluation_strategy)
-set_per_device_train_batch_size = 1         # Default = 8
+set_per_device_train_batch_size = 4         # Default = 8
 print("per_device_train_batch_size:", set_per_device_train_batch_size)
 set_gradient_accumulation_steps = 4         # Default = 4
 print("gradient_accumulation_steps:", set_gradient_accumulation_steps)
@@ -406,9 +406,9 @@ def label_to_id(label, label_list):
 # in the dataset.
 # We write a map(...) function accordingly.
 max_duration = 0.10 
-print ("Max Duration:",  max_duration)
+print ("Max Duration:",  max_duration, "s")
 sampling_rate = feature_extractor.sampling_rate
-print ("Sampling Rate Duration:",  sampling_rate)
+print ("Sampling Rate:",  sampling_rate)
 def audio_to_array_fn(batch):
     try:
         filepath = training_data_path + batch["id"] + ".wav"
