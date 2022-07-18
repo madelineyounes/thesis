@@ -29,7 +29,6 @@ from dataclasses import dataclass, field
 import torch
 import torch.nn as nn
 from torch.nn import BCEWithLogitsLoss, CrossEntropyLoss, MSELoss
-import soundfile as sf
 from transformers import AutoFeatureExtractor
 from transformers import Wav2Vec2Processor, Wav2Vec2FeatureExtractor
 from transformers import AutoModelForAudioClassification, AutoConfig
