@@ -209,7 +209,7 @@ print("\n------> TRAINING ARGUMENTS... ----------------------------------------\
 
 set_evaluation_strategy = "epoch"           # Default = "no"
 print("evaluation strategy:", set_evaluation_strategy)
-set_per_device_train_batch_size = 10         # Default = 8
+set_per_device_train_batch_size = 1         # Default = 8
 print("per_device_train_batch_size:", set_per_device_train_batch_size)
 set_gradient_accumulation_steps = 4         # Default = 4
 print("gradient_accumulation_steps:", set_gradient_accumulation_steps)
@@ -437,8 +437,6 @@ def audio_to_array_fn(batch):
             pass
 
 def preprocess_function(batch):
-    print("printing examples")
-    print(batch)
     speech_list = []
     target_list = []
     for i in range(0, len(batch["id"])):
@@ -464,8 +462,9 @@ def preprocess_function(batch):
 training_data = data["train"]
 test_data = data["test"]
 encoded_data = data.map(audio_to_array_fn, remove_columns=["id"], num_proc=4)
-en_training_data = training_data.map(preprocess_function, batched=True, batch_size=4)
-en_test_data = test_data.map(preprocess_function, batched=True, batch_size = 4)
+en_training_data = training_data.map(preprocess_function, batched=True, batch_size=set_per_device_train_batch_size)
+en_test_data = test_data.map(
+    preprocess_function, batched=True, batch_size=set_per_device_train_batch_size)
 print(encoded_data)
 print(en_training_data)
 print(en_test_data)
