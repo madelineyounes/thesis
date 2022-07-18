@@ -820,6 +820,7 @@ class CTCTrainer(Trainer):
         model.train()
         print ("before inputs train")
         inputs = self._prepare_inputs(inputs)
+        print ("before input loss")
 
         loss = self.compute_loss(model, inputs)
 
@@ -878,7 +879,7 @@ training_args = TrainingArguments(
 # All instances can be passed to Trainer and
 # we are ready to start training!
 model.gradient_checkpointing_enable()
-trainer = Trainer(
+trainer = CTCTrainer(
     model=model,
     data_collator=data_collator,
     args=training_args,
