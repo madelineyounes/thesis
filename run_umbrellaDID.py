@@ -811,8 +811,7 @@ class CTCTrainer(Trainer):
         train_dataloader = trainDataLoader
         #self.callback_handler.train_dataloader = train_dataloader
         self.callback_handler.train_dataloader = train_dataloader
-
-    @Overide 
+        
     def predict(
         self, test_dataset: Dataset, ignore_keys: Optional[List[str]] = None, metric_key_prefix: str = "eval"
     ) -> PredictionOutput:
