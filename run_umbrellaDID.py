@@ -851,6 +851,7 @@ training_args = TrainingArguments(
     output_dir=model_fp,
     evaluation_strategy=set_evaluation_strategy,
     per_device_train_batch_size=set_per_device_train_batch_size,
+    per_device_eval_batch_size=set_per_device_train_batch_size,
     gradient_checkpointing=True,
     gradient_accumulation_steps=set_gradient_accumulation_steps,
     learning_rate=set_learning_rate,
