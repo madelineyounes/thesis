@@ -23,7 +23,7 @@ import numpy as np
 import pandas as pd
 import random
 from dataclasses import dataclass
-from datasets import load_dataset
+from datasets import load_dataset, load_metric
 from typing import Any, Dict, List, Optional, Union
 import pyarrow.csv as csv
 import pyarrow as pa
