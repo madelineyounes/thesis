@@ -1,7 +1,7 @@
+from transformers import Wav2Vec2Processor, Wav2Vec2ForCTC, Wav2Vec2ForSequenceClassification, Wav2Vec2FeatureExtractor
 import torch
 import librosa
 from datasets import load_dataset
-from transformers import Wav2Vec2ForSequenceClassification, Wav2Vec2FeatureExtractor
 import torch.nn as nn
 
 
@@ -35,15 +35,14 @@ print(logits.shape)
 predicted_ids = torch.argmax(logits, dim=-1)
 
 
-from transformers import Wav2Vec2Processor, Wav2Vec2ForCTC
 from datasets import load_dataset
 import torch
 
 # load model and processor
 processor = Wav2Vec2Processor.from_pretrained("facebook/wav2vec2-large-960h")
 print(processor)
-model = Wav2Vec2ForCTC.from_pretrained("facebook/wav2vec2-large-960h")
-
+model = Wav2Vec2ForCTC.from_pretrained("facebook/wav2vec2-base")
+print()
 
 def map_to_array(example):
     speech, _ = librosa.load(example, sr=16000, mono=True)

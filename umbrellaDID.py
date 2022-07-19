@@ -12,6 +12,10 @@ dataset = dataset.cast_column("audio", Audio(
 
 model_name = 'facebook/wav2vec2-xls-r-1b'
 model = AutoModelForSequenceClassification.from_pretrained(model_name)
+
+model_name2 = 'facebook/wav2vec2-base-960h'
+model = AutoModelForSequenceClassification.from_pretrained(model_name2)
+
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 classifier = pipeline("audio-classification", model=model,
                       tokenizer=tokenizer)  # select the type of classifier

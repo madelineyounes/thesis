@@ -512,7 +512,7 @@ class CustomDataset(Dataset):
 
         audiopath = self.data_fp + self.data_frame.iloc[idx,0] + ".wav"
         speech = speech_file_to_array_fn(audiopath)
-        speech_features = feature_extractor(speech, sampling_rate=target_sampling_rate)
+        speech_features, mask = feature_extractor(speech, sampling_rate=target_sampling_rate)
 
         label = int(label2id[self.data_frame.iloc[idx, 1]])
         sample = {"input_values": speech_features, "label": label}
