@@ -5,34 +5,34 @@ from transformers import Wav2Vec2ForSequenceClassification, Wav2Vec2FeatureExtra
 import torch.nn as nn
 
 
-# def map_to_array(example):
-#     speech, _ = librosa.load(example, sr=16000, mono=True)
-#     return speech
+def map_to_array(example):
+    speech, _ = librosa.load(example, sr=16000, mono=True)
+    return speech
 
-# # load a demo dataset and read audio files
+# load a demo dataset and read audio files
 
-# # data1, sr1 = torchaudio.load("eng1.wav")
+# data1, sr1 = torchaudio.load("eng1.wav")
 
-# audio = map_to_array("english.wav")
+audio = map_to_array("english.wav")
 
-# model = Wav2Vec2ForSequenceClassification.from_pretrained("superb/wav2vec2-base-superb-sid")
+model = Wav2Vec2ForSequenceClassification.from_pretrained("superb/wav2vec2-base-superb-sid")
 
-# "facebook/wav2vec2-base-960h"
+"facebook/wav2vec2-base-960h"
 
-# feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained("superb/wav2vec2-base-superb-sid")
+feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained("superb/wav2vec2-base-superb-sid")
 
 
-# inputs = feature_extractor(audio, sampling_rate=16000, padding='max_length', return_tensors="pt", max_length=20*16000, truncation = True, return_attention_mask = True)
-# print(inputs)
+inputs = feature_extractor(audio, sampling_rate=16000, padding='max_length', return_tensors="pt", max_length=20*16000, truncation = True, return_attention_mask = True)
+print(inputs)
 
-# model.classifier = nn.Linear(256,107)
+model.classifier = nn.Linear(256,107)
 
-# # for params in model.wav2vec2:
+# for params in model.wav2vec2:
 
-# logits = model(**inputs).logits
+logits = model(**inputs).logits
 
-# print(logits.shape)
-# predicted_ids = torch.argmax(logits, dim=-1)
+print(logits.shape)
+predicted_ids = torch.argmax(logits, dim=-1)
 
 
 from transformers import Wav2Vec2Processor, Wav2Vec2ForCTC

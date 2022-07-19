@@ -163,7 +163,7 @@ model_name = "superb/wav2vec2-base-superb-sid"
 # Use a pretrained tokenizer (True/False)
 #     True: Use existing tokenizer (if custom dataset has same vocab)
 #     False: Use custom tokenizer (if custom dataset has different vocab)
-use_pretrained_tokenizer = True
+use_pretrained_tokenizer = False
 print("use_pretrained_tokenizer:", use_pretrained_tokenizer)
 # Set tokenizer
 pretrained_tokenizer = model_name
@@ -805,6 +805,58 @@ model = AutoModelForAudioClassification.from_pretrained(
 # the feature extraction part.
 print("SUCCESS: Pre-trained checkpoint loaded.")
 
+print("--> Defining Custom Trainer Class...")
+class Trainer:
+    ...
+    def fit(self, train_loader, val_loader, epochs):
+        for epoch in range(epochs):
+            # train
+            train_loss = self._train(train_loader)
+
+            # validate
+            val_loss = self._validate(val_loader)
+
+    def _train(self, loader):
+        # put model in train mode
+        self.model.train()
+
+        for features, labels in loader:
+            # forward pass
+            out = self.model(features)
+
+            # loss
+            loss = self._compute_loss(out, labels)
+
+            # remove gradient from previous passes
+            self.optimizer.zero_grad()
+
+            # backprop
+            loss.backward()
+
+            # parameters update
+            self.optimizer.step()
+
+        return loss.item()
+
+    def _validate(self, loader):
+        # put model in evaluation mode
+        self.model.eval()
+
+        with torch.no_grad():
+            for features, labels in loader:
+                out = self.model(features)
+                loss = self._compute_loss(out, labels)
+
+        return loss.item()
+
+    def _compute_loss(self, real, target):
+        try:
+            loss = self.criterion(real, target)
+        except:
+            loss = self.criterion(real, target.long())
+            msg = f"Target tensor has been casted from"
+            msg = f"{msg} {type(target)} to 'long' dtype to avoid errors."
+            warnings.warn(msg)
 
 print("--> Defining CTC Trainer...")
 class CTCTrainer(Trainer):
@@ -910,7 +962,7 @@ training_args = TrainingArguments(
 # All instances can be passed to Trainer and
 # we are ready to start training!
 model.gradient_checkpointing_enable()
-trainer = CTCTrainer(
+trainer = Trainer(
     model=model,
     data_collator=data_collator,
     args=training_args,
@@ -918,6 +970,7 @@ trainer = CTCTrainer(
     tokenizer=feature_extractor,
 )
 
+trainer.fit(trainDataLoader, testDataLoader, 10)
 # ------------------------------------------
 #               Training
 # ------------------------------------------
