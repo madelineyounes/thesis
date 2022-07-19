@@ -765,13 +765,11 @@ model = Wav2Vec2ForSpeechClassification.from_pretrained(
 print("SUCCESS: Pre-trained checkpoint loaded.")
 
 print("--> Defining Custom Trainer Class...")
-class Trainer:
-    ...
+class MyTrainer(Trainer):
     def fit(self, train_loader, val_loader, epochs):
         for epoch in range(epochs):
             # train
             train_loss = self._train(train_loader)
-
             # validate
             val_loss = self._validate(val_loader)
 
@@ -817,6 +815,42 @@ class Trainer:
             msg = f"{msg} {type(target)} to 'long' dtype to avoid errors."
             warnings.warn(msg)
 
+    def training_step(self, model: nn.Module, inputs: Dict[str, Union[torch.Tensor, Any]]) -> torch.Tensor:
+        """
+        Perform a training step on a batch of inputs.
+
+        Subclass and override to inject custom behavior.
+
+        Args:
+            model (:obj:`nn.Module`):
+                The model to train.
+            inputs (:obj:`Dict[str, Union[torch.Tensor, Any]]`):
+                The inputs and targets of the model.
+
+                The dictionary will be unpacked before being fed to the model. Most models expect the targets under the
+                argument :obj:`labels`. Check your model's documentation for all accepted arguments.
+
+        Return:
+            :obj:`torch.Tensor`: The tensor with training loss on this batch.
+        """
+        print("before model train")
+        model.train()
+        print("before inputs train")
+        inputs = self._prepare_inputs(inputs)
+        print("before input loss")
+
+        loss = self.compute_loss(model, inputs)
+
+        if self.args.gradient_accumulation_steps > 1:
+            print("before loss train")
+            loss = loss / self.args.gradient_accumulation_steps
+
+        if self.deepspeed:
+            print("before backward train")
+            self.deepspeed.backward(loss)
+        else:
+            loss.backward()
+        return loss.detach()
 print("--> Defining CTC Trainer...")
 class CTCTrainer(Trainer):
     def train(self, model_path: Optional[str] = None):        #train_dataloader = self.get_train_dataloader()
@@ -921,13 +955,13 @@ training_args = TrainingArguments(
 # All instances can be passed to Trainer and
 # we are ready to start training!
 model.gradient_checkpointing_enable()
-trainer = Trainer()
-# trainer = Trainer(
-#     model=model,
-#     data_collator=data_collator,
-#     args=training_args,
-#     compute_metrics=compute_metrics,
-# )
+#trainer = Trainer()
+trainer = MyTrainer(
+    model=model,
+    data_collator=data_collator,
+    args=training_args,
+    compute_metrics=compute_metrics,
+)
 
 trainer.fit(trainDataLoader, testDataLoader, 10)
 # ------------------------------------------
