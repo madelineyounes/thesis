@@ -11,44 +11,48 @@
 # ------------------------------------------
 #      Install packages if needed
 # ------------------------------------------
-#pip install datasets==1.8.0
-#pip install transformers
-#pip install soundfile
-#pip install jiwer
+#pip3 install datasets==1.8.0
+#pip3 install transformers
+#pip3 install torchaudio
+#pip3 install pyarrow
+#pip3 install numpy
+#pip3 install random
+#pip3 install dataclasses
 import pyarrow.csv as csv
 import pyarrow as pa
-import librosa
 from sklearn.metrics import classification_report
-from transformers import Trainer
-from transformers import TrainingArguments
 from typing import Optional, Tuple, Any, Dict, Union
 import torch
+import torch.nn as nn
+from torch.nn import BCEWithLogitsLoss, CrossEntropyLoss, MSELoss
 from torch.utils.data import Dataset, DataLoader
 import torchaudio
 from transformers.file_utils import ModelOutput
 from typing import Any, Dict, List, Optional, Union
-from dataclasses import dataclass, field
-import torch
-import torch.nn as nn
-from torch.nn import BCEWithLogitsLoss, CrossEntropyLoss, MSELoss
-from transformers import AutoFeatureExtractor
-from transformers import Wav2Vec2Processor, Wav2Vec2FeatureExtractor
-from transformers import AutoModelForAudioClassification, AutoConfig
-from transformers import Wav2Vec2ForCTC
-from transformers import Wav2Vec2CTCTokenizer
+from dataclasses import dataclass
+from transformers import (
+    Trainer,
+    TrainingArguments,
+    AutoFeatureExtractor, 
+    Wav2Vec2Processor, 
+    Wav2Vec2FeatureExtractor, 
+    AutoConfig,
+    Wav2Vec2ForCTC, 
+    Wav2Vec2CTCTokenizer
+)
 from transformers.models.wav2vec2.modeling_wav2vec2 import (
     Wav2Vec2PreTrainedModel,
     Wav2Vec2Model
 )
-import json
-import re
 import numpy as np
 import pandas as pd
 import random
-from datasets import Dataset
-from datasets import load_dataset, load_metric, ClassLabel
+from datasets import (
+    Dataset,
+    load_dataset, 
+    load_metric, 
+)
 from datetime import datetime
-from datetime import date
 import os
 print(
     "------------------------------------------------------------------------")
