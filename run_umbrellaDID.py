@@ -17,6 +17,8 @@
 #pip install jiwer
 import pyarrow.csv as csv
 import pyarrow as pa
+import librosa
+from sklearn.metrics import classification_report
 from transformers import Trainer
 from transformers import TrainingArguments
 from typing import Optional, Tuple, Any, Dict, Union
@@ -372,8 +374,7 @@ feature_extractor = AutoFeatureExtractor.from_pretrained(model_name)
 #feature_extractor = Wav2Vec2FeatureExtractor(feature_size=1, sampling_rate=16000, padding_value=0.0, do_normalize=True, return_attention_mask=False)
 # Feature extractor and tokenizer wrapped into a single
 # Wav2Vec2Processor class so we only need a model and processor object
-processor = Wav2Vec2Processor(
-    feature_extractor=feature_extractor, tokenizer=tokenizer)
+processor = Wav2Vec2Processor(feature_extractor=feature_extractor, tokenizer=tokenizer)
 # Save to re-use the just created processor and the fine-tuned model
 processor.save_pretrained(model_fp)
 print("SUCCESS: Created feature extractor.")
@@ -940,45 +941,51 @@ if training:
 # ------------------------------------------
 # Evaluate fine-tuned model on test set.
 print("\n------> EVALUATING MODEL... ------------------------------------------ \n")
-torch.cuda.empty_cache()
+
+# Use avaliable GPUs 
+if torch.cuda.is_available():
+    device = torch.device("cuda")
+    torch.cuda.empty_cache()
+else:
+    device =  ("cpu")
 
 if eval_pretrained:
+    config = AutoConfig.from_pretrained(eval_model)
     processor = Wav2Vec2Processor.from_pretrained(eval_model)
-    model = Wav2Vec2ForCTC.from_pretrained(eval_model)
+    model = Wav2Vec2ForSpeechClassification.from_pretrained(eval_model).to(device)
+    feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained(eval_model)
+    sampling_rate = feature_extractor.sampling_rate
 else:
     processor = Wav2Vec2Processor.from_pretrained(model_fp)
     model = Wav2Vec2ForCTC.from_pretrained(model_fp)
+    config = AutoConfig.from_pretrained(eval_model)
+    processor = Wav2Vec2Processor.from_pretrained(eval_model)
+    model = Wav2Vec2ForSpeechClassification.from_pretrained(
+        eval_model).to(device)
+    feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained(eval_model)
+    sampling_rate = feature_extractor.sampling_rate
 
-# Now, we will make use of the map(...) function to predict
-# the transcription of every test sample and to save the prediction
-# in the dataset itself. We will call the resulting dictionary "results".
-# Note: we evaluate the test data set with batch_size=1 on purpose due
-# to this issue (https://github.com/pytorch/fairseq/issues/3227). Since
-# padded inputs don't yield the exact same output as non-padded inputs,
-# a better WER can be achieved by not padding the input at all.
+def predict(batch):
+    features = feature_extractor(
+        batch["input_values"], sampling_rate=feature_extractor.sampling_rate, return_tensors="pt", padding=True)
 
+    input_values = features.input_values.to(device)
 
-def map_to_result(batch):
-  model.to("cuda")
-  input_values = processor(
-      batch["audio"],
-      sampling_rate=batch["sampling_rate"],
-      return_tensors="pt"
-  ).input_values.to("cuda")
+    with torch.no_grad():
+        logits = model(input_values).logits
 
-  with torch.no_grad():
-    logits = model(input_values).logits
+    pred_ids = torch.argmax(logits, dim=-1).detach().cpu().numpy()
+    batch["predicted"] = pred_ids
+    return batch
 
-  pred_ids = torch.argmax(logits, dim=-1)
-  batch["pred_str"] = processor.batch_decode(pred_ids)[0]
+results = testcustomdata.map(predict, batched=True, batch_size=8)
+y_true = [config.label2id[name] for name in results["label"]]
+y_pred = results["predicted"]
 
-  return batch
+print(classification_report(y_true, y_pred, target_names=label_list))
 
-
-results = data["test"].map(map_to_result)
 # Save results to csv
 results_df = results.to_pandas()
-results_df = results_df.drop(columns=['audio', 'sampling_rate'])
 results_df.to_csv(finetuned_results_fp)
 print("Saved results to:", finetuned_results_fp)
 
