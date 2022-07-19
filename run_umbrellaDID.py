@@ -157,7 +157,7 @@ if use_checkpoint:
     print("checkpoint:", checkpoint)
 
 # Use pretrained model
-model_name = "superb/wav2vec2-base-superb-sid"
+model_name = "facebook/wav2vec2-base"
 # try log0/wav2vec2-base-lang-id
 
 # Use a pretrained tokenizer (True/False)
