@@ -18,6 +18,12 @@
 #pip3 install numpy
 #pip3 install random
 #pip3 install dataclasses
+
+import numpy as np
+import pandas as pd
+import random
+from dataclasses import dataclass
+from typing import Any, Dict, List, Optional, Union
 import pyarrow.csv as csv
 import pyarrow as pa
 from sklearn.metrics import classification_report
@@ -28,8 +34,7 @@ from torch.nn import BCEWithLogitsLoss, CrossEntropyLoss, MSELoss
 from torch.utils.data import Dataset, DataLoader
 import torchaudio
 from transformers.file_utils import ModelOutput
-from typing import Any, Dict, List, Optional, Union
-from dataclasses import dataclass
+
 from transformers import (
     Trainer,
     TrainingArguments,
@@ -43,14 +48,6 @@ from transformers import (
 from transformers.models.wav2vec2.modeling_wav2vec2 import (
     Wav2Vec2PreTrainedModel,
     Wav2Vec2Model
-)
-import numpy as np
-import pandas as pd
-import random
-from datasets import (
-    Dataset,
-    load_dataset, 
-    load_metric, 
 )
 from datetime import datetime
 import os
@@ -73,21 +70,20 @@ dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
 print("Started:", dt_string)
 # ------------------------------------------
 print("\n------> IMPORTING PACKAGES.... ---------------------------------------\n")
-print("-->Importing datasets...")
 # Import datasets and evaluation metric
 # Convert pandas dataframe to DatasetDict
+print("-->Importing datasets...")
+
 # Generate random numbers
 print("-->Importing random...")
 # Manipulate dataframes and numbers
 print("-->Importing pandas & numpy...")
-# Use regex
-print("-->Importing re...")
 # Read, Write, Open json files
 print("-->Importing json...")
 # Use models and tokenizers
-print("-->Importing Wav2VecCTC...")
+print("-->Importing Wav2Vec transformers...")
 # Loading audio files
-print("-->Importing soundfile...")
+print("-->Importing torchaudio...")
 # For training
 print("-->Importing torch, dataclasses & typing...")
 print("-->Importing from transformers for training...")
@@ -114,7 +110,7 @@ print("experiment_id:", experiment_id)
 # DatasetDict Id
 # For 1) naming cache directory and
 #     2) saving the DatasetDict object
-datasetdict_id = "ADI17_cache"
+datasetdict_id = "myST-eval"
 print("datasetdict_id:", datasetdict_id)
 
 data_path = "/srv/scratch/z5208494/dataset/"
@@ -156,12 +152,13 @@ print("evaluation_filename:", evaluation_filename)
 use_checkpoint = False
 print("use_checkpoint:", use_checkpoint)
 # Set checkpoint if resuming from/using checkpoint
-checkpoint = "/Users/myounes/Documents/Code/thesis/model/checkpoint/"
+checkpoint = "/srv/scratch/z5208494/checkpoint/20211018-base-intial-test"
 if use_checkpoint:
     print("checkpoint:", checkpoint)
 
 # Use pretrained model
-model_name = "facebook/wav2vec2-base"
+model_name = "facebook/wav2vec2-base-960h"
+# try log0/wav2vec2-base-lang-id
 
 # Use a pretrained tokenizer (True/False)
 #     True: Use existing tokenizer (if custom dataset has same vocab)
@@ -962,11 +959,11 @@ if eval_pretrained:
 else:
     processor = Wav2Vec2Processor.from_pretrained(model_fp)
     model = Wav2Vec2ForCTC.from_pretrained(model_fp)
-    config = AutoConfig.from_pretrained(eval_model)
-    processor = Wav2Vec2Processor.from_pretrained(eval_model)
+    config = AutoConfig.from_pretrained(model_fp)
+    processor = Wav2Vec2Processor.from_pretrained(model_fp)
     model = Wav2Vec2ForSpeechClassification.from_pretrained(
-        eval_model).to(device)
-    feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained(eval_model)
+        model_fp).to(device)
+    feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained(model_fp)
     sampling_rate = feature_extractor.sampling_rate
 
 def predict(batch):
