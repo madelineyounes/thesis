@@ -806,8 +806,7 @@ model = AutoModelForAudioClassification.from_pretrained(
 print("SUCCESS: Pre-trained checkpoint loaded.")
 
 print("--> Defining Custom Trainer Class...")
-class Trainer:
-    ...
+class myTrainer(Trainer):
     def fit(self, train_loader, val_loader, epochs):
         for epoch in range(epochs):
             # train
@@ -962,14 +961,13 @@ training_args = TrainingArguments(
 # All instances can be passed to Trainer and
 # we are ready to start training!
 model.gradient_checkpointing_enable()
-trainer = Trainer()
-# trainer = Trainer(
-#     model=model,
-#     data_collator=data_collator,
-#     args=training_args,
-#     compute_metrics=compute_metrics,
-#     tokenizer=feature_extractor,
-# )
+trainer = myTrainer(
+    model=model,
+    data_collator=data_collator,
+    args=training_args,
+    compute_metrics=compute_metrics,
+    tokenizer=feature_extractor,
+)
 
 trainer.fit(trainDataLoader, testDataLoader, 10)
 # ------------------------------------------

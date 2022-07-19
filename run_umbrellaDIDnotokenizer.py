@@ -78,9 +78,6 @@ print("-->Importing datasets...")
 print("-->Importing random...")
 # Manipulate dataframes and numbers
 print("-->Importing pandas & numpy...")
-# Read, Write, Open json files
-print("-->Importing json...")
-# Use models and tokenizers
 print("-->Importing Wav2Vec transformers...")
 # Loading audio files
 print("-->Importing torchaudio...")
@@ -159,16 +156,6 @@ if use_checkpoint:
 # Use pretrained model
 model_name = "facebook/wav2vec2-base-960h"
 # try log0/wav2vec2-base-lang-id
-
-# Use a pretrained tokenizer (True/False)
-#     True: Use existing tokenizer (if custom dataset has same vocab)
-#     False: Use custom tokenizer (if custom dataset has different vocab)
-use_pretrained_tokenizer = True
-print("use_pretrained_tokenizer:", use_pretrained_tokenizer)
-# Set tokenizer
-pretrained_tokenizer = model_name
-if use_pretrained_tokenizer:
-    print("pretrained_tokenizer:", pretrained_tokenizer)
 
 # Evaluate existing model instead of newly trained model (True/False)
 #     True: use the model in the filepath set by 'eval_model' for eval
@@ -301,12 +288,6 @@ pretrained_mod = model_name
 if use_checkpoint:
     pretrained_mod = checkpoint
 print("--> pretrained_mod:", pretrained_mod)
-# Path to pre-trained tokenizer
-# If use_pretrained_tokenizer = True
-if use_pretrained_tokenizer:
-    print("--> pretrained_tokenizer:", pretrained_tokenizer)
-    tokenizer = Wav2Vec2CTCTokenizer.from_pretrained(pretrained_tokenizer)
-
 # ------------------------------------------
 #         Preparing dataset
 # ------------------------------------------
@@ -373,9 +354,9 @@ print("\n------> CREATING WAV2VEC2 FEATURE EXTRACTOR... -----------------------\
 #   fine-tuning large-lv60
 feature_extractor = AutoFeatureExtractor.from_pretrained(model_name)
 #feature_extractor = Wav2Vec2FeatureExtractor(feature_size=1, sampling_rate=16000, padding_value=0.0, do_normalize=True, return_attention_mask=False)
-# Feature extractor and tokenizer wrapped into a single
+# Feature extractor wrapped into a single
 # Wav2Vec2Processor class so we only need a model and processor object
-processor = Wav2Vec2Processor(feature_extractor=feature_extractor, tokenizer=tokenizer)
+processor = Wav2Vec2Processor(feature_extractor=feature_extractor)
 # Save to re-use the just created processor and the fine-tuned model
 processor.save_pretrained(model_fp)
 print("SUCCESS: Created feature extractor.")
@@ -749,9 +730,6 @@ acc_metric = load_metric("accuracy")
 def compute_metrics(pred):
     pred_logits = pred.predictions
     pred_ids = np.argmax(pred_logits, axis=-1)
-
-    pred.label_ids[pred.label_ids == -100] = processor.tokenizer.pad_token_id
-
     pred_str = processor.batch_decode(pred_ids)
     # we do not want to group tokens when computing the metrics
     label_str = processor.batch_decode(pred.label_ids, group_tokens=False)
@@ -764,7 +742,7 @@ def compute_metrics(pred):
 print("SUCCESS: Defined Accuracy evaluation metric.")
 
 # 3) Load pre-trained checkpoint
-# Load pre-trained Wav2Vec2 checkpoint. The tokenizer's pad_token_id
+# Load pre-trained Wav2Vec2 checkpoint. 
 # must be to define the model's pad_token_id or in the case of Wav2Vec2ForCTC
 # also CTC's blank token. To save GPU memory, we enable PyTorch's gradient
 # checkpointing and also set the loss reduction to "mean".
@@ -777,25 +755,6 @@ model = Wav2Vec2ForSpeechClassification.from_pretrained(
 )
 
 # 1) Define model
-"""
-model = AutoModelForAudioClassification.from_pretrained(
-    pretrained_mod,
-    label2id=label2id,
-    id2label=id2label,
-    num_labels=num_labels,
-    hidden_dropout=set_hidden_dropout,
-    activation_dropout=set_activation_dropout,
-    attention_dropout=set_attention_dropout,
-    feat_proj_dropout=set_feat_proj_dropout,
-    layerdrop=set_layerdrop,
-    mask_time_prob=set_mask_time_prob,
-    mask_time_length=set_mask_time_length,
-    ctc_loss_reduction=set_ctc_loss_reduction,
-    ctc_zero_infinity=set_ctc_zero_infinity,
-    gradient_checkpointing=set_gradient_checkpointing,
-    pad_token_id=processor.tokenizer.pad_token_id
-)
-"""
 # The first component of Wav2Vec2 consists of a stack of CNN layers
 # that are used to extract acoustically meaningful - but contextually
 # independent - features from the raw speech signal. This part of the
@@ -968,7 +927,6 @@ trainer = Trainer()
 #     data_collator=data_collator,
 #     args=training_args,
 #     compute_metrics=compute_metrics,
-#     tokenizer=feature_extractor,
 # )
 
 trainer.fit(trainDataLoader, testDataLoader, 10)
@@ -1060,10 +1018,6 @@ with torch.no_grad():
   logits = model(input_values).logits
 
 pred_ids = torch.argmax(logits, dim=-1)
-
-# convert ids to tokens
-print(" ".join(processor.tokenizer.convert_ids_to_tokens(
-    pred_ids[0].tolist())))
 
 print("\n------> SUCCESSFULLY FINISHED ---------------------------------------- \n")
 now = datetime.now()
