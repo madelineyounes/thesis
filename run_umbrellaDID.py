@@ -163,7 +163,7 @@ model_name = "facebook/wav2vec2-base-960h"
 # Use a pretrained tokenizer (True/False)
 #     True: Use existing tokenizer (if custom dataset has same vocab)
 #     False: Use custom tokenizer (if custom dataset has different vocab)
-use_pretrained_tokenizer = False
+use_pretrained_tokenizer = True
 print("use_pretrained_tokenizer:", use_pretrained_tokenizer)
 # Set tokenizer
 pretrained_tokenizer = model_name
