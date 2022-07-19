@@ -808,17 +808,17 @@ print("SUCCESS: Pre-trained checkpoint loaded.")
 
 print("--> Defining CTC Trainer...")
 class CTCTrainer(Trainer):
-    def train(self, model_path: Optional[str] = None, trial: Union["optuna.Trial", Dict[str, Any]] = None):
-        #train_dataloader = self.get_train_dataloader()
+    def train(self, model_path: Optional[str] = None):        #train_dataloader = self.get_train_dataloader()
         train_dataloader = trainDataLoader
         #self.callback_handler.train_dataloader = train_dataloader
         self.callback_handler.train_dataloader = train_dataloader
+        print("training...")
 
     def predict(
         self, test_dataset: Dataset, ignore_keys: Optional[List[str]] = None, metric_key_prefix: str = "eval"
     ):
         #test_dataloader = self.get_test_dataloader(test_dataset)
-        test_dataloader = testnDataLoader
+        test_dataloader = testDataLoader
         #output = self.prediction_loop(
         #    test_dataloader, description="Prediction", ignore_keys=ignore_keys, metric_key_prefix=metric_key_prefix
         #)
@@ -979,9 +979,10 @@ def predict(batch):
     batch["predicted"] = pred_ids
     return batch
 
-results = testcustomdata.map(predict, batched=True, batch_size=8)
-y_true = [config.label2id[name] for name in results["label"]]
-y_pred = results["predicted"]
+
+results = trainer.predict(testcustomdata)
+y_true = [config.label2id[name] for name in results["label_ids"]]
+y_pred = results["predictions"]
 
 print(classification_report(y_true, y_pred, target_names=label_list))
 
