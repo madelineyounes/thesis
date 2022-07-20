@@ -47,6 +47,6 @@ class CustomDataset(Dataset):
             speech_mask = self.transform(speech)[1]
 
         label = int(label2id[self.data_frame.iloc[idx, 1]])
-        sample = {"input_values": speech_features, "mask": speech_mask, "label": label}
+        sample = {"input_values": speech_features, "attention_mask": speech_mask, "label": label}
         print("SAMPLE: ",sample)
         return sample

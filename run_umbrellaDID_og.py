@@ -827,9 +827,9 @@ class myTrainer(Trainer):
         # put model in train mode
         self.model.train()
 
-        for features, labels in loader:
+        for features, mask, labels in loader:
             # forward pass
-            out = self.model(features)
+            out = self.model(input_values = features, attention_mask = mask)
 
             # loss
             loss = self._compute_loss(out, labels)

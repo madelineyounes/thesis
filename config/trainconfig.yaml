@@ -5,3 +5,8 @@ learning_rate: 0.00004
 weight_decay: 0.01
 adam_beta1: 0.98
 adam_beta2: 0.98
+adam_epsilon: 0.00000001
+train_epochs: 5
+max_steps: 35000
+lr_scheduler_type: linear
+warmup_ratio: 0.1
