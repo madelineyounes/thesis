@@ -47,6 +47,11 @@ class CustomDataset(Dataset):
             speech_mask = self.transform(speech)[1]
 
         label = int(label2id[self.data_frame.iloc[idx, 1]])
+        
+        speech_features = speech_features.float().cuda().contiguous()
+        speech_mask = speech_mask.long().cuda().contiguous()
+        label = label.long().cuda().contiguous()
+
         sample = {"input_values": speech_features, "attention_mask": speech_mask, "label": label}
         print("SAMPLE: ",sample)
         return sample

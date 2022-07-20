@@ -12,3 +12,7 @@ lr_scheduler_type: linear
 warmup_ratio: 0.1               # Default = 0.0
 logging_strategy: steps         # Default = "steps"
 logging_steps: 10               # Default = 500
+save_strategy: epoch
+save_steps: 1000
+save_total_limit: 40
+fp16: False
