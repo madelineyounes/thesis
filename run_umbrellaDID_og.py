@@ -524,7 +524,7 @@ print("Create a custom dataset ---> ")
 #         return sample
 
 
-random_transforms = transforms.Compose([T.Extractor(model_name, sampling_rate, 1500)])
+random_transforms = transforms.Compose([T.Extractor(model_name, sampling_rate, 5)])
 
 traincustomdata = CustomDataset(csv_fp=data_train_fp, data_fp=training_data_path,transform=random_transforms)
 testcustomdata = CustomDataset(
