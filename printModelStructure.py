@@ -10,10 +10,10 @@ import torch.nn as nn
 # facebook/wav2vec2-base
 # facebook/wav2vec2-large-960h
 
-print("XLSR")
-model = Wav2Vec2ForSequenceClassification.from_pretrained(
-    "facebook/wav2vec2-large-xlsr-53")
-print(model)
+# print("XLSR")
+# model = Wav2Vec2ForSequenceClassification.from_pretrained(
+#     "facebook/wav2vec2-large-xlsr-53")
+# print(model)
 
 print("wav2vec2-large-xlsr-53-arabic")
 processor = Wav2Vec2Processor.from_pretrained("wav2vec2-large-xlsr-53-arabic")

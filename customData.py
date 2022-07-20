@@ -20,6 +20,9 @@ class CustomDataset(Dataset):
         """
         self.data_frame = pd.read_csv(csv_fp, delimiter=',')
         self.data_fp = data_fp
+        self.transform = transform
+        self.target_transform = target_transform
+        self.sampling_rate = sampling_rate
 
     def __len__(self):
         return len(self.data_frame)
@@ -30,9 +33,15 @@ class CustomDataset(Dataset):
 
         audiopath = self.data_fp + self.data_frame.iloc[idx, 0] + ".wav"
         speech = speech_file_to_array_fn(audiopath, self.sampling_rate)
-        speech_features, mask = feature_extractor(
-            speech, sampling_rate=target_sampling_rate)
+        
+        # speech_features, mask = feature_extractor(
+        #     speech, sampling_rate=target_sampling_rate)
 
-        label = int(label2id[self.data_frame.iloc[idx, 1]])
-        sample = {"input_values": speech_features, "label": label}
+        if self.transform:
+            speech_features = self.transform(speech)[0]
+            speech_mask = self.transform(speech)[1]
+        if self.target_transform:
+            label = self.target_transform(label)
+            
+        sample = {"input_values": speech_features, "mask": speech_mask, "label": label}
         return sample
