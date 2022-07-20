@@ -17,6 +17,7 @@ class CustomDataset(Dataset):
         Args:
         csv_fp (string): Path to csv with audio file ids and labels.
         data_fp (string): Path to audio files
+        transform: Transform to be performed on audio file
         """
         self.data_frame = pd.read_csv(csv_fp, delimiter=',')
         self.data_fp = data_fp
