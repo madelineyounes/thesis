@@ -827,6 +827,7 @@ class myTrainer(Trainer):
         self.model.train()
 
         for features, mask, labels in loader:
+            print("LOADER", loader)
             # forward pass
             inputs = {}
             inputs['input_values'] = features.float()
