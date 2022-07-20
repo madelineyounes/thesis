@@ -1,0 +1,1507 @@
+XLSR
+Cant print XLSR
+XLSR ARABIC
+Downloading:   0%|          | 0.00/1.32k [00:00<?, ?B/s]Downloading: 100%|██████████| 1.32k/1.32k [00:00<00:00, 1.54MB/s]
+Downloading:   0%|          | 0.00/1.18G [00:00<?, ?B/s]Downloading:   0%|          | 17.0k/1.18G [00:00<4:03:29, 86.4kB/s]Downloading:   0%|          | 51.0k/1.18G [00:00<2:41:54, 130kB/s] Downloading:   0%|          | 135k/1.18G [00:00<1:20:52, 260kB/s] Downloading:   0%|          | 289k/1.18G [00:00<45:50, 459kB/s]  Downloading:   0%|          | 575k/1.18G [00:00<21:18, 987kB/s]Downloading:   0%|          | 707k/1.18G [00:01<20:28, 1.03MB/s]Downloading:   0%|          | 1.20M/1.18G [00:01<12:34, 1.67MB/s]Downloading:   0%|          | 2.30M/1.18G [00:01<05:27, 3.84MB/s]Downloading:   0%|          | 2.77M/1.18G [00:01<05:22, 3.90MB/s]Downloading:   0%|          | 4.86M/1.18G [00:01<03:07, 6.70MB/s]Downloading:   1%|          | 8.11M/1.18G [00:01<01:38, 12.7MB/s]Downloading:   1%|          | 9.54M/1.18G [00:01<01:40, 12.5MB/s]Downloading:   1%|          | 12.2M/1.18G [00:02<01:34, 13.3MB/s]Downloading:   1%|▏         | 15.6M/1.18G [00:02<01:08, 18.1MB/s]Downloading:   1%|▏         | 17.6M/1.18G [00:02<01:12, 17.2MB/s]Downloading:   2%|▏         | 19.9M/1.18G [00:02<01:19, 15.7MB/s]Downloading:   2%|▏         | 23.2M/1.18G [00:02<01:02, 19.9MB/s]Downloading:   2%|▏         | 25.4M/1.18G [00:02<01:11, 17.2MB/s]Downloading:   2%|▏         | 27.2M/1.18G [00:02<01:16, 16.1MB/s]Downloading:   3%|▎         | 30.6M/1.18G [00:03<01:00, 20.5MB/s]Downloading:   3%|▎         | 32.8M/1.18G [00:03<01:04, 19.2MB/s]Downloading:   3%|▎         | 34.9M/1.18G [00:03<01:14, 16.5MB/s]Downloading:   3%|▎         | 37.9M/1.18G [00:03<01:01, 19.8MB/s]Downloading:   3%|▎         | 40.0M/1.18G [00:03<01:05, 18.7MB/s]Downloading:   4%|▎         | 42.6M/1.18G [00:03<01:12, 16.9MB/s]Downloading:   4%|▍         | 45.8M/1.18G [00:03<00:58, 20.7MB/s]Downloading:   4%|▍         | 48.0M/1.18G [00:04<01:02, 19.4MB/s]Downloading:   4%|▍         | 50.2M/1.18G [00:04<01:13, 16.6MB/s]Downloading:   4%|▍         | 52.9M/1.18G [00:04<01:18, 15.4MB/s]Downloading:   5%|▍         | 56.1M/1.18G [00:04<01:03, 19.0MB/s]Downloading:   5%|▍         | 58.2M/1.18G [00:04<01:07, 17.7MB/s]Downloading:   5%|▌         | 60.6M/1.18G [00:04<01:12, 16.6MB/s]Downloading:   5%|▌         | 63.7M/1.18G [00:04<00:59, 20.0MB/s]Downloading:   5%|▌         | 65.8M/1.18G [00:05<01:06, 17.9MB/s]Downloading:   6%|▌         | 67.8M/1.18G [00:05<01:13, 16.3MB/s]Downloading:   6%|▌         | 71.0M/1.18G [00:05<00:59, 20.1MB/s]Downloading:   6%|▌         | 73.2M/1.18G [00:05<01:03, 18.6MB/s]Downloading:   6%|▋         | 75.4M/1.18G [00:05<01:10, 16.8MB/s]Downloading:   7%|▋         | 78.6M/1.18G [00:05<00:57, 20.6MB/s]Downloading:   7%|▋         | 80.8M/1.18G [00:05<01:04, 18.3MB/s]Downloading:   7%|▋         | 83.1M/1.18G [00:06<01:08, 17.1MB/s]Downloading:   7%|▋         | 86.3M/1.18G [00:06<00:56, 20.8MB/s]Downloading:   7%|▋         | 88.5M/1.18G [00:06<01:01, 18.9MB/s]Downloading:   8%|▊         | 90.9M/1.18G [00:06<01:07, 17.2MB/s]Downloading:   8%|▊         | 94.1M/1.18G [00:06<00:55, 20.8MB/s]Downloading:   8%|▊         | 96.3M/1.18G [00:06<01:00, 19.1MB/s]Downloading:   8%|▊         | 98.3M/1.18G [00:07<01:12, 16.0MB/s]Downloading:   8%|▊         | 101M/1.18G [00:07<00:59, 19.5MB/s] Downloading:   9%|▊         | 104M/1.18G [00:07<01:02, 18.4MB/s]Downloading:   9%|▉         | 105M/1.18G [00:07<01:11, 16.1MB/s]Downloading:   9%|▉         | 109M/1.18G [00:07<00:57, 19.9MB/s]Downloading:   9%|▉         | 111M/1.18G [00:07<01:02, 18.4MB/s]Downloading:   9%|▉         | 113M/1.18G [00:07<01:07, 17.0MB/s]Downloading:  10%|▉         | 116M/1.18G [00:07<00:55, 20.6MB/s]Downloading:  10%|▉         | 119M/1.18G [00:08<01:00, 18.9MB/s]Downloading:  10%|█         | 121M/1.18G [00:08<01:05, 17.3MB/s]Downloading:  10%|█         | 124M/1.18G [00:08<00:54, 20.9MB/s]Downloading:  11%|█         | 126M/1.18G [00:08<01:00, 18.6MB/s]Downloading:  11%|█         | 129M/1.18G [00:08<01:05, 17.2MB/s]Downloading:  11%|█         | 132M/1.18G [00:08<00:53, 20.8MB/s]Downloading:  11%|█         | 134M/1.18G [00:08<01:00, 18.6MB/s]Downloading:  11%|█▏        | 136M/1.18G [00:09<01:04, 17.4MB/s]Downloading:  12%|█▏        | 140M/1.18G [00:09<00:52, 21.1MB/s]Downloading:  12%|█▏        | 142M/1.18G [00:09<00:59, 18.8MB/s]Downloading:  12%|█▏        | 144M/1.18G [00:09<01:03, 17.4MB/s]Downloading:  12%|█▏        | 147M/1.18G [00:09<00:52, 21.0MB/s]Downloading:  12%|█▏        | 150M/1.18G [00:09<00:58, 18.8MB/s]Downloading:  13%|█▎        | 152M/1.18G [00:09<01:03, 17.3MB/s]Downloading:  13%|█▎        | 155M/1.18G [00:10<00:52, 20.8MB/s]Downloading:  13%|█▎        | 157M/1.18G [00:10<00:59, 18.5MB/s]Downloading:  13%|█▎        | 160M/1.18G [00:10<01:03, 17.2MB/s]Downloading:  14%|█▎        | 163M/1.18G [00:10<00:52, 20.8MB/s]Downloading:  14%|█▎        | 165M/1.18G [00:10<00:59, 18.4MB/s]Downloading:  14%|█▍        | 167M/1.18G [00:10<01:02, 17.4MB/s]Downloading:  14%|█▍        | 171M/1.18G [00:10<00:51, 21.1MB/s]Downloading:  14%|█▍        | 173M/1.18G [00:11<00:57, 18.7MB/s]Downloading:  15%|█▍        | 175M/1.18G [00:11<01:02, 17.3MB/s]Downloading:  15%|█▍        | 178M/1.18G [00:11<00:51, 20.9MB/s]Downloading:  15%|█▌        | 181M/1.18G [00:11<00:55, 19.2MB/s]Downloading:  15%|█▌        | 183M/1.18G [00:11<01:32, 11.6MB/s]Downloading:  16%|█▌        | 187M/1.18G [00:12<01:45, 10.1MB/s]Downloading:  16%|█▌        | 189M/1.18G [00:12<01:31, 11.7MB/s]Downloading:  16%|█▌        | 192M/1.18G [00:12<01:12, 14.6MB/s]Downloading:  16%|█▌        | 195M/1.18G [00:12<00:59, 17.9MB/s]Downloading:  16%|█▋        | 199M/1.18G [00:12<00:50, 21.0MB/s]Downloading:  17%|█▋        | 202M/1.18G [00:12<00:44, 23.7MB/s]Downloading:  17%|█▋        | 205M/1.18G [00:13<00:40, 25.9MB/s]Downloading:  17%|█▋        | 208M/1.18G [00:13<00:37, 27.9MB/s]Downloading:  18%|█▊        | 211M/1.18G [00:13<00:35, 29.4MB/s]Downloading:  18%|█▊        | 214M/1.18G [00:13<00:41, 25.0MB/s]Downloading:  18%|█▊        | 218M/1.18G [00:13<00:37, 27.3MB/s]Downloading:  18%|█▊        | 220M/1.18G [00:13<00:45, 22.9MB/s]Downloading:  19%|█▊        | 223M/1.18G [00:13<00:49, 20.6MB/s]Downloading:  19%|█▊        | 225M/1.18G [00:14<01:04, 15.8MB/s]Downloading:  19%|█▉        | 227M/1.18G [00:14<01:14, 13.8MB/s]Downloading:  19%|█▉        | 228M/1.18G [00:14<01:22, 12.3MB/s]Downloading:  19%|█▉        | 232M/1.18G [00:14<01:02, 16.4MB/s]Downloading:  19%|█▉        | 233M/1.18G [00:14<01:05, 15.6MB/s]Downloading:  20%|█▉        | 236M/1.18G [00:14<01:05, 15.5MB/s]Downloading:  20%|█▉        | 239M/1.18G [00:15<00:52, 19.3MB/s]Downloading:  20%|██        | 241M/1.18G [00:15<00:57, 17.5MB/s]Downloading:  20%|██        | 244M/1.18G [00:15<01:00, 16.5MB/s]Downloading:  21%|██        | 247M/1.18G [00:15<00:49, 20.2MB/s]Downloading:  21%|██        | 249M/1.18G [00:15<00:55, 18.1MB/s]Downloading:  21%|██        | 252M/1.18G [00:15<00:58, 17.2MB/s]Downloading:  21%|██        | 255M/1.18G [00:15<00:47, 20.8MB/s]Downloading:  21%|██▏       | 257M/1.18G [00:16<00:53, 18.7MB/s]Downloading:  22%|██▏       | 260M/1.18G [00:16<00:55, 17.7MB/s]Downloading:  22%|██▏       | 263M/1.18G [00:16<00:46, 21.3MB/s]Downloading:  22%|██▏       | 265M/1.18G [00:16<00:51, 19.1MB/s]Downloading:  22%|██▏       | 267M/1.18G [00:16<00:59, 16.6MB/s]Downloading:  22%|██▏       | 270M/1.18G [00:16<00:50, 19.2MB/s]Downloading:  23%|██▎       | 272M/1.18G [00:16<00:53, 18.4MB/s]Downloading:  23%|██▎       | 274M/1.18G [00:17<00:58, 16.8MB/s]Downloading:  23%|██▎       | 277M/1.18G [00:17<00:47, 20.5MB/s]Downloading:  23%|██▎       | 279M/1.18G [00:17<00:52, 18.3MB/s]Downloading:  23%|██▎       | 282M/1.18G [00:17<00:57, 16.8MB/s]Downloading:  24%|██▎       | 285M/1.18G [00:17<00:46, 20.6MB/s]Downloading:  24%|██▍       | 287M/1.18G [00:17<00:53, 17.9MB/s]Downloading:  24%|██▍       | 289M/1.18G [00:17<00:57, 16.6MB/s]Downloading:  24%|██▍       | 291M/1.18G [00:18<00:52, 18.4MB/s]Downloading:  24%|██▍       | 293M/1.18G [00:18<00:53, 17.9MB/s]Downloading:  25%|██▍       | 297M/1.18G [00:18<00:43, 21.9MB/s]Downloading:  25%|██▍       | 299M/1.18G [00:18<00:50, 19.0MB/s]Downloading:  25%|██▍       | 301M/1.18G [00:18<00:55, 17.0MB/s]Downloading:  25%|██▌       | 304M/1.18G [00:18<00:45, 20.8MB/s]Downloading:  25%|██▌       | 306M/1.18G [00:18<00:52, 18.1MB/s]Downloading:  26%|██▌       | 308M/1.18G [00:18<00:57, 16.5MB/s]Downloading:  26%|██▌       | 311M/1.18G [00:19<00:45, 20.4MB/s]Downloading:  26%|██▌       | 313M/1.18G [00:19<00:50, 18.6MB/s]Downloading:  26%|██▌       | 315M/1.18G [00:19<00:55, 16.8MB/s]Downloading:  26%|██▋       | 319M/1.18G [00:19<00:45, 20.4MB/s]Downloading:  27%|██▋       | 321M/1.18G [00:19<00:50, 18.4MB/s]Downloading:  27%|██▋       | 323M/1.18G [00:19<00:57, 16.1MB/s]Downloading:  27%|██▋       | 326M/1.18G [00:19<00:46, 19.9MB/s]Downloading:  27%|██▋       | 328M/1.18G [00:20<00:51, 17.9MB/s]Downloading:  27%|██▋       | 330M/1.18G [00:20<00:54, 16.7MB/s]Downloading:  28%|██▊       | 333M/1.18G [00:20<00:44, 20.6MB/s]Downloading:  28%|██▊       | 336M/1.18G [00:20<00:48, 18.8MB/s]Downloading:  28%|██▊       | 338M/1.18G [00:20<00:53, 16.9MB/s]Downloading:  28%|██▊       | 341M/1.18G [00:20<00:43, 20.6MB/s]Downloading:  29%|██▊       | 343M/1.18G [00:20<00:48, 18.4MB/s]Downloading:  29%|██▊       | 346M/1.18G [00:21<00:52, 17.2MB/s]Downloading:  29%|██▉       | 349M/1.18G [00:21<00:43, 20.8MB/s]Downloading:  29%|██▉       | 351M/1.18G [00:21<00:48, 18.5MB/s]Downloading:  29%|██▉       | 353M/1.18G [00:21<00:51, 17.2MB/s]Downloading:  30%|██▉       | 356M/1.18G [00:21<00:42, 20.8MB/s]Downloading:  30%|██▉       | 359M/1.18G [00:21<00:47, 18.5MB/s]Downloading:  30%|██▉       | 361M/1.18G [00:21<00:51, 17.2MB/s]Downloading:  30%|███       | 364M/1.18G [00:22<00:42, 20.9MB/s]Downloading:  30%|███       | 366M/1.18G [00:22<00:47, 18.7MB/s]Downloading:  31%|███       | 369M/1.18G [00:22<00:50, 17.5MB/s]Downloading:  31%|███       | 372M/1.18G [00:22<00:41, 21.2MB/s]Downloading:  31%|███       | 374M/1.18G [00:22<00:45, 19.2MB/s]Downloading:  31%|███▏      | 376M/1.18G [00:22<00:50, 17.2MB/s]Downloading:  32%|███▏      | 380M/1.18G [00:22<00:41, 20.9MB/s]Downloading:  32%|███▏      | 382M/1.18G [00:23<00:45, 19.1MB/s]Downloading:  32%|███▏      | 384M/1.18G [00:23<00:49, 17.3MB/s]Downloading:  32%|███▏      | 387M/1.18G [00:23<00:41, 20.5MB/s]Downloading:  32%|███▏      | 389M/1.18G [00:23<00:45, 18.7MB/s]Downloading:  33%|███▎      | 392M/1.18G [00:23<00:49, 17.1MB/s]Downloading:  33%|███▎      | 395M/1.18G [00:23<00:41, 20.7MB/s]Downloading:  33%|███▎      | 397M/1.18G [00:23<00:45, 18.5MB/s]Downloading:  33%|███▎      | 400M/1.18G [00:24<00:48, 17.3MB/s]Downloading:  33%|███▎      | 403M/1.18G [00:24<00:40, 20.8MB/s]Downloading:  34%|███▎      | 405M/1.18G [00:24<00:43, 19.1MB/s]Downloading:  34%|███▍      | 407M/1.18G [00:24<00:48, 17.4MB/s]Downloading:  34%|███▍      | 410M/1.18G [00:24<00:39, 20.9MB/s]Downloading:  34%|███▍      | 413M/1.18G [00:24<00:43, 19.0MB/s]Downloading:  34%|███▍      | 415M/1.18G [00:24<00:47, 17.3MB/s]Downloading:  35%|███▍      | 418M/1.18G [00:25<00:39, 20.9MB/s]Downloading:  35%|███▍      | 420M/1.18G [00:25<00:43, 19.0MB/s]Downloading:  35%|███▌      | 423M/1.18G [00:25<00:47, 17.2MB/s]Downloading:  35%|███▌      | 426M/1.18G [00:25<00:39, 20.8MB/s]Downloading:  36%|███▌      | 428M/1.18G [00:25<00:42, 19.0MB/s]Downloading:  36%|███▌      | 430M/1.18G [00:25<00:52, 15.5MB/s]Downloading:  36%|███▌      | 433M/1.18G [00:26<00:50, 16.1MB/s]Downloading:  36%|███▌      | 436M/1.18G [00:26<00:40, 19.8MB/s]Downloading:  36%|███▋      | 438M/1.18G [00:26<00:44, 17.9MB/s]Downloading:  37%|███▋      | 441M/1.18G [00:26<00:47, 16.9MB/s]Downloading:  37%|███▋      | 444M/1.18G [00:26<00:38, 20.6MB/s]Downloading:  37%|███▋      | 446M/1.18G [00:26<00:43, 18.3MB/s]Downloading:  37%|███▋      | 448M/1.18G [00:26<00:49, 16.1MB/s]Downloading:  37%|███▋      | 451M/1.18G [00:26<00:39, 19.8MB/s]Downloading:  38%|███▊      | 453M/1.18G [00:27<00:44, 17.6MB/s]Downloading:  38%|███▊      | 455M/1.18G [00:27<00:50, 15.4MB/s]Downloading:  38%|███▊      | 458M/1.18G [00:27<00:43, 17.8MB/s]Downloading:  38%|███▊      | 460M/1.18G [00:27<00:44, 17.4MB/s]Downloading:  38%|███▊      | 462M/1.18G [00:27<00:50, 15.4MB/s]Downloading:  39%|███▊      | 465M/1.18G [00:27<00:40, 19.2MB/s]Downloading:  39%|███▉      | 467M/1.18G [00:27<00:43, 17.9MB/s]Downloading:  39%|███▉      | 470M/1.18G [00:28<00:45, 16.9MB/s]Downloading:  39%|███▉      | 473M/1.18G [00:28<00:37, 20.6MB/s]Downloading:  39%|███▉      | 475M/1.18G [00:28<00:40, 18.8MB/s]Downloading:  40%|███▉      | 477M/1.18G [00:28<00:44, 17.3MB/s]Downloading:  40%|███▉      | 481M/1.18G [00:28<00:36, 20.8MB/s]Downloading:  40%|████      | 483M/1.18G [00:28<00:40, 18.6MB/s]Downloading:  40%|████      | 485M/1.18G [00:29<00:43, 17.2MB/s]Downloading:  41%|████      | 488M/1.18G [00:29<00:35, 21.0MB/s]Downloading:  41%|████      | 491M/1.18G [00:29<00:40, 18.5MB/s]Downloading:  41%|████      | 493M/1.18G [00:29<00:43, 17.2MB/s]Downloading:  41%|████      | 496M/1.18G [00:29<00:35, 21.0MB/s]Downloading:  41%|████▏     | 498M/1.18G [00:29<00:39, 18.6MB/s]Downloading:  42%|████▏     | 500M/1.18G [00:29<00:44, 16.6MB/s]Downloading:  42%|████▏     | 503M/1.18G [00:30<00:48, 15.1MB/s]Downloading:  42%|████▏     | 506M/1.18G [00:30<00:38, 18.9MB/s]Downloading:  42%|████▏     | 508M/1.18G [00:30<00:42, 17.3MB/s]Downloading:  42%|████▏     | 510M/1.18G [00:30<00:43, 16.7MB/s]Downloading:  43%|████▎     | 514M/1.18G [00:30<00:35, 20.5MB/s]Downloading:  43%|████▎     | 516M/1.18G [00:30<00:39, 18.1MB/s]Downloading:  43%|████▎     | 518M/1.18G [00:30<00:43, 16.4MB/s]Downloading:  43%|████▎     | 520M/1.18G [00:31<00:47, 15.2MB/s]Downloading:  44%|████▎     | 524M/1.18G [00:31<00:37, 18.9MB/s]Downloading:  44%|████▎     | 526M/1.18G [00:31<00:40, 17.6MB/s]Downloading:  44%|████▍     | 528M/1.18G [00:31<00:42, 16.5MB/s]Downloading:  44%|████▍     | 531M/1.18G [00:31<00:34, 20.1MB/s]Downloading:  44%|████▍     | 534M/1.18G [00:31<00:38, 18.4MB/s]Downloading:  45%|████▍     | 536M/1.18G [00:32<00:41, 16.9MB/s]Downloading:  45%|████▍     | 538M/1.18G [00:32<01:01, 11.3MB/s]Downloading:  45%|████▍     | 541M/1.18G [00:32<00:46, 15.0MB/s]Downloading:  45%|████▌     | 544M/1.18G [00:32<00:37, 18.7MB/s]Downloading:  45%|████▌     | 547M/1.18G [00:32<00:31, 21.6MB/s]Downloading:  46%|████▌     | 550M/1.18G [00:32<00:28, 24.4MB/s]Downloading:  46%|████▌     | 553M/1.18G [00:32<00:30, 22.2MB/s]Downloading:  46%|████▌     | 556M/1.18G [00:33<00:36, 18.6MB/s]Downloading:  46%|████▋     | 558M/1.18G [00:33<00:38, 17.8MB/s]Downloading:  47%|████▋     | 561M/1.18G [00:33<00:31, 21.2MB/s]Downloading:  47%|████▋     | 564M/1.18G [00:33<00:35, 19.0MB/s]Downloading:  47%|████▋     | 566M/1.18G [00:33<00:37, 17.8MB/s]Downloading:  47%|████▋     | 569M/1.18G [00:33<00:31, 21.3MB/s]Downloading:  47%|████▋     | 572M/1.18G [00:33<00:35, 18.8MB/s]Downloading:  48%|████▊     | 574M/1.18G [00:34<00:39, 16.7MB/s]Downloading:  48%|████▊     | 577M/1.18G [00:34<00:32, 20.1MB/s]Downloading:  48%|████▊     | 579M/1.18G [00:34<00:34, 18.7MB/s]Downloading:  48%|████▊     | 581M/1.18G [00:34<00:41, 15.8MB/s]Downloading:  48%|████▊     | 583M/1.18G [00:34<00:41, 15.5MB/s]Downloading:  49%|████▊     | 587M/1.18G [00:34<00:33, 19.2MB/s]Downloading:  49%|████▉     | 589M/1.18G [00:35<00:36, 17.5MB/s]Downloading:  49%|████▉     | 591M/1.18G [00:35<00:38, 16.5MB/s]Downloading:  49%|████▉     | 594M/1.18G [00:35<00:32, 19.8MB/s]Downloading:  50%|████▉     | 596M/1.18G [00:35<00:34, 18.4MB/s]Downloading:  50%|████▉     | 599M/1.18G [00:35<00:37, 17.0MB/s]Downloading:  50%|█████     | 602M/1.18G [00:35<00:30, 20.7MB/s]Downloading:  50%|█████     | 604M/1.18G [00:35<00:33, 18.5MB/s]Downloading:  50%|█████     | 606M/1.18G [00:36<00:36, 17.2MB/s]Downloading:  51%|█████     | 610M/1.18G [00:36<00:29, 20.8MB/s]Downloading:  51%|█████     | 612M/1.18G [00:36<00:33, 18.6MB/s]Downloading:  51%|█████     | 614M/1.18G [00:36<00:35, 17.4MB/s]Downloading:  51%|█████▏    | 617M/1.18G [00:36<00:29, 21.1MB/s]Downloading:  51%|█████▏    | 620M/1.18G [00:36<00:32, 18.7MB/s]Downloading:  52%|█████▏    | 622M/1.18G [00:36<00:35, 17.4MB/s]Downloading:  52%|█████▏    | 625M/1.18G [00:37<00:28, 21.1MB/s]Downloading:  52%|█████▏    | 627M/1.18G [00:37<00:32, 18.5MB/s]Downloading:  52%|█████▏    | 630M/1.18G [00:37<00:34, 17.4MB/s]Downloading:  53%|█████▎    | 633M/1.18G [00:37<00:28, 21.2MB/s]Downloading:  53%|█████▎    | 635M/1.18G [00:37<00:30, 19.7MB/s]Downloading:  53%|█████▎    | 638M/1.18G [00:37<00:32, 18.1MB/s]Downloading:  53%|█████▎    | 641M/1.18G [00:37<00:27, 21.5MB/s]Downloading:  53%|█████▎    | 643M/1.18G [00:38<00:29, 19.7MB/s]Downloading:  54%|█████▎    | 646M/1.18G [00:38<00:32, 18.0MB/s]Downloading:  54%|█████▍    | 649M/1.18G [00:38<00:27, 21.5MB/s]Downloading:  54%|█████▍    | 651M/1.18G [00:38<00:30, 18.9MB/s]Downloading:  54%|█████▍    | 654M/1.18G [00:38<00:32, 17.7MB/s]Downloading:  55%|█████▍    | 657M/1.18G [00:38<00:27, 21.1MB/s]Downloading:  55%|█████▍    | 659M/1.18G [00:38<00:30, 18.8MB/s]Downloading:  55%|█████▍    | 661M/1.18G [00:39<00:32, 17.4MB/s]Downloading:  55%|█████▌    | 665M/1.18G [00:39<00:26, 21.0MB/s]Downloading:  55%|█████▌    | 667M/1.18G [00:39<00:29, 18.8MB/s]Downloading:  56%|█████▌    | 669M/1.18G [00:39<00:31, 17.8MB/s]Downloading:  56%|█████▌    | 672M/1.18G [00:39<00:26, 21.2MB/s]Downloading:  56%|█████▌    | 675M/1.18G [00:39<00:29, 18.7MB/s]Downloading:  56%|█████▌    | 677M/1.18G [00:39<00:31, 17.5MB/s]Downloading:  56%|█████▋    | 679M/1.18G [00:40<00:34, 15.8MB/s]Downloading:  57%|█████▋    | 683M/1.18G [00:40<00:28, 19.4MB/s]Downloading:  57%|█████▋    | 685M/1.18G [00:40<00:30, 17.7MB/s]Downloading:  57%|█████▋    | 687M/1.18G [00:40<00:32, 16.7MB/s]Downloading:  57%|█████▋    | 690M/1.18G [00:40<00:26, 20.3MB/s]Downloading:  58%|█████▊    | 692M/1.18G [00:40<00:29, 18.2MB/s]Downloading:  58%|█████▊    | 695M/1.18G [00:40<00:31, 17.0MB/s]Downloading:  58%|█████▊    | 698M/1.18G [00:41<00:25, 20.6MB/s]Downloading:  58%|█████▊    | 700M/1.18G [00:41<00:27, 19.0MB/s]Downloading:  58%|█████▊    | 702M/1.18G [00:41<00:32, 16.0MB/s]Downloading:  59%|█████▊    | 705M/1.18G [00:41<00:26, 19.8MB/s]Downloading:  59%|█████▉    | 707M/1.18G [00:41<00:28, 18.4MB/s]Downloading:  59%|█████▉    | 709M/1.18G [00:41<00:31, 16.4MB/s]Downloading:  59%|█████▉    | 713M/1.18G [00:41<00:25, 20.3MB/s]Downloading:  59%|█████▉    | 715M/1.18G [00:42<00:27, 18.6MB/s]Downloading:  60%|█████▉    | 717M/1.18G [00:42<00:30, 17.0MB/s]Downloading:  60%|█████▉    | 720M/1.18G [00:42<00:24, 20.7MB/s]Downloading:  60%|██████    | 722M/1.18G [00:42<00:27, 18.5MB/s]Downloading:  60%|██████    | 724M/1.18G [00:42<00:30, 16.4MB/s]Downloading:  60%|██████    | 728M/1.18G [00:42<00:24, 20.2MB/s]Downloading:  61%|██████    | 730M/1.18G [00:42<00:26, 18.6MB/s]Downloading:  61%|██████    | 732M/1.18G [00:43<00:28, 17.1MB/s]Downloading:  61%|██████    | 735M/1.18G [00:43<00:23, 20.8MB/s]Downloading:  61%|██████▏   | 737M/1.18G [00:43<00:35, 13.7MB/s]Downloading:  62%|██████▏   | 741M/1.18G [00:43<00:28, 17.3MB/s]Downloading:  62%|██████▏   | 743M/1.18G [00:43<00:28, 16.7MB/s]Downloading:  62%|██████▏   | 745M/1.18G [00:43<00:30, 15.6MB/s]Downloading:  62%|██████▏   | 748M/1.18G [00:44<00:24, 19.3MB/s]Downloading:  62%|██████▏   | 750M/1.18G [00:44<00:26, 18.0MB/s]Downloading:  63%|██████▎   | 753M/1.18G [00:44<00:28, 16.4MB/s]Downloading:  63%|██████▎   | 756M/1.18G [00:44<00:23, 20.1MB/s]Downloading:  63%|██████▎   | 758M/1.18G [00:44<00:25, 18.6MB/s]Downloading:  63%|██████▎   | 760M/1.18G [00:44<00:27, 17.2MB/s]Downloading:  63%|██████▎   | 764M/1.18G [00:44<00:22, 20.8MB/s]Downloading:  64%|██████▎   | 766M/1.18G [00:45<00:24, 18.9MB/s]Downloading:  64%|██████▍   | 768M/1.18G [00:45<00:26, 17.0MB/s]Downloading:  64%|██████▍   | 771M/1.18G [00:45<00:21, 20.7MB/s]Downloading:  64%|██████▍   | 773M/1.18G [00:45<00:23, 19.2MB/s]Downloading:  64%|██████▍   | 776M/1.18G [00:45<00:25, 17.7MB/s]Downloading:  65%|██████▍   | 779M/1.18G [00:45<00:20, 21.2MB/s]Downloading:  65%|██████▍   | 782M/1.18G [00:45<00:23, 18.8MB/s]Downloading:  65%|██████▌   | 784M/1.18G [00:46<00:26, 16.9MB/s]Downloading:  65%|██████▌   | 787M/1.18G [00:46<00:21, 20.0MB/s]Downloading:  66%|██████▌   | 789M/1.18G [00:46<00:23, 18.3MB/s]Downloading:  66%|██████▌   | 791M/1.18G [00:46<00:25, 17.1MB/s]Downloading:  66%|██████▌   | 794M/1.18G [00:46<00:20, 20.8MB/s]Downloading:  66%|██████▌   | 797M/1.18G [00:46<00:23, 18.5MB/s]Downloading:  66%|██████▋   | 799M/1.18G [00:46<00:24, 17.2MB/s]Downloading:  67%|██████▋   | 802M/1.18G [00:47<00:20, 20.9MB/s]Downloading:  67%|██████▋   | 804M/1.18G [00:47<00:22, 18.6MB/s]Downloading:  67%|██████▋   | 806M/1.18G [00:47<00:24, 17.1MB/s]Downloading:  67%|██████▋   | 810M/1.18G [00:47<00:19, 20.8MB/s]Downloading:  67%|██████▋   | 812M/1.18G [00:47<00:22, 18.6MB/s]Downloading:  68%|██████▊   | 814M/1.18G [00:47<00:23, 17.2MB/s]Downloading:  68%|██████▊   | 817M/1.18G [00:47<00:19, 20.9MB/s]Downloading:  68%|██████▊   | 820M/1.18G [00:48<00:21, 19.1MB/s]Downloading:  68%|██████▊   | 822M/1.18G [00:48<00:23, 17.2MB/s]Downloading:  69%|██████▊   | 825M/1.18G [00:48<00:19, 20.6MB/s]Downloading:  69%|██████▊   | 827M/1.18G [00:48<00:21, 18.4MB/s]Downloading:  69%|██████▉   | 829M/1.18G [00:48<00:22, 17.3MB/s]Downloading:  69%|██████▉   | 833M/1.18G [00:48<00:18, 21.0MB/s]Downloading:  69%|██████▉   | 835M/1.18G [00:48<00:20, 18.7MB/s]Downloading:  70%|██████▉   | 837M/1.18G [00:49<00:22, 17.1MB/s]Downloading:  70%|██████▉   | 840M/1.18G [00:49<00:18, 20.8MB/s]Downloading:  70%|██████▉   | 842M/1.18G [00:49<00:19, 19.1MB/s]Downloading:  70%|███████   | 845M/1.18G [00:49<00:21, 17.6MB/s]Downloading:  70%|███████   | 848M/1.18G [00:49<00:17, 21.2MB/s]Downloading:  71%|███████   | 850M/1.18G [00:49<00:19, 18.8MB/s]Downloading:  71%|███████   | 853M/1.18G [00:49<00:21, 17.3MB/s]Downloading:  71%|███████   | 856M/1.18G [00:50<00:17, 20.9MB/s]Downloading:  71%|███████▏  | 858M/1.18G [00:50<00:19, 19.1MB/s]Downloading:  71%|███████▏  | 860M/1.18G [00:50<00:20, 17.3MB/s]Downloading:  72%|███████▏  | 863M/1.18G [00:50<00:17, 20.9MB/s]Downloading:  72%|███████▏  | 866M/1.18G [00:50<00:18, 19.1MB/s]Downloading:  72%|███████▏  | 868M/1.18G [00:50<00:20, 17.2MB/s]Downloading:  72%|███████▏  | 871M/1.18G [00:50<00:16, 20.8MB/s]Downloading:  73%|███████▎  | 873M/1.18G [00:51<00:18, 19.0MB/s]Downloading:  73%|███████▎  | 876M/1.18G [00:51<00:19, 17.2MB/s]Downloading:  73%|███████▎  | 879M/1.18G [00:51<00:16, 20.9MB/s]Downloading:  73%|███████▎  | 881M/1.18G [00:51<00:18, 18.5MB/s]Downloading:  73%|███████▎  | 883M/1.18G [00:51<00:19, 17.0MB/s]Downloading:  74%|███████▎  | 886M/1.18G [00:51<00:16, 20.7MB/s]Downloading:  74%|███████▍  | 889M/1.18G [00:51<00:17, 18.5MB/s]Downloading:  74%|███████▍  | 891M/1.18G [00:52<00:19, 17.1MB/s]Downloading:  74%|███████▍  | 894M/1.18G [00:52<00:15, 20.8MB/s]Downloading:  74%|███████▍  | 896M/1.18G [00:52<00:17, 18.9MB/s]Downloading:  75%|███████▍  | 899M/1.18G [00:52<00:18, 17.5MB/s]Downloading:  75%|███████▍  | 902M/1.18G [00:52<00:15, 20.9MB/s]Downloading:  75%|███████▌  | 904M/1.18G [00:52<00:16, 19.1MB/s]Downloading:  75%|███████▌  | 906M/1.18G [00:52<00:18, 17.0MB/s]Downloading:  76%|███████▌  | 910M/1.18G [00:52<00:14, 20.7MB/s]Downloading:  76%|███████▌  | 912M/1.18G [00:53<00:16, 18.4MB/s]Downloading:  76%|███████▌  | 914M/1.18G [00:53<00:17, 17.1MB/s]Downloading:  76%|███████▌  | 917M/1.18G [00:53<00:14, 20.9MB/s]Downloading:  76%|███████▋  | 919M/1.18G [00:53<00:16, 18.5MB/s]Downloading:  77%|███████▋  | 921M/1.18G [00:53<00:18, 15.8MB/s]Downloading:  77%|███████▋  | 924M/1.18G [00:53<00:18, 16.0MB/s]Downloading:  77%|███████▋  | 927M/1.18G [00:54<00:14, 19.6MB/s]Downloading:  77%|███████▋  | 929M/1.18G [00:54<00:16, 17.3MB/s]Downloading:  77%|███████▋  | 931M/1.18G [00:54<00:17, 16.1MB/s]Downloading:  78%|███████▊  | 935M/1.18G [00:54<00:14, 19.9MB/s]Downloading:  78%|███████▊  | 937M/1.18G [00:54<00:15, 17.9MB/s]Downloading:  78%|███████▊  | 939M/1.18G [00:54<00:17, 15.7MB/s]Downloading:  78%|███████▊  | 942M/1.18G [00:54<00:14, 19.5MB/s]Downloading:  78%|███████▊  | 944M/1.18G [00:55<00:14, 18.2MB/s]Downloading:  79%|███████▊  | 946M/1.18G [00:55<00:16, 16.0MB/s]Downloading:  79%|███████▉  | 949M/1.18G [00:55<00:16, 16.0MB/s]Downloading:  79%|███████▉  | 952M/1.18G [00:55<00:13, 19.9MB/s]Downloading:  79%|███████▉  | 954M/1.18G [00:55<00:14, 18.3MB/s]Downloading:  79%|███████▉  | 957M/1.18G [00:55<00:15, 16.8MB/s]Downloading:  80%|███████▉  | 960M/1.18G [00:55<00:12, 20.4MB/s]Downloading:  80%|███████▉  | 962M/1.18G [00:56<00:13, 18.3MB/s]Downloading:  80%|████████  | 964M/1.18G [00:56<00:14, 17.1MB/s]Downloading:  80%|████████  | 968M/1.18G [00:56<00:11, 20.7MB/s]Downloading:  81%|████████  | 970M/1.18G [00:56<00:12, 19.0MB/s]Downloading:  81%|████████  | 972M/1.18G [00:56<00:14, 17.3MB/s]Downloading:  81%|████████  | 975M/1.18G [00:56<00:11, 20.9MB/s]Downloading:  81%|████████  | 978M/1.18G [00:56<00:12, 18.9MB/s]Downloading:  81%|████████▏ | 980M/1.18G [00:57<00:13, 17.3MB/s]Downloading:  82%|████████▏ | 983M/1.18G [00:57<00:11, 20.9MB/s]Downloading:  82%|████████▏ | 985M/1.18G [00:57<00:12, 18.5MB/s]Downloading:  82%|████████▏ | 987M/1.18G [00:57<00:13, 17.1MB/s]Downloading:  82%|████████▏ | 991M/1.18G [00:57<00:10, 20.8MB/s]Downloading:  82%|████████▏ | 993M/1.18G [00:57<00:11, 18.4MB/s]Downloading:  83%|████████▎ | 995M/1.18G [00:57<00:12, 17.0MB/s]Downloading:  83%|████████▎ | 998M/1.18G [00:58<00:10, 20.7MB/s]Downloading:  83%|████████▎ | 0.98G/1.18G [00:58<00:11, 18.4MB/s]Downloading:  83%|████████▎ | 0.98G/1.18G [00:58<00:12, 17.0MB/s]Downloading:  84%|████████▎ | 0.98G/1.18G [00:58<00:10, 20.7MB/s]Downloading:  84%|████████▎ | 0.98G/1.18G [00:58<00:11, 18.5MB/s]Downloading:  84%|████████▍ | 0.99G/1.18G [00:58<00:11, 17.1MB/s]Downloading:  84%|████████▍ | 0.99G/1.18G [00:58<00:09, 20.7MB/s]Downloading:  84%|████████▍ | 0.99G/1.18G [00:59<00:10, 18.4MB/s]Downloading:  85%|████████▍ | 0.99G/1.18G [00:59<00:11, 17.1MB/s]Downloading:  85%|████████▍ | 1.00G/1.18G [00:59<00:11, 17.3MB/s]Downloading:  85%|████████▍ | 1.00G/1.18G [00:59<00:09, 19.2MB/s]Downloading:  85%|████████▌ | 1.00G/1.18G [00:59<00:10, 17.9MB/s]Downloading:  85%|████████▌ | 1.00G/1.18G [00:59<00:08, 21.5MB/s]Downloading:  86%|████████▌ | 1.01G/1.18G [00:59<00:09, 19.0MB/s]Downloading:  86%|████████▌ | 1.01G/1.18G [01:00<00:10, 17.4MB/s]Downloading:  86%|████████▌ | 1.01G/1.18G [01:00<00:08, 21.1MB/s]Downloading:  86%|████████▋ | 1.01G/1.18G [01:00<00:09, 18.7MB/s]Downloading:  86%|████████▋ | 1.02G/1.18G [01:00<00:09, 17.3MB/s]Downloading:  87%|████████▋ | 1.02G/1.18G [01:00<00:07, 21.0MB/s]Downloading:  87%|████████▋ | 1.02G/1.18G [01:00<00:08, 18.6MB/s]Downloading:  87%|████████▋ | 1.02G/1.18G [01:00<00:09, 17.0MB/s]Downloading:  87%|████████▋ | 1.03G/1.18G [01:01<00:07, 20.7MB/s]Downloading:  88%|████████▊ | 1.03G/1.18G [01:01<00:08, 18.9MB/s]Downloading:  88%|████████▊ | 1.03G/1.18G [01:01<00:09, 17.1MB/s]Downloading:  88%|████████▊ | 1.03G/1.18G [01:01<00:07, 20.7MB/s]Downloading:  88%|████████▊ | 1.04G/1.18G [01:01<00:08, 17.5MB/s]Downloading:  88%|████████▊ | 1.04G/1.18G [01:01<00:08, 17.7MB/s]Downloading:  89%|████████▊ | 1.04G/1.18G [01:01<00:06, 21.0MB/s]Downloading:  89%|████████▉ | 1.04G/1.18G [01:02<00:07, 18.8MB/s]Downloading:  89%|████████▉ | 1.05G/1.18G [01:02<00:08, 16.1MB/s]Downloading:  89%|████████▉ | 1.05G/1.18G [01:02<00:09, 14.6MB/s]Downloading:  89%|████████▉ | 1.05G/1.18G [01:02<00:07, 18.1MB/s]Downloading:  90%|████████▉ | 1.05G/1.18G [01:02<00:07, 17.1MB/s]Downloading:  90%|████████▉ | 1.06G/1.18G [01:02<00:07, 16.3MB/s]Downloading:  90%|█████████ | 1.06G/1.18G [01:03<00:08, 15.6MB/s]Downloading:  90%|█████████ | 1.06G/1.18G [01:03<00:06, 19.2MB/s]Downloading:  90%|█████████ | 1.06G/1.18G [01:03<00:06, 17.5MB/s]Downloading:  91%|█████████ | 1.07G/1.18G [01:03<00:07, 15.5MB/s]Downloading:  91%|█████████ | 1.07G/1.18G [01:03<00:05, 19.4MB/s]Downloading:  91%|█████████ | 1.07G/1.18G [01:03<00:06, 17.9MB/s]Downloading:  91%|█████████ | 1.07G/1.18G [01:03<00:07, 15.2MB/s]Downloading:  91%|█████████▏| 1.08G/1.18G [01:04<00:07, 13.6MB/s]Downloading:  92%|█████████▏| 1.08G/1.18G [01:04<00:09, 11.3MB/s]Downloading:  92%|█████████▏| 1.08G/1.18G [01:04<00:06, 15.0MB/s]Downloading:  92%|█████████▏| 1.08G/1.18G [01:04<00:05, 18.5MB/s]Downloading:  92%|█████████▏| 1.09G/1.18G [01:04<00:04, 21.3MB/s]Downloading:  93%|█████████▎| 1.09G/1.18G [01:04<00:03, 24.2MB/s]Downloading:  93%|█████████▎| 1.09G/1.18G [01:05<00:04, 21.7MB/s]Downloading:  93%|█████████▎| 1.09G/1.18G [01:05<00:04, 18.8MB/s]Downloading:  93%|█████████▎| 1.10G/1.18G [01:05<00:03, 22.0MB/s]Downloading:  94%|█████████▎| 1.10G/1.18G [01:05<00:04, 20.1MB/s]Downloading:  94%|█████████▎| 1.10G/1.18G [01:05<00:04, 17.4MB/s]Downloading:  94%|█████████▍| 1.10G/1.18G [01:05<00:04, 17.0MB/s]Downloading:  94%|█████████▍| 1.11G/1.18G [01:06<00:04, 16.1MB/s]Downloading:  94%|█████████▍| 1.11G/1.18G [01:06<00:03, 19.4MB/s]Downloading:  95%|█████████▍| 1.11G/1.18G [01:06<00:03, 17.3MB/s]Downloading:  95%|█████████▍| 1.11G/1.18G [01:06<00:04, 15.9MB/s]Downloading:  95%|█████████▌| 1.12G/1.18G [01:06<00:03, 19.6MB/s]Downloading:  95%|█████████▌| 1.12G/1.18G [01:06<00:03, 17.6MB/s]Downloading:  95%|█████████▌| 1.12G/1.18G [01:06<00:03, 16.6MB/s]Downloading:  96%|█████████▌| 1.12G/1.18G [01:07<00:02, 20.5MB/s]Downloading:  96%|█████████▌| 1.13G/1.18G [01:07<00:02, 18.2MB/s]Downloading:  96%|█████████▌| 1.13G/1.18G [01:07<00:02, 17.0MB/s]Downloading:  96%|█████████▋| 1.13G/1.18G [01:07<00:02, 16.6MB/s]Downloading:  97%|█████████▋| 1.14G/1.18G [01:07<00:02, 19.9MB/s]Downloading:  97%|█████████▋| 1.14G/1.18G [01:07<00:02, 18.0MB/s]Downloading:  97%|█████████▋| 1.14G/1.18G [01:07<00:02, 17.0MB/s]Downloading:  97%|█████████▋| 1.14G/1.18G [01:08<00:01, 20.2MB/s]Downloading:  97%|█████████▋| 1.14G/1.18G [01:08<00:01, 17.8MB/s]Downloading:  98%|█████████▊| 1.15G/1.18G [01:08<00:02, 15.6MB/s]Downloading:  98%|█████████▊| 1.15G/1.18G [01:08<00:01, 19.4MB/s]Downloading:  98%|█████████▊| 1.15G/1.18G [01:08<00:01, 18.2MB/s]Downloading:  98%|█████████▊| 1.15G/1.18G [01:08<00:01, 16.1MB/s]Downloading:  98%|█████████▊| 1.16G/1.18G [01:09<00:01, 15.0MB/s]Downloading:  99%|█████████▊| 1.16G/1.18G [01:09<00:00, 18.9MB/s]Downloading:  99%|█████████▉| 1.16G/1.18G [01:09<00:00, 17.6MB/s]Downloading:  99%|█████████▉| 1.16G/1.18G [01:09<00:00, 16.5MB/s]Downloading:  99%|█████████▉| 1.17G/1.18G [01:09<00:00, 20.2MB/s]Downloading:  99%|█████████▉| 1.17G/1.18G [01:09<00:00, 18.0MB/s]Downloading: 100%|█████████▉| 1.17G/1.18G [01:09<00:00, 17.2MB/s]Downloading: 100%|█████████▉| 1.17G/1.18G [01:10<00:00, 15.7MB/s]Downloading: 100%|██████████| 1.18G/1.18G [01:10<00:00, 18.0MB/s]
+Cant print XLSR arabic
+WAV2VEC2 LARGE
+Cant print wav2vec large
+WAV2VEC2 LID
+Downloading:   0%|          | 0.00/1.56k [00:00<?, ?B/s]Downloading: 100%|██████████| 1.56k/1.56k [00:00<00:00, 1.91MB/s]
+You are using a model of type hubert to instantiate a model of type wav2vec2. This is not supported for all configurations of models and can yield errors.
+Downloading:   0%|          | 0.00/90.4M [00:00<?, ?B/s]Downloading:   0%|          | 16.0k/90.4M [00:00<21:12, 74.5kB/s]Downloading:   0%|          | 50.0k/90.4M [00:00<12:22, 128kB/s] Downloading:   0%|          | 135k/90.4M [00:00<05:58, 264kB/s] Downloading:   0%|          | 288k/90.4M [00:00<03:27, 455kB/s]Downloading:   1%|          | 594k/90.4M [00:01<01:52, 836kB/s]Downloading:   1%|▏         | 1.13M/90.4M [00:01<00:51, 1.82MB/s]Downloading:   2%|▏         | 1.37M/90.4M [00:01<00:49, 1.89MB/s]Downloading:   3%|▎         | 2.41M/90.4M [00:01<00:28, 3.23MB/s]Downloading:   5%|▌         | 4.55M/90.4M [00:01<00:12, 7.33MB/s]Downloading:   6%|▌         | 5.44M/90.4M [00:01<00:11, 7.46MB/s]Downloading:  10%|▉         | 8.67M/90.4M [00:01<00:07, 11.1MB/s]Downloading:  13%|█▎        | 12.0M/90.4M [00:01<00:05, 16.3MB/s]Downloading:  15%|█▌        | 13.8M/90.4M [00:02<00:05, 15.6MB/s]Downloading:  18%|█▊        | 16.4M/90.4M [00:02<00:05, 15.1MB/s]Downloading:  22%|██▏       | 19.8M/90.4M [00:02<00:03, 19.5MB/s]Downloading:  24%|██▍       | 21.9M/90.4M [00:02<00:03, 18.3MB/s]Downloading:  27%|██▋       | 24.0M/90.4M [00:02<00:04, 16.0MB/s]Downloading:  30%|██▉       | 27.0M/90.4M [00:02<00:03, 19.4MB/s]Downloading:  32%|███▏      | 29.1M/90.4M [00:02<00:03, 18.4MB/s]Downloading:  34%|███▍      | 31.0M/90.4M [00:03<00:03, 18.4MB/s]Downloading:  36%|███▋      | 32.9M/90.4M [00:03<00:03, 18.8MB/s]Downloading:  39%|███▊      | 35.0M/90.4M [00:03<00:02, 19.6MB/s]Downloading:  41%|████      | 36.9M/90.4M [00:03<00:02, 19.0MB/s]Downloading:  44%|████▎     | 39.3M/90.4M [00:03<00:03, 16.5MB/s]Downloading:  47%|████▋     | 42.5M/90.4M [00:03<00:02, 20.6MB/s]Downloading:  49%|████▉     | 44.7M/90.4M [00:03<00:02, 19.2MB/s]Downloading:  52%|█████▏    | 47.1M/90.4M [00:04<00:02, 17.0MB/s]Downloading:  56%|█████▌    | 50.5M/90.4M [00:04<00:01, 21.1MB/s]Downloading:  58%|█████▊    | 52.7M/90.4M [00:04<00:02, 19.6MB/s]Downloading:  61%|██████    | 54.8M/90.4M [00:04<00:02, 16.7MB/s]Downloading:  64%|██████▍   | 58.2M/90.4M [00:04<00:01, 20.7MB/s]Downloading:  67%|██████▋   | 60.4M/90.4M [00:04<00:01, 19.6MB/s]Downloading:  69%|██████▉   | 62.6M/90.4M [00:04<00:01, 16.9MB/s]Downloading:  73%|███████▎  | 65.9M/90.4M [00:04<00:01, 20.8MB/s]Downloading:  75%|███████▌  | 68.1M/90.4M [00:05<00:01, 19.5MB/s]Downloading:  78%|███████▊  | 70.3M/90.4M [00:05<00:01, 17.0MB/s]Downloading:  81%|████████  | 73.0M/90.4M [00:05<00:00, 19.5MB/s]Downloading:  83%|████████▎ | 75.1M/90.4M [00:05<00:00, 18.4MB/s]Downloading:  86%|████████▋ | 78.1M/90.4M [00:05<00:00, 17.8MB/s]Downloading:  89%|████████▉ | 80.9M/90.4M [00:05<00:00, 20.3MB/s]Downloading:  92%|█████████▏| 83.0M/90.4M [00:05<00:00, 19.2MB/s]Downloading:  95%|█████████▍| 85.8M/90.4M [00:06<00:00, 17.7MB/s]Downloading:  98%|█████████▊| 89.0M/90.4M [00:06<00:00, 21.1MB/s]Downloading: 100%|██████████| 90.4M/90.4M [00:06<00:00, 14.9MB/s]
+Cant print wav2vec lid
+Some weights of the model checkpoint at facebook/wav2vec2-large-xlsr-53 were not used when initializing Wav2Vec2ForSequenceClassification: ['project_q.bias', 'project_q.weight', 'quantizer.weight_proj.bias', 'project_hid.bias', 'quantizer.weight_proj.weight', 'project_hid.weight', 'quantizer.codevectors']
+- This IS expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of Wav2Vec2ForSequenceClassification were not initialized from the model checkpoint at facebook/wav2vec2-large-xlsr-53 and are newly initialized: ['classifier.bias', 'projector.weight', 'projector.bias', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+XLSR
+Wav2Vec2ForSequenceClassification(
+  (wav2vec2): Wav2Vec2Model(
+    (feature_extractor): Wav2Vec2FeatureEncoder(
+      (conv_layers): ModuleList(
+        (0): Wav2Vec2LayerNormConvLayer(
+          (conv): Conv1d(1, 512, kernel_size=(10,), stride=(5,))
+          (layer_norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (activation): GELUActivation()
+        )
+        (1): Wav2Vec2LayerNormConvLayer(
+          (conv): Conv1d(512, 512, kernel_size=(3,), stride=(2,))
+          (layer_norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (activation): GELUActivation()
+        )
+        (2): Wav2Vec2LayerNormConvLayer(
+          (conv): Conv1d(512, 512, kernel_size=(3,), stride=(2,))
+          (layer_norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (activation): GELUActivation()
+        )
+        (3): Wav2Vec2LayerNormConvLayer(
+          (conv): Conv1d(512, 512, kernel_size=(3,), stride=(2,))
+          (layer_norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (activation): GELUActivation()
+        )
+        (4): Wav2Vec2LayerNormConvLayer(
+          (conv): Conv1d(512, 512, kernel_size=(3,), stride=(2,))
+          (layer_norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (activation): GELUActivation()
+        )
+        (5): Wav2Vec2LayerNormConvLayer(
+          (conv): Conv1d(512, 512, kernel_size=(2,), stride=(2,))
+          (layer_norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (activation): GELUActivation()
+        )
+        (6): Wav2Vec2LayerNormConvLayer(
+          (conv): Conv1d(512, 512, kernel_size=(2,), stride=(2,))
+          (layer_norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (activation): GELUActivation()
+        )
+      )
+    )
+    (feature_projection): Wav2Vec2FeatureProjection(
+      (layer_norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+      (projection): Linear(in_features=512, out_features=1024, bias=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (encoder): Wav2Vec2EncoderStableLayerNorm(
+      (pos_conv_embed): Wav2Vec2PositionalConvEmbedding(
+        (conv): Conv1d(1024, 1024, kernel_size=(128,), stride=(1,), padding=(64,), groups=16)
+        (padding): Wav2Vec2SamePadLayer()
+        (activation): GELUActivation()
+      )
+      (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+      (layers): ModuleList(
+        (0): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.0, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (1): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.0, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (2): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.0, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (3): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.0, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (4): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.0, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (5): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.0, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (6): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.0, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (7): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.0, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (8): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.0, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (9): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.0, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (10): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.0, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (11): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.0, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (12): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.0, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (13): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.0, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (14): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.0, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (15): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.0, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (16): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.0, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (17): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.0, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (18): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.0, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (19): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.0, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (20): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.0, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (21): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.0, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (22): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.0, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (23): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.0, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+    )
+  )
+  (projector): Linear(in_features=1024, out_features=256, bias=True)
+  (classifier): Linear(in_features=256, out_features=2, bias=True)
+)Some weights of the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic were not used when initializing Wav2Vec2ForSequenceClassification: ['lm_head.weight', 'lm_head.bias']
+- This IS expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of Wav2Vec2ForSequenceClassification were not initialized from the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic and are newly initialized: ['classifier.bias', 'projector.weight', 'projector.bias', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+
+XLSR ARABIC
+Wav2Vec2ForSequenceClassification(
+  (wav2vec2): Wav2Vec2Model(
+    (feature_extractor): Wav2Vec2FeatureEncoder(
+      (conv_layers): ModuleList(
+        (0): Wav2Vec2LayerNormConvLayer(
+          (conv): Conv1d(1, 512, kernel_size=(10,), stride=(5,))
+          (layer_norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (activation): GELUActivation()
+        )
+        (1): Wav2Vec2LayerNormConvLayer(
+          (conv): Conv1d(512, 512, kernel_size=(3,), stride=(2,))
+          (layer_norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (activation): GELUActivation()
+        )
+        (2): Wav2Vec2LayerNormConvLayer(
+          (conv): Conv1d(512, 512, kernel_size=(3,), stride=(2,))
+          (layer_norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (activation): GELUActivation()
+        )
+        (3): Wav2Vec2LayerNormConvLayer(
+          (conv): Conv1d(512, 512, kernel_size=(3,), stride=(2,))
+          (layer_norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (activation): GELUActivation()
+        )
+        (4): Wav2Vec2LayerNormConvLayer(
+          (conv): Conv1d(512, 512, kernel_size=(3,), stride=(2,))
+          (layer_norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (activation): GELUActivation()
+        )
+        (5): Wav2Vec2LayerNormConvLayer(
+          (conv): Conv1d(512, 512, kernel_size=(2,), stride=(2,))
+          (layer_norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (activation): GELUActivation()
+        )
+        (6): Wav2Vec2LayerNormConvLayer(
+          (conv): Conv1d(512, 512, kernel_size=(2,), stride=(2,))
+          (layer_norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+          (activation): GELUActivation()
+        )
+      )
+    )
+    (feature_projection): Wav2Vec2FeatureProjection(
+      (layer_norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+      (projection): Linear(in_features=512, out_features=1024, bias=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+    )
+    (encoder): Wav2Vec2EncoderStableLayerNorm(
+      (pos_conv_embed): Wav2Vec2PositionalConvEmbedding(
+        (conv): Conv1d(1024, 1024, kernel_size=(128,), stride=(1,), padding=(64,), groups=16)
+        (padding): Wav2Vec2SamePadLayer()
+        (activation): GELUActivation()
+      )
+      (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+      (layers): ModuleList(
+        (0): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (1): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (2): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (3): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (4): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (5): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (6): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (7): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (8): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (9): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (10): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (11): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (12): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (13): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (14): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (15): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (16): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (17): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (18): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (19): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (20): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (21): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (22): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (23): Wav2Vec2EncoderLayerStableLayerNorm(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+    )
+  )
+  (projector): Linear(in_features=1024, out_features=256, bias=True)
+  (classifier): Linear(in_features=256, out_features=2, bias=True)
+)Some weights of the model checkpoint at facebook/wav2vec2-large-960h were not used when initializing Wav2Vec2ForSequenceClassification: ['lm_head.weight', 'lm_head.bias']
+- This IS expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of Wav2Vec2ForSequenceClassification were not initialized from the model checkpoint at facebook/wav2vec2-large-960h and are newly initialized: ['classifier.bias', 'wav2vec2.masked_spec_embed', 'projector.weight', 'classifier.weight', 'projector.bias']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+
+WAV2VEC2 LARGE
+Wav2Vec2ForSequenceClassification(
+  (wav2vec2): Wav2Vec2Model(
+    (feature_extractor): Wav2Vec2FeatureEncoder(
+      (conv_layers): ModuleList(
+        (0): Wav2Vec2GroupNormConvLayer(
+          (conv): Conv1d(1, 512, kernel_size=(10,), stride=(5,), bias=False)
+          (activation): GELUActivation()
+          (layer_norm): GroupNorm(512, 512, eps=1e-05, affine=True)
+        )
+        (1): Wav2Vec2NoLayerNormConvLayer(
+          (conv): Conv1d(512, 512, kernel_size=(3,), stride=(2,), bias=False)
+          (activation): GELUActivation()
+        )
+        (2): Wav2Vec2NoLayerNormConvLayer(
+          (conv): Conv1d(512, 512, kernel_size=(3,), stride=(2,), bias=False)
+          (activation): GELUActivation()
+        )
+        (3): Wav2Vec2NoLayerNormConvLayer(
+          (conv): Conv1d(512, 512, kernel_size=(3,), stride=(2,), bias=False)
+          (activation): GELUActivation()
+        )
+        (4): Wav2Vec2NoLayerNormConvLayer(
+          (conv): Conv1d(512, 512, kernel_size=(3,), stride=(2,), bias=False)
+          (activation): GELUActivation()
+        )
+        (5): Wav2Vec2NoLayerNormConvLayer(
+          (conv): Conv1d(512, 512, kernel_size=(2,), stride=(2,), bias=False)
+          (activation): GELUActivation()
+        )
+        (6): Wav2Vec2NoLayerNormConvLayer(
+          (conv): Conv1d(512, 512, kernel_size=(2,), stride=(2,), bias=False)
+          (activation): GELUActivation()
+        )
+      )
+    )
+    (feature_projection): Wav2Vec2FeatureProjection(
+      (layer_norm): LayerNorm((512,), eps=1e-05, elementwise_affine=True)
+      (projection): Linear(in_features=512, out_features=1024, bias=True)
+      (dropout): Dropout(p=0.0, inplace=False)
+    )
+    (encoder): Wav2Vec2Encoder(
+      (pos_conv_embed): Wav2Vec2PositionalConvEmbedding(
+        (conv): Conv1d(1024, 1024, kernel_size=(128,), stride=(1,), padding=(64,), groups=16)
+        (padding): Wav2Vec2SamePadLayer()
+        (activation): GELUActivation()
+      )
+      (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+      (dropout): Dropout(p=0.1, inplace=False)
+      (layers): ModuleList(
+        (0): Wav2Vec2EncoderLayer(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (1): Wav2Vec2EncoderLayer(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (2): Wav2Vec2EncoderLayer(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (3): Wav2Vec2EncoderLayer(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (4): Wav2Vec2EncoderLayer(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (5): Wav2Vec2EncoderLayer(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (6): Wav2Vec2EncoderLayer(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (7): Wav2Vec2EncoderLayer(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (8): Wav2Vec2EncoderLayer(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (9): Wav2Vec2EncoderLayer(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (10): Wav2Vec2EncoderLayer(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (11): Wav2Vec2EncoderLayer(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (12): Wav2Vec2EncoderLayer(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (13): Wav2Vec2EncoderLayer(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (14): Wav2Vec2EncoderLayer(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (15): Wav2Vec2EncoderLayer(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (16): Wav2Vec2EncoderLayer(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (17): Wav2Vec2EncoderLayer(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (18): Wav2Vec2EncoderLayer(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (19): Wav2Vec2EncoderLayer(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (20): Wav2Vec2EncoderLayer(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (21): Wav2Vec2EncoderLayer(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (22): Wav2Vec2EncoderLayer(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+        (23): Wav2Vec2EncoderLayer(
+          (attention): Wav2Vec2Attention(
+            (k_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (v_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (q_proj): Linear(in_features=1024, out_features=1024, bias=True)
+            (out_proj): Linear(in_features=1024, out_features=1024, bias=True)
+          )
+          (dropout): Dropout(p=0.1, inplace=False)
+          (layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+          (feed_forward): Wav2Vec2FeedForward(
+            (intermediate_dropout): Dropout(p=0.1, inplace=False)
+            (intermediate_dense): Linear(in_features=1024, out_features=4096, bias=True)
+            (intermediate_act_fn): GELUActivation()
+            (output_dense): Linear(in_features=4096, out_features=1024, bias=True)
+            (output_dropout): Dropout(p=0.1, inplace=False)
+          )
+          (final_layer_norm): LayerNorm((1024,), eps=1e-05, elementwise_affine=True)
+        )
+      )
+    )
+  )
+  (projector): Linear(in_features=1024, out_features=256, bias=True)
+  (classifier): Linear(in_features=256, out_features=2, bias=True)
+)You are using a model of type hubert to instantiate a model of type wav2vec2. This is not supported for all configurations of models and can yield errors.
+
+WAV2VEC2 LID
+Cant print wav2vec lid
