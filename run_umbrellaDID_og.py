@@ -828,7 +828,6 @@ class myTrainer(Trainer):
 
         for features, mask, labels in loader:
             # forward pass
-            signals, mask, labels = batch
             inputs = {}
             inputs['input_values'] = features.float()
             inputs['attention_mask'] = mask.long()
