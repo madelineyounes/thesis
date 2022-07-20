@@ -828,8 +828,6 @@ class myTrainer(Trainer):
 
         for data in loader:
             # forward pass
-
-            print(features)
             inputs = {}
             inputs['input_values'] = data["input_values"].float()
             inputs['attention_mask'] = data['attention_mask'].long()
