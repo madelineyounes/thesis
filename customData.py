@@ -45,4 +45,5 @@ class CustomDataset(Dataset):
             label = self.target_transform(label)
             
         sample = {"input_values": speech_features, "mask": speech_mask, "label": label}
+        print("SAMPLE: ",sample)
         return sample

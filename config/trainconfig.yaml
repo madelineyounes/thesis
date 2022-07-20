@@ -1,0 +1,2 @@
+evaluation_strategy: epoch
+batch_size: 4

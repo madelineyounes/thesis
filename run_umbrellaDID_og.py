@@ -18,6 +18,7 @@
 #pip3 install numpy
 #pip3 install random
 #pip3 install dataclasses
+#pip3 install torchvision
 
 import numpy as np
 import pandas as pd
@@ -29,11 +30,14 @@ import pyarrow.csv as csv
 import pyarrow as pa
 from sklearn.metrics import classification_report
 from typing import Optional, Tuple, Any, Dict, Union
-import torch
+import customTransform as T
 import torch.nn as nn
 from torch.nn import BCEWithLogitsLoss, CrossEntropyLoss, MSELoss
 from torch.utils.data import Dataset, DataLoader
 import torchaudio
+from torchvision import transforms
+import customTransform as T
+from customData import CustomDataset
 from transformers.file_utils import ModelOutput
 from transformers import (
     Trainer,
@@ -157,7 +161,7 @@ if use_checkpoint:
     print("checkpoint:", checkpoint)
 
 # Use pretrained model
-model_name = "facebook/wav2vec2-base-960h"
+model_name = "facebook/wav2vec2-base"
 # try log0/wav2vec2-base-lang-id
 
 # Use a pretrained tokenizer (True/False)
@@ -493,34 +497,37 @@ if (len(encoded_data["test"]) > 0):
 
 # create custom dataset class
 print("Create a custom dataset ---> ")
-class CustomDataset(Dataset):
-    def __init__(self, csv_fp, data_fp):
-        """
-        Args:
-        csv_fp (string): Path to csv with audio file ids and labels.
-        data_fp (string): Path to audio files
-        """
-        self.data_frame = pd.read_csv(csv_fp, delimiter=',')
-        self.data_fp = data_fp
+# class CustomDataset(Dataset):
+#     def __init__(self, csv_fp, data_fp):
+#         """
+#         Args:
+#         csv_fp (string): Path to csv with audio file ids and labels.
+#         data_fp (string): Path to audio files
+#         """
+#         self.data_frame = pd.read_csv(csv_fp, delimiter=',')
+#         self.data_fp = data_fp
 
-    def __len__(self):
-        return len(self.data_frame)
+#     def __len__(self):
+#         return len(self.data_frame)
 
-    def __getitem__(self, idx):
-        if torch.is_tensor(idx):
-            idx = idx.tolist()
+#     def __getitem__(self, idx):
+#         if torch.is_tensor(idx):
+#             idx = idx.tolist()
 
-        audiopath = self.data_fp + self.data_frame.iloc[idx,0] + ".wav"
-        speech = speech_file_to_array_fn(audiopath)
-        speech_features, mask = feature_extractor(speech, sampling_rate=target_sampling_rate)
+#         audiopath = self.data_fp + self.data_frame.iloc[idx,0] + ".wav"
+#         speech = speech_file_to_array_fn(audiopath)
+#         speech_features, mask = feature_extractor(speech, sampling_rate=target_sampling_rate)
 
-        label = int(label2id[self.data_frame.iloc[idx, 1]])
-        sample = {"input_values": speech_features, "label": label}
-        return sample
+#         label = int(label2id[self.data_frame.iloc[idx, 1]])
+#         sample = {"input_values": speech_features, "label": label}
+#         return sample
 
 
-traincustomdata = CustomDataset(csv_fp=data_train_fp, data_fp=training_data_path)
-testcustomdata = CustomDataset(csv_fp=data_test_fp, data_fp=test_data_path)
+random_transforms = transforms.Compose([T.Extractor(model_name, sampling_rate, 1500)])
+
+traincustomdata = CustomDataset(csv_fp=data_train_fp, data_fp=training_data_path,transform=random_transforms)
+testcustomdata = CustomDataset(
+    csv_fp=data_test_fp, data_fp=test_data_path, transform=random_transforms)
 
 trainDataLoader = DataLoader(traincustomdata, batch_size=set_per_device_train_batch_size, shuffle=True, num_workers=0)
 testDataLoader = DataLoader(testcustomdata, batch_size=set_per_device_train_batch_size, shuffle=True, num_workers=0)

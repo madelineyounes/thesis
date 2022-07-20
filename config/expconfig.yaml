@@ -1,2 +1,14 @@
 experiment_id: wav2vec-base-initialtest/
 datasetdict_id: umb-initialtest
+data_path: /srv/scratch/z5208494/dataset/
+training_data_path: /srv/scratch/z5208494/dataset/dev_segments/
+test_data_path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+base_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/
+train_name: umbrella_initialtest
+train_filename: data_1file
+evaluation_filename: adi17_test_small
+use_checkpoint: False
+checkpoint: /srv/scratch/z5208494/checkpoint/base-initaltest
+model_name: facebook/wav2vec2-base
+eval_pretrained: False

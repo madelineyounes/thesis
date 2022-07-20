@@ -1,0 +1,6 @@
+activation_dropout: 0.1
+attention_dropout: 0.1
+feat_proj_dropout: 0.0 
+layerdrop: 0.065
+mask_time_prob: 0.065
+mask_time_length: 10
