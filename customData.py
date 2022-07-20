@@ -4,6 +4,11 @@ import pandas as pd
 import pickle
 from torch.utils.data import Dataset
 
+label_list = ['NOR', 'EGY', 'GLF', 'LEV']
+label2id, id2label = dict(), dict()
+for i, label in enumerate(label_list):
+    label2id[label] = str(i)
+    id2label[str(i)] = label
 
 def speech_file_to_array_fn(path, target_sampling_rate):
     speech_array, sampling_rate = torchaudio.load(path)
@@ -12,7 +17,7 @@ def speech_file_to_array_fn(path, target_sampling_rate):
     return speech
 
 class CustomDataset(Dataset):
-    def __init__(self, csv_fp, data_fp, transform=None, target_transform=None, sampling_rate=16000):
+    def __init__(self, csv_fp, data_fp, transform=None, sampling_rate=16000):
         """
         Args:
         csv_fp (string): Path to csv with audio file ids and labels.
@@ -22,7 +27,6 @@ class CustomDataset(Dataset):
         self.data_frame = pd.read_csv(csv_fp, delimiter=',')
         self.data_fp = data_fp
         self.transform = transform
-        self.target_transform = target_transform
         self.sampling_rate = sampling_rate
 
     def __len__(self):
@@ -41,9 +45,8 @@ class CustomDataset(Dataset):
         if self.transform:
             speech_features = self.transform(speech)[0]
             speech_mask = self.transform(speech)[1]
-        if self.target_transform:
-            label = self.target_transform(label)
-            
+
+        label = int(label2id[self.data_frame.iloc[idx, 1]])
         sample = {"input_values": speech_features, "mask": speech_mask, "label": label}
         print("SAMPLE: ",sample)
         return sample

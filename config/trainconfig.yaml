@@ -1,2 +1,7 @@
 evaluation_strategy: epoch
 batch_size: 4
+gradient_accumulation_steps: 2
+learning_rate: 0.00004 
+weight_decay: 0.01
+adam_beta1: 0.98
+adam_beta2: 0.98
