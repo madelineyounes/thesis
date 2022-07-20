@@ -524,7 +524,7 @@ print("Create a custom dataset ---> ")
 #         return sample
 
 
-random_transforms = transforms.Compose([T.Extractor(model_name, sampling_rate, 5)])
+random_transforms = transforms.Compose([T.Extractor(model_name, sampling_rate, 0.1)])
 
 traincustomdata = CustomDataset(csv_fp=data_train_fp, data_fp=training_data_path,transform=random_transforms)
 testcustomdata = CustomDataset(
@@ -643,7 +643,6 @@ class Wav2Vec2ForSpeechClassification(Wav2Vec2PreTrainedModel):
             output_hidden_states=output_hidden_states,
             return_dict=return_dict,
         )
-        print ("post reshape out size " + outputs.size())
         hidden_states = outputs[0]
         hidden_states = self.merged_strategy(
             hidden_states, mode=self.pooling_mode)
@@ -858,15 +857,6 @@ class myTrainer(Trainer):
                 loss = self._compute_loss(out, labels)
 
         return loss.item()
-
-    def _compute_loss(self, real, target):
-        try:
-            loss = self.criterion(real, target)
-        except:
-            loss = self.criterion(real, target.long())
-            msg = f"Target tensor has been casted from"
-            msg = f"{msg} {type(target)} to 'long' dtype to avoid errors."
-            warnings.warn(msg)
 
 print("--> Defining CTC Trainer...")
 class CTCTrainer(Trainer):
