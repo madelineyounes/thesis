@@ -8,21 +8,42 @@ import torch.nn as nn
 # elgeish/wav2vec2-large-xlsr-53-arabic
 # facebook/wav2vec2-large-xlsr-53
 # facebook/wav2vec2-base
-# facebook/wav2vec2-base
 # facebook/wav2vec2-large-960h
 
-
-print("WAV2VEC2")
-processor = Wav2Vec2Processor.from_pretrained("facebook/wav2vec2-base")
-print(processor)
+print("XLSR")
 model = Wav2Vec2ForSequenceClassification.from_pretrained(
-    "facebook/wav2vec2-base")
+    "facebook/wav2vec2-large-xlsr-53")
 print(model)
 
-print("XLSR")
+print("wav2vec2-large-xlsr-53-arabic")
+processor = Wav2Vec2Processor.from_pretrained("wav2vec2-large-xlsr-53-arabic")
+print(processor)
+model = Wav2Vec2ForSequenceClassification.from_pretrained(
+    "wav2vec2-large-xlsr-53-arabic")
+print(model)
+
+print("facebook/wav2vec2-large-xlsr-53")
 processor = Wav2Vec2Processor.from_pretrained(
     "facebook/wav2vec2-large-xlsr-53")
 print(processor)
 model = Wav2Vec2ForSequenceClassification.from_pretrained(
     "facebook/wav2vec2-large-xlsr-53")
+print(model)
+
+
+print("WAV2VEC2 LARGE")
+processor = Wav2Vec2Processor.from_pretrained(
+    "facebook/wav2vec2-large-960h")
+print(processor)
+model = Wav2Vec2ForSequenceClassification.from_pretrained(
+    "facebook/wav2vec2-large-960h")
+print(model)
+
+
+print("WAV2VEC2 LARGE")
+processor = Wav2Vec2Processor.from_pretrained(
+    "log0/wav2vec2-base-lang-id")
+print(processor)
+model = Wav2Vec2ForSequenceClassification.from_pretrained(
+    "log0/wav2vec2-base-lang-id")
 print(model)
