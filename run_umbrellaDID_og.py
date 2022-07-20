@@ -828,7 +828,11 @@ class myTrainer(Trainer):
 
         for features, mask, labels in loader:
             # forward pass
-            out = self.model(input_values = features, attention_mask = mask)
+            signals, mask, labels = batch
+            inputs = {}
+            inputs['input_values'] = features.float()
+            inputs['attention_mask'] = mask.long()
+            out = self.model(**inputs)
 
             # loss
             loss = self._compute_loss(out, labels)
