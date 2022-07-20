@@ -826,12 +826,14 @@ class myTrainer(Trainer):
         # put model in train mode
         self.model.train()
 
-        for features, mask, labels in loader:
-            print("LOADER", loader)
+        for data in loader:
             # forward pass
+
+            print(features)
             inputs = {}
-            inputs['input_values'] = features.float()
-            inputs['attention_mask'] = mask.long()
+            inputs['input_values'] = data["input_values"].float()
+            inputs['attention_mask'] = data['attention_mask'].long()
+            labels = data['label']
             out = self.model(**inputs)
 
             # loss

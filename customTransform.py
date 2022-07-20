@@ -29,5 +29,6 @@ class Extractor(Transform):
 
     def do_transform(self, x):
         features = self.feature_extractor(x, sampling_rate=self.sampling_rate, padding='max_length',
-                                          max_length=self.max_length, return_tensors="pt", return_attention_mask=True, truncation=True)
+                                          max_length=int(
+                                              self.sampling_rate * self.max_length), return_tensors="pt", return_attention_mask=True, truncation=True)
         return features['input_values'].reshape((-1)), features['attention_mask'].reshape((-1))
