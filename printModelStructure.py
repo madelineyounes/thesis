@@ -10,28 +10,34 @@ import torch.nn as nn
 # facebook/wav2vec2-base
 # facebook/wav2vec2-large-960h
 
-# print("XLSR")
-# model = Wav2Vec2ForSequenceClassification.from_pretrained(
-#     "facebook/wav2vec2-large-xlsr-53")
-# print(model)
+print("XLSR")
+try:
+    model = Wav2Vec2ForSequenceClassification.from_pretrained(
+        "facebook/wav2vec2-large-xlsr-53")
+    print(model)
+except:
+    print("Cant print XLSR")
 
-model = Wav2Vec2ForSequenceClassification.from_pretrained(
-    "wav2vec2-large-xlsr-53-arabic")
-print(model)
-
-
-model = Wav2Vec2ForSequenceClassification.from_pretrained(
-    "facebook/wav2vec2-large-xlsr-53")
-print(model)
-
-
-print("WAV2VEC2 LARGE")
-model = Wav2Vec2ForSequenceClassification.from_pretrained(
-    "facebook/wav2vec2-large-960h")
-print(model)
-
+print("XLSR ARABIC")
+try:
+    model = Wav2Vec2ForSequenceClassification.from_pretrained(
+        "elgeish/wav2vec2-large-xlsr-53-arabic")
+    print(model)
+except:
+    print("Cant print XLSR arabic")
 
 print("WAV2VEC2 LARGE")
-model = Wav2Vec2ForSequenceClassification.from_pretrained(
-    "log0/wav2vec2-base-lang-id")
-print(model)
+try:
+    model = Wav2Vec2ForSequenceClassification.from_pretrained(
+        "facebook/wav2vec2-large-960h")
+    print(model)
+except: 
+    print("Cant print wav2vec large")
+
+print("WAV2VEC2 LID")
+try:
+    model = Wav2Vec2ForSequenceClassification.from_pretrained(
+        "log0/wav2vec2-base-lang-id")
+    print(model)
+except:
+    print("Cant print wav2vec lid")
