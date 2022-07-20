@@ -50,7 +50,6 @@ class CustomDataset(Dataset):
 
         speech_features = speech_features.float()
         speech_mask = speech_mask.long()
-        label = label.long()
 
         sample = {"input_values": speech_features, "attention_mask": speech_mask, "label": label}
         print("SAMPLE: ",sample)
