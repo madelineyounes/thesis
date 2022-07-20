@@ -1359,3 +1359,416 @@ Traceback (most recent call last):
 RuntimeError: stack expects each tensor to be equal size, but got [124160] at entry 0 and [152640] at entry 1
 Wed Jul 20 11:22:21 AEST 2022
 Wed Jul 20 11:27:06 AEST 2022
+Traceback (most recent call last):
+  File "run_umbrellaDID_og.py", line 38, in <module>
+    from torchvision import transforms
+ModuleNotFoundError: No module named 'torchvision'
+/home/z5208494/.local/lib/python3.8/site-packages/transformers/configuration_utils.py:363: UserWarning: Passing `gradient_checkpointing` to a config initialization is deprecated and will be removed in v5 Transformers. Using `model.gradient_checkpointing_enable()` instead, or if you are using the `Trainer` API, pass `gradient_checkpointing=True` in your `TrainingArguments`.
+  warnings.warn(
+Using custom data configuration default-fa98687e9ed75940
+Reusing dataset csv (/srv/scratch/z5208494/cache/huggingface/datasets/myST-eval/csv/default-fa98687e9ed75940/0.0.0/51cce309a08df9c4d82ffd9363bbe090bf173197fc01a71b034e8594995a1a58)
+------------------------------------------------------------------------
+                         run_umbrellaDID.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_umbrellaDID_og.py
+Started: 20/07/2022 15:16:10
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: xlsr-ADI17-initialtest/
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: umbrella_alldevdata
+train_filename: data_1file
+evaluation_filename: adi17_test_small
+use_checkpoint: False
+use_pretrained_tokenizer: True
+pretrained_tokenizer: facebook/wav2vec2-base
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.05
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: epoch
+per_device_train_batch_size: 4
+gradient_accumulation_steps: 2
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+num_train_epochs: 5
+max_steps: 35000
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 1000
+save_total_limit: 40
+fp16: False
+eval_steps: 1000
+load_best_model_at_end: True
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/data_1file.csv
+--> data_test_fp: data/adi17_test_small.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/umbrella_alldevdata_local/xlsr-ADI17-initialtest/
+--> finetuned_results_fp: /srv/scratch/z5208494/output/umbrella_alldevdata_local/xlsr-ADI17-initialtest/_finetuned_results.csv
+--> pretrained_mod: facebook/wav2vec2-base
+--> pretrained_tokenizer: facebook/wav2vec2-base
+
+------> PREPARING DATASET... ------------------------------------
+
+  0%|          | 0/2 [00:00<?, ?it/s]100%|██████████| 2/2 [00:00<00:00, 268.04it/s]--> dataset...
+DatasetDict({
+    train: Dataset({
+        features: ['id', 'label'],
+        num_rows: 12
+    })
+    test: Dataset({
+        features: ['id', 'label'],
+        num_rows: 39
+    })
+})
+--> Printing some random samples...
+                          id label
+0  QbkHUIBVnpc_022911-023603   LEV
+1  QbkHUIBVnpc_028035-028981   LEV
+2  QbkHUIBVnpc_018429-019383   LEV
+3  cFC3LxRavZQ_008960-010574   EGY
+4  QbkHUIBVnpc_024459-025349   LEV
+                          id label
+0  3oK1s1AgqzQ_142797-144437   LEV
+1  4ewFIFh7LgM_003999-004919   NOR
+2  9JkXg8fH7Y0_015331-016517   EGY
+3  9JkXg8fH7Y0_009027-009343   EGY
+4  3oK1s1AgqzQ_140596-141260   LEV
+SUCCESS: Prepared dataset.
+
+------> CREATING WAV2VEC2 FEATURE EXTRACTOR... -----------------------
+
+SUCCESS: Created feature extractor.
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 0.1 s
+Sampling Rate: 16000
+
+/home/z5208494/.local/lib/python3.8/site-packages/transformers/configuration_utils.py:363: UserWarning: Passing `gradient_checkpointing` to a config initialization is deprecated and will be removed in v5 Transformers. Using `model.gradient_checkpointing_enable()` instead, or if you are using the `Trainer` API, pass `gradient_checkpointing=True` in your `TrainingArguments`.
+  warnings.warn(
+#0:   0%|          | 0/3 [00:00<?, ?ex/s]
+
+#2:   0%|          | 0/3 [00:00<?, ?ex/s][A[A
+#1:   0%|          | 0/3 [00:00<?, ?ex/s][A
+
+
+#3:   0%|          | 0/3 [00:00<?, ?ex/s][A[A[A
+#1:  33%|███▎      | 1/3 [00:00<00:00,  3.76ex/s][A
+
+#2:  33%|███▎      | 1/3 [00:00<00:00,  2.61ex/s][A[A#0:  33%|███▎      | 1/3 [00:00<00:01,  1.63ex/s]
+
+
+#3:  33%|███▎      | 1/3 [00:00<00:01,  1.58ex/s][A[A[A
+#1:  67%|██████▋   | 2/3 [00:00<00:00,  2.67ex/s][A
+
+#2:  67%|██████▋   | 2/3 [00:00<00:00,  2.63ex/s][A[A#0:  67%|██████▋   | 2/3 [00:00<00:00,  2.73ex/s]#1: 100%|██████████| 3/3 [00:00<00:00,  3.68ex/s]#0: 100%|██████████| 3/3 [00:00<00:00,  3.48ex/s]#2: 100%|██████████| 3/3 [00:00<00:00,  3.51ex/s]
+
+
+#3:  67%|██████▋   | 2/3 [00:01<00:00,  1.38ex/s][A[A[A#3: 100%|██████████| 3/3 [00:01<00:00,  2.00ex/s]
+
+
+
+#0:   0%|          | 0/10 [00:00<?, ?ex/s]
+
+#2:   0%|          | 0/10 [00:00<?, ?ex/s][A[A
+#1:   0%|          | 0/10 [00:00<?, ?ex/s][A
+
+
+#3:   0%|          | 0/9 [00:00<?, ?ex/s][A[A[A
+
+#2:  10%|█         | 1/10 [00:00<00:01,  6.51ex/s][A[A#0:  10%|█         | 1/10 [00:00<00:02,  4.29ex/s]#0:  20%|██        | 2/10 [00:00<00:01,  5.53ex/s]
+
+
+#3:  11%|█         | 1/9 [00:00<00:03,  2.66ex/s][A[A[A
+#1:  10%|█         | 1/10 [00:00<00:03,  2.58ex/s][A
+
+
+#3:  33%|███▎      | 3/9 [00:00<00:00,  7.10ex/s][A[A[A
+
+#2:  20%|██        | 2/10 [00:00<00:02,  3.59ex/s][A[A#0:  40%|████      | 4/10 [00:00<00:00,  8.03ex/s]
+#1:  20%|██        | 2/10 [00:00<00:02,  3.42ex/s][A#0:  50%|█████     | 5/10 [00:00<00:00,  7.12ex/s]
+#1:  30%|███       | 3/10 [00:01<00:02,  2.51ex/s][A
+
+
+#3:  67%|██████▋   | 6/9 [00:01<00:00,  5.11ex/s][A[A[A
+
+#2:  40%|████      | 4/10 [00:01<00:01,  3.12ex/s][A[A#0:  60%|██████    | 6/10 [00:01<00:01,  3.90ex/s]
+#1:  60%|██████    | 6/10 [00:01<00:00,  6.09ex/s][A
+
+
+#3:  89%|████████▉ | 8/9 [00:01<00:00,  6.72ex/s][A[A[A#3: 100%|██████████| 9/9 [00:01<00:00,  6.77ex/s]
+
+#2:  60%|██████    | 6/10 [00:01<00:00,  5.01ex/s][A[A
+
+#2:  80%|████████  | 8/10 [00:01<00:00,  7.02ex/s][A[A#0:  80%|████████  | 8/10 [00:01<00:00,  5.19ex/s]#2: 100%|██████████| 10/10 [00:01<00:00,  6.46ex/s]#0: 100%|██████████| 10/10 [00:01<00:00,  7.36ex/s]#0: 100%|██████████| 10/10 [00:01<00:00,  6.27ex/s]
+#1:  80%|████████  | 8/10 [00:01<00:00,  5.21ex/s][A#1: 100%|██████████| 10/10 [00:01<00:00,  5.48ex/s]
+
+
+
+  0%|          | 0/3 [00:00<?, ?ba/s]/apps/python/3.8.3/lib/python3.8/site-packages/numpy-1.19.0-py3.8-linux-x86_64.egg/numpy/core/_asarray.py:83: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  return array(a, dtype, copy=False, order=order)
+100%|██████████| 3/3 [00:00<00:00, 70.26ba/s]
+  0%|          | 0/10 [00:00<?, ?ba/s]100%|██████████| 10/10 [00:00<00:00, 96.77ba/s]100%|██████████| 10/10 [00:00<00:00, 96.58ba/s]
+--> Verifying data with a random sample...
+12
+10
+Dialect Label: LEV
+Input array shape: (1, 1600)
+39
+11
+Dialect Label: EGY
+Input array shape: (1, 1600)
+0
+Training labels 0 NOR
+Create a custom dataset ---> 
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Defining Classifer
+Traceback (most recent call last):
+  File "run_umbrellaDID_og.py", line 571, in <module>
+    class SpeechClassifierOutput(ModelOutput):
+  File "run_umbrellaDID_og.py", line 572, in SpeechClassifierOutput
+    loss: Optional[torch.FloatTensor] = None
+NameError: name 'torch' is not defined
+/home/z5208494/.local/lib/python3.8/site-packages/transformers/configuration_utils.py:363: UserWarning: Passing `gradient_checkpointing` to a config initialization is deprecated and will be removed in v5 Transformers. Using `model.gradient_checkpointing_enable()` instead, or if you are using the `Trainer` API, pass `gradient_checkpointing=True` in your `TrainingArguments`.
+  warnings.warn(
+Using custom data configuration default-fa98687e9ed75940
+Reusing dataset csv (/srv/scratch/z5208494/cache/huggingface/datasets/myST-eval/csv/default-fa98687e9ed75940/0.0.0/51cce309a08df9c4d82ffd9363bbe090bf173197fc01a71b034e8594995a1a58)
+------------------------------------------------------------------------
+                         run_umbrellaDID.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_umbrellaDID_og.py
+Started: 20/07/2022 15:17:43
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: xlsr-ADI17-initialtest/
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: umbrella_alldevdata
+train_filename: data_1file
+evaluation_filename: adi17_test_small
+use_checkpoint: False
+use_pretrained_tokenizer: True
+pretrained_tokenizer: facebook/wav2vec2-base
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.05
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: epoch
+per_device_train_batch_size: 4
+gradient_accumulation_steps: 2
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+num_train_epochs: 5
+max_steps: 35000
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 1000
+save_total_limit: 40
+fp16: False
+eval_steps: 1000
+load_best_model_at_end: True
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/data_1file.csv
+--> data_test_fp: data/adi17_test_small.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/umbrella_alldevdata_local/xlsr-ADI17-initialtest/
+--> finetuned_results_fp: /srv/scratch/z5208494/output/umbrella_alldevdata_local/xlsr-ADI17-initialtest/_finetuned_results.csv
+--> pretrained_mod: facebook/wav2vec2-base
+--> pretrained_tokenizer: facebook/wav2vec2-base
+
+------> PREPARING DATASET... ------------------------------------
+
+  0%|          | 0/2 [00:00<?, ?it/s]100%|██████████| 2/2 [00:00<00:00, 389.44it/s]
+/home/z5208494/.local/lib/python3.8/site-packages/transformers/configuration_utils.py:363: UserWarning: Passing `gradient_checkpointing` to a config initialization is deprecated and will be removed in v5 Transformers. Using `model.gradient_checkpointing_enable()` instead, or if you are using the `Trainer` API, pass `gradient_checkpointing=True` in your `TrainingArguments`.
+  warnings.warn(
+Loading cached processed dataset at /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval/csv/default-fa98687e9ed75940/0.0.0/51cce309a08df9c4d82ffd9363bbe090bf173197fc01a71b034e8594995a1a58/cache-02bd04b19e1b00c4.arrow
+Loading cached processed dataset at /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval/csv/default-fa98687e9ed75940/0.0.0/51cce309a08df9c4d82ffd9363bbe090bf173197fc01a71b034e8594995a1a58/cache-dc04a7aa8f60af4f.arrow
+Loading cached processed dataset at /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval/csv/default-fa98687e9ed75940/0.0.0/51cce309a08df9c4d82ffd9363bbe090bf173197fc01a71b034e8594995a1a58/cache-127fb091b1d8093e.arrow
+Loading cached processed dataset at /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval/csv/default-fa98687e9ed75940/0.0.0/51cce309a08df9c4d82ffd9363bbe090bf173197fc01a71b034e8594995a1a58/cache-309209f984cf2104.arrow
+Loading cached processed dataset at /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval/csv/default-fa98687e9ed75940/0.0.0/51cce309a08df9c4d82ffd9363bbe090bf173197fc01a71b034e8594995a1a58/cache-974d130b25f1d9fc.arrow
+Loading cached processed dataset at /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval/csv/default-fa98687e9ed75940/0.0.0/51cce309a08df9c4d82ffd9363bbe090bf173197fc01a71b034e8594995a1a58/cache-86029afe14bb1d3a.arrow
+Loading cached processed dataset at /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval/csv/default-fa98687e9ed75940/0.0.0/51cce309a08df9c4d82ffd9363bbe090bf173197fc01a71b034e8594995a1a58/cache-00fc359ae7b05e81.arrow
+Loading cached processed dataset at /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval/csv/default-fa98687e9ed75940/0.0.0/51cce309a08df9c4d82ffd9363bbe090bf173197fc01a71b034e8594995a1a58/cache-d9ba4811692a40c2.arrow
+Loading cached processed dataset at /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval/csv/default-fa98687e9ed75940/0.0.0/51cce309a08df9c4d82ffd9363bbe090bf173197fc01a71b034e8594995a1a58/cache-9cbaac49c6b30502.arrow
+Loading cached processed dataset at /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval/csv/default-fa98687e9ed75940/0.0.0/51cce309a08df9c4d82ffd9363bbe090bf173197fc01a71b034e8594995a1a58/cache-dc2c4e2f09b6d456.arrow
+Some weights of the model checkpoint at facebook/wav2vec2-base were not used when initializing Wav2Vec2ForSpeechClassification: ['project_hid.weight', 'quantizer.weight_proj.weight', 'project_hid.bias', 'quantizer.weight_proj.bias', 'project_q.bias', 'quantizer.codevectors', 'project_q.weight']
+- This IS expected if you are initializing Wav2Vec2ForSpeechClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing Wav2Vec2ForSpeechClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of Wav2Vec2ForSpeechClassification were not initialized from the model checkpoint at facebook/wav2vec2-base and are newly initialized: ['classifier.dense.bias', 'classifier.out_proj.bias', 'classifier.dense.weight', 'classifier.out_proj.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+max_steps is given, it will override any value given in num_train_epochs
+--> dataset...
+DatasetDict({
+    train: Dataset({
+        features: ['id', 'label'],
+        num_rows: 12
+    })
+    test: Dataset({
+        features: ['id', 'label'],
+        num_rows: 39
+    })
+})
+--> Printing some random samples...
+                          id label
+0  QbkHUIBVnpc_018429-019383   LEV
+1  cFC3LxRavZQ_008960-010574   EGY
+2  QbkHUIBVnpc_015416-015885   LEV
+3  QbkHUIBVnpc_027147-027775   LEV
+4  QbkHUIBVnpc_024459-025349   LEV
+                          id label
+0  3oK1s1AgqzQ_148647-149383   LEV
+1  9JkXg8fH7Y0_014594-015044   EGY
+2  3oK1s1AgqzQ_140596-141260   LEV
+3  yChCQ16Qq08_149046-149410   GLF
+4  3oK1s1AgqzQ_155352-155906   LEV
+SUCCESS: Prepared dataset.
+
+------> CREATING WAV2VEC2 FEATURE EXTRACTOR... -----------------------
+
+SUCCESS: Created feature extractor.
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 0.1 s
+Sampling Rate: 16000
+--> Verifying data with a random sample...
+12
+1
+Dialect Label: LEV
+Input array shape: (1, 1600)
+39
+0
+Dialect Label: NOR
+Input array shape: (1, 1600)
+0
+Training labels 0 NOR
+Create a custom dataset ---> 
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Defining Classifer
+--> Defining data collator...
+SUCCESS: Data collator defined.
+--> Defining evaluation metric...
+SUCCESS: Defined Accuracy evaluation metric.
+--> Loading pre-trained checkpoint...
+SUCCESS: Pre-trained checkpoint loaded.
+--> Defining Custom Trainer Class...
+--> Defining CTC Trainer...
+Traceback (most recent call last):
+  File "run_umbrellaDID_og.py", line 980, in <module>
+    trainer.fit(trainDataLoader, testDataLoader, 10)
+  File "run_umbrellaDID_og.py", line 821, in fit
+    train_loss = self._train(train_loader)
+  File "run_umbrellaDID_og.py", line 830, in _train
+    for features, labels in loader:
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 652, in __next__
+    data = self._next_data()
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 692, in _next_data
+    data = self._dataset_fetcher.fetch(index)  # may raise StopIteration
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/utils/data/_utils/fetch.py", line 49, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/utils/data/_utils/fetch.py", line 49, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/z5208494/thesis/customData.py", line 47, in __getitem__
+    sample = {"input_values": speech_features, "mask": speech_mask, "label": label}
+UnboundLocalError: local variable 'label' referenced before assignment
