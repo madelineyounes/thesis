@@ -629,7 +629,7 @@ class Wav2Vec2ForSpeechClassification(Wav2Vec2PreTrainedModel):
     def forward(
             self,
             input_values,
-            attention_mask=None,
+            attention_mask,
             output_attentions=None,
             output_hidden_states=None,
             return_dict=None,

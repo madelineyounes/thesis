@@ -9,4 +9,6 @@ adam_epsilon: 0.00000001
 train_epochs: 5
 max_steps: 35000
 lr_scheduler_type: linear
-warmup_ratio: 0.1
+warmup_ratio: 0.1               # Default = 0.0
+logging_strategy: steps         # Default = "steps"
+logging_steps: 10               # Default = 500
