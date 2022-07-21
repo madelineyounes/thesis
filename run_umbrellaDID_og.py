@@ -839,8 +839,7 @@ class myTrainer(Trainer):
             print("before zero_grad optimizer")
             self.optimizer.zero_grad()
 
-            print("before zero_grad optimizer")
-            # backprop
+            print("LOSS after zero",loss)            # backprop
             loss.backward()
             print("LOSS after backward",loss)
             # parameters update
@@ -981,7 +980,7 @@ training_args = TrainingArguments(
 )
 # All instances can be passed to Trainer and
 # we are ready to start training!
-model.gradient_checkpointing_enable()
+# model.gradient_checkpointing_enable()
 trainer = myTrainer(
     model=model,
     optimizers=(optimizer, lr_scheduler),
