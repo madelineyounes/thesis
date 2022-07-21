@@ -835,7 +835,7 @@ class myTrainer(Trainer):
 
             # loss
             loss = self._compute_loss(model, inputs)
-            print(self.optimizer)
+            print(self.model.optimizer)
             # remove gradient from previous passes
             self.optimizer.zero_grad()
 
