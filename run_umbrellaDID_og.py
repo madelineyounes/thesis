@@ -834,7 +834,7 @@ class myTrainer(Trainer):
             out = self.model(**inputs)
 
             # loss
-            loss = self._compute_loss(out, labels)
+            loss = self.compute_loss(model, inputs)
 
             # remove gradient from previous passes
             self.optimizer.zero_grad()
@@ -857,12 +857,6 @@ class myTrainer(Trainer):
                 loss = self._compute_loss(out, labels)
 
         return loss.item()
-        
-    def _compute_loss(self, out, labels):
-        logits = out.get('logits')
-        loss_fct = BCEWithLogitsLoss()
-        loss = loss_fct(logits, labels)
-        return ((loss,) + out) if loss is not None else out
 print("--> Defining CTC Trainer...")
 class CTCTrainer(Trainer):
     def train(self, model_path: Optional[str] = None):        #train_dataloader = self.get_train_dataloader()
