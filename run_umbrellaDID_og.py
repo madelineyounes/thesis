@@ -862,6 +862,8 @@ class myTrainer(Trainer):
         labels = inputs.pop("labels")
         outputs = model(**inputs)
         logits = outputs[0]
+        print("LOGITS", logits)
+        print("LABELS", outputs)
         return CrossEntropyLoss(logits, labels)
 print("--> Defining CTC Trainer...")
 class CTCTrainer(Trainer):
