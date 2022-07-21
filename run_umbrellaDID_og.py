@@ -848,6 +848,7 @@ class myTrainer(Trainer):
 
     def _validate(self, loader):
         # put model in evaluation mode
+        print("in eval mode")
         self.model.eval()
 
         with torch.no_grad():
@@ -865,7 +866,9 @@ class myTrainer(Trainer):
         lossfct = CrossEntropyLoss()
         print("LOGITS", logits)
         print("LABELS", labels)
+        print("before loss")
         loss = lossfct(logits, labels)
+        print("LOSS", loss)
         return loss
 # print("--> Defining CTC Trainer...")
 # class CTCTrainer(Trainer):
