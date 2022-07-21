@@ -820,6 +820,7 @@ class myTrainer(Trainer):
 
             # validate
             val_loss = self._validate(val_loader)
+            print(f"Epoch {epoch} Loss {train_loss} val {val_loss}")
 
     def _train(self, loader):
 
