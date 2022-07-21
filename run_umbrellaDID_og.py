@@ -830,7 +830,7 @@ class myTrainer(Trainer):
             inputs = {}
             inputs['input_values'] = data["input_values"].float()
             inputs['attention_mask'] = data['attention_mask'].long()
-            inputs['label'] = data['label']
+            inputs['labels'] = data['label']
             out = self.model(**inputs)
 
             # loss
