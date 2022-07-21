@@ -937,7 +937,7 @@ class myTrainer(Trainer):
 #      dataset.
 # For more info: https://huggingface.co/transformers/master/main_classes/trainer.html?highlight=trainer#trainingarguments
 model.freeze_feature_extractor()
-optimizer_type = torch.optim.Adam(params, lr=0.001, betas=(
+optimizer_type = torch.optim.Adam(model.parameters, lr=0.001, betas=(
     0.9, 0.999), eps=1e-08, weight_decay=0, amsgrad=False)
 training_args = TrainingArguments(
     output_dir=model_fp,
