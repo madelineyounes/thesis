@@ -990,7 +990,6 @@ trainer = myTrainer(
     tokenizer=feature_extractor,
 )
 
-trainer.fit(trainDataLoader, testDataLoader, 10)
 # ------------------------------------------
 #               Training
 # ------------------------------------------
@@ -1002,6 +1001,7 @@ if training:
     print("\n------> STARTING TRAINING... ----------------------------------------- \n")
     torch.cuda.empty_cache()
     # Train
+    trainer.fit(trainDataLoader, testDataLoader, 10)
     if use_checkpoint:
         trainer.train(pretrained_mod)
     else:
