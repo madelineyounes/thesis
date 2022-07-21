@@ -830,7 +830,7 @@ class myTrainer(Trainer):
             inputs = {}
             inputs['input_values'] = data["input_values"].float()
             inputs['attention_mask'] = data['attention_mask'].long()
-            labels = data['label']
+            inputs['label'] = data['label']
             out = self.model(**inputs)
 
             # loss
@@ -859,7 +859,7 @@ class myTrainer(Trainer):
         return loss.item()
         
     def compute_loss(self, model, inputs):
-        labels = inputs.pop("label")
+        labels = inputs.pop("labels")
         outputs = model(**inputs)
         logits = outputs[0]
         return CrossEntropyLoss(logits, labels)
