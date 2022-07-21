@@ -857,6 +857,12 @@ class myTrainer(Trainer):
                 loss = self._compute_loss(out, labels)
 
         return loss.item()
+        
+    def compute_loss(self, model, inputs):
+        labels = inputs.pop("label")
+        outputs = model(**inputs)
+        logits = outputs[0]
+        return CrossEntropyLoss(logits, labels)
 print("--> Defining CTC Trainer...")
 class CTCTrainer(Trainer):
     def train(self, model_path: Optional[str] = None):        #train_dataloader = self.get_train_dataloader()
