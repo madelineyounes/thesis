@@ -835,7 +835,6 @@ class myTrainer(Trainer):
 
             # loss
             loss = self._compute_loss(model, inputs)
-            print(self.model.optimizer)
             # remove gradient from previous passes
             self.optimizer.zero_grad()
 
@@ -938,7 +937,8 @@ class myTrainer(Trainer):
 #      dataset.
 # For more info: https://huggingface.co/transformers/master/main_classes/trainer.html?highlight=trainer#trainingarguments
 model.freeze_feature_extractor()
-
+optimizer_type = torch.optim.Adam(params, lr=0.001, betas=(
+    0.9, 0.999), eps=1e-08, weight_decay=0, amsgrad=False)
 training_args = TrainingArguments(
     output_dir=model_fp,
     evaluation_strategy=set_evaluation_strategy,
@@ -966,7 +966,8 @@ training_args = TrainingArguments(
     group_by_length=set_group_by_length,
     hub_token='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',
     push_to_hub=set_push_to_hub,
-    label_names=label2id
+    label_names=label2id,
+    optimizer=optimizer_type
 )
 # All instances can be passed to Trainer and
 # we are ready to start training!
