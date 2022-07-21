@@ -822,9 +822,9 @@ class myTrainer(Trainer):
             val_loss = self._validate(val_loader)
 
     def _train(self, loader):
+
         # put model in train mode
         self.model.train()
-
         for data in loader:
             # forward pass
             inputs = {}
@@ -837,13 +837,13 @@ class myTrainer(Trainer):
             loss = self._compute_loss(model, inputs)
 
             # remove gradient from previous passes
-            self.optimizer.zero_grad()
+            model.cleargrads()
 
             # backprop
             loss.backward()
 
             # parameters update
-            self.optimizer.step()
+            self.optimizer.update()
 
         return loss.item()
 
@@ -965,7 +965,8 @@ training_args = TrainingArguments(
     greater_is_better=set_greater_is_better,
     group_by_length=set_group_by_length,
     hub_token='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',
-    push_to_hub=set_push_to_hub
+    push_to_hub=set_push_to_hub,
+    label_names=label2id
 )
 # All instances can be passed to Trainer and
 # we are ready to start training!
