@@ -835,15 +835,15 @@ class myTrainer(Trainer):
 
             # loss
             loss = self._compute_loss(model, inputs)
-
+            print(self.optimizer)
             # remove gradient from previous passes
-            model.cleargrads()
+            self.optimizer.zero_grad()
 
             # backprop
             loss.backward()
 
             # parameters update
-            self.optimizer.update()
+            self.optimizer.step()
 
         return loss.item()
 
