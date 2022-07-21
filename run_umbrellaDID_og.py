@@ -857,7 +857,12 @@ class myTrainer(Trainer):
                 loss = self._compute_loss(out, labels)
 
         return loss.item()
-
+        
+    def _compute_loss(out, labels):
+        logits = out.get('logits')
+        loss_fct = BCEWithLogitsLoss()
+        loss = loss_fct(logits, labels)
+        return ((loss,) + out) if loss is not None else out
 print("--> Defining CTC Trainer...")
 class CTCTrainer(Trainer):
     def train(self, model_path: Optional[str] = None):        #train_dataloader = self.get_train_dataloader()

@@ -1,9 +1,9 @@
-evaluation_strategy: epoch
-batch_size: 4
-gradient_accumulation_steps: 2
-learning_rate: 0.00004 
-weight_decay: 0.01
-adam_beta1: 0.98
+evaluation_strategy: epoch      # Default = "no"
+batch_size: 4                   # Default = 8
+gradient_accumulation_steps: 2  # Default = 4
+learning_rate: 0.00004          # Default = 0.00005
+weight_decay: 0.01              # Default = 0
+adam_beta1: 0.98                # Default = 0.9
 adam_beta2: 0.98
 adam_epsilon: 0.00000001
 train_epochs: 5
@@ -12,7 +12,12 @@ lr_scheduler_type: linear
 warmup_ratio: 0.1               # Default = 0.0
 logging_strategy: steps         # Default = "steps"
 logging_steps: 10               # Default = 500
-save_strategy: epoch
-save_steps: 1000
-save_total_limit: 40
-fp16: False
+save_strategy: epoch            # Default = "steps"
+save_steps: 1000                # Default = 500
+save_total_limit: 40            # Optional
+fp16: False                     # Default = False
+eval_steps: 1000                # Optional
+load_best_model_at_end : True   # Default = False
+greater_is_better: False        # Optional
+group_by_length: True           # Default = False
+push_to_hub: False              # Default = False
