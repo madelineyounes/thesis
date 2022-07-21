@@ -832,17 +832,20 @@ class myTrainer(Trainer):
             inputs['attention_mask'] = data['attention_mask'].long()
             inputs['labels'] = data['label']
             out = self.model(**inputs)
-
+            print("OPTIMIZER", self.optimizer)
             # loss
             loss = self._compute_loss(model, inputs)
             # remove gradient from previous passes
+            print("before zero_grad optimizer")
             self.optimizer.zero_grad()
 
+            print("before zero_grad optimizer")
             # backprop
             loss.backward()
-
+            print("LOSS after backward",loss)
             # parameters update
             self.optimizer.step()
+            print("after optimizer step")
 
         return loss.item()
 
