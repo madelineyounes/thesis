@@ -858,7 +858,7 @@ class myTrainer(Trainer):
 
         return loss.item()
         
-    def _compute_loss(out, labels):
+    def _compute_loss(self, out, labels):
         logits = out.get('logits')
         loss_fct = BCEWithLogitsLoss()
         loss = loss_fct(logits, labels)
