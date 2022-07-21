@@ -840,6 +840,9 @@ class myTrainer(Trainer):
             print("before zero_grad optimizer")
             self.optimizer.zero_grad()
 
+            if self.args.gradient_accumulation_steps > 1:
+                loss = loss / self.args.gradient_accumulation_steps
+
             print("LOSS after zero",loss)            # backprop
             loss.backward()
             print("LOSS after backward",loss)
