@@ -863,68 +863,68 @@ class myTrainer(Trainer):
         outputs = model(**inputs)
         logits = outputs[0]
         print("LOGITS", logits)
-        print("LABELS", outputs)
+        print("LABELS", labels)
         return CrossEntropyLoss(logits, labels)
-print("--> Defining CTC Trainer...")
-class CTCTrainer(Trainer):
-    def train(self, model_path: Optional[str] = None):        #train_dataloader = self.get_train_dataloader()
-        train_dataloader = trainDataLoader
-        #self.callback_handler.train_dataloader = train_dataloader
-        self.callback_handler.train_dataloader = train_dataloader
-        print("training...")
+# print("--> Defining CTC Trainer...")
+# class CTCTrainer(Trainer):
+#     def train(self, model_path: Optional[str] = None):        #train_dataloader = self.get_train_dataloader()
+#         train_dataloader = trainDataLoader
+#         #self.callback_handler.train_dataloader = train_dataloader
+#         self.callback_handler.train_dataloader = train_dataloader
+#         print("training...")
 
-    def predict(
-        self, test_dataset: Dataset, ignore_keys: Optional[List[str]] = None, metric_key_prefix: str = "eval"
-    ):
-        #test_dataloader = self.get_test_dataloader(test_dataset)
-        test_dataloader = testDataLoader
-        #output = self.prediction_loop(
-        #    test_dataloader, description="Prediction", ignore_keys=ignore_keys, metric_key_prefix=metric_key_prefix
-        #)
+#     def predict(
+#         self, test_dataset: Dataset, ignore_keys: Optional[List[str]] = None, metric_key_prefix: str = "eval"
+#     ):
+#         #test_dataloader = self.get_test_dataloader(test_dataset)
+#         test_dataloader = testDataLoader
+#         #output = self.prediction_loop(
+#         #    test_dataloader, description="Prediction", ignore_keys=ignore_keys, metric_key_prefix=metric_key_prefix
+#         #)
 
-        output = self.prediction_loop(
-            test_dataloader, description="Prediction", ignore_keys=ignore_keys, metric_key_prefix=metric_key_prefix
-        )
-        output.metrics.update(speed_metrics(metric_key_prefix, start_time, len(test_dataset)))
-        return output
+#         output = self.prediction_loop(
+#             test_dataloader, description="Prediction", ignore_keys=ignore_keys, metric_key_prefix=metric_key_prefix
+#         )
+#         output.metrics.update(speed_metrics(metric_key_prefix, start_time, len(test_dataset)))
+#         return output
 
-    def training_step(self, model: nn.Module, inputs: Dict[str, Union[torch.Tensor, Any]]) -> torch.Tensor:
-        """
-        Perform a training step on a batch of inputs.
+#     def training_step(self, model: nn.Module, inputs: Dict[str, Union[torch.Tensor, Any]]) -> torch.Tensor:
+#         """
+#         Perform a training step on a batch of inputs.
 
-        Subclass and override to inject custom behavior.
+#         Subclass and override to inject custom behavior.
 
-        Args:
-            model (:obj:`nn.Module`):
-                The model to train.
-            inputs (:obj:`Dict[str, Union[torch.Tensor, Any]]`):
-                The inputs and targets of the model.
+#         Args:
+#             model (:obj:`nn.Module`):
+#                 The model to train.
+#             inputs (:obj:`Dict[str, Union[torch.Tensor, Any]]`):
+#                 The inputs and targets of the model.
 
-                The dictionary will be unpacked before being fed to the model. Most models expect the targets under the
-                argument :obj:`labels`. Check your model's documentation for all accepted arguments.
+#                 The dictionary will be unpacked before being fed to the model. Most models expect the targets under the
+#                 argument :obj:`labels`. Check your model's documentation for all accepted arguments.
 
-        Return:
-            :obj:`torch.Tensor`: The tensor with training loss on this batch.
-        """
-        print ("before model train")
-        model.train()
-        print ("before inputs train")
-        inputs = self._prepare_inputs(inputs)
-        print ("before input loss")
+#         Return:
+#             :obj:`torch.Tensor`: The tensor with training loss on this batch.
+#         """
+#         print ("before model train")
+#         model.train()
+#         print ("before inputs train")
+#         inputs = self._prepare_inputs(inputs)
+#         print ("before input loss")
 
-        loss = self.compute_loss(model, inputs)
+#         loss = self.compute_loss(model, inputs)
 
-        if self.args.gradient_accumulation_steps > 1:
-            print("before loss train")
-            loss = loss / self.args.gradient_accumulation_steps
+#         if self.args.gradient_accumulation_steps > 1:
+#             print("before loss train")
+#             loss = loss / self.args.gradient_accumulation_steps
 
-        if self.deepspeed:
-            print ("before backward train")
-            self.deepspeed.backward(loss)
-        else:
-            loss.backward()
+#         if self.deepspeed:
+#             print ("before backward train")
+#             self.deepspeed.backward(loss)
+#         else:
+#             loss.backward()
 
-        return loss.detach()
+#         return loss.detach()
 
 
 # 4) Configure training parameters
