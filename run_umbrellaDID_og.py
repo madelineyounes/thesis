@@ -834,7 +834,7 @@ class myTrainer(Trainer):
             out = self.model(**inputs)
 
             # loss
-            loss = self.compute_loss(model, inputs)
+            loss = self._compute_loss(model, inputs)
 
             # remove gradient from previous passes
             self.optimizer.zero_grad()
@@ -858,7 +858,7 @@ class myTrainer(Trainer):
 
         return loss.item()
         
-    def compute_loss(self, model, inputs):
+    def _compute_loss(self, model, inputs):
         labels = inputs.pop("labels")
         outputs = model(**inputs)
         logits = outputs[0]
