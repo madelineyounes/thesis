@@ -862,9 +862,10 @@ class myTrainer(Trainer):
         labels = inputs.pop("labels")
         outputs = model(**inputs)
         logits = outputs[0]
+        lossfct = CrossEntropyLoss()
         print("LOGITS", logits)
         print("LABELS", labels)
-        return CrossEntropyLoss(logits, labels)
+        return lossfct(logits, labels)
 # print("--> Defining CTC Trainer...")
 # class CTCTrainer(Trainer):
 #     def train(self, model_path: Optional[str] = None):        #train_dataloader = self.get_train_dataloader()
@@ -971,7 +972,6 @@ training_args = TrainingArguments(
 model.gradient_checkpointing_enable()
 trainer = myTrainer(
     model=model,
-    data_collator=data_collator,
     args=training_args,
     compute_metrics=compute_metrics,
     tokenizer=feature_extractor,
