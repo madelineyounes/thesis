@@ -19,7 +19,7 @@
 #pip3 install random
 #pip3 install dataclasses
 #pip3 install torchvision
-
+from transformers.optimization import Adafactor, AdafactorSchedule
 import numpy as np
 import pandas as pd
 import random
@@ -937,8 +937,11 @@ class myTrainer(Trainer):
 #      dataset.
 # For more info: https://huggingface.co/transformers/master/main_classes/trainer.html?highlight=trainer#trainingarguments
 model.freeze_feature_extractor()
-optimizer_type = torch.optim.Adam(model.parameters, lr=0.001, betas=(
-    0.9, 0.999), eps=1e-08, weight_decay=0, amsgrad=False)
+
+optimizer = Adafactor(model.parameters(), scale_parameter=True,
+                      relative_step=True, warmup_init=True, lr=None)
+lr_scheduler = AdafactorSchedule(optimizer)
+
 training_args = TrainingArguments(
     output_dir=model_fp,
     evaluation_strategy=set_evaluation_strategy,
@@ -966,14 +969,14 @@ training_args = TrainingArguments(
     group_by_length=set_group_by_length,
     hub_token='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',
     push_to_hub=set_push_to_hub,
-    label_names=label2id,
-    optimizer=optimizer_type
+    label_names=label2id, 
 )
 # All instances can be passed to Trainer and
 # we are ready to start training!
 model.gradient_checkpointing_enable()
 trainer = myTrainer(
     model=model,
+    optimizers=(optimizer, lr_scheduler),
     args=training_args,
     compute_metrics=compute_metrics,
     tokenizer=feature_extractor,
