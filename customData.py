@@ -3,6 +3,8 @@ import torchaudio
 import pandas as pd
 import pickle
 from torch.utils.data import Dataset
+import customTransform as T
+from torchvision import transforms
 
 label_list = ['NOR', 'EGY', 'GLF', 'LEV']
 label2id, id2label = dict(), dict()
@@ -17,20 +19,26 @@ def speech_file_to_array_fn(path, target_sampling_rate):
     return speech
 
 class CustomDataset(Dataset):
-    def __init__(self, csv_fp, data_fp, transform=None, sampling_rate=16000):
+    def __init__(self, csv_fp, data_fp, labels, transform=None, sampling_rate=16000, model_name="facebook/wav2vec2-base", max_length=0.1):
         """
         Args:
         csv_fp (string): Path to csv with audio file ids and labels.
         data_fp (string): Path to audio files
         transform: Transform to be performed on audio file
         """
+        if transform is None:
+            self.transform = transforms.Compose([T.Extractor(model_name, sampling_rate, max_length)])
+        else:
+            self.transform = transform
+
         self.data_frame = pd.read_csv(csv_fp, delimiter=',')
         self.data_fp = data_fp
-        self.transform = transform
+       
         self.sampling_rate = sampling_rate
+        self.labels = labels
 
     def __len__(self):
-        return len(self.data_frame)
+        return len(self.labels)
 
     def __getitem__(self, idx):
         if torch.is_tensor(idx):
@@ -50,7 +58,12 @@ class CustomDataset(Dataset):
 
         speech_features = speech_features.float()
         speech_mask = speech_mask.long()
+        item = {}
+        item['input_values'] = speech_features
+        item['attention_mask'] = speech_mask
+        item['labels'] = torch.tensor(label)
 
-        sample = {"input_values": speech_features, "attention_mask": speech_mask, "label": label}
+        sample = {"input_values": speech_features,
+                  "attention_mask": speech_mask, "label": label}
         print("SAMPLE: ",sample)
-        return sample
+        return item
