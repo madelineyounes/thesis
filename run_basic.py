@@ -1,10 +1,7 @@
 #----------------------------------------------------------
 # run_umbrellaDID.py
-# Purpose: Uses xlsr to create a audio classifer that 
-# identifies arabic dialects using the ADI17 dataset. 
-# Based on source:
-# https://colab.research.google.com/github/huggingface/notebooks/blob/main/examples/audio_classification.ipynb#scrollTo=pdcMxVGEA9Cd 
-# & Code by: Renee Lu
+# Purpose: Uses xlsr to create a audio classifer that
+# identifies arabic dialects using the ADI17 dataset.
 # Author: Madeline Younes, 2022
 #----------------------------------------------------------
 
@@ -46,12 +43,10 @@ from transformers.file_utils import ModelOutput
 from transformers import (
     Trainer,
     TrainingArguments,
-    AutoFeatureExtractor, 
-    Wav2Vec2Processor, 
-    Wav2Vec2FeatureExtractor, 
+    Wav2Vec2Processor,
+    Wav2Vec2FeatureExtractor,
     AutoConfig,
-    Wav2Vec2CTCTokenizer, 
-    Wav2Vec2ForSequenceClassification
+    Wav2Vec2CTCTokenizer,
 )
 from transformers.models.wav2vec2.modeling_wav2vec2 import (
     Wav2Vec2PreTrainedModel,
@@ -109,7 +104,7 @@ training = True
 print("training:", training)
 
 # Experiment ID
-# For 
+# For
 #     1) naming model output directory
 #     2) naming results file
 experiment_id = "xlsr-ADI17-initialtest/"
@@ -121,35 +116,35 @@ print("experiment_id:", experiment_id)
 datasetdict_id = "myST-eval"
 print("datasetdict_id:", datasetdict_id)
 
-data_path = "/Users/myounes/Documents/Code/thesis_files/"
+data_path = "/srv/scratch/z5208494/dataset/"
 print("data path:", data_path)
 
-training_data_path = "/Users/myounes/Documents/Code/thesis_files/dev_segments/"
+training_data_path = "/srv/scratch/z5208494/dataset/dev_segments/"
 print("training data path:", training_data_path)
 
-test_data_path = "/Users/myounes/Documents/Code/thesis_files/test_segments/"
+test_data_path = "/srv/scratch/z5208494/dataset/test_segments/"
 print("test data path:", test_data_path)
 # Base filepath
 # For setting the base filepath to direct output to
-base_fp = "/Users/myounes/Documents/Code/thesis_files/output/"
+base_fp = "/srv/scratch/z5208494/output/"
 print("base_fp:", base_fp)
 
 # Base cache directory filepath
 # For setting directory for cache files
-base_cache_fp = "/Users/myounes/Documents/Code/thesis_files/"
+base_cache_fp = "/srv/scratch/z5208494/cache/huggingface/datasets/"
 
 # Training dataset name and filename
 # Dataset name and filename of the csv file containing the training data
 # For generating filepath to file location
 train_name = "umbrella_alldevdata"
-train_filename = "data_1file"
+train_filename = "data_u_all_data"
 print("train_name:", train_name)
 print("train_filename:", train_filename)
 
 # Evaluation dataset name and filename
 # Dataset name and filename of the csv file containing the evaluation data
 # For generating filepath to file location
-evaluation_filename = "adi17_test_small"
+evaluation_filename = "new_adi17_test_big"
 print("evaluation_filename:", evaluation_filename)
 
 # Resume training from/ use checkpoint (True/False)
@@ -160,7 +155,7 @@ print("evaluation_filename:", evaluation_filename)
 use_checkpoint = False
 print("use_checkpoint:", use_checkpoint)
 # Set checkpoint if resuming from/using checkpoint
-checkpoint = "/Users/myounes/Documents/Code/thesis_files/checkpoint/20211018-base-intial-test"
+checkpoint = "/srv/scratch/z5208494/checkpoint/20211018-base-intial-test"
 if use_checkpoint:
     print("checkpoint:", checkpoint)
 
@@ -355,7 +350,8 @@ feature_extractor = Wav2Vec2FeatureExtractor(
     feature_size=1, sampling_rate=16000, padding_value=0.0, do_normalize=True, return_attention_mask=True,  return_tensors='pt').from_pretrained(model_name)
 # Feature extractor and tokenizer wrapped into a single
 # Wav2Vec2Processor class so we only need a model and processor object
-processor = Wav2Vec2Processor(feature_extractor=feature_extractor, tokenizer=tokenizer)
+processor = Wav2Vec2Processor(
+    feature_extractor=feature_extractor, tokenizer=tokenizer)
 
 # Save to re-use the just created processor and the fine-tuned model
 processor.save_pretrained(model_fp)
@@ -367,12 +363,15 @@ print("SUCCESS: Created feature extractor.")
 print("\n------> PRE-PROCESSING DATA... ----------------------------------------- \n")
 
 target_sampling_rate = feature_extractor.sampling_rate
+
+
 def speech_file_to_array_fn(path):
     speech_array, sampling_rate = torchaudio.load(path)
     resampler = torchaudio.transforms.Resample(
         sampling_rate, target_sampling_rate)
     speech = resampler(speech_array).squeeze().numpy()
     return speech
+
 
 def label_to_id(label, label_list):
 
@@ -381,14 +380,17 @@ def label_to_id(label, label_list):
 
     return label
 
+
 # Audio files are stored as .wav format
 # We want to store both audio values and sampling rate
 # in the dataset.
 # We write a map(...) function accordingly.
-max_duration = 0.10 
-print ("Max Duration:",  max_duration, "s")
+max_duration = 0.10
+print("Max Duration:",  max_duration, "s")
 sampling_rate = feature_extractor.sampling_rate
-print ("Sampling Rate:",  sampling_rate)
+print("Sampling Rate:",  sampling_rate)
+
+
 def audio_to_array_fn(batch):
     try:
         filepath = training_data_path + batch["id"] + ".wav"
@@ -405,15 +407,15 @@ def audio_to_array_fn(batch):
             filepath = test_data_path + batch["id"] + ".wav"
             audio_array = speech_file_to_array_fn(filepath)
             inputs = feature_extractor(
-            audio_array,
-            sampling_rate=sampling_rate,
-            max_length=int(feature_extractor.sampling_rate * max_duration),
-            truncation=True,
-        )
+                audio_array,
+                sampling_rate=sampling_rate,
+                max_length=int(feature_extractor.sampling_rate * max_duration),
+                truncation=True,
+            )
             inputs["input_values"] = inputs['input_values']
             print(inputs)
             return inputs
-        except: 
+        except:
             pass
 
 
@@ -426,17 +428,20 @@ encoded_data = data.map(audio_to_array_fn, remove_columns=["id"], num_proc=4)
 
 # create custom dataset class
 print("Create a custom dataset ---> ")
-random_transforms = transforms.Compose([T.Extractor(model_name, sampling_rate, 0.1)])
+random_transforms = transforms.Compose(
+    [T.Extractor(model_name, sampling_rate, 0.1)])
 
 traincustomdata = CustomDataset(
     csv_fp=data_train_fp, data_fp=training_data_path, labels=label_list, transform=random_transforms, model_name=model_name, max_length=0.1)
 testcustomdata = CustomDataset(
     csv_fp=data_test_fp, data_fp=test_data_path, labels=label_list, transform=random_transforms, model_name=model_name, max_length=0.1)
 
-trainDataLoader = DataLoader(traincustomdata, batch_size=set_per_device_train_batch_size, shuffle=True, num_workers=0)
+trainDataLoader = DataLoader(
+    traincustomdata, batch_size=set_per_device_train_batch_size, shuffle=True, num_workers=0)
 tr_itt = iter(trainDataLoader)
 
-testDataLoader = DataLoader(testcustomdata, batch_size=set_per_device_train_batch_size, shuffle=True, num_workers=0)
+testDataLoader = DataLoader(
+    testcustomdata, batch_size=set_per_device_train_batch_size, shuffle=True, num_workers=0)
 tst_itt = iter(testDataLoader)
 
 print("SUCCESS: Data ready for training and evaluation.")
@@ -452,7 +457,7 @@ print("SUCCESS: Data ready for training and evaluation.")
 #    sample in their batch and not the overall longest sample.
 #    Therefore, fine-tuning Wav2Vec2 required a special
 #    padding data collator, defined below.
-# 2) Evaluation metric: we evaluate the model using accuracy 
+# 2) Evaluation metric: we evaluate the model using accuracy
 #    We define a compute_metrics function accordingly.
 # 3) Load a pre-trained checkpoint
 # 4) Define the training configuration
@@ -474,12 +479,15 @@ config = AutoConfig.from_pretrained(
 setattr(config, 'pooling_mode', set_pooling_mode)
 
 print("--> Defining Classifer")
+
+
 @dataclass
 class SpeechClassifierOutput(ModelOutput):
     loss: Optional[torch.FloatTensor] = None
     logits: torch.FloatTensor = None
     hidden_states: Optional[Tuple[torch.FloatTensor]] = None
     attentions: Optional[Tuple[torch.FloatTensor]] = None
+
 
 class Wav2Vec2ClassificationHead(nn.Module):
     """Head for wav2vec classification task."""
@@ -569,7 +577,7 @@ class Wav2Vec2ForSpeechClassification(Wav2Vec2PreTrainedModel):
                 loss = loss_fct(logits.view(-1, self.num_labels), labels)
             elif self.config.problem_type == "single_label_classification":
                 loss_fct = CrossEntropyLoss()
-                print("LOSS LABELS,",labels)
+                print("LOSS LABELS,", labels)
                 loss = loss_fct(logits.view(-1, self.num_labels), labels)
             elif self.config.problem_type == "multi_label_classification":
                 loss_fct = BCEWithLogitsLoss()
@@ -624,7 +632,8 @@ class DataCollatorCTCWithPadding:
                           for feature in features]
         label_features = [feature["labels"]
                           for feature in features]
-        d_type = torch.long if isinstance(label_features[0], int) else torch.float
+        d_type = torch.long if isinstance(
+            label_features[0], int) else torch.float
 
         self.feature_extractor = feature_extractor
         self.padding = True
@@ -645,7 +654,7 @@ class DataCollatorCTCWithPadding:
 
 data_collator = DataCollatorCTCWithPadding()
 # 2) Evaluation metric
-#    Using Accuaracy 
+#    Using Accuaracy
 print("--> Defining evaluation metric...")
 # The model will return a sequence of logit vectors y.
 # We are interested in the most likely prediction of the mode and
@@ -655,6 +664,7 @@ print("--> Defining evaluation metric...")
 # that consecutive tokens are not grouped to the same token in
 # CTC style.
 acc_metric = load_metric("accuracy")
+
 
 def compute_metrics(pred):
     print("PRED", pred)
@@ -688,7 +698,7 @@ model = Wav2Vec2ForSpeechClassification.from_pretrained(
     config=config
 )
 
-print ("-------- Setting up Model --------")
+print("-------- Setting up Model --------")
 
 
 for param in model.wav2vec2.feature_extractor.parameters():
@@ -700,10 +710,10 @@ for param in model.wav2vec2.encoder.parameters():
 for param in model.wav2vec2.feature_projection.parameters():
     param.requires_grad = False
 
-trainable_transformers = 12 
+trainable_transformers = 12
 num_transformers = 12
 if trainable_transformers > 0:
-    
+
     for i in range(num_transformers-trainable_transformers, num_transformers, 1):
         for param in model.wav2vec2.encoder.layers[i].parameters():
             param.requires_grad = True
@@ -718,6 +728,8 @@ if trainable_transformers > 0:
 # Thus, we can set the requires_grad to False for all parameters of
 # the feature extraction part.
 print("SUCCESS: Pre-trained checkpoint loaded.")
+
+
 def multi_acc(y_pred, y_test):
     y_pred_softmax = torch.log_softmax(y_pred, dim=1)
     _, y_pred_tags = torch.max(y_pred_softmax, dim=1)
@@ -728,7 +740,10 @@ def multi_acc(y_pred, y_test):
     acc = torch.round(acc * 100)
     return acc
 
+
 print("--> Defining Custom Trainer Class...")
+
+
 class myTrainer(Trainer):
     def fit(self, train_loader, val_loader, epochs):
         for epoch in range(epochs):
@@ -738,7 +753,8 @@ class myTrainer(Trainer):
             # validate
             val_loss, val_acc = self._validate(val_loader)
 
-            print(f"Epoch {epoch} Train Acc {train_acc} Val Acc {val_acc} Train Loss {train_loss} Val Loss {val_loss}")
+            print(
+                f"Epoch {epoch} Train Acc {train_acc} Val Acc {val_acc} Train Loss {train_loss} Val Loss {val_loss}")
 
     def _train(self, loader):
         # put model in train mode
@@ -770,7 +786,7 @@ class myTrainer(Trainer):
             except StopIteration:
                 break
         loss_tot_tr = loss_sum_tr/len(loader)
-        acc_tot_tr= acc_sum_tr/len(loader)
+        acc_tot_tr = acc_sum_tr/len(loader)
         return loss_tot_tr, acc_tot_tr
 
     def _validate(self, loader):
@@ -794,7 +810,7 @@ class myTrainer(Trainer):
         loss_sum_val = loss_sum_val/len(loader)
         acc_sum_val = acc_sum_val/len(loader)
         return loss_sum_val, acc_sum_val
-        
+
     def _compute_loss(self, model, inputs, labels):
         prediction = model(**inputs).logits
         lossfct = CrossEntropyLoss()
@@ -846,6 +862,7 @@ class myTrainer(Trainer):
         #self.control = self.callback_handler.on_predict(self.args, self.state, self.control, output.metrics)
         self._memory_tracker.stop_and_update_metrics(output.metrics)
         return PredictionOutput(predictions=output.predictions, label_ids=output.label_ids, metrics=output.metrics)
+
 
 # model.freeze_feature_extractor()
 optimizer = Adafactor(model.parameters(), scale_parameter=True,
@@ -909,7 +926,7 @@ if training:
         device = ("cpu")
     # Train
     trainer.fit(trainDataLoader, testDataLoader, 10)
-   
+
     # Save the model
     model.save_pretrained(model_fp)
 
@@ -922,10 +939,10 @@ print("\n------> EVALUATING MODEL... ------------------------------------------ 
 
 results = trainer._predict(testDataLoader)
 y_true = results[1]
-# create an array selecting the highest prediction value. 
+# create an array selecting the highest prediction value.
 y_pred = []
 for predicts in results[0]:
-    p = np.where(predicts==np.amax(predicts))
+    p = np.where(predicts == np.amax(predicts))
     y_pred.append(p[0][0])
 
 

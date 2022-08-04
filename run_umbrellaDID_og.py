@@ -531,7 +531,10 @@ testcustomdata = CustomDataset(
     csv_fp=data_test_fp, data_fp=test_data_path, transform=random_transforms)
 
 trainDataLoader = DataLoader(traincustomdata, batch_size=set_per_device_train_batch_size, shuffle=True, num_workers=0)
+tr_itt = iter(trainDataLoader)
+
 testDataLoader = DataLoader(testcustomdata, batch_size=set_per_device_train_batch_size, shuffle=True, num_workers=0)
+tst_itt = iter(testDataLoader)
 
 print("SUCCESS: Data ready for training and evaluation.")
 
@@ -823,33 +826,28 @@ class myTrainer(Trainer):
             print(f"Epoch {epoch} Loss {train_loss} val {val_loss}")
 
     def _train(self, loader):
-
         # put model in train mode
         self.model.train()
-        for data in loader:
+        for i in range(len(loader)):
             # forward pass
+            data = next(tr_itt)
             inputs = {}
             inputs['input_values'] = data["input_values"].float()
             inputs['attention_mask'] = data['attention_mask'].long()
             inputs['labels'] = data['label']
             out = self.model(**inputs)
-            print("OPTIMIZER", self.optimizer)
             # loss
             loss = self._compute_loss(model, inputs)
             # remove gradient from previous passes
-            print("before zero_grad optimizer")
             self.optimizer.zero_grad()
 
             if self.args.gradient_accumulation_steps > 1:
                 loss = loss / self.args.gradient_accumulation_steps
 
-            print("LOSS after zero",loss)            # backprop
+            # backprop
             loss.backward()
-            print("LOSS after backward",loss)
             # parameters update
             self.optimizer.step()
-            print("after optimizer step")
-
         return loss.item()
 
     def _validate(self, loader):
@@ -858,7 +856,8 @@ class myTrainer(Trainer):
         self.model.eval()
 
         with torch.no_grad():
-            for features, labels in loader:
+            for i in range(len(loader)):
+                features, labels = next(tst_itt)
                 out = self.model(features)
                 loss = self._compute_loss(out, labels)
                 print(loss)
@@ -870,11 +869,7 @@ class myTrainer(Trainer):
         outputs = model(**inputs)
         logits = outputs[0]
         lossfct = CrossEntropyLoss()
-        print("LOGITS", logits)
-        print("LABELS", labels)
-        print("before loss")
         loss = lossfct(logits, labels)
-        print("LOSS", loss)
         return loss
 # print("--> Defining CTC Trainer...")
 # class CTCTrainer(Trainer):

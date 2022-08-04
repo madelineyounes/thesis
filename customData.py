@@ -17,7 +17,6 @@ def speech_file_to_array_fn(path, target_sampling_rate):
     resampler = torchaudio.transforms.Resample(sampling_rate, target_sampling_rate)
     speech = resampler(speech_array).squeeze().numpy()
     return speech
-
 class CustomDataset(Dataset):
     def __init__(self, csv_fp, data_fp, labels, transform=None, sampling_rate=16000, model_name="facebook/wav2vec2-base", max_length=0.1):
         """
@@ -62,8 +61,4 @@ class CustomDataset(Dataset):
         item['input_values'] = speech_features
         item['attention_mask'] = speech_mask
         item['labels'] = torch.tensor(label)
-
-        sample = {"input_values": speech_features,
-                  "attention_mask": speech_mask, "label": label}
-        print("SAMPLE: ",sample)
         return item
