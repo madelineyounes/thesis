@@ -814,7 +814,7 @@ class myTrainer(Trainer):
                     ).cuda().contiguous()
                     inputs['attention_mask'] = data['attention_mask'].long(
                     ).cuda().contiguous()
-                    labels = data['labels'].long()
+                    labels = data['labels'].long().cuda().contiguous()
                     loss, acc = self._compute_loss(model, inputs, labels)
                     loss_sum_val += loss.detach()
                     acc_sum_val += acc.detach()
@@ -827,8 +827,9 @@ class myTrainer(Trainer):
     def _compute_loss(self, model, inputs, labels):
         prediction = model(**inputs).logits
         lossfct = CrossEntropyLoss()
-        loss = lossfct(prediction, labels.reshape((labels.shape[0])).long())
-        acc = multi_acc(prediction, labels.reshape((labels.shape[0])).long())
+        loss = lossfct(prediction, labels.reshape((labels.shape[0])).long().cuda().contiguous())
+        acc = multi_acc(prediction, labels.reshape(
+            (labels.shape[0])).long().cuda().contiguous())
         return loss, acc
 
     def _predict(self, test_dataloader):
