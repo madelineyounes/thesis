@@ -250,7 +250,7 @@ set_save_total_limit = 40                   # Optional
 print("save_total_limit:", set_save_total_limit)
 set_fp16 = False                             # Default = False
 print("fp16:", set_fp16)
-set_eval_steps = 1000                         # Optional
+set_eval_steps = 100                         # Optional
 print("eval_steps:", set_eval_steps)
 set_load_best_model_at_end = True           # Default = False
 print("load_best_model_at_end:", set_load_best_model_at_end)
@@ -760,6 +760,7 @@ print("--> Defining Custom Trainer Class...")
 class myTrainer(Trainer):
     def fit(self, train_loader, val_loader, epochs):
         for epoch in range(epochs):
+            print("EPOCH unfeeze : " +  (epoch % set_unfreezing_step))
 
             if epoch != 0 and epoch % set_unfreezing_step == 0 :
                 if epoch // set_unfreezing_step < (num_transformers-trainable_transformers):
@@ -774,16 +775,13 @@ class myTrainer(Trainer):
                 params = sum([np.prod(p.size()) for p in model_parameters])
                 print('Updated Parameters at Epoch ' + str(epoch) + ' Trainable Parameters : ' + str(params))
 
-
-
             # train
             train_loss, train_acc = self._train(train_loader)
 
             # validate
             val_loss, val_acc = self._validate(val_loader)
 
-            print(
-                f"Epoch {epoch} Train Acc {train_acc} Val Acc {val_acc} Train Loss {train_loss} Val Loss {val_loss}")
+            print(f"Epoch {epoch} Train Acc {train_acc} Val Acc {val_acc} Train Loss {train_loss} Val Loss {val_loss}")
 
     def _train(self, loader):
         # put model in train mode
@@ -922,7 +920,7 @@ training_args = TrainingArguments(
     save_steps=set_save_steps,
     save_total_limit=set_save_total_limit,
     fp16=set_fp16,
-    eval_steps=set_eval_steps,
+    eval_steps=myTrainer,
     load_best_model_at_end=set_load_best_model_at_end,
     metric_for_best_model=set_metric_for_best_model,
     greater_is_better=set_greater_is_better,
