@@ -760,7 +760,7 @@ print("--> Defining Custom Trainer Class...")
 class myTrainer(Trainer):
     def fit(self, train_loader, val_loader, epochs):
         for epoch in range(epochs):
-            print("EPOCH unfeeze : " +  (epoch % set_unfreezing_step))
+            print("EPOCH unfeeze : " + str(epoch % set_unfreezing_step))
 
             if epoch != 0 and epoch % set_unfreezing_step == 0 :
                 if epoch // set_unfreezing_step < (num_transformers-trainable_transformers):
