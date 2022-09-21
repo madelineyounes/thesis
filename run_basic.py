@@ -228,7 +228,9 @@ set_adam_beta2 = 0.98                       # Default = 0.999
 print("adam_beta2:", set_adam_beta2)
 set_adam_epsilon = 0.00000001               # Default = 0.00000001
 print("adam_epsilon:", set_adam_epsilon)
-set_num_train_epochs = 1000                   # Default = 3.0
+set_unfreezing_step = 10                   # Default = 3.0
+print("unfreezing_step:", set_unfreezing_step)
+set_num_train_epochs = 100                  # Default = 3.0
 print("num_train_epochs:", set_num_train_epochs)
 set_max_steps = 35000                       # Default = -1, overrides epochs
 print("max_steps:", set_max_steps)
@@ -701,11 +703,11 @@ model = Wav2Vec2ForSpeechClassification.from_pretrained(
 #model.classifier = nn.Linear(in_features=256, out_features=num_labels, bias=True)
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-
+multi_gpu = False
 if torch.cuda.device_count() > 1:
     print('GPUs Used : ', torch.cuda.device_count(), 'GPUs!')
     model = nn.DataParallel(model)
-    yaml_obj.multi_gpu = True
+    multi_gpu = True
 
 model.to(device)
 
@@ -758,6 +760,22 @@ print("--> Defining Custom Trainer Class...")
 class myTrainer(Trainer):
     def fit(self, train_loader, val_loader, epochs):
         for epoch in range(epochs):
+
+            if epoch != 0 and epoch % set_unfreezing_step == 0 :
+                if epoch // set_unfreezing_step < (num_transformers-trainable_transformers):
+                    if multi_gpu:
+                        for param in model.module.wav2vec2.encoder.layers[num_transformers-(epoch//set_unfreezing_step) - trainable_transformers].parameters():
+                            param.requires_grad = True
+                    else:
+                        for param in model.wav2vec2.encoder.layers[num_transformers-(epoch//set_unfreezing_step)-trainable_transformers].parameters():
+                            param.requires_grad = True
+        
+                model_parameters = filter(lambda p: p.requires_grad, model.parameters())
+                params = sum([np.prod(p.size()) for p in model_parameters])
+                print('Updated Parameters at Epoch ' + str(epoch) + ' Trainable Parameters : ' + str(params))
+
+
+
             # train
             train_loss, train_acc = self._train(train_loader)
 
