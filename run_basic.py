@@ -775,18 +775,22 @@ class myTrainer(Trainer):
                 params = sum([np.prod(p.size()) for p in model_parameters])
                 print('Updated Parameters at Epoch ' + str(epoch) + ' Trainable Parameters : ' + str(params))
 
+            loss_sum_tr = 0
+            acc_sum_tr = 0
+            loss_sum_val = 0
+            acc_sum_val = 0
+
             # train
-            train_loss, train_acc = self._train(train_loader)
+            train_loss, train_acc = self._train(train_loader, loss_sum_tr, acc_sum_tr)
 
             # validate
-            val_loss, val_acc = self._validate(val_loader)
+            val_loss, val_acc = self._validate(
+                val_loader, loss_sum_val, acc_sum_val)
 
             print(f"Epoch {epoch} Train Acc {train_acc} Val Acc {val_acc} Train Loss {train_loss} Val Loss {val_loss}")
 
-    def _train(self, loader):
+    def _train(self, loader, loss_sum_tr, acc_sum_tr):
         # put model in train mode
-        loss_sum_tr = 0
-        acc_sum_tr = 0
         self.model.train()
         for i in range(len(loader)):
             # forward pass
@@ -816,10 +820,8 @@ class myTrainer(Trainer):
         acc_tot_tr = acc_sum_tr/len(loader)
         return loss_tot_tr, acc_tot_tr
 
-    def _validate(self, loader):
+    def _validate(self, loader, loss_sum_val, acc_sum_va):
         # put model in evaluation mode
-        loss_sum_val = 0
-        acc_sum_val = 0
         self.model.eval()
         with torch.no_grad():
             for i in range(len(loader)):
