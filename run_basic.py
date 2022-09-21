@@ -228,7 +228,7 @@ set_adam_beta2 = 0.98                       # Default = 0.999
 print("adam_beta2:", set_adam_beta2)
 set_adam_epsilon = 0.00000001               # Default = 0.00000001
 print("adam_epsilon:", set_adam_epsilon)
-set_num_train_epochs = 5                   # Default = 3.0
+set_num_train_epochs = 1000                   # Default = 3.0
 print("num_train_epochs:", set_num_train_epochs)
 set_max_steps = 35000                       # Default = -1, overrides epochs
 print("max_steps:", set_max_steps)
