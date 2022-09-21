@@ -698,7 +698,7 @@ model = Wav2Vec2ForSpeechClassification.from_pretrained(
     config=config
 )
 
-model.classifier = nn.Linear(in_features=256, out_features=num_labels, bias=True)
+#model.classifier = nn.Linear(in_features=256, out_features=num_labels, bias=True)
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
