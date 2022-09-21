@@ -939,7 +939,7 @@ if training:
     else:
         device = ("cpu")
     # Train
-    trainer.fit(trainDataLoader, testDataLoader, 10)
+    trainer.fit(trainDataLoader, testDataLoader, num_train_epochs)
 
     # Save the model
     model.save_pretrained(model_fp)
