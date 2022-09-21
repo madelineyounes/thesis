@@ -766,9 +766,9 @@ class myTrainer(Trainer):
             try:
                 data = next(tr_itt)
                 inputs = {}
-                inputs['input_values'] = data['input_values'].float()
-                inputs['attention_mask'] = data['attention_mask'].long()
-                labels = data['labels'].long()
+                inputs['input_values'] = data['input_values'].float().cuda().contiguous()
+                inputs['attention_mask'] = data['attention_mask'].long().cuda().contiguous()
+                labels = data['labels'].long().cuda().contiguous()
                 # loss
                 loss, acc = self._compute_loss(model, inputs, labels)
                 # remove gradient from previous passes
@@ -781,8 +781,8 @@ class myTrainer(Trainer):
                 # parameters update
                 self.optimizer.step()
 
-                loss_sum_tr += loss
-                acc_sum_tr += acc
+                loss_sum_tr += loss.detach()
+                acc_sum_tr += acc.detach()
             except StopIteration:
                 break
         loss_tot_tr = loss_sum_tr/len(loader)
@@ -799,12 +799,14 @@ class myTrainer(Trainer):
                 try:
                     data = next(tst_itt)
                     inputs = {}
-                    inputs['input_values'] = data['input_values'].float()
-                    inputs['attention_mask'] = data['attention_mask'].long()
+                    inputs['input_values'] = data['input_values'].float(
+                    ).cuda().contiguous()
+                    inputs['attention_mask'] = data['attention_mask'].long(
+                    ).cuda().contiguous()
                     labels = data['labels'].long()
                     loss, acc = self._compute_loss(model, inputs, labels)
-                    loss_sum_val += loss
-                    acc_sum_val += acc
+                    loss_sum_val += loss.detach()
+                    acc_sum_val += acc.detach()
                 except StopIteration:
                     break
         loss_sum_val = loss_sum_val/len(loader)
