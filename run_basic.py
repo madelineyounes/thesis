@@ -328,6 +328,8 @@ for i, label in enumerate(label_list):
     label2id[label] = str(i)
     id2label[str(i)] = label
 
+num_labels = len(id2label)
+
 # ------------------------------------------
 #       Processing transcription
 # ------------------------------------------
@@ -464,8 +466,6 @@ print("SUCCESS: Data ready for training and evaluation.")
 print("\n------> PREPARING FOR TRAINING & EVALUATION... ----------------------- \n")
 
 print("--> Defining pooling layer...")
-
-num_labels = len(id2label)
 print("Number of labels:", num_labels)
 
 config = AutoConfig.from_pretrained(
@@ -697,6 +697,17 @@ model = Wav2Vec2ForSpeechClassification.from_pretrained(
     pretrained_mod,
     config=config
 )
+
+#model.classifier = nn.Linear(in_features=yaml_obj.classifier_in, out_features=num_labels, bias=True)
+
+device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+
+if torch.cuda.device_count() > 1:
+    print('GPUs Used : ', torch.cuda.device_count(), 'GPUs!')
+    model = nn.DataParallel(model)
+    yaml_obj.multi_gpu = True
+
+model.to(device)
 
 print("-------- Setting up Model --------")
 
