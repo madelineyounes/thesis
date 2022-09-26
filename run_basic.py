@@ -840,8 +840,8 @@ class myTrainer(Trainer):
                     ).cuda().contiguous()
                     labels = data['labels'].long().cuda().contiguous()
                     loss, acc = self._compute_loss(model, inputs, labels)
-                    loss_tot_val += loss.detach()
-                    acc_tot_val += acc.detach()
+                    loss_sum_val += loss.detach()
+                    acc_sum_val += acc.detach()
                 except StopIteration:
                     break
         loss_tot_val = loss_sum_val/len(loader)
