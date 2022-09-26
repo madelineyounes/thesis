@@ -276,8 +276,8 @@ data_test_fp = data_base_fp + evaluation_filename + ".csv"
 print("--> data_test_fp:", data_test_fp)
 # Path to results csv 
 output_csv_fp = "../output/results_" + evaluation_filename + ".csv"
-open(output_csv_fp, 'w+')
-output_csv_fp.write("epoch,train_acc,val_acc,train_loss,val_loss\n")
+outcsv = open(output_csv_fp, 'w+')
+outcsv.write("epoch,train_acc,val_acc,train_loss,val_loss\n")
 
 
 # Dataframe file
@@ -792,7 +792,8 @@ class myTrainer(Trainer):
             val_loss, val_acc = self._validate(val_loader, tst_itt, loss_sum_val, acc_sum_val)
 
             print(f"Epoch {epoch} Train Acc {train_acc} Val Acc {val_acc} Train Loss {train_loss} Val Loss {val_loss}")
-            output_csv_fp.write(f"{epoch},{train_acc},{val_acc},{train_loss},{val_loss}\n")
+            outcsv.write(
+                f"{epoch},{train_acc},{val_acc},{train_loss},{val_loss}\n")
 
     def _train(self, loader, tr_itt, loss_sum_tr, acc_sum_tr):
         # put model in train mode
