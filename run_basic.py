@@ -160,7 +160,8 @@ if use_checkpoint:
     print("checkpoint:", checkpoint)
 
 # Use pretrained model
-model_name = "facebook/wav2vec2-base"
+#model_name = "facebook/wav2vec2-base"
+model_name = "elgeish/wav2vec2-large-xlsr-53-arabic"
 # try log0/wav2vec2-base-lang-id
 
 # Use a pretrained tokenizer (True/False)
