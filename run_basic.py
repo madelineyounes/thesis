@@ -784,8 +784,7 @@ class myTrainer(Trainer):
             train_loss, train_acc = self._train(train_loader, loss_sum_tr, acc_sum_tr)
 
             # validate
-            val_loss, val_acc = self._validate(
-                val_loader, loss_sum_val, acc_sum_val)
+            val_loss, val_acc = self._validate(val_loader, loss_sum_val, acc_sum_val)
 
             print(f"Epoch {epoch} Train Acc {train_acc} Val Acc {val_acc} Train Loss {train_loss} Val Loss {val_loss}")
 
