@@ -759,10 +759,6 @@ print("--> Defining Custom Trainer Class...")
 
 class myTrainer(Trainer):
     def fit(self, train_loader, val_loader, epochs):
-        loss_sum_tr = 0
-        acc_sum_tr = 0
-        loss_sum_val = 0
-        acc_sum_val = 0
         for epoch in range(epochs):
             print("EPOCH unfeeze : " + str(epoch % set_unfreezing_step))
 
@@ -778,6 +774,14 @@ class myTrainer(Trainer):
                 model_parameters = filter(lambda p: p.requires_grad, model.parameters())
                 params = sum([np.prod(p.size()) for p in model_parameters])
                 print('Updated Parameters at Epoch ' + str(epoch) + ' Trainable Parameters : ' + str(params))
+
+            loss_sum_tr = 0
+            acc_sum_tr = 0
+            loss_sum_val = 0
+            acc_sum_val = 0
+            tr_itt = iter(trainDataLoader)
+            tst_itt = iter(testDataLoader)
+
             # train
             train_loss, train_acc = self._train(train_loader, loss_sum_tr, acc_sum_tr)
 
