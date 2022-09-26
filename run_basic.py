@@ -230,7 +230,7 @@ set_adam_epsilon = 0.00000001               # Default = 0.00000001
 print("adam_epsilon:", set_adam_epsilon)
 set_unfreezing_step = 10                   # Default = 3.0
 print("unfreezing_step:", set_unfreezing_step)
-set_num_train_epochs = 1000                  # Default = 3.0
+set_num_train_epochs = 100                  # Default = 3.0
 print("num_train_epochs:", set_num_train_epochs)
 set_max_steps = 35000                       # Default = -1, overrides epochs
 print("max_steps:", set_max_steps)
@@ -274,6 +274,11 @@ print("--> data_train_fp:", data_train_fp)
 # Path to dataframe csv for test dataset
 data_test_fp = data_base_fp + evaluation_filename + ".csv"
 print("--> data_test_fp:", data_test_fp)
+# Path to results csv 
+output_csv_fp = "../output/results_" + evaluation_filename + ".csv"
+open(output_csv_fp, 'w+')
+output_csv_fp.write("epoch,train_acc,val_acc,train_loss,val_loss\n")
+
 
 # Dataframe file
 # |-----------|---------------------|----------|---------|
@@ -787,6 +792,7 @@ class myTrainer(Trainer):
             val_loss, val_acc = self._validate(val_loader, tst_itt, loss_sum_val, acc_sum_val)
 
             print(f"Epoch {epoch} Train Acc {train_acc} Val Acc {val_acc} Train Loss {train_loss} Val Loss {val_loss}")
+            output_csv_fp.write(f"{epoch},{train_acc},{val_acc},{train_loss},{val_loss}\n")
 
     def _train(self, loader, tr_itt, loss_sum_tr, acc_sum_tr):
         # put model in train mode
@@ -833,13 +839,13 @@ class myTrainer(Trainer):
                     ).cuda().contiguous()
                     labels = data['labels'].long().cuda().contiguous()
                     loss, acc = self._compute_loss(model, inputs, labels)
-                    loss_sum_val += loss.detach()
-                    acc_sum_val += acc.detach()
+                    loss_tot_val += loss.detach()
+                    acc_tot_val += acc.detach()
                 except StopIteration:
                     break
-        loss_sum_val = loss_sum_val/len(loader)
-        acc_sum_val = acc_sum_val/len(loader)
-        return loss_sum_val, acc_sum_val
+        loss_tot_val = loss_sum_val/len(loader)
+        acc_tot_val = acc_sum_val/len(loader)
+        return loss_tot_val, acc_tot_val
 
     def _compute_loss(self, model, inputs, labels):
         prediction = model(**inputs).logits
