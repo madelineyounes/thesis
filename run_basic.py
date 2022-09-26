@@ -230,7 +230,7 @@ set_adam_epsilon = 0.00000001               # Default = 0.00000001
 print("adam_epsilon:", set_adam_epsilon)
 set_unfreezing_step = 10                   # Default = 3.0
 print("unfreezing_step:", set_unfreezing_step)
-set_num_train_epochs = 100                  # Default = 3.0
+set_num_train_epochs = 1000                  # Default = 3.0
 print("num_train_epochs:", set_num_train_epochs)
 set_max_steps = 35000                       # Default = -1, overrides epochs
 print("max_steps:", set_max_steps)
@@ -890,7 +890,6 @@ class myTrainer(Trainer):
                 num_steps=math.ceil(output.num_samples / total_batch_size),
             )
         )
-        #self.control = self.callback_handler.on_predict(self.args, self.state, self.control, output.metrics)
         self._memory_tracker.stop_and_update_metrics(output.metrics)
         return PredictionOutput(predictions=output.predictions, label_ids=output.label_ids, metrics=output.metrics)
 
