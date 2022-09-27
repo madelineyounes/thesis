@@ -107,7 +107,7 @@ print("training:", training)
 # For
 #     1) naming model output directory
 #     2) naming results file
-experiment_id = "xlsr-ADI17-initialtest/"
+experiment_id = "wav2vec-ADI17-initialtest"
 print("experiment_id:", experiment_id)
 
 # DatasetDict Id
@@ -144,9 +144,8 @@ print("train_filename:", train_filename)
 # Evaluation dataset name and filename
 # Dataset name and filename of the csv file containing the evaluation data
 # For generating filepath to file location
-evaluation_filename = "new_adi17_test_big"
+evaluation_filename = "adi17_test_umbrella_label"
 print("evaluation_filename:", evaluation_filename)
-
 # Resume training from/ use checkpoint (True/False)
 # Set to True for:
 # 1) resuming from a saved checkpoint if training stopped midway through
@@ -160,8 +159,9 @@ if use_checkpoint:
     print("checkpoint:", checkpoint)
 
 # Use pretrained model
-#model_name = "facebook/wav2vec2-base"
-model_name = "elgeish/wav2vec2-large-xlsr-53-arabic"
+model_name = "facebook/wav2vec2-base"
+# model_name = "elgeish/wav2vec2-large-xlsr-53-arabic"
+# model_name = "facebook/wav2vec2-base"
 # try log0/wav2vec2-base-lang-id
 
 # Use a pretrained tokenizer (True/False)
@@ -276,7 +276,7 @@ print("--> data_train_fp:", data_train_fp)
 data_test_fp = data_base_fp + evaluation_filename + ".csv"
 print("--> data_test_fp:", data_test_fp)
 # Path to results csv 
-output_csv_fp = "../output/results_" + evaluation_filename + ".csv"
+output_csv_fp = "../output/results_" + experiment_id + ".csv"
 outcsv = open(output_csv_fp, 'w+')
 outcsv.write("epoch,train_acc,val_acc,train_loss,val_loss\n")
 
@@ -395,7 +395,7 @@ def label_to_id(label, label_list):
 # We want to store both audio values and sampling rate
 # in the dataset.
 # We write a map(...) function accordingly.
-max_duration = 0.10
+max_duration = 5
 print("Max Duration:",  max_duration, "s")
 sampling_rate = feature_extractor.sampling_rate
 print("Sampling Rate:",  sampling_rate)
