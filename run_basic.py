@@ -788,7 +788,7 @@ class myTrainer(Trainer):
             # validate
             val_loss, val_acc = self._validate(val_loader, tst_itt, loss_sum_val, acc_sum_val)
 
-            print(f"Epoch {epoch} Train Acc {train_acc} Val Acc {val_acc} Train Loss {torch.round(train_loss,4)} Val Loss {torch.round(val_loss,4)}")
+            print(f"Epoch {epoch} Train Acc {train_acc} Val Acc {val_acc} Train Loss {train_loss} Val Loss {val_loss}")
             outcsv.write(
                 f"{epoch},{train_acc},{val_acc},{train_loss},{val_loss}\n")
 
