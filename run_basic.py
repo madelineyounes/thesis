@@ -395,12 +395,12 @@ def label_to_id(label, label_list):
 # We want to store both audio values and sampling rate
 # in the dataset.
 # We write a map(...) function accordingly.
-max_duration = 5
+max_duration = 10
 print("Max Duration:",  max_duration, "s")
 sampling_rate = feature_extractor.sampling_rate
 print("Sampling Rate:",  sampling_rate)
 
-
+"""
 def audio_to_array_fn(batch):
     try:
         filepath = training_data_path + batch["id"] + ".wav"
@@ -423,19 +423,16 @@ def audio_to_array_fn(batch):
                 truncation=True,
             )
             inputs["input_values"] = inputs['input_values']
-            print(inputs)
             return inputs
         except:
             pass
-
-
 data = load_dataset('csv',
                     data_files=data_test_fp,
                     delimiter=",",
                     split="train",
                     cache_dir=data_cache_fp)
 encoded_data = data.map(audio_to_array_fn, remove_columns=["id"], num_proc=4)
-
+"""
 # create custom dataset class
 print("Create a custom dataset ---> ")
 random_transforms = transforms.Compose(
@@ -451,6 +448,16 @@ trainDataLoader = DataLoader(
 
 testDataLoader = DataLoader(
     testcustomdata, batch_size=set_per_device_train_batch_size, shuffle=True, num_workers=0)
+
+
+print("Check data has been processed correctly... ")
+print("Train Data Sample")
+TrainData = next(iter(trainDataLoader))
+print(TrainData)
+
+print("Test Data Sample")
+TestData = next(iter(testDataLoader))
+print(TestData)
 
 print("SUCCESS: Data ready for training and evaluation.")
 
@@ -485,15 +492,12 @@ config = AutoConfig.from_pretrained(
 setattr(config, 'pooling_mode', set_pooling_mode)
 
 print("--> Defining Classifer")
-
-
 @dataclass
 class SpeechClassifierOutput(ModelOutput):
     loss: Optional[torch.FloatTensor] = None
     logits: torch.FloatTensor = None
     hidden_states: Optional[Tuple[torch.FloatTensor]] = None
     attentions: Optional[Tuple[torch.FloatTensor]] = None
-
 
 class Wav2Vec2ClassificationHead(nn.Module):
     """Head for wav2vec classification task."""
@@ -512,8 +516,6 @@ class Wav2Vec2ClassificationHead(nn.Module):
         x = self.dropout(x)
         x = self.out_proj(x)
         return x
-
-
 class Wav2Vec2ForSpeechClassification(Wav2Vec2PreTrainedModel):
     def __init__(self, config):
         super().__init__(config)
@@ -600,7 +602,6 @@ class Wav2Vec2ForSpeechClassification(Wav2Vec2PreTrainedModel):
             attentions=outputs.attentions,
         )
 
-
 class DataCollatorCTCWithPadding:
     """
     Data collator that will dynamically pad the inputs received.
@@ -671,7 +672,6 @@ print("--> Defining evaluation metric...")
 # CTC style.
 acc_metric = load_metric("accuracy")
 
-
 def compute_metrics(pred):
     print("PRED", pred)
     pred_logits = pred.predictions
@@ -688,7 +688,6 @@ def compute_metrics(pred):
     acc = acc_metric.compute(predictions=pred_str, references=pred.label_ids)
 
     return {"accuracy": acc}
-
 
 print("SUCCESS: Defined Accuracy evaluation metric.")
 # 3) Load pre-trained checkpoint
@@ -844,6 +843,7 @@ class myTrainer(Trainer):
                     loss_sum_val += loss.detach()
                     acc_sum_val += acc.detach()
                 except StopIteration:
+                    print("in except for validate")
                     break
         loss_tot_val = loss_sum_val/len(loader)
         acc_tot_val = acc_sum_val/len(loader)
