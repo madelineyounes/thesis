@@ -329,7 +329,6 @@ if use_pretrained_tokenizer:
 print("\n------> PREPARING DATASET LABELS... ------------------------------------\n")
 # Read the existing csv saved dataframes and
 # load as a DatasetDict
-print("here")
 label_list = ['NOR', 'EGY', 'GLF', 'LEV']
 label2id, id2label = dict(), dict()
 for i, label in enumerate(label_list):
@@ -436,12 +435,12 @@ encoded_data = data.map(audio_to_array_fn, remove_columns=["id"], num_proc=4)
 # create custom dataset class
 print("Create a custom dataset ---> ")
 random_transforms = transforms.Compose(
-    [T.Extractor(model_name, sampling_rate, 0.1)])
+    [T.Extractor(model_name, sampling_rate, max_duration)])
 
 traincustomdata = CustomDataset(
-    csv_fp=data_train_fp, data_fp=training_data_path, labels=label_list, transform=random_transforms, model_name=model_name, max_length=0.1)
+    csv_fp=data_train_fp, data_fp=training_data_path, labels=label_list, transform=random_transforms, model_name=model_name, max_length=max_duration)
 testcustomdata = CustomDataset(
-    csv_fp=data_test_fp, data_fp=test_data_path, labels=label_list, transform=random_transforms, model_name=model_name, max_length=0.1)
+    csv_fp=data_test_fp, data_fp=test_data_path, labels=label_list, transform=random_transforms, model_name=model_name, max_length=max_duration)
 
 trainDataLoader = DataLoader(
     traincustomdata, batch_size=set_per_device_train_batch_size, shuffle=True, num_workers=0)
@@ -745,7 +744,6 @@ if trainable_transformers > 0:
 # the feature extraction part.
 print("SUCCESS: Pre-trained checkpoint loaded.")
 
-
 def multi_acc(y_pred, y_test):
     y_pred_softmax = torch.log_softmax(y_pred, dim=1)
     _, y_pred_tags = torch.max(y_pred_softmax, dim=1)
@@ -753,9 +751,8 @@ def multi_acc(y_pred, y_test):
     correct_pred = (y_pred_tags == y_test).float()
     acc = correct_pred.sum() / len(correct_pred)
 
-    acc = torch.round(acc * 100)
+    acc = torch.round(acc * 100, 4)
     return acc
-
 
 print("--> Defining Custom Trainer Class...")
 
@@ -791,7 +788,7 @@ class myTrainer(Trainer):
             # validate
             val_loss, val_acc = self._validate(val_loader, tst_itt, loss_sum_val, acc_sum_val)
 
-            print(f"Epoch {epoch} Train Acc {train_acc} Val Acc {val_acc} Train Loss {train_loss} Val Loss {val_loss}")
+            print(f"Epoch {epoch} Train Acc {train_acc} Val Acc {val_acc} Train Loss {torch.round(train_loss,4)} Val Loss {torch.round(val_loss,4)}")
             outcsv.write(
                 f"{epoch},{train_acc},{val_acc},{train_loss},{val_loss}\n")
 
