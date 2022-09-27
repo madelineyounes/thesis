@@ -751,7 +751,7 @@ def multi_acc(y_pred, y_test):
     correct_pred = (y_pred_tags == y_test).float()
     acc = correct_pred.sum() / len(correct_pred)
 
-    acc = torch.round(acc * 100, 4)
+    acc = torch.round(acc * 100)
     return acc
 
 print("--> Defining Custom Trainer Class...")
