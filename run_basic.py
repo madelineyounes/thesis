@@ -215,7 +215,7 @@ print("\n------> TRAINING ARGUMENTS... ----------------------------------------\
 
 set_evaluation_strategy = "epoch"           # Default = "no"
 print("evaluation strategy:", set_evaluation_strategy)
-set_per_device_train_batch_size = 1         # Default = 8
+set_per_device_train_batch_size = 4         # Default = 8
 print("per_device_train_batch_size:", set_per_device_train_batch_size)
 set_gradient_accumulation_steps = 2         # Default = 4
 print("gradient_accumulation_steps:", set_gradient_accumulation_steps)
@@ -276,7 +276,7 @@ print("--> data_train_fp:", data_train_fp)
 data_test_fp = data_base_fp + evaluation_filename + ".csv"
 print("--> data_test_fp:", data_test_fp)
 # Path to results csv 
-output_csv_fp = "../output/results_" + experiment_id + ".csv"
+output_csv_fp = "output/results_" + experiment_id + ".csv"
 outcsv = open(output_csv_fp, 'w+')
 outcsv.write("epoch,train_acc,val_acc,train_loss,val_loss\n")
 
@@ -399,39 +399,6 @@ print("Max Duration:",max_duration, "s")
 sampling_rate = feature_extractor.sampling_rate
 print("Sampling Rate:",  sampling_rate)
 
-"""
-def audio_to_array_fn(batch):
-    try:
-        filepath = training_data_path + batch["id"] + ".wav"
-        audio_array = speech_file_to_array_fn(filepath)
-        inputs = feature_extractor(
-            audio_array,
-            sampling_rate=sampling_rate,
-            max_length=int(feature_extractor.sampling_rate * max_duration),
-            truncation=True,
-        )
-        return inputs
-    except:
-        try:
-            filepath = test_data_path + batch["id"] + ".wav"
-            audio_array = speech_file_to_array_fn(filepath)
-            inputs = feature_extractor(
-                audio_array,
-                sampling_rate=sampling_rate,
-                max_length=int(feature_extractor.sampling_rate * max_duration),
-                truncation=True,
-            )
-            inputs["input_values"] = inputs['input_values']
-            return inputs
-        except:
-            pass
-data = load_dataset('csv',
-                    data_files=data_test_fp,
-                    delimiter=",",
-                    split="train",
-                    cache_dir=data_cache_fp)
-encoded_data = data.map(audio_to_array_fn, remove_columns=["id"], num_proc=4)
-"""
 # create custom dataset class
 print("Create a custom dataset ---> ")
 random_transforms = transforms.Compose(
@@ -658,9 +625,7 @@ class DataCollatorCTCWithPadding:
         )
 
         batch["labels"] = torch.stack(label_features)
-        print("BATCH: ", batch)
         return batch
-
 
 data_collator = DataCollatorCTCWithPadding()
 # 2) Evaluation metric
@@ -844,7 +809,6 @@ class myTrainer(Trainer):
                     loss_sum_val += loss.detach()
                     acc_sum_val += acc.detach()
                 except StopIteration:
-                    print("in except for validate")
                     break
         loss_tot_val = loss_sum_val/len(loader)
         acc_tot_val = acc_sum_val/len(loader)
