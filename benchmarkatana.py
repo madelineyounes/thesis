@@ -24,7 +24,7 @@ for line in devFiles:
     print(f)
     # checking if it is a file
     if os.path.isfile(f):
-        signal = language_id.load_audio(file_path)
+        signal = language_id.load_audio(f)
         prediction = language_id.classify_batch(signal)
         csvFile.write(f"{filename},{dialect},{prediction[3]}\n")
         print(prediction[3])
