@@ -453,11 +453,13 @@ print("Check data has been processed correctly... ")
 print("Train Data Sample")
 TrainData = next(iter(trainDataLoader))
 print(TrainData)
+print("Training DataCustom Files: "+ str(len(traincustomdata)))
 print("Training Data Files: "+ str(len(trainDataLoader)))
 
 print("Test Data Sample")
 TestData = next(iter(testDataLoader))
 print(TestData)
+print("Test CustomData Files: " + str(len(testcustomdata)))
 print("Test Data Files: " + str(len(testDataLoader)))
 
 print("SUCCESS: Data ready for training and evaluation.")
