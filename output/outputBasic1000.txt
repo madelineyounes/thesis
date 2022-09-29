@@ -1,0 +1,2401 @@
+Mon Sep 26 16:52:19 AEST 2022
+/home/z5208494/.local/lib/python3.8/site-packages/transformers/configuration_utils.py:363: UserWarning: Passing `gradient_checkpointing` to a config initialization is deprecated and will be removed in v5 Transformers. Using `model.gradient_checkpointing_enable()` instead, or if you are using the `Trainer` API, pass `gradient_checkpointing=True` in your `TrainingArguments`.
+  warnings.warn(
+Using custom data configuration default-f889fae328bd858b
+Reusing dataset csv (/srv/scratch/z5208494/cache/huggingface/datasets/myST-eval/csv/default-f889fae328bd858b/0.0.0/51cce309a08df9c4d82ffd9363bbe090bf173197fc01a71b034e8594995a1a58)
+Loading cached processed dataset at /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval/csv/default-f889fae328bd858b/0.0.0/51cce309a08df9c4d82ffd9363bbe090bf173197fc01a71b034e8594995a1a58/cache-2f8ca336ab0f2922.arrow
+Loading cached processed dataset at /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval/csv/default-f889fae328bd858b/0.0.0/51cce309a08df9c4d82ffd9363bbe090bf173197fc01a71b034e8594995a1a58/cache-71a2aaa438801f86.arrow
+Loading cached processed dataset at /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval/csv/default-f889fae328bd858b/0.0.0/51cce309a08df9c4d82ffd9363bbe090bf173197fc01a71b034e8594995a1a58/cache-71a69bfb51f8a88d.arrow
+Loading cached processed dataset at /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval/csv/default-f889fae328bd858b/0.0.0/51cce309a08df9c4d82ffd9363bbe090bf173197fc01a71b034e8594995a1a58/cache-f54f0dedaf213951.arrow
+Some weights of the model checkpoint at facebook/wav2vec2-base were not used when initializing Wav2Vec2ForSpeechClassification: ['quantizer.weight_proj.bias', 'quantizer.codevectors', 'project_q.bias', 'project_hid.weight', 'project_q.weight', 'project_hid.bias', 'quantizer.weight_proj.weight']
+- This IS expected if you are initializing Wav2Vec2ForSpeechClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing Wav2Vec2ForSpeechClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of Wav2Vec2ForSpeechClassification were not initialized from the model checkpoint at facebook/wav2vec2-base and are newly initialized: ['classifier.dense.bias', 'classifier.dense.weight', 'classifier.out_proj.bias', 'classifier.out_proj.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+/home/z5208494/.local/lib/python3.8/site-packages/torch/cuda/__init__.py:146: UserWarning: 
+A100-PCIE-40GB with CUDA capability sm_80 is not compatible with the current PyTorch installation.
+The current PyTorch install supports CUDA capabilities sm_37 sm_50 sm_60 sm_70.
+If you want to use the A100-PCIE-40GB GPU with PyTorch, please check the instructions at https://pytorch.org/get-started/locally/
+
+  warnings.warn(incompatible_device_warn.format(device_name, capability, " ".join(arch_list), device_name))
+------------------------------------------------------------------------
+                         run_umbrellaDID.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_basic.py
+Started: 26/09/2022 16:52:23
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: xlsr-ADI17-initialtest/
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: umbrella_alldevdata
+train_filename: data_u_all_data
+evaluation_filename: new_adi17_test_big
+use_checkpoint: False
+use_pretrained_tokenizer: True
+pretrained_tokenizer: facebook/wav2vec2-base
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.05
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: True
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: epoch
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 2
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 1000
+max_steps: 35000
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 1000
+save_total_limit: 40
+fp16: False
+eval_steps: 100
+load_best_model_at_end: True
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/data_u_all_data.csv
+--> data_test_fp: data/new_adi17_test_big.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/umbrella_alldevdata_local/xlsr-ADI17-initialtest/
+--> finetuned_results_fp: /srv/scratch/z5208494/output/umbrella_alldevdata_local/xlsr-ADI17-initialtest/_finetuned_results.csv
+--> pretrained_mod: facebook/wav2vec2-base
+--> pretrained_tokenizer: facebook/wav2vec2-base
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+here
+
+------> CREATING WAV2VEC2 FEATURE EXTRACTOR... -----------------------
+
+SUCCESS: Created feature extractor.
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 0.1 s
+Sampling Rate: 16000
+Create a custom dataset ---> 
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Defining Classifer
+--> Defining evaluation metric...
+SUCCESS: Defined Accuracy evaluation metric.
+--> Loading pre-trained checkpoint...
+GPUs Used :  2 GPUs!
+-------- Setting up Model --------
+Traceback (most recent call last):
+  File "run_basic.py", line 715, in <module>
+    for param in model.wav2vec2.feature_extractor.parameters():
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1207, in __getattr__
+    raise AttributeError("'{}' object has no attribute '{}'".format(
+AttributeError: 'DataParallel' object has no attribute 'wav2vec2'
+Mon Sep 26 17:06:28 AEST 2022
+/home/z5208494/.local/lib/python3.8/site-packages/transformers/configuration_utils.py:363: UserWarning: Passing `gradient_checkpointing` to a config initialization is deprecated and will be removed in v5 Transformers. Using `model.gradient_checkpointing_enable()` instead, or if you are using the `Trainer` API, pass `gradient_checkpointing=True` in your `TrainingArguments`.
+  warnings.warn(
+Using custom data configuration default-f889fae328bd858b
+Reusing dataset csv (/srv/scratch/z5208494/cache/huggingface/datasets/myST-eval/csv/default-f889fae328bd858b/0.0.0/51cce309a08df9c4d82ffd9363bbe090bf173197fc01a71b034e8594995a1a58)
+Loading cached processed dataset at /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval/csv/default-f889fae328bd858b/0.0.0/51cce309a08df9c4d82ffd9363bbe090bf173197fc01a71b034e8594995a1a58/cache-2f8ca336ab0f2922.arrow
+Loading cached processed dataset at /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval/csv/default-f889fae328bd858b/0.0.0/51cce309a08df9c4d82ffd9363bbe090bf173197fc01a71b034e8594995a1a58/cache-71a2aaa438801f86.arrow
+Loading cached processed dataset at /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval/csv/default-f889fae328bd858b/0.0.0/51cce309a08df9c4d82ffd9363bbe090bf173197fc01a71b034e8594995a1a58/cache-71a69bfb51f8a88d.arrow
+Loading cached processed dataset at /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval/csv/default-f889fae328bd858b/0.0.0/51cce309a08df9c4d82ffd9363bbe090bf173197fc01a71b034e8594995a1a58/cache-f54f0dedaf213951.arrow
+Some weights of the model checkpoint at facebook/wav2vec2-base were not used when initializing Wav2Vec2ForSpeechClassification: ['project_hid.weight', 'quantizer.codevectors', 'project_q.bias', 'project_hid.bias', 'quantizer.weight_proj.bias', 'project_q.weight', 'quantizer.weight_proj.weight']
+- This IS expected if you are initializing Wav2Vec2ForSpeechClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing Wav2Vec2ForSpeechClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of Wav2Vec2ForSpeechClassification were not initialized from the model checkpoint at facebook/wav2vec2-base and are newly initialized: ['classifier.out_proj.bias', 'classifier.dense.bias', 'classifier.dense.weight', 'classifier.out_proj.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+max_steps is given, it will override any value given in num_train_epochs
+------------------------------------------------------------------------
+                         run_umbrellaDID.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_basic.py
+Started: 26/09/2022 17:06:32
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: xlsr-ADI17-initialtest/
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: umbrella_alldevdata
+train_filename: data_u_all_data
+evaluation_filename: new_adi17_test_big
+use_checkpoint: False
+use_pretrained_tokenizer: True
+pretrained_tokenizer: facebook/wav2vec2-base
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.05
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: True
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: epoch
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 2
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 1000
+max_steps: 35000
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 1000
+save_total_limit: 40
+fp16: False
+eval_steps: 100
+load_best_model_at_end: True
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/data_u_all_data.csv
+--> data_test_fp: data/new_adi17_test_big.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/umbrella_alldevdata_local/xlsr-ADI17-initialtest/
+--> finetuned_results_fp: /srv/scratch/z5208494/output/umbrella_alldevdata_local/xlsr-ADI17-initialtest/_finetuned_results.csv
+--> pretrained_mod: facebook/wav2vec2-base
+--> pretrained_tokenizer: facebook/wav2vec2-base
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+here
+
+------> CREATING WAV2VEC2 FEATURE EXTRACTOR... -----------------------
+
+SUCCESS: Created feature extractor.
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 0.1 s
+Sampling Rate: 16000
+Create a custom dataset ---> 
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Defining Classifer
+--> Defining evaluation metric...
+SUCCESS: Defined Accuracy evaluation metric.
+--> Loading pre-trained checkpoint...
+-------- Setting up Model --------
+SUCCESS: Pre-trained checkpoint loaded.
+--> Defining Custom Trainer Class...
+
+------> STARTING TRAINING... ----------------------------------------- 
+
+EPOCH unfeeze : 0
+Epoch 0 Train Acc 25.0 Val Acc 0.0 Train Loss 0.6937711834907532 Val Loss 1.4458914995193481
+EPOCH unfeeze : 1
+Epoch 1 Train Acc 50.0 Val Acc 0.0 Train Loss 0.6799065470695496 Val Loss 1.4473100900650024
+EPOCH unfeeze : 2
+Epoch 2 Train Acc 50.0 Val Acc 0.0 Train Loss 0.6809923052787781 Val Loss 1.449373483657837
+EPOCH unfeeze : 3
+Epoch 3 Train Acc 50.0 Val Acc 0.0 Train Loss 0.684017539024353 Val Loss 1.4529755115509033
+EPOCH unfeeze : 4
+Epoch 4 Train Acc 50.0 Val Acc 0.0 Train Loss 0.6804913282394409 Val Loss 1.457185983657837
+EPOCH unfeeze : 5
+Epoch 5 Train Acc 100.0 Val Acc 0.0 Train Loss 0.6641790866851807 Val Loss 1.4622083902359009
+EPOCH unfeeze : 6
+Epoch 6 Train Acc 100.0 Val Acc 0.0 Train Loss 0.6580783724784851 Val Loss 1.4687862396240234
+EPOCH unfeeze : 7
+Epoch 7 Train Acc 100.0 Val Acc 0.0 Train Loss 0.6468974351882935 Val Loss 1.4752672910690308
+EPOCH unfeeze : 8
+Epoch 8 Train Acc 100.0 Val Acc 0.0 Train Loss 0.6342476010322571 Val Loss 1.4828345775604248
+EPOCH unfeeze : 9
+Epoch 9 Train Acc 100.0 Val Acc 0.0 Train Loss 0.6321693062782288 Val Loss 1.4928514957427979
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 10 Trainable Parameters : 85648900
+Epoch 10 Train Acc 100.0 Val Acc 0.0 Train Loss 0.6136900782585144 Val Loss 1.5041389465332031
+EPOCH unfeeze : 1
+Epoch 11 Train Acc 100.0 Val Acc 0.0 Train Loss 0.5959810018539429 Val Loss 1.5154378414154053
+EPOCH unfeeze : 2
+Epoch 12 Train Acc 100.0 Val Acc 0.0 Train Loss 0.5814939141273499 Val Loss 1.5293750762939453
+EPOCH unfeeze : 3
+Epoch 13 Train Acc 100.0 Val Acc 0.0 Train Loss 0.563959002494812 Val Loss 1.543418049812317
+EPOCH unfeeze : 4
+Epoch 14 Train Acc 100.0 Val Acc 0.0 Train Loss 0.5609853267669678 Val Loss 1.559553861618042
+EPOCH unfeeze : 5
+Epoch 15 Train Acc 100.0 Val Acc 0.0 Train Loss 0.5331240892410278 Val Loss 1.5773351192474365
+EPOCH unfeeze : 6
+Epoch 16 Train Acc 100.0 Val Acc 0.0 Train Loss 0.5059741735458374 Val Loss 1.596790075302124
+EPOCH unfeeze : 7
+Epoch 17 Train Acc 100.0 Val Acc 0.0 Train Loss 0.49152785539627075 Val Loss 1.6178412437438965
+EPOCH unfeeze : 8
+Epoch 18 Train Acc 100.0 Val Acc 0.0 Train Loss 0.45905736088752747 Val Loss 1.6439141035079956
+EPOCH unfeeze : 9
+Epoch 19 Train Acc 100.0 Val Acc 0.0 Train Loss 0.4448630213737488 Val Loss 1.6769939661026
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 20 Trainable Parameters : 85648900
+Epoch 20 Train Acc 100.0 Val Acc 0.0 Train Loss 0.408329576253891 Val Loss 1.7099701166152954
+EPOCH unfeeze : 1
+Epoch 21 Train Acc 100.0 Val Acc 0.0 Train Loss 0.38122761249542236 Val Loss 1.7458298206329346
+EPOCH unfeeze : 2
+Epoch 22 Train Acc 100.0 Val Acc 0.0 Train Loss 0.3549906611442566 Val Loss 1.7921395301818848
+EPOCH unfeeze : 3
+Epoch 23 Train Acc 100.0 Val Acc 0.0 Train Loss 0.3234352767467499 Val Loss 1.840081810951233
+EPOCH unfeeze : 4
+Epoch 24 Train Acc 100.0 Val Acc 0.0 Train Loss 0.3008110523223877 Val Loss 1.90089750289917
+EPOCH unfeeze : 5
+Epoch 25 Train Acc 100.0 Val Acc 0.0 Train Loss 0.26752546429634094 Val Loss 1.9589186906814575
+EPOCH unfeeze : 6
+Epoch 26 Train Acc 100.0 Val Acc 0.0 Train Loss 0.23442219197750092 Val Loss 2.022132635116577
+EPOCH unfeeze : 7
+Epoch 27 Train Acc 100.0 Val Acc 0.0 Train Loss 0.21385112404823303 Val Loss 2.0795652866363525
+EPOCH unfeeze : 8
+Epoch 28 Train Acc 100.0 Val Acc 0.0 Train Loss 0.19887053966522217 Val Loss 2.1715710163116455
+EPOCH unfeeze : 9
+Epoch 29 Train Acc 100.0 Val Acc 0.0 Train Loss 0.17466677725315094 Val Loss 2.2570416927337646
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 30 Trainable Parameters : 85648900
+Epoch 30 Train Acc 100.0 Val Acc 0.0 Train Loss 0.15494218468666077 Val Loss 2.355283498764038
+EPOCH unfeeze : 1
+Epoch 31 Train Acc 100.0 Val Acc 0.0 Train Loss 0.14156629145145416 Val Loss 2.407689332962036
+EPOCH unfeeze : 2
+Epoch 32 Train Acc 100.0 Val Acc 0.0 Train Loss 0.1322198063135147 Val Loss 2.4989137649536133
+EPOCH unfeeze : 3
+Epoch 33 Train Acc 100.0 Val Acc 0.0 Train Loss 0.1166904866695404 Val Loss 2.581136465072632
+EPOCH unfeeze : 4
+Epoch 34 Train Acc 100.0 Val Acc 0.0 Train Loss 0.10949046909809113 Val Loss 2.664844036102295
+EPOCH unfeeze : 5
+Epoch 35 Train Acc 100.0 Val Acc 0.0 Train Loss 0.10073384642601013 Val Loss 2.7275044918060303
+EPOCH unfeeze : 6
+Epoch 36 Train Acc 100.0 Val Acc 0.0 Train Loss 0.09341657161712646 Val Loss 2.8063297271728516
+EPOCH unfeeze : 7
+Epoch 37 Train Acc 100.0 Val Acc 0.0 Train Loss 0.08630241453647614 Val Loss 2.873361349105835
+EPOCH unfeeze : 8
+Epoch 38 Train Acc 100.0 Val Acc 0.0 Train Loss 0.08036558330059052 Val Loss 2.918347120285034
+EPOCH unfeeze : 9
+Epoch 39 Train Acc 100.0 Val Acc 0.0 Train Loss 0.07689887285232544 Val Loss 2.9731392860412598
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 40 Trainable Parameters : 85648900
+Epoch 40 Train Acc 100.0 Val Acc 0.0 Train Loss 0.07277555018663406 Val Loss 3.024439811706543
+EPOCH unfeeze : 1
+Epoch 41 Train Acc 100.0 Val Acc 0.0 Train Loss 0.06884750723838806 Val Loss 3.082049608230591
+EPOCH unfeeze : 2
+Epoch 42 Train Acc 100.0 Val Acc 0.0 Train Loss 0.06534972786903381 Val Loss 3.1276893615722656
+EPOCH unfeeze : 3
+Epoch 43 Train Acc 100.0 Val Acc 0.0 Train Loss 0.06374365836381912 Val Loss 3.1926097869873047
+EPOCH unfeeze : 4
+Epoch 44 Train Acc 100.0 Val Acc 0.0 Train Loss 0.06049766764044762 Val Loss 3.2403597831726074
+EPOCH unfeeze : 5
+Epoch 45 Train Acc 100.0 Val Acc 0.0 Train Loss 0.05729048326611519 Val Loss 3.2802910804748535
+EPOCH unfeeze : 6
+Epoch 46 Train Acc 100.0 Val Acc 0.0 Train Loss 0.05519143491983414 Val Loss 3.324740171432495
+EPOCH unfeeze : 7
+Epoch 47 Train Acc 100.0 Val Acc 0.0 Train Loss 0.05298876017332077 Val Loss 3.370680093765259
+EPOCH unfeeze : 8
+Epoch 48 Train Acc 100.0 Val Acc 0.0 Train Loss 0.050976965576410294 Val Loss 3.4062485694885254
+EPOCH unfeeze : 9
+Epoch 49 Train Acc 100.0 Val Acc 0.0 Train Loss 0.04899473860859871 Val Loss 3.4292218685150146
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 50 Trainable Parameters : 85648900
+Epoch 50 Train Acc 100.0 Val Acc 0.0 Train Loss 0.04746434465050697 Val Loss 3.4752652645111084
+EPOCH unfeeze : 1
+Epoch 51 Train Acc 100.0 Val Acc 0.0 Train Loss 0.04553510621190071 Val Loss 3.521200656890869
+EPOCH unfeeze : 2
+Epoch 52 Train Acc 100.0 Val Acc 0.0 Train Loss 0.04428960755467415 Val Loss 3.556448459625244
+EPOCH unfeeze : 3
+Epoch 53 Train Acc 100.0 Val Acc 0.0 Train Loss 0.04246310517191887 Val Loss 3.594403028488159
+EPOCH unfeeze : 4
+Epoch 54 Train Acc 100.0 Val Acc 0.0 Train Loss 0.04114411026239395 Val Loss 3.62807035446167
+EPOCH unfeeze : 5
+Epoch 55 Train Acc 100.0 Val Acc 0.0 Train Loss 0.03947748988866806 Val Loss 3.6598739624023438
+EPOCH unfeeze : 6
+Epoch 56 Train Acc 100.0 Val Acc 0.0 Train Loss 0.03828640654683113 Val Loss 3.707913398742676
+EPOCH unfeeze : 7
+Epoch 57 Train Acc 100.0 Val Acc 0.0 Train Loss 0.03685471788048744 Val Loss 3.7355966567993164
+EPOCH unfeeze : 8
+Epoch 58 Train Acc 100.0 Val Acc 0.0 Train Loss 0.03555850684642792 Val Loss 3.7687206268310547
+EPOCH unfeeze : 9
+Epoch 59 Train Acc 100.0 Val Acc 0.0 Train Loss 0.034416016191244125 Val Loss 3.805102825164795
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 60 Trainable Parameters : 85648900
+Epoch 60 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0333472304046154 Val Loss 3.831561803817749
+EPOCH unfeeze : 1
+Epoch 61 Train Acc 100.0 Val Acc 0.0 Train Loss 0.03217592090368271 Val Loss 3.88393235206604
+EPOCH unfeeze : 2
+Epoch 62 Train Acc 100.0 Val Acc 0.0 Train Loss 0.031091421842575073 Val Loss 3.917025089263916
+EPOCH unfeeze : 3
+Epoch 63 Train Acc 100.0 Val Acc 0.0 Train Loss 0.030120791867375374 Val Loss 3.957052707672119
+EPOCH unfeeze : 4
+Epoch 64 Train Acc 100.0 Val Acc 0.0 Train Loss 0.029119491577148438 Val Loss 3.988513469696045
+EPOCH unfeeze : 5
+Epoch 65 Train Acc 100.0 Val Acc 0.0 Train Loss 0.028067443519830704 Val Loss 4.020489692687988
+EPOCH unfeeze : 6
+Epoch 66 Train Acc 100.0 Val Acc 0.0 Train Loss 0.027361825108528137 Val Loss 4.056919097900391
+EPOCH unfeeze : 7
+Epoch 67 Train Acc 100.0 Val Acc 0.0 Train Loss 0.026299837976694107 Val Loss 4.100694179534912
+EPOCH unfeeze : 8
+Epoch 68 Train Acc 100.0 Val Acc 0.0 Train Loss 0.025372188538312912 Val Loss 4.13262939453125
+EPOCH unfeeze : 9
+Epoch 69 Train Acc 100.0 Val Acc 0.0 Train Loss 0.02445986494421959 Val Loss 4.159592628479004
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 70 Trainable Parameters : 85648900
+Epoch 70 Train Acc 100.0 Val Acc 0.0 Train Loss 0.023728709667921066 Val Loss 4.194571495056152
+EPOCH unfeeze : 1
+Epoch 71 Train Acc 100.0 Val Acc 0.0 Train Loss 0.02291952259838581 Val Loss 4.235377311706543
+EPOCH unfeeze : 2
+Epoch 72 Train Acc 100.0 Val Acc 0.0 Train Loss 0.022184818983078003 Val Loss 4.268624305725098
+EPOCH unfeeze : 3
+Epoch 73 Train Acc 100.0 Val Acc 0.0 Train Loss 0.02141001634299755 Val Loss 4.303841590881348
+EPOCH unfeeze : 4
+Epoch 74 Train Acc 100.0 Val Acc 0.0 Train Loss 0.02071393094956875 Val Loss 4.343233108520508
+EPOCH unfeeze : 5
+Epoch 75 Train Acc 100.0 Val Acc 0.0 Train Loss 0.019935186952352524 Val Loss 4.366848468780518
+EPOCH unfeeze : 6
+Epoch 76 Train Acc 100.0 Val Acc 0.0 Train Loss 0.01935296505689621 Val Loss 4.400976657867432
+EPOCH unfeeze : 7
+Epoch 77 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0187138170003891 Val Loss 4.443680763244629
+EPOCH unfeeze : 8
+Epoch 78 Train Acc 100.0 Val Acc 0.0 Train Loss 0.01803666539490223 Val Loss 4.470895290374756
+EPOCH unfeeze : 9
+Epoch 79 Train Acc 100.0 Val Acc 0.0 Train Loss 0.017460055649280548 Val Loss 4.504128456115723
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 80 Trainable Parameters : 85648900
+Epoch 80 Train Acc 100.0 Val Acc 0.0 Train Loss 0.016920223832130432 Val Loss 4.546118259429932
+EPOCH unfeeze : 1
+Epoch 81 Train Acc 100.0 Val Acc 0.0 Train Loss 0.016361383721232414 Val Loss 4.576676845550537
+EPOCH unfeeze : 2
+Epoch 82 Train Acc 100.0 Val Acc 0.0 Train Loss 0.01574157550930977 Val Loss 4.610756874084473
+EPOCH unfeeze : 3
+Epoch 83 Train Acc 100.0 Val Acc 0.0 Train Loss 0.01523442193865776 Val Loss 4.6452860832214355
+EPOCH unfeeze : 4
+Epoch 84 Train Acc 100.0 Val Acc 0.0 Train Loss 0.014771364629268646 Val Loss 4.6752519607543945
+EPOCH unfeeze : 5
+Epoch 85 Train Acc 100.0 Val Acc 0.0 Train Loss 0.014257753267884254 Val Loss 4.714716911315918
+EPOCH unfeeze : 6
+Epoch 86 Train Acc 100.0 Val Acc 0.0 Train Loss 0.013732659630477428 Val Loss 4.749850273132324
+EPOCH unfeeze : 7
+Epoch 87 Train Acc 100.0 Val Acc 0.0 Train Loss 0.013301740400493145 Val Loss 4.780331611633301
+EPOCH unfeeze : 8
+Epoch 88 Train Acc 100.0 Val Acc 0.0 Train Loss 0.012911481782793999 Val Loss 4.814012050628662
+EPOCH unfeeze : 9
+Epoch 89 Train Acc 100.0 Val Acc 0.0 Train Loss 0.012441320344805717 Val Loss 4.848394393920898
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 90 Trainable Parameters : 85648900
+Epoch 90 Train Acc 100.0 Val Acc 0.0 Train Loss 0.012039720080792904 Val Loss 4.882051467895508
+EPOCH unfeeze : 1
+Epoch 91 Train Acc 100.0 Val Acc 0.0 Train Loss 0.01161581464111805 Val Loss 4.915047645568848
+EPOCH unfeeze : 2
+Epoch 92 Train Acc 100.0 Val Acc 0.0 Train Loss 0.011233973316848278 Val Loss 4.950565338134766
+EPOCH unfeeze : 3
+Epoch 93 Train Acc 100.0 Val Acc 0.0 Train Loss 0.010919544845819473 Val Loss 4.979455947875977
+EPOCH unfeeze : 4
+Epoch 94 Train Acc 100.0 Val Acc 0.0 Train Loss 0.01053154468536377 Val Loss 5.014438152313232
+EPOCH unfeeze : 5
+Epoch 95 Train Acc 100.0 Val Acc 0.0 Train Loss 0.01020592637360096 Val Loss 5.055295944213867
+EPOCH unfeeze : 6
+Epoch 96 Train Acc 100.0 Val Acc 0.0 Train Loss 0.009865490719676018 Val Loss 5.081081390380859
+EPOCH unfeeze : 7
+Epoch 97 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00952405110001564 Val Loss 5.112728118896484
+EPOCH unfeeze : 8
+Epoch 98 Train Acc 100.0 Val Acc 0.0 Train Loss 0.009237602353096008 Val Loss 5.147913932800293
+EPOCH unfeeze : 9
+Epoch 99 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00897394958883524 Val Loss 5.178675651550293
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 100 Trainable Parameters : 85648900
+Epoch 100 Train Acc 100.0 Val Acc 0.0 Train Loss 0.008676777593791485 Val Loss 5.211511611938477
+EPOCH unfeeze : 1
+Epoch 101 Train Acc 100.0 Val Acc 0.0 Train Loss 0.008362052030861378 Val Loss 5.247162818908691
+EPOCH unfeeze : 2
+Epoch 102 Train Acc 100.0 Val Acc 0.0 Train Loss 0.008087757043540478 Val Loss 5.280620574951172
+EPOCH unfeeze : 3
+Epoch 103 Train Acc 100.0 Val Acc 0.0 Train Loss 0.007864668034017086 Val Loss 5.311043739318848
+EPOCH unfeeze : 4
+Epoch 104 Train Acc 100.0 Val Acc 0.0 Train Loss 0.007597934454679489 Val Loss 5.344771385192871
+EPOCH unfeeze : 5
+Epoch 105 Train Acc 100.0 Val Acc 0.0 Train Loss 0.007343719247728586 Val Loss 5.371349334716797
+EPOCH unfeeze : 6
+Epoch 106 Train Acc 100.0 Val Acc 0.0 Train Loss 0.007138837594538927 Val Loss 5.407487869262695
+EPOCH unfeeze : 7
+Epoch 107 Train Acc 100.0 Val Acc 0.0 Train Loss 0.006899909116327763 Val Loss 5.438539028167725
+EPOCH unfeeze : 8
+Epoch 108 Train Acc 100.0 Val Acc 0.0 Train Loss 0.006676657125353813 Val Loss 5.469893932342529
+EPOCH unfeeze : 9
+Epoch 109 Train Acc 100.0 Val Acc 0.0 Train Loss 0.006470133550465107 Val Loss 5.50478458404541
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 110 Trainable Parameters : 85648900
+Epoch 110 Train Acc 100.0 Val Acc 0.0 Train Loss 0.006277195643633604 Val Loss 5.53565788269043
+EPOCH unfeeze : 1
+Epoch 111 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0060758208855986595 Val Loss 5.570032596588135
+EPOCH unfeeze : 2
+Epoch 112 Train Acc 100.0 Val Acc 0.0 Train Loss 0.005887369159609079 Val Loss 5.597452640533447
+EPOCH unfeeze : 3
+Epoch 113 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0057081542909145355 Val Loss 5.634982109069824
+EPOCH unfeeze : 4
+Epoch 114 Train Acc 100.0 Val Acc 0.0 Train Loss 0.005534981843084097 Val Loss 5.664348602294922
+EPOCH unfeeze : 5
+Epoch 115 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0053666699677705765 Val Loss 5.6943559646606445
+EPOCH unfeeze : 6
+Epoch 116 Train Acc 100.0 Val Acc 0.0 Train Loss 0.005220819264650345 Val Loss 5.725566864013672
+EPOCH unfeeze : 7
+Epoch 117 Train Acc 100.0 Val Acc 0.0 Train Loss 0.005041148047894239 Val Loss 5.754393100738525
+EPOCH unfeeze : 8
+Epoch 118 Train Acc 100.0 Val Acc 0.0 Train Loss 0.004887411370873451 Val Loss 5.785511493682861
+EPOCH unfeeze : 9
+Epoch 119 Train Acc 100.0 Val Acc 0.0 Train Loss 0.004744211211800575 Val Loss 5.816995620727539
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 120 Trainable Parameters : 85648900
+Epoch 120 Train Acc 100.0 Val Acc 0.0 Train Loss 0.004614538513123989 Val Loss 5.847378730773926
+EPOCH unfeeze : 1
+Epoch 121 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0044461386278271675 Val Loss 5.875131607055664
+EPOCH unfeeze : 2
+Epoch 122 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00433523952960968 Val Loss 5.906179428100586
+EPOCH unfeeze : 3
+Epoch 123 Train Acc 100.0 Val Acc 0.0 Train Loss 0.004205889068543911 Val Loss 5.935568809509277
+EPOCH unfeeze : 4
+Epoch 124 Train Acc 100.0 Val Acc 0.0 Train Loss 0.004078397061675787 Val Loss 5.966799259185791
+EPOCH unfeeze : 5
+Epoch 125 Train Acc 100.0 Val Acc 0.0 Train Loss 0.003965347073972225 Val Loss 5.998283863067627
+EPOCH unfeeze : 6
+Epoch 126 Train Acc 100.0 Val Acc 0.0 Train Loss 0.003843959653750062 Val Loss 6.027561187744141
+EPOCH unfeeze : 7
+Epoch 127 Train Acc 100.0 Val Acc 0.0 Train Loss 0.003727202769368887 Val Loss 6.056729793548584
+EPOCH unfeeze : 8
+Epoch 128 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0036278152838349342 Val Loss 6.089240074157715
+EPOCH unfeeze : 9
+Epoch 129 Train Acc 100.0 Val Acc 0.0 Train Loss 0.003521749982610345 Val Loss 6.113730430603027
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 130 Trainable Parameters : 85648900
+Epoch 130 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0034262738190591335 Val Loss 6.142980098724365
+EPOCH unfeeze : 1
+Epoch 131 Train Acc 100.0 Val Acc 0.0 Train Loss 0.003326723352074623 Val Loss 6.17310905456543
+EPOCH unfeeze : 2
+Epoch 132 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0032250937074422836 Val Loss 6.200428485870361
+EPOCH unfeeze : 3
+Epoch 133 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0031395568512380123 Val Loss 6.230285167694092
+EPOCH unfeeze : 4
+Epoch 134 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0030520495492964983 Val Loss 6.261559963226318
+EPOCH unfeeze : 5
+Epoch 135 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0029702000319957733 Val Loss 6.288768768310547
+EPOCH unfeeze : 6
+Epoch 136 Train Acc 100.0 Val Acc 0.0 Train Loss 0.002885878086090088 Val Loss 6.31385612487793
+EPOCH unfeeze : 7
+Epoch 137 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0028024306520819664 Val Loss 6.346464157104492
+EPOCH unfeeze : 8
+Epoch 138 Train Acc 100.0 Val Acc 0.0 Train Loss 0.002726157195866108 Val Loss 6.372404098510742
+EPOCH unfeeze : 9
+Epoch 139 Train Acc 100.0 Val Acc 0.0 Train Loss 0.002652036491781473 Val Loss 6.402928829193115
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 140 Trainable Parameters : 85648900
+Epoch 140 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0025776815600693226 Val Loss 6.42861270904541
+EPOCH unfeeze : 1
+Epoch 141 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0024999063462018967 Val Loss 6.457019805908203
+EPOCH unfeeze : 2
+Epoch 142 Train Acc 100.0 Val Acc 0.0 Train Loss 0.002432839944958687 Val Loss 6.481949329376221
+EPOCH unfeeze : 3
+Epoch 143 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0023759384639561176 Val Loss 6.513063430786133
+EPOCH unfeeze : 4
+Epoch 144 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0023085144348442554 Val Loss 6.537352085113525
+EPOCH unfeeze : 5
+Epoch 145 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0022548181004822254 Val Loss 6.567959785461426
+EPOCH unfeeze : 6
+Epoch 146 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0021865020971745253 Val Loss 6.594120025634766
+EPOCH unfeeze : 7
+Epoch 147 Train Acc 100.0 Val Acc 0.0 Train Loss 0.002131813205778599 Val Loss 6.6206769943237305
+EPOCH unfeeze : 8
+Epoch 148 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0020685854833573103 Val Loss 6.646488189697266
+EPOCH unfeeze : 9
+Epoch 149 Train Acc 100.0 Val Acc 0.0 Train Loss 0.002013171324506402 Val Loss 6.674427032470703
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 150 Trainable Parameters : 85648900
+Epoch 150 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0019580922089517117 Val Loss 6.697279930114746
+EPOCH unfeeze : 1
+Epoch 151 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0019129527499899268 Val Loss 6.728045463562012
+EPOCH unfeeze : 2
+Epoch 152 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0018642168724909425 Val Loss 6.753584861755371
+EPOCH unfeeze : 3
+Epoch 153 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0018107248470187187 Val Loss 6.7821879386901855
+EPOCH unfeeze : 4
+Epoch 154 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0017712295521050692 Val Loss 6.805639266967773
+EPOCH unfeeze : 5
+Epoch 155 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0017255238490179181 Val Loss 6.831307888031006
+EPOCH unfeeze : 6
+Epoch 156 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0016783139435574412 Val Loss 6.858175277709961
+EPOCH unfeeze : 7
+Epoch 157 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0016340406145900488 Val Loss 6.882486343383789
+EPOCH unfeeze : 8
+Epoch 158 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0015965512720867991 Val Loss 6.909599781036377
+EPOCH unfeeze : 9
+Epoch 159 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0015540681779384613 Val Loss 6.934489727020264
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 160 Trainable Parameters : 85648900
+Epoch 160 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0015196925960481167 Val Loss 6.961703300476074
+EPOCH unfeeze : 1
+Epoch 161 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0014731023693457246 Val Loss 6.985271453857422
+EPOCH unfeeze : 2
+Epoch 162 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0014413660392165184 Val Loss 7.009890079498291
+EPOCH unfeeze : 3
+Epoch 163 Train Acc 100.0 Val Acc 0.0 Train Loss 0.001405838644132018 Val Loss 7.037501811981201
+EPOCH unfeeze : 4
+Epoch 164 Train Acc 100.0 Val Acc 0.0 Train Loss 0.001373310456983745 Val Loss 7.0624542236328125
+EPOCH unfeeze : 5
+Epoch 165 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0013370055239647627 Val Loss 7.086795806884766
+EPOCH unfeeze : 6
+Epoch 166 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0013063307851552963 Val Loss 7.109397888183594
+EPOCH unfeeze : 7
+Epoch 167 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0012714625336229801 Val Loss 7.135695457458496
+EPOCH unfeeze : 8
+Epoch 168 Train Acc 100.0 Val Acc 0.0 Train Loss 0.001240739249624312 Val Loss 7.160808086395264
+EPOCH unfeeze : 9
+Epoch 169 Train Acc 100.0 Val Acc 0.0 Train Loss 0.001214651740156114 Val Loss 7.182906150817871
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 170 Trainable Parameters : 85648900
+Epoch 170 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0011828991118818521 Val Loss 7.207671165466309
+EPOCH unfeeze : 1
+Epoch 171 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0011551883071660995 Val Loss 7.231833457946777
+EPOCH unfeeze : 2
+Epoch 172 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0011232979595661163 Val Loss 7.256561279296875
+EPOCH unfeeze : 3
+Epoch 173 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0010978884529322386 Val Loss 7.278937339782715
+EPOCH unfeeze : 4
+Epoch 174 Train Acc 100.0 Val Acc 0.0 Train Loss 0.001073176390491426 Val Loss 7.304821014404297
+EPOCH unfeeze : 5
+Epoch 175 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0010488051921129227 Val Loss 7.325900077819824
+EPOCH unfeeze : 6
+Epoch 176 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00102571165189147 Val Loss 7.351314544677734
+EPOCH unfeeze : 7
+Epoch 177 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0010011893464252353 Val Loss 7.375881195068359
+EPOCH unfeeze : 8
+Epoch 178 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0009783762507140636 Val Loss 7.398880958557129
+EPOCH unfeeze : 9
+Epoch 179 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0009532715776003897 Val Loss 7.422321319580078
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 180 Trainable Parameters : 85648900
+Epoch 180 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0009331483161076903 Val Loss 7.442835807800293
+EPOCH unfeeze : 1
+Epoch 181 Train Acc 100.0 Val Acc 0.0 Train Loss 0.000912369810976088 Val Loss 7.464777946472168
+EPOCH unfeeze : 2
+Epoch 182 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0008927654707804322 Val Loss 7.489606857299805
+EPOCH unfeeze : 3
+Epoch 183 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0008729968103580177 Val Loss 7.515320777893066
+EPOCH unfeeze : 4
+Epoch 184 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00085197773296386 Val Loss 7.534872531890869
+EPOCH unfeeze : 5
+Epoch 185 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0008296783780679107 Val Loss 7.558367729187012
+EPOCH unfeeze : 6
+Epoch 186 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0008135074749588966 Val Loss 7.581513404846191
+EPOCH unfeeze : 7
+Epoch 187 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0007969640428200364 Val Loss 7.602643013000488
+EPOCH unfeeze : 8
+Epoch 188 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0007777569117024541 Val Loss 7.625056266784668
+EPOCH unfeeze : 9
+Epoch 189 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0007621198892593384 Val Loss 7.646458625793457
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 190 Trainable Parameters : 85648900
+Epoch 190 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0007438636966980994 Val Loss 7.670041084289551
+EPOCH unfeeze : 1
+Epoch 191 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0007264846935868263 Val Loss 7.691897392272949
+EPOCH unfeeze : 2
+Epoch 192 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0007132268510758877 Val Loss 7.713906288146973
+EPOCH unfeeze : 3
+Epoch 193 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0006964271306060255 Val Loss 7.736050605773926
+EPOCH unfeeze : 4
+Epoch 194 Train Acc 100.0 Val Acc 0.0 Train Loss 0.000680728058796376 Val Loss 7.757193088531494
+EPOCH unfeeze : 5
+Epoch 195 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0006658618221990764 Val Loss 7.779399871826172
+EPOCH unfeeze : 6
+Epoch 196 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0006505338242277503 Val Loss 7.801332473754883
+EPOCH unfeeze : 7
+Epoch 197 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0006380925187841058 Val Loss 7.823151588439941
+EPOCH unfeeze : 8
+Epoch 198 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0006248620920814574 Val Loss 7.841902732849121
+EPOCH unfeeze : 9
+Epoch 199 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0006110360263846815 Val Loss 7.865263938903809
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 200 Trainable Parameters : 85648900
+Epoch 200 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0005989062483422458 Val Loss 7.886302471160889
+EPOCH unfeeze : 1
+Epoch 201 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0005854813498444855 Val Loss 7.908810615539551
+EPOCH unfeeze : 2
+Epoch 202 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0005738718900829554 Val Loss 7.929259300231934
+EPOCH unfeeze : 3
+Epoch 203 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0005612946697510779 Val Loss 7.950780391693115
+EPOCH unfeeze : 4
+Epoch 204 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0005508159520104527 Val Loss 7.971890926361084
+EPOCH unfeeze : 5
+Epoch 205 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0005398010835051537 Val Loss 7.990549087524414
+EPOCH unfeeze : 6
+Epoch 206 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0005282352212816477 Val Loss 8.012918472290039
+EPOCH unfeeze : 7
+Epoch 207 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0005173389799892902 Val Loss 8.036360740661621
+EPOCH unfeeze : 8
+Epoch 208 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0005059065879322588 Val Loss 8.057978630065918
+EPOCH unfeeze : 9
+Epoch 209 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0004960817168466747 Val Loss 8.077627182006836
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 210 Trainable Parameters : 85648900
+Epoch 210 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00048619703738950193 Val Loss 8.09725570678711
+EPOCH unfeeze : 1
+Epoch 211 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00047644617734476924 Val Loss 8.11857795715332
+EPOCH unfeeze : 2
+Epoch 212 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0004656976670958102 Val Loss 8.138553619384766
+EPOCH unfeeze : 3
+Epoch 213 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00045709271216765046 Val Loss 8.157896995544434
+EPOCH unfeeze : 4
+Epoch 214 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0004463289224077016 Val Loss 8.1786470413208
+EPOCH unfeeze : 5
+Epoch 215 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00043882537283934653 Val Loss 8.199621200561523
+EPOCH unfeeze : 6
+Epoch 216 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0004305326147004962 Val Loss 8.219472885131836
+EPOCH unfeeze : 7
+Epoch 217 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0004219717811793089 Val Loss 8.238184928894043
+EPOCH unfeeze : 8
+Epoch 218 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00041254720417782664 Val Loss 8.258566856384277
+EPOCH unfeeze : 9
+Epoch 219 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00040599607746116817 Val Loss 8.27933120727539
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 220 Trainable Parameters : 85648900
+Epoch 220 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0003975538711529225 Val Loss 8.296991348266602
+EPOCH unfeeze : 1
+Epoch 221 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0003891115775331855 Val Loss 8.317802429199219
+EPOCH unfeeze : 2
+Epoch 222 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0003813838411588222 Val Loss 8.337331771850586
+EPOCH unfeeze : 3
+Epoch 223 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00037383465678431094 Val Loss 8.354316711425781
+EPOCH unfeeze : 4
+Epoch 224 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00036777439527213573 Val Loss 8.377626419067383
+EPOCH unfeeze : 5
+Epoch 225 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0003603590012062341 Val Loss 8.397266387939453
+EPOCH unfeeze : 6
+Epoch 226 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00035386672243475914 Val Loss 8.41501522064209
+EPOCH unfeeze : 7
+Epoch 227 Train Acc 100.0 Val Acc 0.0 Train Loss 0.000346376677043736 Val Loss 8.434154510498047
+EPOCH unfeeze : 8
+Epoch 228 Train Acc 100.0 Val Acc 0.0 Train Loss 0.000340345868607983 Val Loss 8.453832626342773
+EPOCH unfeeze : 9
+Epoch 229 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0003341214032843709 Val Loss 8.473820686340332
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 230 Trainable Parameters : 85648900
+Epoch 230 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00032867115805856884 Val Loss 8.491808891296387
+EPOCH unfeeze : 1
+Epoch 231 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0003217615303583443 Val Loss 8.51095199584961
+EPOCH unfeeze : 2
+Epoch 232 Train Acc 100.0 Val Acc 0.0 Train Loss 0.000315492128720507 Val Loss 8.528692245483398
+EPOCH unfeeze : 3
+Epoch 233 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0003101310576312244 Val Loss 8.548248291015625
+EPOCH unfeeze : 4
+Epoch 234 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0003039806615561247 Val Loss 8.568077087402344
+EPOCH unfeeze : 5
+Epoch 235 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00029791955603286624 Val Loss 8.587100982666016
+EPOCH unfeeze : 6
+Epoch 236 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0002936603268608451 Val Loss 8.6029052734375
+EPOCH unfeeze : 7
+Epoch 237 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0002868544543161988 Val Loss 8.62247085571289
+EPOCH unfeeze : 8
+Epoch 238 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00028246111469343305 Val Loss 8.641392707824707
+EPOCH unfeeze : 9
+Epoch 239 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00027727842098101974 Val Loss 8.659767150878906
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 240 Trainable Parameters : 85648900
+Epoch 240 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0002713361172936857 Val Loss 8.679085731506348
+EPOCH unfeeze : 1
+Epoch 241 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0002673596318345517 Val Loss 8.696016311645508
+EPOCH unfeeze : 2
+Epoch 242 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00026183424051851034 Val Loss 8.71402359008789
+EPOCH unfeeze : 3
+Epoch 243 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0002577534469310194 Val Loss 8.733543395996094
+EPOCH unfeeze : 4
+Epoch 244 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00025335984537377954 Val Loss 8.748456954956055
+EPOCH unfeeze : 5
+Epoch 245 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0002485342847649008 Val Loss 8.768306732177734
+EPOCH unfeeze : 6
+Epoch 246 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0002444534038659185 Val Loss 8.787030220031738
+EPOCH unfeeze : 7
+Epoch 247 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00024010436027310789 Val Loss 8.806624412536621
+EPOCH unfeeze : 8
+Epoch 248 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00023508504091296345 Val Loss 8.822588920593262
+EPOCH unfeeze : 9
+Epoch 249 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00023094445350579917 Val Loss 8.840012550354004
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 250 Trainable Parameters : 85648900
+Epoch 250 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00022734003141522408 Val Loss 8.857769966125488
+EPOCH unfeeze : 1
+Epoch 251 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00022388450452126563 Val Loss 8.874885559082031
+EPOCH unfeeze : 2
+Epoch 252 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0002194906264776364 Val Loss 8.893722534179688
+EPOCH unfeeze : 3
+Epoch 253 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00021543927141465247 Val Loss 8.910411834716797
+EPOCH unfeeze : 4
+Epoch 254 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00021198367176111788 Val Loss 8.92656421661377
+EPOCH unfeeze : 5
+Epoch 255 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0002084237930830568 Val Loss 8.943839073181152
+EPOCH unfeeze : 6
+Epoch 256 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0002046106819761917 Val Loss 8.960528373718262
+EPOCH unfeeze : 7
+Epoch 257 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00020114010840188712 Val Loss 8.979694366455078
+EPOCH unfeeze : 8
+Epoch 258 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00019787806377280504 Val Loss 8.9964017868042
+EPOCH unfeeze : 9
+Epoch 259 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00019445213547442108 Val Loss 9.014211654663086
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 260 Trainable Parameters : 85648900
+Epoch 260 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00019116024486720562 Val Loss 9.032082557678223
+EPOCH unfeeze : 1
+Epoch 261 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00018764490960165858 Val Loss 9.04874038696289
+EPOCH unfeeze : 2
+Epoch 262 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00018436787649989128 Val Loss 9.066218376159668
+EPOCH unfeeze : 3
+Epoch 263 Train Acc 100.0 Val Acc 0.0 Train Loss 0.000181612151209265 Val Loss 9.081677436828613
+EPOCH unfeeze : 4
+Epoch 264 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0001790798851288855 Val Loss 9.097312927246094
+EPOCH unfeeze : 5
+Epoch 265 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00017528142780065536 Val Loss 9.11408805847168
+EPOCH unfeeze : 6
+Epoch 266 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00017303215281572193 Val Loss 9.132259368896484
+EPOCH unfeeze : 7
+Epoch 267 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00017023169493768364 Val Loss 9.148713111877441
+EPOCH unfeeze : 8
+Epoch 268 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00016710348427295685 Val Loss 9.165363311767578
+EPOCH unfeeze : 9
+Epoch 269 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00016416893049608916 Val Loss 9.181671142578125
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 270 Trainable Parameters : 85648900
+Epoch 270 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00016217282973229885 Val Loss 9.198173522949219
+EPOCH unfeeze : 1
+Epoch 271 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0001591190812177956 Val Loss 9.215635299682617
+EPOCH unfeeze : 2
+Epoch 272 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00015631855058018118 Val Loss 9.231300354003906
+EPOCH unfeeze : 3
+Epoch 273 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0001536818454042077 Val Loss 9.248387336730957
+EPOCH unfeeze : 4
+Epoch 274 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0001513281895313412 Val Loss 9.262868881225586
+EPOCH unfeeze : 5
+Epoch 275 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0001489149290136993 Val Loss 9.280364990234375
+EPOCH unfeeze : 6
+Epoch 276 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00014653144171461463 Val Loss 9.296152114868164
+EPOCH unfeeze : 7
+Epoch 277 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0001442820212105289 Val Loss 9.31302261352539
+EPOCH unfeeze : 8
+Epoch 278 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00014198789722286165 Val Loss 9.328824996948242
+EPOCH unfeeze : 9
+Epoch 279 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0001401108893333003 Val Loss 9.344209671020508
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 280 Trainable Parameters : 85648900
+Epoch 280 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0001372208644170314 Val Loss 9.361053466796875
+EPOCH unfeeze : 1
+Epoch 281 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0001351203682133928 Val Loss 9.376951217651367
+EPOCH unfeeze : 2
+Epoch 282 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0001329453953076154 Val Loss 9.393503189086914
+EPOCH unfeeze : 3
+Epoch 283 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00013084488455206156 Val Loss 9.409479141235352
+EPOCH unfeeze : 4
+Epoch 284 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00012892312952317297 Val Loss 9.425652503967285
+EPOCH unfeeze : 5
+Epoch 285 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0001270460634259507 Val Loss 9.440149307250977
+EPOCH unfeeze : 6
+Epoch 286 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00012491573579609394 Val Loss 9.456725120544434
+EPOCH unfeeze : 7
+Epoch 287 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0001232174108736217 Val Loss 9.471796989440918
+EPOCH unfeeze : 8
+Epoch 288 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0001210423797601834 Val Loss 9.48723030090332
+EPOCH unfeeze : 9
+Epoch 289 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00011922487465199083 Val Loss 9.503347396850586
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 290 Trainable Parameters : 85648900
+Epoch 290 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00011733287828974426 Val Loss 9.517144203186035
+EPOCH unfeeze : 1
+Epoch 291 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00011569412890821695 Val Loss 9.531917572021484
+EPOCH unfeeze : 2
+Epoch 292 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0001139659943873994 Val Loss 9.547676086425781
+EPOCH unfeeze : 3
+Epoch 293 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00011231233656872064 Val Loss 9.56452751159668
+EPOCH unfeeze : 4
+Epoch 294 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00011028622975572944 Val Loss 9.580772399902344
+EPOCH unfeeze : 5
+Epoch 295 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00010866235970752314 Val Loss 9.5954008102417
+EPOCH unfeeze : 6
+Epoch 296 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00010714276868384331 Val Loss 9.610125541687012
+EPOCH unfeeze : 7
+Epoch 297 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00010586154530756176 Val Loss 9.62553882598877
+EPOCH unfeeze : 8
+Epoch 298 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00010396949073765427 Val Loss 9.640372276306152
+EPOCH unfeeze : 9
+Epoch 299 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00010242009011562914 Val Loss 9.656627655029297
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 300 Trainable Parameters : 85648900
+Epoch 300 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00010048333933809772 Val Loss 9.671514511108398
+EPOCH unfeeze : 1
+Epoch 301 Train Acc 100.0 Val Acc 0.0 Train Loss 9.950005187420174e-05 Val Loss 9.687167167663574
+EPOCH unfeeze : 2
+Epoch 302 Train Acc 100.0 Val Acc 0.0 Train Loss 9.790594049263746e-05 Val Loss 9.701186180114746
+EPOCH unfeeze : 3
+Epoch 303 Train Acc 100.0 Val Acc 0.0 Train Loss 9.66097941272892e-05 Val Loss 9.716340065002441
+EPOCH unfeeze : 4
+Epoch 304 Train Acc 100.0 Val Acc 0.0 Train Loss 9.528383816359565e-05 Val Loss 9.73102855682373
+EPOCH unfeeze : 5
+Epoch 305 Train Acc 100.0 Val Acc 0.0 Train Loss 9.386849706061184e-05 Val Loss 9.746025085449219
+EPOCH unfeeze : 6
+Epoch 306 Train Acc 100.0 Val Acc 0.0 Train Loss 9.234886965714395e-05 Val Loss 9.760787963867188
+EPOCH unfeeze : 7
+Epoch 307 Train Acc 100.0 Val Acc 0.0 Train Loss 9.096331632463261e-05 Val Loss 9.775507926940918
+EPOCH unfeeze : 8
+Epoch 308 Train Acc 100.0 Val Acc 0.0 Train Loss 8.965225424617529e-05 Val Loss 9.789276123046875
+EPOCH unfeeze : 9
+Epoch 309 Train Acc 100.0 Val Acc 0.0 Train Loss 8.851996244629845e-05 Val Loss 9.803232192993164
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 310 Trainable Parameters : 85648900
+Epoch 310 Train Acc 100.0 Val Acc 0.0 Train Loss 8.722378697711974e-05 Val Loss 9.820076942443848
+EPOCH unfeeze : 1
+Epoch 311 Train Acc 100.0 Val Acc 0.0 Train Loss 8.579353016102687e-05 Val Loss 9.83381175994873
+EPOCH unfeeze : 2
+Epoch 312 Train Acc 100.0 Val Acc 0.0 Train Loss 8.446755236946046e-05 Val Loss 9.848450660705566
+EPOCH unfeeze : 3
+Epoch 313 Train Acc 100.0 Val Acc 0.0 Train Loss 8.332035213243216e-05 Val Loss 9.86230182647705
+EPOCH unfeeze : 4
+Epoch 314 Train Acc 100.0 Val Acc 0.0 Train Loss 8.205395715776831e-05 Val Loss 9.877266883850098
+EPOCH unfeeze : 5
+Epoch 315 Train Acc 100.0 Val Acc 0.0 Train Loss 8.090675692074001e-05 Val Loss 9.891911506652832
+EPOCH unfeeze : 6
+Epoch 316 Train Acc 100.0 Val Acc 0.0 Train Loss 7.983404793776572e-05 Val Loss 9.907026290893555
+EPOCH unfeeze : 7
+Epoch 317 Train Acc 100.0 Val Acc 0.0 Train Loss 7.832927076378837e-05 Val Loss 9.921282768249512
+EPOCH unfeeze : 8
+Epoch 318 Train Acc 100.0 Val Acc 0.0 Train Loss 7.755452679703012e-05 Val Loss 9.935440063476562
+EPOCH unfeeze : 9
+Epoch 319 Train Acc 100.0 Val Acc 0.0 Train Loss 7.636262307642028e-05 Val Loss 9.949532508850098
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 320 Trainable Parameters : 85648900
+Epoch 320 Train Acc 100.0 Val Acc 0.0 Train Loss 7.543888932559639e-05 Val Loss 9.963484764099121
+EPOCH unfeeze : 1
+Epoch 321 Train Acc 100.0 Val Acc 0.0 Train Loss 7.411288970615715e-05 Val Loss 9.977029800415039
+EPOCH unfeeze : 2
+Epoch 322 Train Acc 100.0 Val Acc 0.0 Train Loss 7.323384488699958e-05 Val Loss 9.99006462097168
+EPOCH unfeeze : 3
+Epoch 323 Train Acc 100.0 Val Acc 0.0 Train Loss 7.22505064914003e-05 Val Loss 10.004050254821777
+EPOCH unfeeze : 4
+Epoch 324 Train Acc 100.0 Val Acc 0.0 Train Loss 7.119267684174702e-05 Val Loss 10.018475532531738
+EPOCH unfeeze : 5
+Epoch 325 Train Acc 100.0 Val Acc 0.0 Train Loss 7.031363929854706e-05 Val Loss 10.033369064331055
+EPOCH unfeeze : 6
+Epoch 326 Train Acc 100.0 Val Acc 0.0 Train Loss 6.938989099580795e-05 Val Loss 10.0470609664917
+EPOCH unfeeze : 7
+Epoch 327 Train Acc 100.0 Val Acc 0.0 Train Loss 6.833206134615466e-05 Val Loss 10.059615135192871
+EPOCH unfeeze : 8
+Epoch 328 Train Acc 100.0 Val Acc 0.0 Train Loss 6.731892062816769e-05 Val Loss 10.074175834655762
+EPOCH unfeeze : 9
+Epoch 329 Train Acc 100.0 Val Acc 0.0 Train Loss 6.648456474067643e-05 Val Loss 10.088340759277344
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 330 Trainable Parameters : 85648900
+Epoch 330 Train Acc 100.0 Val Acc 0.0 Train Loss 6.562040653079748e-05 Val Loss 10.102456092834473
+EPOCH unfeeze : 1
+Epoch 331 Train Acc 100.0 Val Acc 0.0 Train Loss 6.457747076638043e-05 Val Loss 10.11647891998291
+EPOCH unfeeze : 2
+Epoch 332 Train Acc 100.0 Val Acc 0.0 Train Loss 6.389209738699719e-05 Val Loss 10.130594253540039
+EPOCH unfeeze : 3
+Epoch 333 Train Acc 100.0 Val Acc 0.0 Train Loss 6.293854676187038e-05 Val Loss 10.145099639892578
+EPOCH unfeeze : 4
+Epoch 334 Train Acc 100.0 Val Acc 0.0 Train Loss 6.208928243722767e-05 Val Loss 10.158224105834961
+EPOCH unfeeze : 5
+Epoch 335 Train Acc 100.0 Val Acc 0.0 Train Loss 6.10165334364865e-05 Val Loss 10.171428680419922
+EPOCH unfeeze : 6
+Epoch 336 Train Acc 100.0 Val Acc 0.0 Train Loss 6.030136501067318e-05 Val Loss 10.185315132141113
+EPOCH unfeeze : 7
+Epoch 337 Train Acc 100.0 Val Acc 0.0 Train Loss 5.94669982092455e-05 Val Loss 10.198776245117188
+EPOCH unfeeze : 8
+Epoch 338 Train Acc 100.0 Val Acc 0.0 Train Loss 5.876672366866842e-05 Val Loss 10.211461067199707
+EPOCH unfeeze : 9
+Epoch 339 Train Acc 100.0 Val Acc 0.0 Train Loss 5.779826460639015e-05 Val Loss 10.225300788879395
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 340 Trainable Parameters : 85648900
+Epoch 340 Train Acc 100.0 Val Acc 0.0 Train Loss 5.721718116546981e-05 Val Loss 10.239340782165527
+EPOCH unfeeze : 1
+Epoch 341 Train Acc 100.0 Val Acc 0.0 Train Loss 5.659140515490435e-05 Val Loss 10.252334594726562
+EPOCH unfeeze : 2
+Epoch 342 Train Acc 100.0 Val Acc 0.0 Train Loss 5.583153324550949e-05 Val Loss 10.26466178894043
+EPOCH unfeeze : 3
+Epoch 343 Train Acc 100.0 Val Acc 0.0 Train Loss 5.5041859013726935e-05 Val Loss 10.278755187988281
+EPOCH unfeeze : 4
+Epoch 344 Train Acc 100.0 Val Acc 0.0 Train Loss 5.4311782150762156e-05 Val Loss 10.291929244995117
+EPOCH unfeeze : 5
+Epoch 345 Train Acc 100.0 Val Acc 0.0 Train Loss 5.350720675778575e-05 Val Loss 10.305864334106445
+EPOCH unfeeze : 6
+Epoch 346 Train Acc 100.0 Val Acc 0.0 Train Loss 5.280692857922986e-05 Val Loss 10.319290161132812
+EPOCH unfeeze : 7
+Epoch 347 Train Acc 100.0 Val Acc 0.0 Train Loss 5.215134297031909e-05 Val Loss 10.332523345947266
+EPOCH unfeeze : 8
+Epoch 348 Train Acc 100.0 Val Acc 0.0 Train Loss 5.152555968379602e-05 Val Loss 10.3460054397583
+EPOCH unfeeze : 9
+Epoch 349 Train Acc 100.0 Val Acc 0.0 Train Loss 5.0869977712864056e-05 Val Loss 10.357834815979004
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 350 Trainable Parameters : 85648900
+Epoch 350 Train Acc 100.0 Val Acc 0.0 Train Loss 5.009519372833893e-05 Val Loss 10.371382713317871
+EPOCH unfeeze : 1
+Epoch 351 Train Acc 100.0 Val Acc 0.0 Train Loss 4.939490827382542e-05 Val Loss 10.384237289428711
+EPOCH unfeeze : 2
+Epoch 352 Train Acc 100.0 Val Acc 0.0 Train Loss 4.891811840934679e-05 Val Loss 10.396986961364746
+EPOCH unfeeze : 3
+Epoch 353 Train Acc 100.0 Val Acc 0.0 Train Loss 4.835193249164149e-05 Val Loss 10.41100025177002
+EPOCH unfeeze : 4
+Epoch 354 Train Acc 100.0 Val Acc 0.0 Train Loss 4.751754386234097e-05 Val Loss 10.423845291137695
+EPOCH unfeeze : 5
+Epoch 355 Train Acc 100.0 Val Acc 0.0 Train Loss 4.698115662904456e-05 Val Loss 10.436887741088867
+EPOCH unfeeze : 6
+Epoch 356 Train Acc 100.0 Val Acc 0.0 Train Loss 4.647456080419943e-05 Val Loss 10.450943946838379
+EPOCH unfeeze : 7
+Epoch 357 Train Acc 100.0 Val Acc 0.0 Train Loss 4.5744476665277034e-05 Val Loss 10.463120460510254
+EPOCH unfeeze : 8
+Epoch 358 Train Acc 100.0 Val Acc 0.0 Train Loss 4.513357998803258e-05 Val Loss 10.475083351135254
+EPOCH unfeeze : 9
+Epoch 359 Train Acc 100.0 Val Acc 0.0 Train Loss 4.4716383854392916e-05 Val Loss 10.487691879272461
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 360 Trainable Parameters : 85648900
+Epoch 360 Train Acc 100.0 Val Acc 0.0 Train Loss 4.4001193600706756e-05 Val Loss 10.499693870544434
+EPOCH unfeeze : 1
+Epoch 361 Train Acc 100.0 Val Acc 0.0 Train Loss 4.33902969234623e-05 Val Loss 10.512181282043457
+EPOCH unfeeze : 2
+Epoch 362 Train Acc 100.0 Val Acc 0.0 Train Loss 4.2988001951016486e-05 Val Loss 10.524848937988281
+EPOCH unfeeze : 3
+Epoch 363 Train Acc 100.0 Val Acc 0.0 Train Loss 4.236220775055699e-05 Val Loss 10.537221908569336
+EPOCH unfeeze : 4
+Epoch 364 Train Acc 100.0 Val Acc 0.0 Train Loss 4.1781109757721424e-05 Val Loss 10.550891876220703
+EPOCH unfeeze : 5
+Epoch 365 Train Acc 100.0 Val Acc 0.0 Train Loss 4.1408613469684497e-05 Val Loss 10.563541412353516
+EPOCH unfeeze : 6
+Epoch 366 Train Acc 100.0 Val Acc 0.0 Train Loss 4.093181632924825e-05 Val Loss 10.575514793395996
+EPOCH unfeeze : 7
+Epoch 367 Train Acc 100.0 Val Acc 0.0 Train Loss 4.0455015550833195e-05 Val Loss 10.588052749633789
+EPOCH unfeeze : 8
+Epoch 368 Train Acc 100.0 Val Acc 0.0 Train Loss 3.975471918238327e-05 Val Loss 10.601186752319336
+EPOCH unfeeze : 9
+Epoch 369 Train Acc 100.0 Val Acc 0.0 Train Loss 3.926301724277437e-05 Val Loss 10.614416122436523
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 370 Trainable Parameters : 85648900
+Epoch 370 Train Acc 100.0 Val Acc 0.0 Train Loss 3.896501584677026e-05 Val Loss 10.62636947631836
+EPOCH unfeeze : 1
+Epoch 371 Train Acc 100.0 Val Acc 0.0 Train Loss 3.839881901512854e-05 Val Loss 10.638944625854492
+EPOCH unfeeze : 2
+Epoch 372 Train Acc 100.0 Val Acc 0.0 Train Loss 3.790712071349844e-05 Val Loss 10.651411056518555
+EPOCH unfeeze : 3
+Epoch 373 Train Acc 100.0 Val Acc 0.0 Train Loss 3.7519715988310054e-05 Val Loss 10.664283752441406
+EPOCH unfeeze : 4
+Epoch 374 Train Acc 100.0 Val Acc 0.0 Train Loss 3.6998215364292264e-05 Val Loss 10.675909996032715
+EPOCH unfeeze : 5
+Epoch 375 Train Acc 100.0 Val Acc 0.0 Train Loss 3.65512132702861e-05 Val Loss 10.687784194946289
+EPOCH unfeeze : 6
+Epoch 376 Train Acc 100.0 Val Acc 0.0 Train Loss 3.599991032388061e-05 Val Loss 10.700187683105469
+EPOCH unfeeze : 7
+Epoch 377 Train Acc 100.0 Val Acc 0.0 Train Loss 3.57019089278765e-05 Val Loss 10.712310791015625
+EPOCH unfeeze : 8
+Epoch 378 Train Acc 100.0 Val Acc 0.0 Train Loss 3.5180404665879905e-05 Val Loss 10.72480297088623
+EPOCH unfeeze : 9
+Epoch 379 Train Acc 100.0 Val Acc 0.0 Train Loss 3.4778102417476475e-05 Val Loss 10.737292289733887
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 380 Trainable Parameters : 85648900
+Epoch 380 Train Acc 100.0 Val Acc 0.0 Train Loss 3.428639320190996e-05 Val Loss 10.749391555786133
+EPOCH unfeeze : 1
+Epoch 381 Train Acc 100.0 Val Acc 0.0 Train Loss 3.409269265830517e-05 Val Loss 10.761675834655762
+EPOCH unfeeze : 2
+Epoch 382 Train Acc 100.0 Val Acc 0.0 Train Loss 3.358608955750242e-05 Val Loss 10.77495002746582
+EPOCH unfeeze : 3
+Epoch 383 Train Acc 100.0 Val Acc 0.0 Train Loss 3.30943803419359e-05 Val Loss 10.787043571472168
+EPOCH unfeeze : 4
+Epoch 384 Train Acc 100.0 Val Acc 0.0 Train Loss 3.272188041592017e-05 Val Loss 10.798223495483398
+EPOCH unfeeze : 5
+Epoch 385 Train Acc 100.0 Val Acc 0.0 Train Loss 3.2468575227539986e-05 Val Loss 10.809525489807129
+EPOCH unfeeze : 6
+Epoch 386 Train Acc 100.0 Val Acc 0.0 Train Loss 3.197686601197347e-05 Val Loss 10.820301055908203
+EPOCH unfeeze : 7
+Epoch 387 Train Acc 100.0 Val Acc 0.0 Train Loss 3.1619267247151583e-05 Val Loss 10.832535743713379
+EPOCH unfeeze : 8
+Epoch 388 Train Acc 100.0 Val Acc 0.0 Train Loss 3.124675640719943e-05 Val Loss 10.843671798706055
+EPOCH unfeeze : 9
+Epoch 389 Train Acc 100.0 Val Acc 0.0 Train Loss 3.085935168201104e-05 Val Loss 10.855921745300293
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 390 Trainable Parameters : 85648900
+Epoch 390 Train Acc 100.0 Val Acc 0.0 Train Loss 3.056135028600693e-05 Val Loss 10.867789268493652
+EPOCH unfeeze : 1
+Epoch 391 Train Acc 100.0 Val Acc 0.0 Train Loss 3.024844227184076e-05 Val Loss 10.88042163848877
+EPOCH unfeeze : 2
+Epoch 392 Train Acc 100.0 Val Acc 0.0 Train Loss 2.9831235224264674e-05 Val Loss 10.892532348632812
+EPOCH unfeeze : 3
+Epoch 393 Train Acc 100.0 Val Acc 0.0 Train Loss 2.9428927518893033e-05 Val Loss 10.904608726501465
+EPOCH unfeeze : 4
+Epoch 394 Train Acc 100.0 Val Acc 0.0 Train Loss 2.9086220820317976e-05 Val Loss 10.916475296020508
+EPOCH unfeeze : 5
+Epoch 395 Train Acc 100.0 Val Acc 0.0 Train Loss 2.8788213967345655e-05 Val Loss 10.927791595458984
+EPOCH unfeeze : 6
+Epoch 396 Train Acc 100.0 Val Acc 0.0 Train Loss 2.843060610757675e-05 Val Loss 10.940327644348145
+EPOCH unfeeze : 7
+Epoch 397 Train Acc 100.0 Val Acc 0.0 Train Loss 2.8147500415798277e-05 Val Loss 10.950884819030762
+EPOCH unfeeze : 8
+Epoch 398 Train Acc 100.0 Val Acc 0.0 Train Loss 2.7745190891437232e-05 Val Loss 10.963193893432617
+EPOCH unfeeze : 9
+Epoch 399 Train Acc 100.0 Val Acc 0.0 Train Loss 2.753658736764919e-05 Val Loss 10.975080490112305
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 400 Trainable Parameters : 85648900
+Epoch 400 Train Acc 100.0 Val Acc 0.0 Train Loss 2.7178979507880285e-05 Val Loss 10.986754417419434
+EPOCH unfeeze : 1
+Epoch 401 Train Acc 100.0 Val Acc 0.0 Train Loss 2.6836270990315825e-05 Val Loss 10.998401641845703
+EPOCH unfeeze : 2
+Epoch 402 Train Acc 100.0 Val Acc 0.0 Train Loss 2.6523362976149656e-05 Val Loss 11.009055137634277
+EPOCH unfeeze : 3
+Epoch 403 Train Acc 100.0 Val Acc 0.0 Train Loss 2.6180654458585195e-05 Val Loss 11.020506858825684
+EPOCH unfeeze : 4
+Epoch 404 Train Acc 100.0 Val Acc 0.0 Train Loss 2.5897546947817318e-05 Val Loss 11.031778335571289
+EPOCH unfeeze : 5
+Epoch 405 Train Acc 100.0 Val Acc 0.0 Train Loss 2.565914110164158e-05 Val Loss 11.043877601623535
+EPOCH unfeeze : 6
+Epoch 406 Train Acc 100.0 Val Acc 0.0 Train Loss 2.5376033590873703e-05 Val Loss 11.055194854736328
+EPOCH unfeeze : 7
+Epoch 407 Train Acc 100.0 Val Acc 0.0 Train Loss 2.49886215897277e-05 Val Loss 11.066329956054688
+EPOCH unfeeze : 8
+Epoch 408 Train Acc 100.0 Val Acc 0.0 Train Loss 2.4735316401347518e-05 Val Loss 11.077934265136719
+EPOCH unfeeze : 9
+Epoch 409 Train Acc 100.0 Val Acc 0.0 Train Loss 2.4467108232784085e-05 Val Loss 11.089154243469238
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 410 Trainable Parameters : 85648900
+Epoch 410 Train Acc 100.0 Val Acc 0.0 Train Loss 2.4243603547802195e-05 Val Loss 11.101131439208984
+EPOCH unfeeze : 1
+Epoch 411 Train Acc 100.0 Val Acc 0.0 Train Loss 2.396049239905551e-05 Val Loss 11.112809181213379
+EPOCH unfeeze : 2
+Epoch 412 Train Acc 100.0 Val Acc 0.0 Train Loss 2.369228604948148e-05 Val Loss 11.124239921569824
+EPOCH unfeeze : 3
+Epoch 413 Train Acc 100.0 Val Acc 0.0 Train Loss 2.3349573893938214e-05 Val Loss 11.135322570800781
+EPOCH unfeeze : 4
+Epoch 414 Train Acc 100.0 Val Acc 0.0 Train Loss 2.3140966732171364e-05 Val Loss 11.14649772644043
+EPOCH unfeeze : 5
+Epoch 415 Train Acc 100.0 Val Acc 0.0 Train Loss 2.296216189279221e-05 Val Loss 11.157339096069336
+EPOCH unfeeze : 6
+Epoch 416 Train Acc 100.0 Val Acc 0.0 Train Loss 2.2619449737248942e-05 Val Loss 11.168695449829102
+EPOCH unfeeze : 7
+Epoch 417 Train Acc 100.0 Val Acc 0.0 Train Loss 2.235124156868551e-05 Val Loss 11.180108070373535
+EPOCH unfeeze : 8
+Epoch 418 Train Acc 100.0 Val Acc 0.0 Train Loss 2.2127733245724812e-05 Val Loss 11.191746711730957
+EPOCH unfeeze : 9
+Epoch 419 Train Acc 100.0 Val Acc 0.0 Train Loss 2.185952507716138e-05 Val Loss 11.202698707580566
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 420 Trainable Parameters : 85648900
+Epoch 420 Train Acc 100.0 Val Acc 0.0 Train Loss 2.1621117411996238e-05 Val Loss 11.214048385620117
+EPOCH unfeeze : 1
+Epoch 421 Train Acc 100.0 Val Acc 0.0 Train Loss 2.1457211914821528e-05 Val Loss 11.22478199005127
+EPOCH unfeeze : 2
+Epoch 422 Train Acc 100.0 Val Acc 0.0 Train Loss 2.1129400920472108e-05 Val Loss 11.236089706420898
+EPOCH unfeeze : 3
+Epoch 423 Train Acc 100.0 Val Acc 0.0 Train Loss 2.0980394765501842e-05 Val Loss 11.24664306640625
+EPOCH unfeeze : 4
+Epoch 424 Train Acc 100.0 Val Acc 0.0 Train Loss 2.0712182958959602e-05 Val Loss 11.257102012634277
+EPOCH unfeeze : 5
+Epoch 425 Train Acc 100.0 Val Acc 0.0 Train Loss 2.0533378119580448e-05 Val Loss 11.268373489379883
+EPOCH unfeeze : 6
+Epoch 426 Train Acc 100.0 Val Acc 0.0 Train Loss 2.0220468286424875e-05 Val Loss 11.27945327758789
+EPOCH unfeeze : 7
+Epoch 427 Train Acc 100.0 Val Acc 0.0 Train Loss 1.9996958144474775e-05 Val Loss 11.290241241455078
+EPOCH unfeeze : 8
+Epoch 428 Train Acc 100.0 Val Acc 0.0 Train Loss 1.9818151486106217e-05 Val Loss 11.300806045532227
+EPOCH unfeeze : 9
+Epoch 429 Train Acc 100.0 Val Acc 0.0 Train Loss 1.9624445485533215e-05 Val Loss 11.310908317565918
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 430 Trainable Parameters : 85648900
+Epoch 430 Train Acc 100.0 Val Acc 0.0 Train Loss 1.9371134840184823e-05 Val Loss 11.321264266967773
+EPOCH unfeeze : 1
+Epoch 431 Train Acc 100.0 Val Acc 0.0 Train Loss 1.9147624698234722e-05 Val Loss 11.33176040649414
+EPOCH unfeeze : 2
+Epoch 432 Train Acc 100.0 Val Acc 0.0 Train Loss 1.9013519704458304e-05 Val Loss 11.343326568603516
+EPOCH unfeeze : 3
+Epoch 433 Train Acc 100.0 Val Acc 0.0 Train Loss 1.8790011381497607e-05 Val Loss 11.354747772216797
+EPOCH unfeeze : 4
+Epoch 434 Train Acc 100.0 Val Acc 0.0 Train Loss 1.8551603716332465e-05 Val Loss 11.365281105041504
+EPOCH unfeeze : 5
+Epoch 435 Train Acc 100.0 Val Acc 0.0 Train Loss 1.8313192413188517e-05 Val Loss 11.376391410827637
+EPOCH unfeeze : 6
+Epoch 436 Train Acc 100.0 Val Acc 0.0 Train Loss 1.816418625821825e-05 Val Loss 11.387166976928711
+EPOCH unfeeze : 7
+Epoch 437 Train Acc 100.0 Val Acc 0.0 Train Loss 1.8000278942054138e-05 Val Loss 11.398548126220703
+EPOCH unfeeze : 8
+Epoch 438 Train Acc 100.0 Val Acc 0.0 Train Loss 1.7806571122491732e-05 Val Loss 11.408638000488281
+EPOCH unfeeze : 9
+Epoch 439 Train Acc 100.0 Val Acc 0.0 Train Loss 1.7642665625317022e-05 Val Loss 11.419428825378418
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 440 Trainable Parameters : 85648900
+Epoch 440 Train Acc 100.0 Val Acc 0.0 Train Loss 1.740425250318367e-05 Val Loss 11.430095672607422
+EPOCH unfeeze : 1
+Epoch 441 Train Acc 100.0 Val Acc 0.0 Train Loss 1.7255246348213404e-05 Val Loss 11.440786361694336
+EPOCH unfeeze : 2
+Epoch 442 Train Acc 100.0 Val Acc 0.0 Train Loss 1.700193388387561e-05 Val Loss 11.45112419128418
+EPOCH unfeeze : 3
+Epoch 443 Train Acc 100.0 Val Acc 0.0 Train Loss 1.6897631212486885e-05 Val Loss 11.4614839553833
+EPOCH unfeeze : 4
+Epoch 444 Train Acc 100.0 Val Acc 0.0 Train Loss 1.6718822735128924e-05 Val Loss 11.472354888916016
+EPOCH unfeeze : 5
+Epoch 445 Train Acc 100.0 Val Acc 0.0 Train Loss 1.651021375437267e-05 Val Loss 11.482797622680664
+EPOCH unfeeze : 6
+Epoch 446 Train Acc 100.0 Val Acc 0.0 Train Loss 1.6316504115820862e-05 Val Loss 11.493616104125977
+EPOCH unfeeze : 7
+Epoch 447 Train Acc 100.0 Val Acc 0.0 Train Loss 1.616749977984e-05 Val Loss 11.503484725952148
+EPOCH unfeeze : 8
+Epoch 448 Train Acc 100.0 Val Acc 0.0 Train Loss 1.6063195289461873e-05 Val Loss 11.514839172363281
+EPOCH unfeeze : 9
+Epoch 449 Train Acc 100.0 Val Acc 0.0 Train Loss 1.5854584489716217e-05 Val Loss 11.52566909790039
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 450 Trainable Parameters : 85648900
+Epoch 450 Train Acc 100.0 Val Acc 0.0 Train Loss 1.570557833474595e-05 Val Loss 11.536020278930664
+EPOCH unfeeze : 1
+Epoch 451 Train Acc 100.0 Val Acc 0.0 Train Loss 1.5511868696194142e-05 Val Loss 11.545858383178711
+EPOCH unfeeze : 2
+Epoch 452 Train Acc 100.0 Val Acc 0.0 Train Loss 1.537776188342832e-05 Val Loss 11.556096076965332
+EPOCH unfeeze : 3
+Epoch 453 Train Acc 100.0 Val Acc 0.0 Train Loss 1.5198953406070359e-05 Val Loss 11.5663423538208
+EPOCH unfeeze : 4
+Epoch 454 Train Acc 100.0 Val Acc 0.0 Train Loss 1.5020144928712398e-05 Val Loss 11.576225280761719
+EPOCH unfeeze : 5
+Epoch 455 Train Acc 100.0 Val Acc 0.0 Train Loss 1.4841336451354437e-05 Val Loss 11.587382316589355
+EPOCH unfeeze : 6
+Epoch 456 Train Acc 100.0 Val Acc 0.0 Train Loss 1.4751932212675456e-05 Val Loss 11.5978364944458
+EPOCH unfeeze : 7
+Epoch 457 Train Acc 100.0 Val Acc 0.0 Train Loss 1.4573123735317495e-05 Val Loss 11.608692169189453
+EPOCH unfeeze : 8
+Epoch 458 Train Acc 100.0 Val Acc 0.0 Train Loss 1.4439016013056971e-05 Val Loss 11.618913650512695
+EPOCH unfeeze : 9
+Epoch 459 Train Acc 100.0 Val Acc 0.0 Train Loss 1.4290009858086705e-05 Val Loss 11.62811279296875
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 460 Trainable Parameters : 85648900
+Epoch 460 Train Acc 100.0 Val Acc 0.0 Train Loss 1.4185704458213877e-05 Val Loss 11.638592720031738
+EPOCH unfeeze : 1
+Epoch 461 Train Acc 100.0 Val Acc 0.0 Train Loss 1.4006895071361214e-05 Val Loss 11.64919662475586
+EPOCH unfeeze : 2
+Epoch 462 Train Acc 100.0 Val Acc 0.0 Train Loss 1.3828086594003253e-05 Val Loss 11.658577919006348
+EPOCH unfeeze : 3
+Epoch 463 Train Acc 100.0 Val Acc 0.0 Train Loss 1.373868144582957e-05 Val Loss 11.669210433959961
+EPOCH unfeeze : 4
+Epoch 464 Train Acc 100.0 Val Acc 0.0 Train Loss 1.3559872968471609e-05 Val Loss 11.678930282592773
+EPOCH unfeeze : 5
+Epoch 465 Train Acc 100.0 Val Acc 0.0 Train Loss 1.3515169484890066e-05 Val Loss 11.68897819519043
+EPOCH unfeeze : 6
+Epoch 466 Train Acc 100.0 Val Acc 0.0 Train Loss 1.332146166532766e-05 Val Loss 11.698295593261719
+EPOCH unfeeze : 7
+Epoch 467 Train Acc 100.0 Val Acc 0.0 Train Loss 1.3232055607659277e-05 Val Loss 11.707869529724121
+EPOCH unfeeze : 8
+Epoch 468 Train Acc 100.0 Val Acc 0.0 Train Loss 1.3068147382000461e-05 Val Loss 11.718047142028809
+EPOCH unfeeze : 9
+Epoch 469 Train Acc 100.0 Val Acc 0.0 Train Loss 1.2919139408040792e-05 Val Loss 11.728060722351074
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 470 Trainable Parameters : 85648900
+Epoch 470 Train Acc 100.0 Val Acc 0.0 Train Loss 1.2799932846974116e-05 Val Loss 11.738715171813965
+EPOCH unfeeze : 1
+Epoch 471 Train Acc 100.0 Val Acc 0.0 Train Loss 1.269562835659599e-05 Val Loss 11.748919486999512
+EPOCH unfeeze : 2
+Epoch 472 Train Acc 100.0 Val Acc 0.0 Train Loss 1.2531719221442472e-05 Val Loss 11.758499145507812
+EPOCH unfeeze : 3
+Epoch 473 Train Acc 100.0 Val Acc 0.0 Train Loss 1.239761240867665e-05 Val Loss 11.768240928649902
+EPOCH unfeeze : 4
+Epoch 474 Train Acc 100.0 Val Acc 0.0 Train Loss 1.2278405847609974e-05 Val Loss 11.779082298278809
+EPOCH unfeeze : 5
+Epoch 475 Train Acc 100.0 Val Acc 0.0 Train Loss 1.2189001608930994e-05 Val Loss 11.78868293762207
+EPOCH unfeeze : 6
+Epoch 476 Train Acc 100.0 Val Acc 0.0 Train Loss 1.205489388667047e-05 Val Loss 11.798503875732422
+EPOCH unfeeze : 7
+Epoch 477 Train Acc 100.0 Val Acc 0.0 Train Loss 1.1876084499817807e-05 Val Loss 11.808611869812012
+EPOCH unfeeze : 8
+Epoch 478 Train Acc 100.0 Val Acc 0.0 Train Loss 1.1831381925730966e-05 Val Loss 11.818684577941895
+EPOCH unfeeze : 9
+Epoch 479 Train Acc 100.0 Val Acc 0.0 Train Loss 1.1697275112965144e-05 Val Loss 11.828017234802246
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 480 Trainable Parameters : 85648900
+Epoch 480 Train Acc 100.0 Val Acc 0.0 Train Loss 1.1578067642403767e-05 Val Loss 11.837738037109375
+EPOCH unfeeze : 1
+Epoch 481 Train Acc 100.0 Val Acc 0.0 Train Loss 1.145886108133709e-05 Val Loss 11.846948623657227
+EPOCH unfeeze : 2
+Epoch 482 Train Acc 100.0 Val Acc 0.0 Train Loss 1.1384358003851958e-05 Val Loss 11.856466293334961
+EPOCH unfeeze : 3
+Epoch 483 Train Acc 100.0 Val Acc 0.0 Train Loss 1.1280051694484428e-05 Val Loss 11.86666488647461
+EPOCH unfeeze : 4
+Epoch 484 Train Acc 100.0 Val Acc 0.0 Train Loss 1.1175745385116898e-05 Val Loss 11.876594543457031
+EPOCH unfeeze : 5
+Epoch 485 Train Acc 100.0 Val Acc 0.0 Train Loss 1.107143998524407e-05 Val Loss 11.887006759643555
+EPOCH unfeeze : 6
+Epoch 486 Train Acc 100.0 Val Acc 0.0 Train Loss 1.0907530850090552e-05 Val Loss 11.896228790283203
+EPOCH unfeeze : 7
+Epoch 487 Train Acc 100.0 Val Acc 0.0 Train Loss 1.0833026863110717e-05 Val Loss 11.906211853027344
+EPOCH unfeeze : 8
+Epoch 488 Train Acc 100.0 Val Acc 0.0 Train Loss 1.0758522876130883e-05 Val Loss 11.915813446044922
+EPOCH unfeeze : 9
+Epoch 489 Train Acc 100.0 Val Acc 0.0 Train Loss 1.0624415153870359e-05 Val Loss 11.92520523071289
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 490 Trainable Parameters : 85648900
+Epoch 490 Train Acc 100.0 Val Acc 0.0 Train Loss 1.0520108844502829e-05 Val Loss 11.93506145477295
+EPOCH unfeeze : 1
+Epoch 491 Train Acc 100.0 Val Acc 0.0 Train Loss 1.0386001122242305e-05 Val Loss 11.944757461547852
+EPOCH unfeeze : 2
+Epoch 492 Train Acc 100.0 Val Acc 0.0 Train Loss 1.0296595974068623e-05 Val Loss 11.954397201538086
+EPOCH unfeeze : 3
+Epoch 493 Train Acc 100.0 Val Acc 0.0 Train Loss 1.0236993148282636e-05 Val Loss 11.96348762512207
+EPOCH unfeeze : 4
+Epoch 494 Train Acc 100.0 Val Acc 0.0 Train Loss 1.0132686838915106e-05 Val Loss 11.972992897033691
+EPOCH unfeeze : 5
+Epoch 495 Train Acc 100.0 Val Acc 0.0 Train Loss 1.005818194244057e-05 Val Loss 11.983072280883789
+EPOCH unfeeze : 6
+Epoch 496 Train Acc 100.0 Val Acc 0.0 Train Loss 9.924075129674748e-06 Val Loss 11.99284553527832
+EPOCH unfeeze : 7
+Epoch 497 Train Acc 100.0 Val Acc 0.0 Train Loss 9.834669981501065e-06 Val Loss 12.002472877502441
+EPOCH unfeeze : 8
+Epoch 498 Train Acc 100.0 Val Acc 0.0 Train Loss 9.70056134974584e-06 Val Loss 12.011783599853516
+EPOCH unfeeze : 9
+Epoch 499 Train Acc 100.0 Val Acc 0.0 Train Loss 9.655858775658999e-06 Val Loss 12.020747184753418
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 500 Trainable Parameters : 85648900
+Epoch 500 Train Acc 100.0 Val Acc 0.0 Train Loss 9.536652214592323e-06 Val Loss 12.030517578125
+EPOCH unfeeze : 1
+Epoch 501 Train Acc 100.0 Val Acc 0.0 Train Loss 9.477048479311634e-06 Val Loss 12.04033088684082
+EPOCH unfeeze : 2
+Epoch 502 Train Acc 100.0 Val Acc 0.0 Train Loss 9.402544492331799e-06 Val Loss 12.049341201782227
+EPOCH unfeeze : 3
+Epoch 503 Train Acc 100.0 Val Acc 0.0 Train Loss 9.298238182964269e-06 Val Loss 12.058610916137695
+EPOCH unfeeze : 4
+Epoch 504 Train Acc 100.0 Val Acc 0.0 Train Loss 9.208833034790587e-06 Val Loss 12.068729400634766
+EPOCH unfeeze : 5
+Epoch 505 Train Acc 100.0 Val Acc 0.0 Train Loss 9.164129551209044e-06 Val Loss 12.077919006347656
+EPOCH unfeeze : 6
+Epoch 506 Train Acc 100.0 Val Acc 0.0 Train Loss 9.044922990142368e-06 Val Loss 12.086620330810547
+EPOCH unfeeze : 7
+Epoch 507 Train Acc 100.0 Val Acc 0.0 Train Loss 8.970419003162533e-06 Val Loss 12.095990180969238
+EPOCH unfeeze : 8
+Epoch 508 Train Acc 100.0 Val Acc 0.0 Train Loss 8.866111784300301e-06 Val Loss 12.105671882629395
+EPOCH unfeeze : 9
+Epoch 509 Train Acc 100.0 Val Acc 0.0 Train Loss 8.791606887825765e-06 Val Loss 12.115180969238281
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 510 Trainable Parameters : 85648900
+Epoch 510 Train Acc 100.0 Val Acc 0.0 Train Loss 8.687301487952936e-06 Val Loss 12.124627113342285
+EPOCH unfeeze : 1
+Epoch 511 Train Acc 100.0 Val Acc 0.0 Train Loss 8.642598913866095e-06 Val Loss 12.133988380432129
+EPOCH unfeeze : 2
+Epoch 512 Train Acc 100.0 Val Acc 0.0 Train Loss 8.523391443304718e-06 Val Loss 12.142967224121094
+EPOCH unfeeze : 3
+Epoch 513 Train Acc 100.0 Val Acc 0.0 Train Loss 8.463787708024029e-06 Val Loss 12.15229606628418
+EPOCH unfeeze : 4
+Epoch 514 Train Acc 100.0 Val Acc 0.0 Train Loss 8.419085133937187e-06 Val Loss 12.161609649658203
+EPOCH unfeeze : 5
+Epoch 515 Train Acc 100.0 Val Acc 0.0 Train Loss 8.29987766337581e-06 Val Loss 12.171005249023438
+EPOCH unfeeze : 6
+Epoch 516 Train Acc 100.0 Val Acc 0.0 Train Loss 8.225373676395975e-06 Val Loss 12.180496215820312
+EPOCH unfeeze : 7
+Epoch 517 Train Acc 100.0 Val Acc 0.0 Train Loss 8.165769941115286e-06 Val Loss 12.189302444458008
+EPOCH unfeeze : 8
+Epoch 518 Train Acc 100.0 Val Acc 0.0 Train Loss 8.076363883446902e-06 Val Loss 12.198400497436523
+EPOCH unfeeze : 9
+Epoch 519 Train Acc 100.0 Val Acc 0.0 Train Loss 8.016761057660915e-06 Val Loss 12.207733154296875
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 520 Trainable Parameters : 85648900
+Epoch 520 Train Acc 100.0 Val Acc 0.0 Train Loss 7.942256161186378e-06 Val Loss 12.216949462890625
+EPOCH unfeeze : 1
+Epoch 521 Train Acc 100.0 Val Acc 0.0 Train Loss 7.867751264711842e-06 Val Loss 12.225848197937012
+EPOCH unfeeze : 2
+Epoch 522 Train Acc 100.0 Val Acc 0.0 Train Loss 7.823047781130299e-06 Val Loss 12.234789848327637
+EPOCH unfeeze : 3
+Epoch 523 Train Acc 100.0 Val Acc 0.0 Train Loss 7.71874238125747e-06 Val Loss 12.243721961975098
+EPOCH unfeeze : 4
+Epoch 524 Train Acc 100.0 Val Acc 0.0 Train Loss 7.659138645976782e-06 Val Loss 12.252674102783203
+EPOCH unfeeze : 5
+Epoch 525 Train Acc 100.0 Val Acc 0.0 Train Loss 7.569732588308398e-06 Val Loss 12.261337280273438
+EPOCH unfeeze : 6
+Epoch 526 Train Acc 100.0 Val Acc 0.0 Train Loss 7.539930720668053e-06 Val Loss 12.270276069641113
+EPOCH unfeeze : 7
+Epoch 527 Train Acc 100.0 Val Acc 0.0 Train Loss 7.465426278940868e-06 Val Loss 12.279258728027344
+EPOCH unfeeze : 8
+Epoch 528 Train Acc 100.0 Val Acc 0.0 Train Loss 7.3760202212724835e-06 Val Loss 12.288250923156738
+EPOCH unfeeze : 9
+Epoch 529 Train Acc 100.0 Val Acc 0.0 Train Loss 7.28661461835145e-06 Val Loss 12.296879768371582
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 530 Trainable Parameters : 85648900
+Epoch 530 Train Acc 100.0 Val Acc 0.0 Train Loss 7.271713911904953e-06 Val Loss 12.30628776550293
+EPOCH unfeeze : 1
+Epoch 531 Train Acc 100.0 Val Acc 0.0 Train Loss 7.197209015430417e-06 Val Loss 12.315610885620117
+EPOCH unfeeze : 2
+Epoch 532 Train Acc 100.0 Val Acc 0.0 Train Loss 7.12270411895588e-06 Val Loss 12.324731826782227
+EPOCH unfeeze : 3
+Epoch 533 Train Acc 100.0 Val Acc 0.0 Train Loss 7.048199677228695e-06 Val Loss 12.33456802368164
+EPOCH unfeeze : 4
+Epoch 534 Train Acc 100.0 Val Acc 0.0 Train Loss 7.003496648394503e-06 Val Loss 12.34359073638916
+EPOCH unfeeze : 5
+Epoch 535 Train Acc 100.0 Val Acc 0.0 Train Loss 6.928992206667317e-06 Val Loss 12.35219955444336
+EPOCH unfeeze : 6
+Epoch 536 Train Acc 100.0 Val Acc 0.0 Train Loss 6.869388016639277e-06 Val Loss 12.360888481140137
+EPOCH unfeeze : 7
+Epoch 537 Train Acc 100.0 Val Acc 0.0 Train Loss 6.794883574912092e-06 Val Loss 12.369661331176758
+EPOCH unfeeze : 8
+Epoch 538 Train Acc 100.0 Val Acc 0.0 Train Loss 6.735279384884052e-06 Val Loss 12.378220558166504
+EPOCH unfeeze : 9
+Epoch 539 Train Acc 100.0 Val Acc 0.0 Train Loss 6.675675649603363e-06 Val Loss 12.386626243591309
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 540 Trainable Parameters : 85648900
+Epoch 540 Train Acc 100.0 Val Acc 0.0 Train Loss 6.630973075516522e-06 Val Loss 12.39578914642334
+EPOCH unfeeze : 1
+Epoch 541 Train Acc 100.0 Val Acc 0.0 Train Loss 6.58627004668233e-06 Val Loss 12.40499496459961
+EPOCH unfeeze : 2
+Epoch 542 Train Acc 100.0 Val Acc 0.0 Train Loss 6.511765150207793e-06 Val Loss 12.413026809692383
+EPOCH unfeeze : 3
+Epoch 543 Train Acc 100.0 Val Acc 0.0 Train Loss 6.467062121373601e-06 Val Loss 12.421903610229492
+EPOCH unfeeze : 4
+Epoch 544 Train Acc 100.0 Val Acc 0.0 Train Loss 6.422359092539409e-06 Val Loss 12.430788040161133
+EPOCH unfeeze : 5
+Epoch 545 Train Acc 100.0 Val Acc 0.0 Train Loss 6.3478546508122236e-06 Val Loss 12.438699722290039
+EPOCH unfeeze : 6
+Epoch 546 Train Acc 100.0 Val Acc 0.0 Train Loss 6.303151167230681e-06 Val Loss 12.447630882263184
+EPOCH unfeeze : 7
+Epoch 547 Train Acc 100.0 Val Acc 0.0 Train Loss 6.243547886697343e-06 Val Loss 12.45651912689209
+EPOCH unfeeze : 8
+Epoch 548 Train Acc 100.0 Val Acc 0.0 Train Loss 6.213745564309647e-06 Val Loss 12.46517562866211
+EPOCH unfeeze : 9
+Epoch 549 Train Acc 100.0 Val Acc 0.0 Train Loss 6.1541418290289585e-06 Val Loss 12.473470687866211
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 550 Trainable Parameters : 85648900
+Epoch 550 Train Acc 100.0 Val Acc 0.0 Train Loss 6.064735771360574e-06 Val Loss 12.482264518737793
+EPOCH unfeeze : 1
+Epoch 551 Train Acc 100.0 Val Acc 0.0 Train Loss 6.020032742526382e-06 Val Loss 12.490558624267578
+EPOCH unfeeze : 2
+Epoch 552 Train Acc 100.0 Val Acc 0.0 Train Loss 6.0051315813325346e-06 Val Loss 12.499345779418945
+EPOCH unfeeze : 3
+Epoch 553 Train Acc 100.0 Val Acc 0.0 Train Loss 5.930626684857998e-06 Val Loss 12.508068084716797
+EPOCH unfeeze : 4
+Epoch 554 Train Acc 100.0 Val Acc 0.0 Train Loss 5.871022949577309e-06 Val Loss 12.516877174377441
+EPOCH unfeeze : 5
+Epoch 555 Train Acc 100.0 Val Acc 0.0 Train Loss 5.826320375490468e-06 Val Loss 12.525331497192383
+EPOCH unfeeze : 6
+Epoch 556 Train Acc 100.0 Val Acc 0.0 Train Loss 5.796518053102773e-06 Val Loss 12.53428840637207
+EPOCH unfeeze : 7
+Epoch 557 Train Acc 100.0 Val Acc 0.0 Train Loss 5.736914317822084e-06 Val Loss 12.542863845825195
+EPOCH unfeeze : 8
+Epoch 558 Train Acc 100.0 Val Acc 0.0 Train Loss 5.677309673046693e-06 Val Loss 12.552230834960938
+EPOCH unfeeze : 9
+Epoch 559 Train Acc 100.0 Val Acc 0.0 Train Loss 5.617706392513355e-06 Val Loss 12.560813903808594
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 560 Trainable Parameters : 85648900
+Epoch 560 Train Acc 100.0 Val Acc 0.0 Train Loss 5.602805231319508e-06 Val Loss 12.568918228149414
+EPOCH unfeeze : 1
+Epoch 561 Train Acc 100.0 Val Acc 0.0 Train Loss 5.483597306010779e-06 Val Loss 12.577037811279297
+EPOCH unfeeze : 2
+Epoch 562 Train Acc 100.0 Val Acc 0.0 Train Loss 5.483597306010779e-06 Val Loss 12.585299491882324
+EPOCH unfeeze : 3
+Epoch 563 Train Acc 100.0 Val Acc 0.0 Train Loss 5.438894277176587e-06 Val Loss 12.594244956970215
+EPOCH unfeeze : 4
+Epoch 564 Train Acc 100.0 Val Acc 0.0 Train Loss 5.379290087148547e-06 Val Loss 12.602376937866211
+EPOCH unfeeze : 5
+Epoch 565 Train Acc 100.0 Val Acc 0.0 Train Loss 5.379290087148547e-06 Val Loss 12.610447883605957
+EPOCH unfeeze : 6
+Epoch 566 Train Acc 100.0 Val Acc 0.0 Train Loss 5.274983323033666e-06 Val Loss 12.618978500366211
+EPOCH unfeeze : 7
+Epoch 567 Train Acc 100.0 Val Acc 0.0 Train Loss 5.245181455393322e-06 Val Loss 12.626891136169434
+EPOCH unfeeze : 8
+Epoch 568 Train Acc 100.0 Val Acc 0.0 Train Loss 5.200477971811779e-06 Val Loss 12.635175704956055
+EPOCH unfeeze : 9
+Epoch 569 Train Acc 100.0 Val Acc 0.0 Train Loss 5.155775397724938e-06 Val Loss 12.643439292907715
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 570 Trainable Parameters : 85648900
+Epoch 570 Train Acc 100.0 Val Acc 0.0 Train Loss 5.111071914143395e-06 Val Loss 12.651981353759766
+EPOCH unfeeze : 1
+Epoch 571 Train Acc 100.0 Val Acc 0.0 Train Loss 5.0663693400565535e-06 Val Loss 12.660565376281738
+EPOCH unfeeze : 2
+Epoch 572 Train Acc 100.0 Val Acc 0.0 Train Loss 5.0663693400565535e-06 Val Loss 12.669037818908691
+EPOCH unfeeze : 3
+Epoch 573 Train Acc 100.0 Val Acc 0.0 Train Loss 5.006765150028514e-06 Val Loss 12.677982330322266
+EPOCH unfeeze : 4
+Epoch 574 Train Acc 100.0 Val Acc 0.0 Train Loss 4.962062121194322e-06 Val Loss 12.686166763305664
+EPOCH unfeeze : 5
+Epoch 575 Train Acc 100.0 Val Acc 0.0 Train Loss 4.91735909236013e-06 Val Loss 12.69437026977539
+EPOCH unfeeze : 6
+Epoch 576 Train Acc 100.0 Val Acc 0.0 Train Loss 4.872655608778587e-06 Val Loss 12.702447891235352
+EPOCH unfeeze : 7
+Epoch 577 Train Acc 100.0 Val Acc 0.0 Train Loss 4.827953034691745e-06 Val Loss 12.710561752319336
+EPOCH unfeeze : 8
+Epoch 578 Train Acc 100.0 Val Acc 0.0 Train Loss 4.813052328245249e-06 Val Loss 12.719072341918945
+EPOCH unfeeze : 9
+Epoch 579 Train Acc 100.0 Val Acc 0.0 Train Loss 4.73854652227601e-06 Val Loss 12.727356910705566
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 580 Trainable Parameters : 85648900
+Epoch 580 Train Acc 100.0 Val Acc 0.0 Train Loss 4.723645815829514e-06 Val Loss 12.735721588134766
+EPOCH unfeeze : 1
+Epoch 581 Train Acc 100.0 Val Acc 0.0 Train Loss 4.664041625801474e-06 Val Loss 12.743294715881348
+EPOCH unfeeze : 2
+Epoch 582 Train Acc 100.0 Val Acc 0.0 Train Loss 4.649140464607626e-06 Val Loss 12.75143814086914
+EPOCH unfeeze : 3
+Epoch 583 Train Acc 100.0 Val Acc 0.0 Train Loss 4.604437890520785e-06 Val Loss 12.759732246398926
+EPOCH unfeeze : 4
+Epoch 584 Train Acc 100.0 Val Acc 0.0 Train Loss 4.57463556813309e-06 Val Loss 12.768135070800781
+EPOCH unfeeze : 5
+Epoch 585 Train Acc 100.0 Val Acc 0.0 Train Loss 4.500130671658553e-06 Val Loss 12.77607536315918
+EPOCH unfeeze : 6
+Epoch 586 Train Acc 100.0 Val Acc 0.0 Train Loss 4.470328349270858e-06 Val Loss 12.784049034118652
+EPOCH unfeeze : 7
+Epoch 587 Train Acc 100.0 Val Acc 0.0 Train Loss 4.4405260268831626e-06 Val Loss 12.792200088500977
+EPOCH unfeeze : 8
+Epoch 588 Train Acc 100.0 Val Acc 0.0 Train Loss 4.410724159242818e-06 Val Loss 12.800346374511719
+EPOCH unfeeze : 9
+Epoch 589 Train Acc 100.0 Val Acc 0.0 Train Loss 4.395823452796321e-06 Val Loss 12.808089256286621
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 590 Trainable Parameters : 85648900
+Epoch 590 Train Acc 100.0 Val Acc 0.0 Train Loss 4.321318101574434e-06 Val Loss 12.816454887390137
+EPOCH unfeeze : 1
+Epoch 591 Train Acc 100.0 Val Acc 0.0 Train Loss 4.306417395127937e-06 Val Loss 12.824295043945312
+EPOCH unfeeze : 2
+Epoch 592 Train Acc 100.0 Val Acc 0.0 Train Loss 4.2915162339340895e-06 Val Loss 12.832361221313477
+EPOCH unfeeze : 3
+Epoch 593 Train Acc 100.0 Val Acc 0.0 Train Loss 4.23191204390605e-06 Val Loss 12.840587615966797
+EPOCH unfeeze : 4
+Epoch 594 Train Acc 100.0 Val Acc 0.0 Train Loss 4.217011337459553e-06 Val Loss 12.848546028137207
+EPOCH unfeeze : 5
+Epoch 595 Train Acc 100.0 Val Acc 0.0 Train Loss 4.17230785387801e-06 Val Loss 12.856544494628906
+EPOCH unfeeze : 6
+Epoch 596 Train Acc 100.0 Val Acc 0.0 Train Loss 4.157406692684162e-06 Val Loss 12.864784240722656
+EPOCH unfeeze : 7
+Epoch 597 Train Acc 100.0 Val Acc 0.0 Train Loss 4.082901796209626e-06 Val Loss 12.872946739196777
+EPOCH unfeeze : 8
+Epoch 598 Train Acc 100.0 Val Acc 0.0 Train Loss 4.053099473821931e-06 Val Loss 12.88093376159668
+EPOCH unfeeze : 9
+Epoch 599 Train Acc 100.0 Val Acc 0.0 Train Loss 4.053099473821931e-06 Val Loss 12.889213562011719
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 600 Trainable Parameters : 85648900
+Epoch 600 Train Acc 100.0 Val Acc 0.0 Train Loss 4.023297151434235e-06 Val Loss 12.897071838378906
+EPOCH unfeeze : 1
+Epoch 601 Train Acc 100.0 Val Acc 0.0 Train Loss 3.993495283793891e-06 Val Loss 12.905035972595215
+EPOCH unfeeze : 2
+Epoch 602 Train Acc 100.0 Val Acc 0.0 Train Loss 3.963693416153546e-06 Val Loss 12.913026809692383
+EPOCH unfeeze : 3
+Epoch 603 Train Acc 100.0 Val Acc 0.0 Train Loss 3.904089226125507e-06 Val Loss 12.920866012573242
+EPOCH unfeeze : 4
+Epoch 604 Train Acc 100.0 Val Acc 0.0 Train Loss 3.859385742543964e-06 Val Loss 12.929094314575195
+EPOCH unfeeze : 5
+Epoch 605 Train Acc 100.0 Val Acc 0.0 Train Loss 3.874286903737811e-06 Val Loss 12.937076568603516
+EPOCH unfeeze : 6
+Epoch 606 Train Acc 100.0 Val Acc 0.0 Train Loss 3.829583874903619e-06 Val Loss 12.945369720458984
+EPOCH unfeeze : 7
+Epoch 607 Train Acc 100.0 Val Acc 0.0 Train Loss 3.8146827137097716e-06 Val Loss 12.952818870544434
+EPOCH unfeeze : 8
+Epoch 608 Train Acc 100.0 Val Acc 0.0 Train Loss 3.7848806186957518e-06 Val Loss 12.960921287536621
+EPOCH unfeeze : 9
+Epoch 609 Train Acc 100.0 Val Acc 0.0 Train Loss 3.725276428667712e-06 Val Loss 12.968852043151855
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 610 Trainable Parameters : 85648900
+Epoch 610 Train Acc 100.0 Val Acc 0.0 Train Loss 3.695474333653692e-06 Val Loss 12.976232528686523
+EPOCH unfeeze : 1
+Epoch 611 Train Acc 100.0 Val Acc 0.0 Train Loss 3.6507713048195e-06 Val Loss 12.984020233154297
+EPOCH unfeeze : 2
+Epoch 612 Train Acc 100.0 Val Acc 0.0 Train Loss 3.6358701436256524e-06 Val Loss 12.991881370544434
+EPOCH unfeeze : 3
+Epoch 613 Train Acc 100.0 Val Acc 0.0 Train Loss 3.6358701436256524e-06 Val Loss 12.999977111816406
+EPOCH unfeeze : 4
+Epoch 614 Train Acc 100.0 Val Acc 0.0 Train Loss 3.6060680486116325e-06 Val Loss 13.007699012756348
+EPOCH unfeeze : 5
+Epoch 615 Train Acc 100.0 Val Acc 0.0 Train Loss 3.5762659535976127e-06 Val Loss 13.015512466430664
+EPOCH unfeeze : 6
+Epoch 616 Train Acc 100.0 Val Acc 0.0 Train Loss 3.516661763569573e-06 Val Loss 13.023088455200195
+EPOCH unfeeze : 7
+Epoch 617 Train Acc 100.0 Val Acc 0.0 Train Loss 3.486859668555553e-06 Val Loss 13.030843734741211
+EPOCH unfeeze : 8
+Epoch 618 Train Acc 100.0 Val Acc 0.0 Train Loss 3.4570573461678578e-06 Val Loss 13.038418769836426
+EPOCH unfeeze : 9
+Epoch 619 Train Acc 100.0 Val Acc 0.0 Train Loss 3.4570573461678578e-06 Val Loss 13.046016693115234
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 620 Trainable Parameters : 85648900
+Epoch 620 Train Acc 100.0 Val Acc 0.0 Train Loss 3.4421564123476855e-06 Val Loss 13.053967475891113
+EPOCH unfeeze : 1
+Epoch 621 Train Acc 100.0 Val Acc 0.0 Train Loss 3.397453156139818e-06 Val Loss 13.061930656433105
+EPOCH unfeeze : 2
+Epoch 622 Train Acc 100.0 Val Acc 0.0 Train Loss 3.397453156139818e-06 Val Loss 13.069978713989258
+EPOCH unfeeze : 3
+Epoch 623 Train Acc 100.0 Val Acc 0.0 Train Loss 3.382552222319646e-06 Val Loss 13.077563285827637
+EPOCH unfeeze : 4
+Epoch 624 Train Acc 100.0 Val Acc 0.0 Train Loss 3.2931457099039108e-06 Val Loss 13.085367202758789
+EPOCH unfeeze : 5
+Epoch 625 Train Acc 100.0 Val Acc 0.0 Train Loss 3.2782447760837385e-06 Val Loss 13.09325122833252
+EPOCH unfeeze : 6
+Epoch 626 Train Acc 100.0 Val Acc 0.0 Train Loss 3.2782447760837385e-06 Val Loss 13.10069465637207
+EPOCH unfeeze : 7
+Epoch 627 Train Acc 100.0 Val Acc 0.0 Train Loss 3.2484426810697187e-06 Val Loss 13.108392715454102
+EPOCH unfeeze : 8
+Epoch 628 Train Acc 100.0 Val Acc 0.0 Train Loss 3.2186403586820234e-06 Val Loss 13.115907669067383
+EPOCH unfeeze : 9
+Epoch 629 Train Acc 100.0 Val Acc 0.0 Train Loss 3.2186403586820234e-06 Val Loss 13.12358570098877
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 630 Trainable Parameters : 85648900
+Epoch 630 Train Acc 100.0 Val Acc 0.0 Train Loss 3.1888382636680035e-06 Val Loss 13.131462097167969
+EPOCH unfeeze : 1
+Epoch 631 Train Acc 100.0 Val Acc 0.0 Train Loss 3.1590361686539836e-06 Val Loss 13.138704299926758
+EPOCH unfeeze : 2
+Epoch 632 Train Acc 100.0 Val Acc 0.0 Train Loss 3.1143331398197915e-06 Val Loss 13.146568298339844
+EPOCH unfeeze : 3
+Epoch 633 Train Acc 100.0 Val Acc 0.0 Train Loss 3.099431978625944e-06 Val Loss 13.154082298278809
+EPOCH unfeeze : 4
+Epoch 634 Train Acc 100.0 Val Acc 0.0 Train Loss 3.0398275612242287e-06 Val Loss 13.161539077758789
+EPOCH unfeeze : 5
+Epoch 635 Train Acc 100.0 Val Acc 0.0 Train Loss 3.0398275612242287e-06 Val Loss 13.168702125549316
+EPOCH unfeeze : 6
+Epoch 636 Train Acc 100.0 Val Acc 0.0 Train Loss 3.0398275612242287e-06 Val Loss 13.17676830291748
+EPOCH unfeeze : 7
+Epoch 637 Train Acc 100.0 Val Acc 0.0 Train Loss 3.010025466210209e-06 Val Loss 13.184507369995117
+EPOCH unfeeze : 8
+Epoch 638 Train Acc 100.0 Val Acc 0.0 Train Loss 2.980223371196189e-06 Val Loss 13.192219734191895
+EPOCH unfeeze : 9
+Epoch 639 Train Acc 100.0 Val Acc 0.0 Train Loss 2.980223371196189e-06 Val Loss 13.199743270874023
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 640 Trainable Parameters : 85648900
+Epoch 640 Train Acc 100.0 Val Acc 0.0 Train Loss 2.980223371196189e-06 Val Loss 13.207279205322266
+EPOCH unfeeze : 1
+Epoch 641 Train Acc 100.0 Val Acc 0.0 Train Loss 2.861014763766434e-06 Val Loss 13.214550018310547
+EPOCH unfeeze : 2
+Epoch 642 Train Acc 100.0 Val Acc 0.0 Train Loss 2.8759156975866063e-06 Val Loss 13.221842765808105
+EPOCH unfeeze : 3
+Epoch 643 Train Acc 100.0 Val Acc 0.0 Train Loss 2.861014763766434e-06 Val Loss 13.229619026184082
+EPOCH unfeeze : 4
+Epoch 644 Train Acc 100.0 Val Acc 0.0 Train Loss 2.861014763766434e-06 Val Loss 13.237025260925293
+EPOCH unfeeze : 5
+Epoch 645 Train Acc 100.0 Val Acc 0.0 Train Loss 2.816311280184891e-06 Val Loss 13.244474411010742
+EPOCH unfeeze : 6
+Epoch 646 Train Acc 100.0 Val Acc 0.0 Train Loss 2.801410346364719e-06 Val Loss 13.251762390136719
+EPOCH unfeeze : 7
+Epoch 647 Train Acc 100.0 Val Acc 0.0 Train Loss 2.801410346364719e-06 Val Loss 13.259393692016602
+EPOCH unfeeze : 8
+Epoch 648 Train Acc 100.0 Val Acc 0.0 Train Loss 2.801410346364719e-06 Val Loss 13.266495704650879
+EPOCH unfeeze : 9
+Epoch 649 Train Acc 100.0 Val Acc 0.0 Train Loss 2.801410346364719e-06 Val Loss 13.27376651763916
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 650 Trainable Parameters : 85648900
+Epoch 650 Train Acc 100.0 Val Acc 0.0 Train Loss 2.726905222516507e-06 Val Loss 13.280994415283203
+EPOCH unfeeze : 1
+Epoch 651 Train Acc 100.0 Val Acc 0.0 Train Loss 2.682201738934964e-06 Val Loss 13.288475036621094
+EPOCH unfeeze : 2
+Epoch 652 Train Acc 100.0 Val Acc 0.0 Train Loss 2.682201738934964e-06 Val Loss 13.29615306854248
+EPOCH unfeeze : 3
+Epoch 653 Train Acc 100.0 Val Acc 0.0 Train Loss 2.6673005777411163e-06 Val Loss 13.303617477416992
+EPOCH unfeeze : 4
+Epoch 654 Train Acc 100.0 Val Acc 0.0 Train Loss 2.637498710100772e-06 Val Loss 13.311369895935059
+EPOCH unfeeze : 5
+Epoch 655 Train Acc 100.0 Val Acc 0.0 Train Loss 2.622597548906924e-06 Val Loss 13.31888198852539
+EPOCH unfeeze : 6
+Epoch 656 Train Acc 100.0 Val Acc 0.0 Train Loss 2.622597548906924e-06 Val Loss 13.32601547241211
+EPOCH unfeeze : 7
+Epoch 657 Train Acc 100.0 Val Acc 0.0 Train Loss 2.6076963877130765e-06 Val Loss 13.33340835571289
+EPOCH unfeeze : 8
+Epoch 658 Train Acc 100.0 Val Acc 0.0 Train Loss 2.5778942926990567e-06 Val Loss 13.34084701538086
+EPOCH unfeeze : 9
+Epoch 659 Train Acc 100.0 Val Acc 0.0 Train Loss 2.562993131505209e-06 Val Loss 13.348074913024902
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 660 Trainable Parameters : 85648900
+Epoch 660 Train Acc 100.0 Val Acc 0.0 Train Loss 2.5480919703113614e-06 Val Loss 13.35547924041748
+EPOCH unfeeze : 1
+Epoch 661 Train Acc 100.0 Val Acc 0.0 Train Loss 2.5182898752973415e-06 Val Loss 13.36276626586914
+EPOCH unfeeze : 2
+Epoch 662 Train Acc 100.0 Val Acc 0.0 Train Loss 2.4586856852693018e-06 Val Loss 13.370059967041016
+EPOCH unfeeze : 3
+Epoch 663 Train Acc 100.0 Val Acc 0.0 Train Loss 2.4586856852693018e-06 Val Loss 13.377471923828125
+EPOCH unfeeze : 4
+Epoch 664 Train Acc 100.0 Val Acc 0.0 Train Loss 2.443784524075454e-06 Val Loss 13.384610176086426
+EPOCH unfeeze : 5
+Epoch 665 Train Acc 100.0 Val Acc 0.0 Train Loss 2.443784524075454e-06 Val Loss 13.39167594909668
+EPOCH unfeeze : 6
+Epoch 666 Train Acc 100.0 Val Acc 0.0 Train Loss 2.4139824290614342e-06 Val Loss 13.39863395690918
+EPOCH unfeeze : 7
+Epoch 667 Train Acc 100.0 Val Acc 0.0 Train Loss 2.413982201687759e-06 Val Loss 13.40620231628418
+EPOCH unfeeze : 8
+Epoch 668 Train Acc 100.0 Val Acc 0.0 Train Loss 2.384180106673739e-06 Val Loss 13.413304328918457
+EPOCH unfeeze : 9
+Epoch 669 Train Acc 100.0 Val Acc 0.0 Train Loss 2.384180106673739e-06 Val Loss 13.420458793640137
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 670 Trainable Parameters : 85648900
+Epoch 670 Train Acc 100.0 Val Acc 0.0 Train Loss 2.384180106673739e-06 Val Loss 13.427879333496094
+EPOCH unfeeze : 1
+Epoch 671 Train Acc 100.0 Val Acc 0.0 Train Loss 2.384180106673739e-06 Val Loss 13.435482025146484
+EPOCH unfeeze : 2
+Epoch 672 Train Acc 100.0 Val Acc 0.0 Train Loss 2.2947733668843284e-06 Val Loss 13.442583084106445
+EPOCH unfeeze : 3
+Epoch 673 Train Acc 100.0 Val Acc 0.0 Train Loss 2.2649712718703086e-06 Val Loss 13.449477195739746
+EPOCH unfeeze : 4
+Epoch 674 Train Acc 100.0 Val Acc 0.0 Train Loss 2.2649712718703086e-06 Val Loss 13.456905364990234
+EPOCH unfeeze : 5
+Epoch 675 Train Acc 100.0 Val Acc 0.0 Train Loss 2.2649712718703086e-06 Val Loss 13.463993072509766
+EPOCH unfeeze : 6
+Epoch 676 Train Acc 100.0 Val Acc 0.0 Train Loss 2.2649712718703086e-06 Val Loss 13.471211433410645
+EPOCH unfeeze : 7
+Epoch 677 Train Acc 100.0 Val Acc 0.0 Train Loss 2.2202682430361165e-06 Val Loss 13.4784574508667
+EPOCH unfeeze : 8
+Epoch 678 Train Acc 100.0 Val Acc 0.0 Train Loss 2.205367081842269e-06 Val Loss 13.48533821105957
+EPOCH unfeeze : 9
+Epoch 679 Train Acc 100.0 Val Acc 0.0 Train Loss 2.205367081842269e-06 Val Loss 13.492570877075195
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 680 Trainable Parameters : 85648900
+Epoch 680 Train Acc 100.0 Val Acc 0.0 Train Loss 2.205367081842269e-06 Val Loss 13.49974250793457
+EPOCH unfeeze : 1
+Epoch 681 Train Acc 100.0 Val Acc 0.0 Train Loss 2.205367081842269e-06 Val Loss 13.506881713867188
+EPOCH unfeeze : 2
+Epoch 682 Train Acc 100.0 Val Acc 0.0 Train Loss 2.1904661480220966e-06 Val Loss 13.513794898986816
+EPOCH unfeeze : 3
+Epoch 683 Train Acc 100.0 Val Acc 0.0 Train Loss 2.1457626644405536e-06 Val Loss 13.521075248718262
+EPOCH unfeeze : 4
+Epoch 684 Train Acc 100.0 Val Acc 0.0 Train Loss 2.1457626644405536e-06 Val Loss 13.528070449829102
+EPOCH unfeeze : 5
+Epoch 685 Train Acc 100.0 Val Acc 0.0 Train Loss 2.1010591808590107e-06 Val Loss 13.53503131866455
+EPOCH unfeeze : 6
+Epoch 686 Train Acc 100.0 Val Acc 0.0 Train Loss 2.0861582470388385e-06 Val Loss 13.542049407958984
+EPOCH unfeeze : 7
+Epoch 687 Train Acc 100.0 Val Acc 0.0 Train Loss 2.0861582470388385e-06 Val Loss 13.549182891845703
+EPOCH unfeeze : 8
+Epoch 688 Train Acc 100.0 Val Acc 0.0 Train Loss 2.0563561520248186e-06 Val Loss 13.555854797363281
+EPOCH unfeeze : 9
+Epoch 689 Train Acc 100.0 Val Acc 0.0 Train Loss 2.0265538296371233e-06 Val Loss 13.563005447387695
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 690 Trainable Parameters : 85648900
+Epoch 690 Train Acc 100.0 Val Acc 0.0 Train Loss 2.0265538296371233e-06 Val Loss 13.570069313049316
+EPOCH unfeeze : 1
+Epoch 691 Train Acc 100.0 Val Acc 0.0 Train Loss 2.0265538296371233e-06 Val Loss 13.577079772949219
+EPOCH unfeeze : 2
+Epoch 692 Train Acc 100.0 Val Acc 0.0 Train Loss 2.0265538296371233e-06 Val Loss 13.584339141845703
+EPOCH unfeeze : 3
+Epoch 693 Train Acc 100.0 Val Acc 0.0 Train Loss 2.0265538296371233e-06 Val Loss 13.591501235961914
+EPOCH unfeeze : 4
+Epoch 694 Train Acc 100.0 Val Acc 0.0 Train Loss 1.9818505734292557e-06 Val Loss 13.59843635559082
+EPOCH unfeeze : 5
+Epoch 695 Train Acc 100.0 Val Acc 0.0 Train Loss 1.966949412235408e-06 Val Loss 13.60507583618164
+EPOCH unfeeze : 6
+Epoch 696 Train Acc 100.0 Val Acc 0.0 Train Loss 1.966949412235408e-06 Val Loss 13.612085342407227
+EPOCH unfeeze : 7
+Epoch 697 Train Acc 100.0 Val Acc 0.0 Train Loss 1.966949412235408e-06 Val Loss 13.619101524353027
+EPOCH unfeeze : 8
+Epoch 698 Train Acc 100.0 Val Acc 0.0 Train Loss 1.966949412235408e-06 Val Loss 13.625844955444336
+EPOCH unfeeze : 9
+Epoch 699 Train Acc 100.0 Val Acc 0.0 Train Loss 1.9222461560275406e-06 Val Loss 13.63309097290039
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 700 Trainable Parameters : 85648900
+Epoch 700 Train Acc 100.0 Val Acc 0.0 Train Loss 1.8626417386258254e-06 Val Loss 13.63990592956543
+EPOCH unfeeze : 1
+Epoch 701 Train Acc 100.0 Val Acc 0.0 Train Loss 1.8477405774319777e-06 Val Loss 13.646703720092773
+EPOCH unfeeze : 2
+Epoch 702 Train Acc 100.0 Val Acc 0.0 Train Loss 1.8477405774319777e-06 Val Loss 13.653562545776367
+EPOCH unfeeze : 3
+Epoch 703 Train Acc 100.0 Val Acc 0.0 Train Loss 1.8477405774319777e-06 Val Loss 13.660024642944336
+EPOCH unfeeze : 4
+Epoch 704 Train Acc 100.0 Val Acc 0.0 Train Loss 1.8477405774319777e-06 Val Loss 13.667049407958984
+EPOCH unfeeze : 5
+Epoch 705 Train Acc 100.0 Val Acc 0.0 Train Loss 1.8477405774319777e-06 Val Loss 13.674023628234863
+EPOCH unfeeze : 6
+Epoch 706 Train Acc 100.0 Val Acc 0.0 Train Loss 1.8477405774319777e-06 Val Loss 13.680912017822266
+EPOCH unfeeze : 7
+Epoch 707 Train Acc 100.0 Val Acc 0.0 Train Loss 1.8179383687311201e-06 Val Loss 13.687853813171387
+EPOCH unfeeze : 8
+Epoch 708 Train Acc 100.0 Val Acc 0.0 Train Loss 1.7881361600302625e-06 Val Loss 13.6946382522583
+EPOCH unfeeze : 9
+Epoch 709 Train Acc 100.0 Val Acc 0.0 Train Loss 1.7881361600302625e-06 Val Loss 13.701509475708008
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 710 Trainable Parameters : 85648900
+Epoch 710 Train Acc 100.0 Val Acc 0.0 Train Loss 1.7881361600302625e-06 Val Loss 13.708478927612305
+EPOCH unfeeze : 1
+Epoch 711 Train Acc 100.0 Val Acc 0.0 Train Loss 1.7881361600302625e-06 Val Loss 13.715051651000977
+EPOCH unfeeze : 2
+Epoch 712 Train Acc 100.0 Val Acc 0.0 Train Loss 1.7881361600302625e-06 Val Loss 13.721766471862793
+EPOCH unfeeze : 3
+Epoch 713 Train Acc 100.0 Val Acc 0.0 Train Loss 1.7732349988364149e-06 Val Loss 13.728361129760742
+EPOCH unfeeze : 4
+Epoch 714 Train Acc 100.0 Val Acc 0.0 Train Loss 1.758333951329405e-06 Val Loss 13.735082626342773
+EPOCH unfeeze : 5
+Epoch 715 Train Acc 100.0 Val Acc 0.0 Train Loss 1.6987295339276898e-06 Val Loss 13.74189567565918
+EPOCH unfeeze : 6
+Epoch 716 Train Acc 100.0 Val Acc 0.0 Train Loss 1.6689273252268322e-06 Val Loss 13.748600006103516
+EPOCH unfeeze : 7
+Epoch 717 Train Acc 100.0 Val Acc 0.0 Train Loss 1.6689273252268322e-06 Val Loss 13.75550651550293
+EPOCH unfeeze : 8
+Epoch 718 Train Acc 100.0 Val Acc 0.0 Train Loss 1.6689273252268322e-06 Val Loss 13.762508392333984
+EPOCH unfeeze : 9
+Epoch 719 Train Acc 100.0 Val Acc 0.0 Train Loss 1.6689273252268322e-06 Val Loss 13.768895149230957
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 720 Trainable Parameters : 85648900
+Epoch 720 Train Acc 100.0 Val Acc 0.0 Train Loss 1.6689273252268322e-06 Val Loss 13.775604248046875
+EPOCH unfeeze : 1
+Epoch 721 Train Acc 100.0 Val Acc 0.0 Train Loss 1.6391250028391369e-06 Val Loss 13.782414436340332
+EPOCH unfeeze : 2
+Epoch 722 Train Acc 100.0 Val Acc 0.0 Train Loss 1.6093227941382793e-06 Val Loss 13.789237976074219
+EPOCH unfeeze : 3
+Epoch 723 Train Acc 100.0 Val Acc 0.0 Train Loss 1.6093227941382793e-06 Val Loss 13.796106338500977
+EPOCH unfeeze : 4
+Epoch 724 Train Acc 100.0 Val Acc 0.0 Train Loss 1.6093227941382793e-06 Val Loss 13.80268669128418
+EPOCH unfeeze : 5
+Epoch 725 Train Acc 100.0 Val Acc 0.0 Train Loss 1.6093227941382793e-06 Val Loss 13.809165000915527
+EPOCH unfeeze : 6
+Epoch 726 Train Acc 100.0 Val Acc 0.0 Train Loss 1.6093227941382793e-06 Val Loss 13.815942764282227
+EPOCH unfeeze : 7
+Epoch 727 Train Acc 100.0 Val Acc 0.0 Train Loss 1.6093227941382793e-06 Val Loss 13.822554588317871
+EPOCH unfeeze : 8
+Epoch 728 Train Acc 100.0 Val Acc 0.0 Train Loss 1.6093227941382793e-06 Val Loss 13.829540252685547
+EPOCH unfeeze : 9
+Epoch 729 Train Acc 100.0 Val Acc 0.0 Train Loss 1.5944217466312693e-06 Val Loss 13.836438179016113
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 730 Trainable Parameters : 85648900
+Epoch 730 Train Acc 100.0 Val Acc 0.0 Train Loss 1.549718376736564e-06 Val Loss 13.842984199523926
+EPOCH unfeeze : 1
+Epoch 731 Train Acc 100.0 Val Acc 0.0 Train Loss 1.549718376736564e-06 Val Loss 13.849586486816406
+EPOCH unfeeze : 2
+Epoch 732 Train Acc 100.0 Val Acc 0.0 Train Loss 1.549718376736564e-06 Val Loss 13.855996131896973
+EPOCH unfeeze : 3
+Epoch 733 Train Acc 100.0 Val Acc 0.0 Train Loss 1.549718376736564e-06 Val Loss 13.862646102905273
+EPOCH unfeeze : 4
+Epoch 734 Train Acc 100.0 Val Acc 0.0 Train Loss 1.5050150068418588e-06 Val Loss 13.86925220489502
+EPOCH unfeeze : 5
+Epoch 735 Train Acc 100.0 Val Acc 0.0 Train Loss 1.5050150068418588e-06 Val Loss 13.875996589660645
+EPOCH unfeeze : 6
+Epoch 736 Train Acc 100.0 Val Acc 0.0 Train Loss 1.4901138456480112e-06 Val Loss 13.882811546325684
+EPOCH unfeeze : 7
+Epoch 737 Train Acc 100.0 Val Acc 0.0 Train Loss 1.4454105894401437e-06 Val Loss 13.889147758483887
+EPOCH unfeeze : 8
+Epoch 738 Train Acc 100.0 Val Acc 0.0 Train Loss 1.4454105894401437e-06 Val Loss 13.895545959472656
+EPOCH unfeeze : 9
+Epoch 739 Train Acc 100.0 Val Acc 0.0 Train Loss 1.430509428246296e-06 Val Loss 13.902030944824219
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 740 Trainable Parameters : 85648900
+Epoch 740 Train Acc 100.0 Val Acc 0.0 Train Loss 1.430509428246296e-06 Val Loss 13.90845012664795
+EPOCH unfeeze : 1
+Epoch 741 Train Acc 100.0 Val Acc 0.0 Train Loss 1.430509428246296e-06 Val Loss 13.915118217468262
+EPOCH unfeeze : 2
+Epoch 742 Train Acc 100.0 Val Acc 0.0 Train Loss 1.430509428246296e-06 Val Loss 13.921603202819824
+EPOCH unfeeze : 3
+Epoch 743 Train Acc 100.0 Val Acc 0.0 Train Loss 1.430509428246296e-06 Val Loss 13.927911758422852
+EPOCH unfeeze : 4
+Epoch 744 Train Acc 100.0 Val Acc 0.0 Train Loss 1.430509428246296e-06 Val Loss 13.93460464477539
+EPOCH unfeeze : 5
+Epoch 745 Train Acc 100.0 Val Acc 0.0 Train Loss 1.430509428246296e-06 Val Loss 13.941105842590332
+EPOCH unfeeze : 6
+Epoch 746 Train Acc 100.0 Val Acc 0.0 Train Loss 1.4007072195454384e-06 Val Loss 13.947699546813965
+EPOCH unfeeze : 7
+Epoch 747 Train Acc 100.0 Val Acc 0.0 Train Loss 1.3858060583515908e-06 Val Loss 13.95418643951416
+EPOCH unfeeze : 8
+Epoch 748 Train Acc 100.0 Val Acc 0.0 Train Loss 1.3709048971577431e-06 Val Loss 13.960711479187012
+EPOCH unfeeze : 9
+Epoch 749 Train Acc 100.0 Val Acc 0.0 Train Loss 1.3709048971577431e-06 Val Loss 13.9673490524292
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 750 Trainable Parameters : 85648900
+Epoch 750 Train Acc 100.0 Val Acc 0.0 Train Loss 1.3709048971577431e-06 Val Loss 13.973810195922852
+EPOCH unfeeze : 1
+Epoch 751 Train Acc 100.0 Val Acc 0.0 Train Loss 1.3709048971577431e-06 Val Loss 13.980422019958496
+EPOCH unfeeze : 2
+Epoch 752 Train Acc 100.0 Val Acc 0.0 Train Loss 1.3709048971577431e-06 Val Loss 13.987212181091309
+EPOCH unfeeze : 3
+Epoch 753 Train Acc 100.0 Val Acc 0.0 Train Loss 1.3709048971577431e-06 Val Loss 13.99394416809082
+EPOCH unfeeze : 4
+Epoch 754 Train Acc 100.0 Val Acc 0.0 Train Loss 1.3709048971577431e-06 Val Loss 14.000505447387695
+EPOCH unfeeze : 5
+Epoch 755 Train Acc 100.0 Val Acc 0.0 Train Loss 1.3411026884568855e-06 Val Loss 14.006988525390625
+EPOCH unfeeze : 6
+Epoch 756 Train Acc 100.0 Val Acc 0.0 Train Loss 1.2665971098613227e-06 Val Loss 14.01331901550293
+EPOCH unfeeze : 7
+Epoch 757 Train Acc 100.0 Val Acc 0.0 Train Loss 1.251695948667475e-06 Val Loss 14.019596099853516
+EPOCH unfeeze : 8
+Epoch 758 Train Acc 100.0 Val Acc 0.0 Train Loss 1.251695948667475e-06 Val Loss 14.025866508483887
+EPOCH unfeeze : 9
+Epoch 759 Train Acc 100.0 Val Acc 0.0 Train Loss 1.251695948667475e-06 Val Loss 14.032106399536133
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 760 Trainable Parameters : 85648900
+Epoch 760 Train Acc 100.0 Val Acc 0.0 Train Loss 1.251695948667475e-06 Val Loss 14.038358688354492
+EPOCH unfeeze : 1
+Epoch 761 Train Acc 100.0 Val Acc 0.0 Train Loss 1.251695948667475e-06 Val Loss 14.044631004333496
+EPOCH unfeeze : 2
+Epoch 762 Train Acc 100.0 Val Acc 0.0 Train Loss 1.251695948667475e-06 Val Loss 14.05115795135498
+EPOCH unfeeze : 3
+Epoch 763 Train Acc 100.0 Val Acc 0.0 Train Loss 1.251695948667475e-06 Val Loss 14.057575225830078
+EPOCH unfeeze : 4
+Epoch 764 Train Acc 100.0 Val Acc 0.0 Train Loss 1.251695948667475e-06 Val Loss 14.06378173828125
+EPOCH unfeeze : 5
+Epoch 765 Train Acc 100.0 Val Acc 0.0 Train Loss 1.251695948667475e-06 Val Loss 14.070150375366211
+EPOCH unfeeze : 6
+Epoch 766 Train Acc 100.0 Val Acc 0.0 Train Loss 1.2367947874736274e-06 Val Loss 14.076885223388672
+EPOCH unfeeze : 7
+Epoch 767 Train Acc 100.0 Val Acc 0.0 Train Loss 1.1920915312657598e-06 Val Loss 14.083257675170898
+EPOCH unfeeze : 8
+Epoch 768 Train Acc 100.0 Val Acc 0.0 Train Loss 1.1920915312657598e-06 Val Loss 14.089370727539062
+EPOCH unfeeze : 9
+Epoch 769 Train Acc 100.0 Val Acc 0.0 Train Loss 1.1920915312657598e-06 Val Loss 14.095589637756348
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 770 Trainable Parameters : 85648900
+Epoch 770 Train Acc 100.0 Val Acc 0.0 Train Loss 1.1920915312657598e-06 Val Loss 14.101950645446777
+EPOCH unfeeze : 1
+Epoch 771 Train Acc 100.0 Val Acc 0.0 Train Loss 1.1920915312657598e-06 Val Loss 14.108136177062988
+EPOCH unfeeze : 2
+Epoch 772 Train Acc 100.0 Val Acc 0.0 Train Loss 1.1920915312657598e-06 Val Loss 14.114606857299805
+EPOCH unfeeze : 3
+Epoch 773 Train Acc 100.0 Val Acc 0.0 Train Loss 1.1920915312657598e-06 Val Loss 14.120811462402344
+EPOCH unfeeze : 4
+Epoch 774 Train Acc 100.0 Val Acc 0.0 Train Loss 1.1920915312657598e-06 Val Loss 14.12724781036377
+EPOCH unfeeze : 5
+Epoch 775 Train Acc 100.0 Val Acc 0.0 Train Loss 1.1920915312657598e-06 Val Loss 14.1338529586792
+EPOCH unfeeze : 6
+Epoch 776 Train Acc 100.0 Val Acc 0.0 Train Loss 1.1771903700719122e-06 Val Loss 14.140148162841797
+EPOCH unfeeze : 7
+Epoch 777 Train Acc 100.0 Val Acc 0.0 Train Loss 1.1771903700719122e-06 Val Loss 14.146140098571777
+EPOCH unfeeze : 8
+Epoch 778 Train Acc 100.0 Val Acc 0.0 Train Loss 1.1473880476842169e-06 Val Loss 14.152799606323242
+EPOCH unfeeze : 9
+Epoch 779 Train Acc 100.0 Val Acc 0.0 Train Loss 1.132487000177207e-06 Val Loss 14.158876419067383
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 780 Trainable Parameters : 85648900
+Epoch 780 Train Acc 100.0 Val Acc 0.0 Train Loss 1.117585952670197e-06 Val Loss 14.165082931518555
+EPOCH unfeeze : 1
+Epoch 781 Train Acc 100.0 Val Acc 0.0 Train Loss 1.117585952670197e-06 Val Loss 14.171257972717285
+EPOCH unfeeze : 2
+Epoch 782 Train Acc 100.0 Val Acc 0.0 Train Loss 1.1026847914763493e-06 Val Loss 14.177567481994629
+EPOCH unfeeze : 3
+Epoch 783 Train Acc 100.0 Val Acc 0.0 Train Loss 1.072882469088654e-06 Val Loss 14.183876037597656
+EPOCH unfeeze : 4
+Epoch 784 Train Acc 100.0 Val Acc 0.0 Train Loss 1.072882469088654e-06 Val Loss 14.190143585205078
+EPOCH unfeeze : 5
+Epoch 785 Train Acc 100.0 Val Acc 0.0 Train Loss 1.072882469088654e-06 Val Loss 14.196101188659668
+EPOCH unfeeze : 6
+Epoch 786 Train Acc 100.0 Val Acc 0.0 Train Loss 1.072882469088654e-06 Val Loss 14.202319145202637
+EPOCH unfeeze : 7
+Epoch 787 Train Acc 100.0 Val Acc 0.0 Train Loss 1.072882469088654e-06 Val Loss 14.208656311035156
+EPOCH unfeeze : 8
+Epoch 788 Train Acc 100.0 Val Acc 0.0 Train Loss 1.072882469088654e-06 Val Loss 14.214667320251465
+EPOCH unfeeze : 9
+Epoch 789 Train Acc 100.0 Val Acc 0.0 Train Loss 1.072882469088654e-06 Val Loss 14.22084903717041
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 790 Trainable Parameters : 85648900
+Epoch 790 Train Acc 100.0 Val Acc 0.0 Train Loss 1.0281790991939488e-06 Val Loss 14.226727485656738
+EPOCH unfeeze : 1
+Epoch 791 Train Acc 100.0 Val Acc 0.0 Train Loss 1.0132779380001011e-06 Val Loss 14.232885360717773
+EPOCH unfeeze : 2
+Epoch 792 Train Acc 100.0 Val Acc 0.0 Train Loss 1.0132779380001011e-06 Val Loss 14.238840103149414
+EPOCH unfeeze : 3
+Epoch 793 Train Acc 100.0 Val Acc 0.0 Train Loss 1.0132779380001011e-06 Val Loss 14.244769096374512
+EPOCH unfeeze : 4
+Epoch 794 Train Acc 100.0 Val Acc 0.0 Train Loss 1.0132779380001011e-06 Val Loss 14.25071907043457
+EPOCH unfeeze : 5
+Epoch 795 Train Acc 100.0 Val Acc 0.0 Train Loss 1.0132779380001011e-06 Val Loss 14.256525993347168
+EPOCH unfeeze : 6
+Epoch 796 Train Acc 100.0 Val Acc 0.0 Train Loss 1.0132779380001011e-06 Val Loss 14.262490272521973
+EPOCH unfeeze : 7
+Epoch 797 Train Acc 100.0 Val Acc 0.0 Train Loss 1.0132779380001011e-06 Val Loss 14.268814086914062
+EPOCH unfeeze : 8
+Epoch 798 Train Acc 100.0 Val Acc 0.0 Train Loss 1.0132779380001011e-06 Val Loss 14.274873733520508
+EPOCH unfeeze : 9
+Epoch 799 Train Acc 100.0 Val Acc 0.0 Train Loss 1.0132779380001011e-06 Val Loss 14.281078338623047
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 800 Trainable Parameters : 85648900
+Epoch 800 Train Acc 100.0 Val Acc 0.0 Train Loss 1.0132779380001011e-06 Val Loss 14.28736400604248
+EPOCH unfeeze : 1
+Epoch 801 Train Acc 100.0 Val Acc 0.0 Train Loss 1.0132779380001011e-06 Val Loss 14.293510437011719
+EPOCH unfeeze : 2
+Epoch 802 Train Acc 100.0 Val Acc 0.0 Train Loss 1.0132779380001011e-06 Val Loss 14.299901962280273
+EPOCH unfeeze : 3
+Epoch 803 Train Acc 100.0 Val Acc 0.0 Train Loss 9.983767768062535e-07 Val Loss 14.306112289428711
+EPOCH unfeeze : 4
+Epoch 804 Train Acc 100.0 Val Acc 0.0 Train Loss 9.536734069115482e-07 Val Loss 14.31231689453125
+EPOCH unfeeze : 5
+Epoch 805 Train Acc 100.0 Val Acc 0.0 Train Loss 9.536734069115482e-07 Val Loss 14.318402290344238
+EPOCH unfeeze : 6
+Epoch 806 Train Acc 100.0 Val Acc 0.0 Train Loss 9.536734069115482e-07 Val Loss 14.324481964111328
+EPOCH unfeeze : 7
+Epoch 807 Train Acc 100.0 Val Acc 0.0 Train Loss 9.536734069115482e-07 Val Loss 14.330501556396484
+EPOCH unfeeze : 8
+Epoch 808 Train Acc 100.0 Val Acc 0.0 Train Loss 9.536734069115482e-07 Val Loss 14.336933135986328
+EPOCH unfeeze : 9
+Epoch 809 Train Acc 100.0 Val Acc 0.0 Train Loss 9.536734069115482e-07 Val Loss 14.343103408813477
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 810 Trainable Parameters : 85648900
+Epoch 810 Train Acc 100.0 Val Acc 0.0 Train Loss 9.536734069115482e-07 Val Loss 14.349039077758789
+EPOCH unfeeze : 1
+Epoch 811 Train Acc 100.0 Val Acc 0.0 Train Loss 9.536734069115482e-07 Val Loss 14.355489730834961
+EPOCH unfeeze : 2
+Epoch 812 Train Acc 100.0 Val Acc 0.0 Train Loss 9.536734069115482e-07 Val Loss 14.36144733428955
+EPOCH unfeeze : 3
+Epoch 813 Train Acc 100.0 Val Acc 0.0 Train Loss 9.238710845238529e-07 Val Loss 14.367561340332031
+EPOCH unfeeze : 4
+Epoch 814 Train Acc 100.0 Val Acc 0.0 Train Loss 8.940688758229953e-07 Val Loss 14.37350845336914
+EPOCH unfeeze : 5
+Epoch 815 Train Acc 100.0 Val Acc 0.0 Train Loss 8.940688758229953e-07 Val Loss 14.379487991333008
+EPOCH unfeeze : 6
+Epoch 816 Train Acc 100.0 Val Acc 0.0 Train Loss 8.940688758229953e-07 Val Loss 14.385452270507812
+EPOCH unfeeze : 7
+Epoch 817 Train Acc 100.0 Val Acc 0.0 Train Loss 8.940688758229953e-07 Val Loss 14.39135456085205
+EPOCH unfeeze : 8
+Epoch 818 Train Acc 100.0 Val Acc 0.0 Train Loss 8.791677714725665e-07 Val Loss 14.397578239440918
+EPOCH unfeeze : 9
+Epoch 819 Train Acc 100.0 Val Acc 0.0 Train Loss 8.493654490848712e-07 Val Loss 14.403579711914062
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 820 Trainable Parameters : 85648900
+Epoch 820 Train Acc 100.0 Val Acc 0.0 Train Loss 8.344643447344424e-07 Val Loss 14.409326553344727
+EPOCH unfeeze : 1
+Epoch 821 Train Acc 100.0 Val Acc 0.0 Train Loss 8.344643447344424e-07 Val Loss 14.415146827697754
+EPOCH unfeeze : 2
+Epoch 822 Train Acc 100.0 Val Acc 0.0 Train Loss 8.344643447344424e-07 Val Loss 14.4208402633667
+EPOCH unfeeze : 3
+Epoch 823 Train Acc 100.0 Val Acc 0.0 Train Loss 8.344643447344424e-07 Val Loss 14.426899909973145
+EPOCH unfeeze : 4
+Epoch 824 Train Acc 100.0 Val Acc 0.0 Train Loss 8.344643447344424e-07 Val Loss 14.432838439941406
+EPOCH unfeeze : 5
+Epoch 825 Train Acc 100.0 Val Acc 0.0 Train Loss 8.344643447344424e-07 Val Loss 14.438907623291016
+EPOCH unfeeze : 6
+Epoch 826 Train Acc 100.0 Val Acc 0.0 Train Loss 8.344643447344424e-07 Val Loss 14.444864273071289
+EPOCH unfeeze : 7
+Epoch 827 Train Acc 100.0 Val Acc 0.0 Train Loss 8.344643447344424e-07 Val Loss 14.450837135314941
+EPOCH unfeeze : 8
+Epoch 828 Train Acc 100.0 Val Acc 0.0 Train Loss 8.344643447344424e-07 Val Loss 14.456846237182617
+EPOCH unfeeze : 9
+Epoch 829 Train Acc 100.0 Val Acc 0.0 Train Loss 8.344643447344424e-07 Val Loss 14.462928771972656
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 830 Trainable Parameters : 85648900
+Epoch 830 Train Acc 100.0 Val Acc 0.0 Train Loss 8.344643447344424e-07 Val Loss 14.468941688537598
+EPOCH unfeeze : 1
+Epoch 831 Train Acc 100.0 Val Acc 0.0 Train Loss 8.344643447344424e-07 Val Loss 14.475086212158203
+EPOCH unfeeze : 2
+Epoch 832 Train Acc 100.0 Val Acc 0.0 Train Loss 8.344643447344424e-07 Val Loss 14.481096267700195
+EPOCH unfeeze : 3
+Epoch 833 Train Acc 100.0 Val Acc 0.0 Train Loss 8.344643447344424e-07 Val Loss 14.4871826171875
+EPOCH unfeeze : 4
+Epoch 834 Train Acc 100.0 Val Acc 0.0 Train Loss 8.195631835405948e-07 Val Loss 14.493310928344727
+EPOCH unfeeze : 5
+Epoch 835 Train Acc 100.0 Val Acc 0.0 Train Loss 7.897609179963183e-07 Val Loss 14.49911880493164
+EPOCH unfeeze : 6
+Epoch 836 Train Acc 100.0 Val Acc 0.0 Train Loss 7.897608611528995e-07 Val Loss 14.504716873168945
+EPOCH unfeeze : 7
+Epoch 837 Train Acc 100.0 Val Acc 0.0 Train Loss 7.748597568024707e-07 Val Loss 14.51030158996582
+EPOCH unfeeze : 8
+Epoch 838 Train Acc 100.0 Val Acc 0.0 Train Loss 7.748597568024707e-07 Val Loss 14.515868186950684
+EPOCH unfeeze : 9
+Epoch 839 Train Acc 100.0 Val Acc 0.0 Train Loss 7.748597568024707e-07 Val Loss 14.52161979675293
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 840 Trainable Parameters : 85648900
+Epoch 840 Train Acc 100.0 Val Acc 0.0 Train Loss 7.748597568024707e-07 Val Loss 14.527393341064453
+EPOCH unfeeze : 1
+Epoch 841 Train Acc 100.0 Val Acc 0.0 Train Loss 7.748597568024707e-07 Val Loss 14.533330917358398
+EPOCH unfeeze : 2
+Epoch 842 Train Acc 100.0 Val Acc 0.0 Train Loss 7.748597568024707e-07 Val Loss 14.539227485656738
+EPOCH unfeeze : 3
+Epoch 843 Train Acc 100.0 Val Acc 0.0 Train Loss 7.748597568024707e-07 Val Loss 14.54520034790039
+EPOCH unfeeze : 4
+Epoch 844 Train Acc 100.0 Val Acc 0.0 Train Loss 7.748597568024707e-07 Val Loss 14.551071166992188
+EPOCH unfeeze : 5
+Epoch 845 Train Acc 100.0 Val Acc 0.0 Train Loss 7.748597568024707e-07 Val Loss 14.556791305541992
+EPOCH unfeeze : 6
+Epoch 846 Train Acc 100.0 Val Acc 0.0 Train Loss 7.748597568024707e-07 Val Loss 14.562552452087402
+EPOCH unfeeze : 7
+Epoch 847 Train Acc 100.0 Val Acc 0.0 Train Loss 7.748597568024707e-07 Val Loss 14.56855583190918
+EPOCH unfeeze : 8
+Epoch 848 Train Acc 100.0 Val Acc 0.0 Train Loss 7.748597568024707e-07 Val Loss 14.574390411376953
+EPOCH unfeeze : 9
+Epoch 849 Train Acc 100.0 Val Acc 0.0 Train Loss 7.748597568024707e-07 Val Loss 14.58021354675293
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 850 Trainable Parameters : 85648900
+Epoch 850 Train Acc 100.0 Val Acc 0.0 Train Loss 7.748597568024707e-07 Val Loss 14.586156845092773
+EPOCH unfeeze : 1
+Epoch 851 Train Acc 100.0 Val Acc 0.0 Train Loss 7.748597568024707e-07 Val Loss 14.592248916625977
+EPOCH unfeeze : 2
+Epoch 852 Train Acc 100.0 Val Acc 0.0 Train Loss 7.748597568024707e-07 Val Loss 14.598014831542969
+EPOCH unfeeze : 3
+Epoch 853 Train Acc 100.0 Val Acc 0.0 Train Loss 7.748597568024707e-07 Val Loss 14.60396957397461
+EPOCH unfeeze : 4
+Epoch 854 Train Acc 100.0 Val Acc 0.0 Train Loss 7.450574912581942e-07 Val Loss 14.609638214111328
+EPOCH unfeeze : 5
+Epoch 855 Train Acc 100.0 Val Acc 0.0 Train Loss 7.152552257139178e-07 Val Loss 14.6154146194458
+EPOCH unfeeze : 6
+Epoch 856 Train Acc 100.0 Val Acc 0.0 Train Loss 6.854529601696413e-07 Val Loss 14.62118911743164
+EPOCH unfeeze : 7
+Epoch 857 Train Acc 100.0 Val Acc 0.0 Train Loss 6.55650637781946e-07 Val Loss 14.626605987548828
+EPOCH unfeeze : 8
+Epoch 858 Train Acc 100.0 Val Acc 0.0 Train Loss 6.55650637781946e-07 Val Loss 14.63220500946045
+EPOCH unfeeze : 9
+Epoch 859 Train Acc 100.0 Val Acc 0.0 Train Loss 6.55650637781946e-07 Val Loss 14.637722969055176
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 860 Trainable Parameters : 85648900
+Epoch 860 Train Acc 100.0 Val Acc 0.0 Train Loss 6.55650637781946e-07 Val Loss 14.64330768585205
+EPOCH unfeeze : 1
+Epoch 861 Train Acc 100.0 Val Acc 0.0 Train Loss 6.55650637781946e-07 Val Loss 14.649106979370117
+EPOCH unfeeze : 2
+Epoch 862 Train Acc 100.0 Val Acc 0.0 Train Loss 6.55650637781946e-07 Val Loss 14.654610633850098
+EPOCH unfeeze : 3
+Epoch 863 Train Acc 100.0 Val Acc 0.0 Train Loss 6.55650637781946e-07 Val Loss 14.660174369812012
+EPOCH unfeeze : 4
+Epoch 864 Train Acc 100.0 Val Acc 0.0 Train Loss 6.55650637781946e-07 Val Loss 14.665557861328125
+EPOCH unfeeze : 5
+Epoch 865 Train Acc 100.0 Val Acc 0.0 Train Loss 6.55650637781946e-07 Val Loss 14.67105484008789
+EPOCH unfeeze : 6
+Epoch 866 Train Acc 100.0 Val Acc 0.0 Train Loss 6.55650637781946e-07 Val Loss 14.676426887512207
+EPOCH unfeeze : 7
+Epoch 867 Train Acc 100.0 Val Acc 0.0 Train Loss 6.55650637781946e-07 Val Loss 14.682029724121094
+EPOCH unfeeze : 8
+Epoch 868 Train Acc 100.0 Val Acc 0.0 Train Loss 6.55650637781946e-07 Val Loss 14.68735408782959
+EPOCH unfeeze : 9
+Epoch 869 Train Acc 100.0 Val Acc 0.0 Train Loss 6.55650637781946e-07 Val Loss 14.692885398864746
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 870 Trainable Parameters : 85648900
+Epoch 870 Train Acc 100.0 Val Acc 0.0 Train Loss 6.55650637781946e-07 Val Loss 14.698566436767578
+EPOCH unfeeze : 1
+Epoch 871 Train Acc 100.0 Val Acc 0.0 Train Loss 6.55650637781946e-07 Val Loss 14.704195976257324
+EPOCH unfeeze : 2
+Epoch 872 Train Acc 100.0 Val Acc 0.0 Train Loss 6.55650637781946e-07 Val Loss 14.709769248962402
+EPOCH unfeeze : 3
+Epoch 873 Train Acc 100.0 Val Acc 0.0 Train Loss 6.55650637781946e-07 Val Loss 14.715600967407227
+EPOCH unfeeze : 4
+Epoch 874 Train Acc 100.0 Val Acc 0.0 Train Loss 6.55650637781946e-07 Val Loss 14.721291542053223
+EPOCH unfeeze : 5
+Epoch 875 Train Acc 100.0 Val Acc 0.0 Train Loss 6.55650637781946e-07 Val Loss 14.727108001708984
+EPOCH unfeeze : 6
+Epoch 876 Train Acc 100.0 Val Acc 0.0 Train Loss 6.407494765880983e-07 Val Loss 14.732684135437012
+EPOCH unfeeze : 7
+Epoch 877 Train Acc 100.0 Val Acc 0.0 Train Loss 6.109472678872407e-07 Val Loss 14.738286018371582
+EPOCH unfeeze : 8
+Epoch 878 Train Acc 100.0 Val Acc 0.0 Train Loss 5.960461066933931e-07 Val Loss 14.743674278259277
+EPOCH unfeeze : 9
+Epoch 879 Train Acc 100.0 Val Acc 0.0 Train Loss 5.960461066933931e-07 Val Loss 14.749119758605957
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 880 Trainable Parameters : 85648900
+Epoch 880 Train Acc 100.0 Val Acc 0.0 Train Loss 5.960461066933931e-07 Val Loss 14.754671096801758
+EPOCH unfeeze : 1
+Epoch 881 Train Acc 100.0 Val Acc 0.0 Train Loss 5.960461066933931e-07 Val Loss 14.760038375854492
+EPOCH unfeeze : 2
+Epoch 882 Train Acc 100.0 Val Acc 0.0 Train Loss 5.960461066933931e-07 Val Loss 14.76523494720459
+EPOCH unfeeze : 3
+Epoch 883 Train Acc 100.0 Val Acc 0.0 Train Loss 5.960461066933931e-07 Val Loss 14.770772933959961
+EPOCH unfeeze : 4
+Epoch 884 Train Acc 100.0 Val Acc 0.0 Train Loss 5.960461066933931e-07 Val Loss 14.77627944946289
+EPOCH unfeeze : 5
+Epoch 885 Train Acc 100.0 Val Acc 0.0 Train Loss 5.960461066933931e-07 Val Loss 14.781760215759277
+EPOCH unfeeze : 6
+Epoch 886 Train Acc 100.0 Val Acc 0.0 Train Loss 5.960461066933931e-07 Val Loss 14.787275314331055
+EPOCH unfeeze : 7
+Epoch 887 Train Acc 100.0 Val Acc 0.0 Train Loss 5.960461066933931e-07 Val Loss 14.792978286743164
+EPOCH unfeeze : 8
+Epoch 888 Train Acc 100.0 Val Acc 0.0 Train Loss 5.960461066933931e-07 Val Loss 14.798567771911621
+EPOCH unfeeze : 9
+Epoch 889 Train Acc 100.0 Val Acc 0.0 Train Loss 5.960461066933931e-07 Val Loss 14.80420970916748
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 890 Trainable Parameters : 85648900
+Epoch 890 Train Acc 100.0 Val Acc 0.0 Train Loss 5.960461066933931e-07 Val Loss 14.809476852416992
+EPOCH unfeeze : 1
+Epoch 891 Train Acc 100.0 Val Acc 0.0 Train Loss 5.960461066933931e-07 Val Loss 14.815095901489258
+EPOCH unfeeze : 2
+Epoch 892 Train Acc 100.0 Val Acc 0.0 Train Loss 5.960461066933931e-07 Val Loss 14.820596694946289
+EPOCH unfeeze : 3
+Epoch 893 Train Acc 100.0 Val Acc 0.0 Train Loss 5.960461066933931e-07 Val Loss 14.826313018798828
+EPOCH unfeeze : 4
+Epoch 894 Train Acc 100.0 Val Acc 0.0 Train Loss 5.960461066933931e-07 Val Loss 14.83173656463623
+EPOCH unfeeze : 5
+Epoch 895 Train Acc 100.0 Val Acc 0.0 Train Loss 5.960461066933931e-07 Val Loss 14.837308883666992
+EPOCH unfeeze : 6
+Epoch 896 Train Acc 100.0 Val Acc 0.0 Train Loss 5.960461066933931e-07 Val Loss 14.842856407165527
+EPOCH unfeeze : 7
+Epoch 897 Train Acc 100.0 Val Acc 0.0 Train Loss 5.960461066933931e-07 Val Loss 14.848365783691406
+EPOCH unfeeze : 8
+Epoch 898 Train Acc 100.0 Val Acc 0.0 Train Loss 5.960461066933931e-07 Val Loss 14.854169845581055
+EPOCH unfeeze : 9
+Epoch 899 Train Acc 100.0 Val Acc 0.0 Train Loss 5.960461066933931e-07 Val Loss 14.859886169433594
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 900 Trainable Parameters : 85648900
+Epoch 900 Train Acc 100.0 Val Acc 0.0 Train Loss 5.960461066933931e-07 Val Loss 14.865466117858887
+EPOCH unfeeze : 1
+Epoch 901 Train Acc 100.0 Val Acc 0.0 Train Loss 5.960461066933931e-07 Val Loss 14.871099472045898
+EPOCH unfeeze : 2
+Epoch 902 Train Acc 100.0 Val Acc 0.0 Train Loss 5.662438411491166e-07 Val Loss 14.876852989196777
+EPOCH unfeeze : 3
+Epoch 903 Train Acc 100.0 Val Acc 0.0 Train Loss 5.364415187614213e-07 Val Loss 14.882070541381836
+EPOCH unfeeze : 4
+Epoch 904 Train Acc 100.0 Val Acc 0.0 Train Loss 5.364415187614213e-07 Val Loss 14.887493133544922
+EPOCH unfeeze : 5
+Epoch 905 Train Acc 100.0 Val Acc 0.0 Train Loss 5.364415187614213e-07 Val Loss 14.892895698547363
+EPOCH unfeeze : 6
+Epoch 906 Train Acc 100.0 Val Acc 0.0 Train Loss 5.364415187614213e-07 Val Loss 14.898120880126953
+EPOCH unfeeze : 7
+Epoch 907 Train Acc 100.0 Val Acc 0.0 Train Loss 5.364415187614213e-07 Val Loss 14.903428077697754
+EPOCH unfeeze : 8
+Epoch 908 Train Acc 100.0 Val Acc 0.0 Train Loss 5.364415187614213e-07 Val Loss 14.908753395080566
+EPOCH unfeeze : 9
+Epoch 909 Train Acc 100.0 Val Acc 0.0 Train Loss 5.364415187614213e-07 Val Loss 14.91434097290039
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 910 Trainable Parameters : 85648900
+Epoch 910 Train Acc 100.0 Val Acc 0.0 Train Loss 5.364415187614213e-07 Val Loss 14.919638633728027
+EPOCH unfeeze : 1
+Epoch 911 Train Acc 100.0 Val Acc 0.0 Train Loss 5.364415187614213e-07 Val Loss 14.925000190734863
+EPOCH unfeeze : 2
+Epoch 912 Train Acc 100.0 Val Acc 0.0 Train Loss 5.364415187614213e-07 Val Loss 14.930551528930664
+EPOCH unfeeze : 3
+Epoch 913 Train Acc 100.0 Val Acc 0.0 Train Loss 5.364415187614213e-07 Val Loss 14.93600845336914
+EPOCH unfeeze : 4
+Epoch 914 Train Acc 100.0 Val Acc 0.0 Train Loss 5.364415187614213e-07 Val Loss 14.941581726074219
+EPOCH unfeeze : 5
+Epoch 915 Train Acc 100.0 Val Acc 0.0 Train Loss 5.364415187614213e-07 Val Loss 14.946971893310547
+EPOCH unfeeze : 6
+Epoch 916 Train Acc 100.0 Val Acc 0.0 Train Loss 5.364415187614213e-07 Val Loss 14.952645301818848
+EPOCH unfeeze : 7
+Epoch 917 Train Acc 100.0 Val Acc 0.0 Train Loss 4.917380920232972e-07 Val Loss 14.957830429077148
+EPOCH unfeeze : 8
+Epoch 918 Train Acc 100.0 Val Acc 0.0 Train Loss 4.7683693082944956e-07 Val Loss 14.963031768798828
+EPOCH unfeeze : 9
+Epoch 919 Train Acc 100.0 Val Acc 0.0 Train Loss 4.7683693082944956e-07 Val Loss 14.968399047851562
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 920 Trainable Parameters : 85648900
+Epoch 920 Train Acc 100.0 Val Acc 0.0 Train Loss 4.7683693082944956e-07 Val Loss 14.973732948303223
+EPOCH unfeeze : 1
+Epoch 921 Train Acc 100.0 Val Acc 0.0 Train Loss 4.7683693082944956e-07 Val Loss 14.97897720336914
+EPOCH unfeeze : 2
+Epoch 922 Train Acc 100.0 Val Acc 0.0 Train Loss 4.7683693082944956e-07 Val Loss 14.984334945678711
+EPOCH unfeeze : 3
+Epoch 923 Train Acc 100.0 Val Acc 0.0 Train Loss 4.7683693082944956e-07 Val Loss 14.989394187927246
+EPOCH unfeeze : 4
+Epoch 924 Train Acc 100.0 Val Acc 0.0 Train Loss 4.7683693082944956e-07 Val Loss 14.994483947753906
+EPOCH unfeeze : 5
+Epoch 925 Train Acc 100.0 Val Acc 0.0 Train Loss 4.7683693082944956e-07 Val Loss 14.999752044677734
+EPOCH unfeeze : 6
+Epoch 926 Train Acc 100.0 Val Acc 0.0 Train Loss 4.7683693082944956e-07 Val Loss 15.005017280578613
+EPOCH unfeeze : 7
+Epoch 927 Train Acc 100.0 Val Acc 0.0 Train Loss 4.7683693082944956e-07 Val Loss 15.010268211364746
+EPOCH unfeeze : 8
+Epoch 928 Train Acc 100.0 Val Acc 0.0 Train Loss 4.7683693082944956e-07 Val Loss 15.01578140258789
+EPOCH unfeeze : 9
+Epoch 929 Train Acc 100.0 Val Acc 0.0 Train Loss 4.7683693082944956e-07 Val Loss 15.021130561828613
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 930 Trainable Parameters : 85648900
+Epoch 930 Train Acc 100.0 Val Acc 0.0 Train Loss 4.7683693082944956e-07 Val Loss 15.026246070861816
+EPOCH unfeeze : 1
+Epoch 931 Train Acc 100.0 Val Acc 0.0 Train Loss 4.7683693082944956e-07 Val Loss 15.031665802001953
+EPOCH unfeeze : 2
+Epoch 932 Train Acc 100.0 Val Acc 0.0 Train Loss 4.619357696356019e-07 Val Loss 15.037025451660156
+EPOCH unfeeze : 3
+Epoch 933 Train Acc 100.0 Val Acc 0.0 Train Loss 4.4703460844175424e-07 Val Loss 15.0421724319458
+EPOCH unfeeze : 4
+Epoch 934 Train Acc 100.0 Val Acc 0.0 Train Loss 4.3213350409132545e-07 Val Loss 15.047356605529785
+EPOCH unfeeze : 5
+Epoch 935 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.052358627319336
+EPOCH unfeeze : 6
+Epoch 936 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.0576171875
+EPOCH unfeeze : 7
+Epoch 937 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.062873840332031
+EPOCH unfeeze : 8
+Epoch 938 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.067972183227539
+EPOCH unfeeze : 9
+Epoch 939 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.073169708251953
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 940 Trainable Parameters : 85648900
+Epoch 940 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.078434944152832
+EPOCH unfeeze : 1
+Epoch 941 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.083484649658203
+EPOCH unfeeze : 2
+Epoch 942 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.088728904724121
+EPOCH unfeeze : 3
+Epoch 943 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.094018936157227
+EPOCH unfeeze : 4
+Epoch 944 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.099327087402344
+EPOCH unfeeze : 5
+Epoch 945 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.104637145996094
+EPOCH unfeeze : 6
+Epoch 946 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.109874725341797
+EPOCH unfeeze : 7
+Epoch 947 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.114998817443848
+EPOCH unfeeze : 8
+Epoch 948 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.120311737060547
+EPOCH unfeeze : 9
+Epoch 949 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.125761985778809
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 950 Trainable Parameters : 85648900
+Epoch 950 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.131113052368164
+EPOCH unfeeze : 1
+Epoch 951 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.13646411895752
+EPOCH unfeeze : 2
+Epoch 952 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.141765594482422
+EPOCH unfeeze : 3
+Epoch 953 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.147096633911133
+EPOCH unfeeze : 4
+Epoch 954 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.152532577514648
+EPOCH unfeeze : 5
+Epoch 955 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.158027648925781
+EPOCH unfeeze : 6
+Epoch 956 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.163412094116211
+EPOCH unfeeze : 7
+Epoch 957 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.1688232421875
+EPOCH unfeeze : 8
+Epoch 958 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.1741943359375
+EPOCH unfeeze : 9
+Epoch 959 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.179494857788086
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 960 Trainable Parameters : 85648900
+Epoch 960 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.184890747070312
+EPOCH unfeeze : 1
+Epoch 961 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.190330505371094
+EPOCH unfeeze : 2
+Epoch 962 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.195796966552734
+EPOCH unfeeze : 3
+Epoch 963 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.201313972473145
+EPOCH unfeeze : 4
+Epoch 964 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.20688247680664
+EPOCH unfeeze : 5
+Epoch 965 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.212236404418945
+EPOCH unfeeze : 6
+Epoch 966 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.217686653137207
+EPOCH unfeeze : 7
+Epoch 967 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.223114967346191
+EPOCH unfeeze : 8
+Epoch 968 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.228582382202148
+EPOCH unfeeze : 9
+Epoch 969 Train Acc 100.0 Val Acc 0.0 Train Loss 4.172323428974778e-07 Val Loss 15.23399829864502
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 970 Trainable Parameters : 85648900
+Epoch 970 Train Acc 100.0 Val Acc 0.0 Train Loss 3.5762775496550603e-07 Val Loss 15.238757133483887
+EPOCH unfeeze : 1
+Epoch 971 Train Acc 100.0 Val Acc 0.0 Train Loss 3.5762775496550603e-07 Val Loss 15.243660926818848
+EPOCH unfeeze : 2
+Epoch 972 Train Acc 100.0 Val Acc 0.0 Train Loss 3.5762775496550603e-07 Val Loss 15.248577117919922
+EPOCH unfeeze : 3
+Epoch 973 Train Acc 100.0 Val Acc 0.0 Train Loss 3.5762775496550603e-07 Val Loss 15.25362777709961
+EPOCH unfeeze : 4
+Epoch 974 Train Acc 100.0 Val Acc 0.0 Train Loss 3.5762775496550603e-07 Val Loss 15.258548736572266
+EPOCH unfeeze : 5
+Epoch 975 Train Acc 100.0 Val Acc 0.0 Train Loss 3.5762775496550603e-07 Val Loss 15.26352596282959
+EPOCH unfeeze : 6
+Epoch 976 Train Acc 100.0 Val Acc 0.0 Train Loss 3.5762775496550603e-07 Val Loss 15.268321990966797Configuration saved in ../output/umbrella_alldevdata_local/xlsr-ADI17-initialtest/config.json
+Model weights saved in ../output/umbrella_alldevdata_local/xlsr-ADI17-initialtest/pytorch_model.bin
+***** Running Prediction *****
+  Num examples = 4
+  Batch size = 8
+
+EPOCH unfeeze : 7
+Epoch 977 Train Acc 100.0 Val Acc 0.0 Train Loss 3.5762775496550603e-07 Val Loss 15.27328109741211
+EPOCH unfeeze : 8
+Epoch 978 Train Acc 100.0 Val Acc 0.0 Train Loss 3.5762775496550603e-07 Val Loss 15.278188705444336
+EPOCH unfeeze : 9
+Epoch 979 Train Acc 100.0 Val Acc 0.0 Train Loss 3.5762775496550603e-07 Val Loss 15.283029556274414
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 980 Trainable Parameters : 85648900
+Epoch 980 Train Acc 100.0 Val Acc 0.0 Train Loss 3.5762775496550603e-07 Val Loss 15.288044929504395
+EPOCH unfeeze : 1
+Epoch 981 Train Acc 100.0 Val Acc 0.0 Train Loss 3.5762775496550603e-07 Val Loss 15.292990684509277
+EPOCH unfeeze : 2
+Epoch 982 Train Acc 100.0 Val Acc 0.0 Train Loss 3.5762775496550603e-07 Val Loss 15.298138618469238
+EPOCH unfeeze : 3
+Epoch 983 Train Acc 100.0 Val Acc 0.0 Train Loss 3.5762775496550603e-07 Val Loss 15.303268432617188
+EPOCH unfeeze : 4
+Epoch 984 Train Acc 100.0 Val Acc 0.0 Train Loss 3.5762775496550603e-07 Val Loss 15.308236122131348
+EPOCH unfeeze : 5
+Epoch 985 Train Acc 100.0 Val Acc 0.0 Train Loss 3.5762775496550603e-07 Val Loss 15.31333065032959
+EPOCH unfeeze : 6
+Epoch 986 Train Acc 100.0 Val Acc 0.0 Train Loss 3.5762775496550603e-07 Val Loss 15.318349838256836
+EPOCH unfeeze : 7
+Epoch 987 Train Acc 100.0 Val Acc 0.0 Train Loss 3.5762775496550603e-07 Val Loss 15.323382377624512
+EPOCH unfeeze : 8
+Epoch 988 Train Acc 100.0 Val Acc 0.0 Train Loss 3.5762775496550603e-07 Val Loss 15.328424453735352
+EPOCH unfeeze : 9
+Epoch 989 Train Acc 100.0 Val Acc 0.0 Train Loss 3.5762775496550603e-07 Val Loss 15.333404541015625
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 990 Trainable Parameters : 85648900
+Epoch 990 Train Acc 100.0 Val Acc 0.0 Train Loss 3.5762775496550603e-07 Val Loss 15.338467597961426
+EPOCH unfeeze : 1
+Epoch 991 Train Acc 100.0 Val Acc 0.0 Train Loss 3.5762775496550603e-07 Val Loss 15.343441009521484
+EPOCH unfeeze : 2
+Epoch 992 Train Acc 100.0 Val Acc 0.0 Train Loss 3.5762775496550603e-07 Val Loss 15.348484992980957
+EPOCH unfeeze : 3
+Epoch 993 Train Acc 100.0 Val Acc 0.0 Train Loss 3.5762775496550603e-07 Val Loss 15.353413581848145
+EPOCH unfeeze : 4
+Epoch 994 Train Acc 100.0 Val Acc 0.0 Train Loss 3.5762775496550603e-07 Val Loss 15.358504295349121
+EPOCH unfeeze : 5
+Epoch 995 Train Acc 100.0 Val Acc 0.0 Train Loss 3.5762775496550603e-07 Val Loss 15.363689422607422
+EPOCH unfeeze : 6
+Epoch 996 Train Acc 100.0 Val Acc 0.0 Train Loss 3.5762775496550603e-07 Val Loss 15.368818283081055
+EPOCH unfeeze : 7
+Epoch 997 Train Acc 100.0 Val Acc 0.0 Train Loss 3.5762775496550603e-07 Val Loss 15.37386417388916
+EPOCH unfeeze : 8
+Epoch 998 Train Acc 100.0 Val Acc 0.0 Train Loss 3.5762775496550603e-07 Val Loss 15.378923416137695
+EPOCH unfeeze : 9
+Epoch 999 Train Acc 100.0 Val Acc 0.0 Train Loss 3.5762775496550603e-07 Val Loss 15.384073257446289
+
+------> EVALUATING MODEL... ------------------------------------------ 
+
+LOSS LABELS, tensor([0], device='cuda:0')
+  0%|          | 0/4 [00:00<?, ?it/s]/apps/python/3.8.3/lib/python3.8/site-packages/sklearn/metrics/_classification.py:1221: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/apps/python/3.8.3/lib/python3.8/site-packages/sklearn/metrics/_classification.py:1221: UndefinedMetricWarning: Recall and F-score are ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+LOSS LABELS, tensor([0], device='cuda:0')
+LOSS LABELS, tensor([0], device='cuda:0')
+LOSS LABELS, tensor([0], device='cuda:0')
+CLASSIFICATION REPORT
+              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00       4.0
+           1       0.00      0.00      0.00       0.0
+
+    accuracy                           0.00       4.0
+   macro avg       0.00      0.00      0.00       4.0
+weighted avg       0.00      0.00      0.00       4.0
+
+
+------> SUCCESSFULLY FINISHED ---------------------------------------- 
+
+Finished: 26/09/2022 17:13:41
+100%|██████████| 4/4 [00:00<00:00, 21.50it/s]

@@ -3,15 +3,11 @@ import torchaudio
 from speechbrain.pretrained import EncoderClassifier
 language_id = EncoderClassifier.from_hparams(
     source="speechbrain/lang-id-voxlingua107-ecapa", savedir="tmp")
-# Download Thai language sample from Omniglot and cvert to suitable form
 
-
-file_path = "/Users/myounes/Documents/Code/thesis_files/dev_segments/_FBO2f3kW5Q_000136-000568.wav"
-# assign directory
 directory = '/srv/scratch/z5208494/dataset/test_segments/'
 devFiles = tuple(open('data/adi17_official_test_label.txt', 'r'))
 
-csvFile = open('speechbrainDevData.csv', 'w')
+csvFile = open('speechbrainTestData.csv', 'w')
 csvFile.write("file,dialect,prediction\n")
 # iterate over files in
 # that directory
@@ -24,7 +20,7 @@ for line in devFiles:
     print(f)
     # checking if it is a file
     if os.path.isfile(f):
-        signal = language_id.load_audio(file_path)
+        signal = language_id.load_audio(f)
         prediction = language_id.classify_batch(signal)
         csvFile.write(f"{filename},{dialect},{prediction[3]}\n")
         print(prediction[3])

@@ -1,0 +1,1274 @@
+Thu Sep 29 16:32:10 AEST 2022
+/home/z5208494/.local/lib/python3.8/site-packages/transformers/configuration_utils.py:363: UserWarning: Passing `gradient_checkpointing` to a config initialization is deprecated and will be removed in v5 Transformers. Using `model.gradient_checkpointing_enable()` instead, or if you are using the `Trainer` API, pass `gradient_checkpointing=True` in your `TrainingArguments`.
+  warnings.warn(
+Some weights of the model checkpoint at facebook/wav2vec2-base were not used when initializing Wav2Vec2ForSpeechClassification: ['project_q.bias', 'project_hid.weight', 'project_hid.bias', 'quantizer.weight_proj.weight', 'project_q.weight', 'quantizer.codevectors', 'quantizer.weight_proj.bias']
+- This IS expected if you are initializing Wav2Vec2ForSpeechClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing Wav2Vec2ForSpeechClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of Wav2Vec2ForSpeechClassification were not initialized from the model checkpoint at facebook/wav2vec2-base and are newly initialized: ['classifier.dense.bias', 'classifier.out_proj.weight', 'classifier.dense.weight', 'classifier.out_proj.bias']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+max_steps is given, it will override any value given in num_train_epochs
+------------------------------------------------------------------------
+                         run_umbrellaDID.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_basic.py
+Started: 29/09/2022 16:32:15
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: wav2vec-ADI17-initialtest
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: umbrella_alldevdata
+train_filename: data_u_all_data
+evaluation_filename: adi17_test_umbrella_label
+use_checkpoint: False
+use_pretrained_tokenizer: True
+pretrained_tokenizer: facebook/wav2vec2-base
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.05
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: True
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: epoch
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 2
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 100
+max_steps: 35000
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 1000
+save_total_limit: 40
+fp16: False
+eval_steps: 100
+load_best_model_at_end: True
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/data_u_all_data.csv
+--> data_test_fp: data/adi17_test_umbrella_label.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/umbrella_alldevdata_local/wav2vec-ADI17-initialtest
+--> finetuned_results_fp: /srv/scratch/z5208494/output/umbrella_alldevdata_local/wav2vec-ADI17-initialtest_finetuned_results.csv
+--> pretrained_mod: facebook/wav2vec2-base
+--> pretrained_tokenizer: facebook/wav2vec2-base
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+
+------> CREATING WAV2VEC2 FEATURE EXTRACTOR... -----------------------
+
+SUCCESS: Created feature extractor.
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 10 s
+Sampling Rate: 16000
+Create a custom dataset ---> 
+Check data has been processed correctly... 
+Train Data Sample
+{'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+Training DataCustom Files: 4
+Training Data Files: 4
+Test Data Sample
+{'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Test CustomData Files: 4
+Test Data Files: 4
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Defining Classifer
+--> Defining evaluation metric...
+SUCCESS: Defined Accuracy evaluation metric.
+--> Loading pre-trained checkpoint...
+-------- Setting up Model --------
+SUCCESS: Pre-trained checkpoint loaded.
+--> Defining Custom Trainer Class...
+
+------> STARTING TRAINING... ----------------------------------------- 
+
+EPOCH unfeeze : 0
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 0 Train Acc 75.0 Val Acc 0.0 Train Loss 0.6766018867492676 Val Loss 1.450439214706421
+EPOCH unfeeze : 1
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 1 Train Acc 100.0 Val Acc 0.0 Train Loss 0.6684770584106445 Val Loss 1.451135277748108
+EPOCH unfeeze : 2
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 2 Train Acc 100.0 Val Acc 0.0 Train Loss 0.6535868644714355 Val Loss 1.4565801620483398
+EPOCH unfeeze : 3
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 3 Train Acc 100.0 Val Acc 0.0 Train Loss 0.6357261538505554 Val Loss 1.4575700759887695
+EPOCH unfeeze : 4
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 4 Train Acc 100.0 Val Acc 0.0 Train Loss 0.6151328682899475 Val Loss 1.4426461458206177
+EPOCH unfeeze : 5
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 5 Train Acc 100.0 Val Acc 0.0 Train Loss 0.5868661999702454 Val Loss 1.4489928483963013
+EPOCH unfeeze : 6
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 6 Train Acc 100.0 Val Acc 0.0 Train Loss 0.5534542798995972 Val Loss 1.4642295837402344
+EPOCH unfeeze : 7
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 7 Train Acc 100.0 Val Acc 0.0 Train Loss 0.5163624286651611 Val Loss 1.4786648750305176
+EPOCH unfeeze : 8
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 8 Train Acc 100.0 Val Acc 0.0 Train Loss 0.4811781048774719 Val Loss 1.513744831085205
+EPOCH unfeeze : 9
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 9 Train Acc 100.0 Val Acc 0.0 Train Loss 0.44186118245124817 Val Loss 1.522559642791748
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 10 Trainable Parameters : 85648900
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 10 Train Acc 100.0 Val Acc 0.0 Train Loss 0.40273019671440125 Val Loss 1.6076194047927856
+EPOCH unfeeze : 1
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 11 Train Acc 100.0 Val Acc 0.0 Train Loss 0.3685917258262634 Val Loss 1.6117911338806152
+EPOCH unfeeze : 2
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 12 Train Acc 100.0 Val Acc 0.0 Train Loss 0.33848774433135986 Val Loss 1.647970199584961
+EPOCH unfeeze : 3
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 13 Train Acc 100.0 Val Acc 0.0 Train Loss 0.306720107793808 Val Loss 1.7089468240737915
+EPOCH unfeeze : 4
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 14 Train Acc 100.0 Val Acc 0.0 Train Loss 0.27967569231987 Val Loss 1.7614725828170776
+EPOCH unfeeze : 5
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 15 Train Acc 100.0 Val Acc 0.0 Train Loss 0.2550710141658783 Val Loss 1.7940869331359863
+EPOCH unfeeze : 6
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 16 Train Acc 100.0 Val Acc 0.0 Train Loss 0.23486724495887756 Val Loss 1.816516637802124
+EPOCH unfeeze : 7
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 17 Train Acc 100.0 Val Acc 0.0 Train Loss 0.21446549892425537 Val Loss 2.017876386642456
+EPOCH unfeeze : 8
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 18 Train Acc 100.0 Val Acc 0.0 Train Loss 0.19890689849853516 Val Loss 2.053490161895752
+EPOCH unfeeze : 9
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 19 Train Acc 100.0 Val Acc 0.0 Train Loss 0.18213169276714325 Val Loss 1.9666695594787598
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 20 Trainable Parameters : 85648900
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 20 Train Acc 100.0 Val Acc 0.0 Train Loss 0.17417971789836884 Val Loss 2.193206310272217
+EPOCH unfeeze : 1
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 21 Train Acc 100.0 Val Acc 0.0 Train Loss 0.15891310572624207 Val Loss 2.294844150543213
+EPOCH unfeeze : 2
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 22 Train Acc 100.0 Val Acc 0.0 Train Loss 0.15033674240112305 Val Loss 2.3271021842956543
+EPOCH unfeeze : 3
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 23 Train Acc 100.0 Val Acc 0.0 Train Loss 0.13752037286758423 Val Loss 2.401154041290283
+EPOCH unfeeze : 4
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 24 Train Acc 100.0 Val Acc 0.0 Train Loss 0.13038472831249237 Val Loss 2.5066871643066406
+EPOCH unfeeze : 5
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 25 Train Acc 100.0 Val Acc 0.0 Train Loss 0.12189412117004395 Val Loss 2.544358968734741
+EPOCH unfeeze : 6
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 26 Train Acc 100.0 Val Acc 0.0 Train Loss 0.11583925038576126 Val Loss 2.5486679077148438
+EPOCH unfeeze : 7
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 27 Train Acc 100.0 Val Acc 0.0 Train Loss 0.11058040708303452 Val Loss 2.653985023498535
+EPOCH unfeeze : 8
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 28 Train Acc 100.0 Val Acc 0.0 Train Loss 0.10553982108831406 Val Loss 2.643354654312134
+EPOCH unfeeze : 9
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 29 Train Acc 100.0 Val Acc 0.0 Train Loss 0.10396134853363037 Val Loss 2.5096275806427
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 30 Trainable Parameters : 85648900
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 30 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0955495610833168 Val Loss 2.8395423889160156
+EPOCH unfeeze : 1
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 31 Train Acc 100.0 Val Acc 0.0 Train Loss 0.091853067278862 Val Loss 2.844571113586426
+EPOCH unfeeze : 2
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 32 Train Acc 100.0 Val Acc 0.0 Train Loss 0.08690231293439865 Val Loss 2.8941469192504883
+EPOCH unfeeze : 3
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 33 Train Acc 100.0 Val Acc 0.0 Train Loss 0.08181500434875488 Val Loss 2.9830334186553955
+EPOCH unfeeze : 4
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 34 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0794883444905281 Val Loss 3.036708354949951
+EPOCH unfeeze : 5
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 35 Train Acc 100.0 Val Acc 0.0 Train Loss 0.07687731832265854 Val Loss 3.0718436241149902
+EPOCH unfeeze : 6
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 36 Train Acc 100.0 Val Acc 0.0 Train Loss 0.07318837940692902 Val Loss 3.112626075744629
+EPOCH unfeeze : 7
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 37 Train Acc 100.0 Val Acc 0.0 Train Loss 0.07077617943286896 Val Loss 3.1421022415161133
+EPOCH unfeeze : 8
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 38 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0679241418838501 Val Loss 3.1513566970825195
+EPOCH unfeeze : 9
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 39 Train Acc 100.0 Val Acc 0.0 Train Loss 0.06512626260519028 Val Loss 3.271937608718872
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 40 Trainable Parameters : 85648900
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 40 Train Acc 100.0 Val Acc 0.0 Train Loss 0.06301629543304443 Val Loss 3.359628200531006
+EPOCH unfeeze : 1
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 41 Train Acc 100.0 Val Acc 0.0 Train Loss 0.06049107760190964 Val Loss 3.3680007457733154
+EPOCH unfeeze : 2
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 42 Train Acc 100.0 Val Acc 0.0 Train Loss 0.058437734842300415 Val Loss 3.383985996246338
+EPOCH unfeeze : 3
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 43 Train Acc 100.0 Val Acc 0.0 Train Loss 0.05612221360206604 Val Loss 3.457723379135132
+EPOCH unfeeze : 4
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 44 Train Acc 100.0 Val Acc 0.0 Train Loss 0.05417206510901451 Val Loss 3.4675631523132324
+EPOCH unfeeze : 5
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 45 Train Acc 100.0 Val Acc 0.0 Train Loss 0.05230974033474922 Val Loss 3.531916379928589
+EPOCH unfeeze : 6
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 46 Train Acc 100.0 Val Acc 0.0 Train Loss 0.05085041746497154 Val Loss 3.535724401473999
+EPOCH unfeeze : 7
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 47 Train Acc 100.0 Val Acc 0.0 Train Loss 0.049117155373096466 Val Loss 3.627626419067383
+EPOCH unfeeze : 8
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 48 Train Acc 100.0 Val Acc 0.0 Train Loss 0.04714111238718033 Val Loss 3.670407295227051
+EPOCH unfeeze : 9
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 49 Train Acc 100.0 Val Acc 0.0 Train Loss 0.045406926423311234 Val Loss 3.7024450302124023
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 50 Trainable Parameters : 85648900
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 50 Train Acc 100.0 Val Acc 0.0 Train Loss 0.04400689899921417 Val Loss 3.718194007873535
+EPOCH unfeeze : 1
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 51 Train Acc 100.0 Val Acc 0.0 Train Loss 0.042468514293432236 Val Loss 3.7655367851257324
+EPOCH unfeeze : 2
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 52 Train Acc 100.0 Val Acc 0.0 Train Loss 0.04082527384161949 Val Loss 3.781594753265381
+EPOCH unfeeze : 3
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 53 Train Acc 100.0 Val Acc 0.0 Train Loss 0.039565183222293854 Val Loss 3.8121185302734375
+EPOCH unfeeze : 4
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 54 Train Acc 100.0 Val Acc 0.0 Train Loss 0.03816097974777222 Val Loss 3.8556976318359375
+EPOCH unfeeze : 5
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 55 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0368107333779335 Val Loss 3.888355255126953
+EPOCH unfeeze : 6
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 56 Train Acc 100.0 Val Acc 0.0 Train Loss 0.03572210669517517 Val Loss 3.9040143489837646
+EPOCH unfeeze : 7
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 57 Train Acc 100.0 Val Acc 0.0 Train Loss 0.034317873418331146 Val Loss 3.9386816024780273
+EPOCH unfeeze : 8
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 58 Train Acc 100.0 Val Acc 0.0 Train Loss 0.033200014382600784 Val Loss 4.0000386238098145
+EPOCH unfeeze : 9
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 59 Train Acc 100.0 Val Acc 0.0 Train Loss 0.03197963163256645 Val Loss 4.006234169006348
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 60 Trainable Parameters : 85648900
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 60 Train Acc 100.0 Val Acc 0.0 Train Loss 0.030953211709856987 Val Loss 4.062114238739014
+EPOCH unfeeze : 1
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 61 Train Acc 100.0 Val Acc 0.0 Train Loss 0.02980637736618519 Val Loss 4.090601921081543
+EPOCH unfeeze : 2
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 62 Train Acc 100.0 Val Acc 0.0 Train Loss 0.02879043109714985 Val Loss 4.142937660217285
+EPOCH unfeeze : 3
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 63 Train Acc 100.0 Val Acc 0.0 Train Loss 0.027783771976828575 Val Loss 4.190638065338135
+EPOCH unfeeze : 4
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 64 Train Acc 100.0 Val Acc 0.0 Train Loss 0.026855845004320145 Val Loss 4.209131240844727
+EPOCH unfeeze : 5
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 65 Train Acc 100.0 Val Acc 0.0 Train Loss 0.025839265435934067 Val Loss 4.247421741485596
+EPOCH unfeeze : 6
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 66 Train Acc 100.0 Val Acc 0.0 Train Loss 0.024968968704342842 Val Loss 4.286857604980469
+EPOCH unfeeze : 7
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 67 Train Acc 100.0 Val Acc 0.0 Train Loss 0.024101460352540016 Val Loss 4.322673320770264
+EPOCH unfeeze : 8
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 68 Train Acc 100.0 Val Acc 0.0 Train Loss 0.02323613315820694 Val Loss 4.366350173950195
+EPOCH unfeeze : 9
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 69 Train Acc 100.0 Val Acc 0.0 Train Loss 0.02245502546429634 Val Loss 4.3885955810546875
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 70 Trainable Parameters : 85648900
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 70 Train Acc 100.0 Val Acc 0.0 Train Loss 0.02168026752769947 Val Loss 4.428716659545898
+EPOCH unfeeze : 1
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 71 Train Acc 100.0 Val Acc 0.0 Train Loss 0.020942742004990578 Val Loss 4.467345714569092
+EPOCH unfeeze : 2
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 72 Train Acc 100.0 Val Acc 0.0 Train Loss 0.020164472982287407 Val Loss 4.502016067504883
+EPOCH unfeeze : 3
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 73 Train Acc 100.0 Val Acc 0.0 Train Loss 0.019459959119558334 Val Loss 4.5311503410339355
+EPOCH unfeeze : 4
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 74 Train Acc 100.0 Val Acc 0.0 Train Loss 0.018742723390460014 Val Loss 4.565485000610352
+EPOCH unfeeze : 5
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 75 Train Acc 100.0 Val Acc 0.0 Train Loss 0.01809750869870186 Val Loss 4.614233016967773
+EPOCH unfeeze : 6
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 76 Train Acc 100.0 Val Acc 0.0 Train Loss 0.017474180087447166 Val Loss 4.64293909072876
+EPOCH unfeeze : 7
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 77 Train Acc 100.0 Val Acc 0.0 Train Loss 0.01686401665210724 Val Loss 4.686267852783203
+EPOCH unfeeze : 8
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 78 Train Acc 100.0 Val Acc 0.0 Train Loss 0.016289692372083664 Val Loss 4.721397399902344
+EPOCH unfeeze : 9
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 79 Train Acc 100.0 Val Acc 0.0 Train Loss 0.015698345378041267 Val Loss 4.758301258087158
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 80 Trainable Parameters : 85648900
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 80 Train Acc 100.0 Val Acc 0.0 Train Loss 0.015159808099269867 Val Loss 4.795504570007324
+EPOCH unfeeze : 1
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 81 Train Acc 100.0 Val Acc 0.0 Train Loss 0.014617940410971642 Val Loss 4.832431793212891
+EPOCH unfeeze : 2
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 82 Train Acc 100.0 Val Acc 0.0 Train Loss 0.014116190373897552 Val Loss 4.866460800170898
+EPOCH unfeeze : 3
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 83 Train Acc 100.0 Val Acc 0.0 Train Loss 0.01361163891851902 Val Loss 4.897819995880127
+EPOCH unfeeze : 4
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 84 Train Acc 100.0 Val Acc 0.0 Train Loss 0.013144701719284058 Val Loss 4.935704708099365
+EPOCH unfeeze : 5
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 85 Train Acc 100.0 Val Acc 0.0 Train Loss 0.01267701480537653 Val Loss 4.9713134765625
+EPOCH unfeeze : 6
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 86 Train Acc 100.0 Val Acc 0.0 Train Loss 0.012245316058397293 Val Loss 5.006239891052246
+EPOCH unfeeze : 7
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 87 Train Acc 100.0 Val Acc 0.0 Train Loss 0.01181891281157732 Val Loss 5.04299259185791
+EPOCH unfeeze : 8
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 88 Train Acc 100.0 Val Acc 0.0 Train Loss 0.011409057304263115 Val Loss 5.071926116943359
+EPOCH unfeeze : 9
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 89 Train Acc 100.0 Val Acc 0.0 Train Loss 0.011012325994670391 Val Loss 5.110550880432129
+EPOCH unfeeze : 0
+Updated Parameters at Epoch 90 Trainable Parameters : 85648900
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 90 Train Acc 100.0 Val Acc 0.0 Train Loss 0.01063634268939495 Val Loss 5.140493869781494
+EPOCH unfeeze : 1
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 91 Train Acc 100.0 Val Acc 0.0 Train Loss 0.01027869712561369 Val Loss 5.184966087341309
+EPOCH unfeeze : 2
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 92 Train Acc 100.0 Val Acc 0.0 Train Loss 0.009922312572598457 Val Loss 5.217909812927246
+EPOCH unfeeze : 3
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 93 Train Acc 100.0 Val Acc 0.0 Train Loss 0.009577512741088867 Val Loss 5.2488203048706055
+EPOCH unfeeze : 4
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 94 Train Acc 100.0 Val Acc 0.0 Train Loss 0.009257238358259201 Val Loss 5.287312984466553
+EPOCH unfeeze : 5
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}Configuration saved in ../output/umbrella_alldevdata_local/wav2vec-ADI17-initialtest/config.json
+Model weights saved in ../output/umbrella_alldevdata_local/wav2vec-ADI17-initialtest/pytorch_model.bin
+***** Running Prediction *****
+  Num examples = 4
+  Batch size = 8
+
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 95 Train Acc 100.0 Val Acc 0.0 Train Loss 0.008953551761806011 Val Loss 5.321785926818848
+EPOCH unfeeze : 6
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 96 Train Acc 100.0 Val Acc 0.0 Train Loss 0.00863722711801529 Val Loss 5.352231979370117
+EPOCH unfeeze : 7
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 97 Train Acc 100.0 Val Acc 0.0 Train Loss 0.008354052901268005 Val Loss 5.390141487121582
+EPOCH unfeeze : 8
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 98 Train Acc 100.0 Val Acc 0.0 Train Loss 0.008066361770033836 Val Loss 5.42264461517334
+EPOCH unfeeze : 9
+train: {'input_values': tensor([[-6.5257e-03,  4.0407e-05,  1.8643e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.5558, -0.5387, -0.5220,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[-0.0235, -0.0310, -0.0424,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+train: {'input_values': tensor([[0.1438, 0.1425, 0.1435,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1])}
+test: {'input_values': tensor([[0.0261, 0.0750, 0.1125,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.6328, -0.1130,  0.3310,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+test: {'input_values': tensor([[-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0])}
+Epoch 99 Train Acc 100.0 Val Acc 0.0 Train Loss 0.0077971951104700565 Val Loss 5.458739280700684
+
+------> EVALUATING MODEL... ------------------------------------------ 
+
+LOSS LABELS, tensor([0], device='cuda:0')
+  0%|          | 0/4 [00:00<?, ?it/s] 50%|█████     | 2/4 [00:00<00:00,  2.35it/s] 75%|███████▌  | 3/4 [00:01<00:00,  1.66it/s]100%|██████████| 4/4 [00:02<00:00,  1.44it/s]/apps/python/3.8.3/lib/python3.8/site-packages/sklearn/metrics/_classification.py:1221: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/apps/python/3.8.3/lib/python3.8/site-packages/sklearn/metrics/_classification.py:1221: UndefinedMetricWarning: Recall and F-score are ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+LOSS LABELS, tensor([0], device='cuda:0')
+LOSS LABELS, tensor([0], device='cuda:0')
+LOSS LABELS, tensor([0], device='cuda:0')
+CLASSIFICATION REPORT
+              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00       4.0
+           1       0.00      0.00      0.00       0.0
+
+    accuracy                           0.00       4.0
+   macro avg       0.00      0.00      0.00       4.0
+weighted avg       0.00      0.00      0.00       4.0
+
+
+------> SUCCESSFULLY FINISHED ---------------------------------------- 
+
+Finished: 29/09/2022 16:58:30
+100%|██████████| 4/4 [00:02<00:00,  1.47it/s]
