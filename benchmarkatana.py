@@ -9,7 +9,6 @@ language_id = EncoderClassifier.from_hparams(
 file_path = "/Users/myounes/Documents/Code/thesis_files/dev_segments/_FBO2f3kW5Q_000136-000568.wav"
 # assign directory
 directory = '/srv/scratch/z5208494/dataset/test_segments/'
-
 devFiles = tuple(open('data/adi17_official_test_label.txt', 'r'))
 
 csvFile = open('speechbrainDevData.csv', 'w')
@@ -27,7 +26,7 @@ for line in devFiles:
     if os.path.isfile(f):
         signal = language_id.load_audio(file_path)
         prediction = language_id.classify_batch(signal)
-        csvFile.write(f"{filename},{dialect},{prediction}\n")
+        csvFile.write(f"{filename},{dialect},{prediction[3]}\n")
         print(prediction[3])
         if (prediction[3] == ['ar: Arabic']):
             correct += 1

@@ -803,6 +803,7 @@ class myTrainer(Trainer):
             # forward pass
             try:
                 data = next(tr_itt)
+                print("train: " + str(data))
                 inputs = {}
                 inputs['input_values'] = data['input_values'].float().cuda().contiguous()
                 inputs['attention_mask'] = data['attention_mask'].long().cuda().contiguous()
@@ -834,6 +835,7 @@ class myTrainer(Trainer):
             for i in range(len(loader)):
                 try:
                     data = next(tst_itt)
+                    print("test: " + str(data))
                     inputs = {}
                     inputs['input_values'] = data['input_values'].float(
                     ).cuda().contiguous()
