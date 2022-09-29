@@ -22,15 +22,15 @@ for line in devFiles:
     filename = line.split(' ')[0] + '.wav'
     dialect = line.split(' ')[1]
     f = os.path.join(directory, filename)
-    print(f)
     # checking if it is a file
     if os.path.isfile(f):
-        signal = language_id.load_audio(file_path)
+        signal = language_id.load_audio(f)
         prediction = language_id.classify_batch(signal)
         csvFile.write(f"{filename},{dialect},{prediction}\n")
         print(prediction[3])
         if (prediction[3] == ['ar: Arabic']):
             correct+=1
         total+=1
+        print(f"Accuracy {correct/total*100}%")
 print(f"Accuracy {correct/total*100}%")
 print(f"Out of {total} Files {correct} were identified as Arabic.")

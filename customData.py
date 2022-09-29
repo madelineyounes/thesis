@@ -37,7 +37,7 @@ class CustomDataset(Dataset):
         self.labels = labels
 
     def __len__(self):
-        return len(self.labels)
+        return len(self.data_frame)
 
     def __getitem__(self, idx):
         if torch.is_tensor(idx):
