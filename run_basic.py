@@ -394,7 +394,7 @@ def label_to_id(label, label_list):
 # We want to store both audio values and sampling rate
 # in the dataset.
 # We write a map(...) function accordingly.
-max_duration = 15
+max_duration = 10
 print("Max Duration:",max_duration, "s")
 sampling_rate = feature_extractor.sampling_rate
 print("Sampling Rate:",  sampling_rate)

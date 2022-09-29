@@ -8,9 +8,9 @@ language_id = EncoderClassifier.from_hparams(
 
 file_path = "/Users/myounes/Documents/Code/thesis_files/dev_segments/_FBO2f3kW5Q_000136-000568.wav"
 # assign directory
-directory = '/Users/myounes/Documents/Code/thesis_files/dev_segments/'
+directory = '/srv/scratch/z5208494/dataset/test_segments/'
 
-devFiles = tuple(open('data/adi17_official_dev_label.txt', 'r'))
+devFiles = tuple(open('data/adi17_official_test_label.txt', 'r'))
 
 csvFile = open('speechbrainDevData.csv', 'w')
 csvFile.write("file,dialect,prediction\n")
@@ -30,7 +30,7 @@ for line in devFiles:
         csvFile.write(f"{filename},{dialect},{prediction}\n")
         print(prediction[3])
         if (prediction[3] == ['ar: Arabic']):
-            correct+=1
-        total+=1
+            correct += 1
+        total += 1
 print(f"Accuracy {correct/total*100}%")
 print(f"Out of {total} Files {correct} were identified as Arabic.")
