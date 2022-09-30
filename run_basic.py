@@ -199,7 +199,7 @@ set_layerdrop = 0.05                        # Default = 0.1
 print("layerdrop:", set_layerdrop)
 set_mask_time_prob = 0.065                  # Default = 0.05
 print("mask_time_prob:", set_mask_time_prob)
-set_mask_time_length = 10                   # Default = 10
+set_mask_time_length = 8                   # Default = 10
 print("mask_time_length:", set_mask_time_length)
 set_ctc_loss_reduction = "mean"             # Default = "sum"
 print("ctc_loss_reduction:", set_ctc_loss_reduction)
@@ -671,13 +671,13 @@ model = Wav2Vec2ForSpeechClassification.from_pretrained(
     config=config
 )
 
-#model.classifier = nn.Linear(in_features=256, out_features=num_labels, bias=True)
+model.classifier = nn.Linear(in_features=256, out_features=num_labels, bias=True)
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 multi_gpu = False
 if torch.cuda.device_count() > 1:
     print('GPUs Used : ', torch.cuda.device_count(), 'GPUs!')
-    model = nn.DataParallel(model)
+   # model = nn.DataParallel(model)
     multi_gpu = True
 
 model.to(device)
