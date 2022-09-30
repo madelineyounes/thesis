@@ -186,7 +186,7 @@ if eval_pretrained:
 
 print("\n------> MODEL ARGUMENTS... -------------------------------------------\n")
 # For setting model = Wav2Vec2ForCTC.from_pretrained()
-set_num_of_workers = 16  # equivilent to cpus*gpu 
+set_num_of_workers = 1  # equivilent to cpus*gpu 
 print("number_of_worker:", set_num_of_workers)
 set_hidden_dropout = 0.1                    # Default = 0.1
 print("hidden_dropout:", set_hidden_dropout)
