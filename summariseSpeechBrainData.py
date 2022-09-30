@@ -1,5 +1,6 @@
 import os
 import matplotlib.pyplot as plt
+from sklearn.metrics import plot_confusion_matrix
 
 
 ogfile = tuple(open('speechbrainTestData.csv', 'r'))
@@ -16,7 +17,7 @@ for line in ogfile:
     elif (i != 0):
         prediction = line.split(',')[1]
         lan = prediction.split("'")[1].split(':')[0]
-        csvFile.write(f"{filename},{dialect},{prediction}")
+        #csvFile.write(f"{filename},{dialect},{prediction}")
         if lan not in summary['langauges']:
             summary['langauges'].append(lan)
 
@@ -43,3 +44,6 @@ for line in ogfile:
         summary['total'] = summary.get('total') + 1
     i+=1
 print(summary)
+
+
+
