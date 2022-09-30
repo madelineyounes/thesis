@@ -186,7 +186,8 @@ if eval_pretrained:
 
 print("\n------> MODEL ARGUMENTS... -------------------------------------------\n")
 # For setting model = Wav2Vec2ForCTC.from_pretrained()
-
+set_num_of_workers = 8  # equivilent to cpus*gpu 
+print("number_of_worker:", set_num_of_workers)
 set_hidden_dropout = 0.1                    # Default = 0.1
 print("hidden_dropout:", set_hidden_dropout)
 set_activation_dropout = 0.1                # Default = 0.1
@@ -199,7 +200,7 @@ set_layerdrop = 0.05                        # Default = 0.1
 print("layerdrop:", set_layerdrop)
 set_mask_time_prob = 0.065                  # Default = 0.05
 print("mask_time_prob:", set_mask_time_prob)
-set_mask_time_length = 8                   # Default = 10
+set_mask_time_length = 10                   # Default = 10
 print("mask_time_length:", set_mask_time_length)
 set_ctc_loss_reduction = "mean"             # Default = "sum"
 print("ctc_loss_reduction:", set_ctc_loss_reduction)
@@ -394,7 +395,7 @@ def label_to_id(label, label_list):
 # We want to store both audio values and sampling rate
 # in the dataset.
 # We write a map(...) function accordingly.
-max_duration = 10
+max_duration = 5
 print("Max Duration:",max_duration, "s")
 sampling_rate = feature_extractor.sampling_rate
 print("Sampling Rate:",  sampling_rate)
@@ -410,10 +411,10 @@ testcustomdata = CustomDataset(
     csv_fp=data_test_fp, data_fp=test_data_path, labels=label_list, transform=random_transforms, model_name=model_name, max_length=max_duration)
 
 trainDataLoader = DataLoader(
-    traincustomdata, batch_size=set_per_device_train_batch_size, shuffle=True, num_workers=0)
+    traincustomdata, batch_size=set_per_device_train_batch_size, shuffle=True, num_workers=set_num_of_workers)
 
 testDataLoader = DataLoader(
-    testcustomdata, batch_size=set_per_device_train_batch_size, shuffle=True, num_workers=0)
+    testcustomdata, batch_size=set_per_device_train_batch_size, shuffle=True, num_workers=set_num_of_workers)
 
 
 print("Check data has been processed correctly... ")

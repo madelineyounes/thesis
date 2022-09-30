@@ -16,7 +16,7 @@ for line in ogfile:
     elif (i != 0):
         prediction = line.split(',')[1]
         lan = prediction.split("'")[1].split(':')[0]
-        #csvFile.write(f"{filename},{dialect},{prediction}\n")
+        csvFile.write(f"{filename},{dialect},{prediction}")
         if lan not in summary['langauges']:
             summary['langauges'].append(lan)
 
