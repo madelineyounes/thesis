@@ -187,7 +187,7 @@ if eval_pretrained:
 
 print("\n------> MODEL ARGUMENTS... -------------------------------------------\n")
 # For setting model = Wav2Vec2ForCTC.from_pretrained()
-set_num_of_workers = 1  # equivilent to cpus*gpu 
+set_num_of_workers = 2  # equivilent to cpus*gpu 
 print("number_of_worker:", set_num_of_workers)
 set_hidden_dropout = 0.1                    # Default = 0.1
 print("hidden_dropout:", set_hidden_dropout)
@@ -217,7 +217,7 @@ print("\n------> TRAINING ARGUMENTS... ----------------------------------------\
 
 set_evaluation_strategy = "epoch"           # Default = "no"
 print("evaluation strategy:", set_evaluation_strategy)
-set_per_device_train_batch_size = 4         # Default = 8
+set_per_device_train_batch_size = 8         # Default = 8
 print("per_device_train_batch_size:", set_per_device_train_batch_size)
 set_gradient_accumulation_steps = 2         # Default = 4
 print("gradient_accumulation_steps:", set_gradient_accumulation_steps)
@@ -741,7 +741,7 @@ class myTrainer(Trainer):
                             param.requires_grad = True
                     else:
                         for param in model.wav2vec2.encoder.layers[num_transformers-(epoch//set_unfreezing_step)-trainable_transformers].parameters():
-                            print(param)
+                            print("grad change")
                             param.requires_grad = True
         
                 model_parameters = filter(lambda p: p.requires_grad, model.parameters())
@@ -754,14 +754,14 @@ class myTrainer(Trainer):
             acc_sum_val = 0
             tr_itt = iter(trainDataLoader)
             tst_itt = iter(testDataLoader)
-
+            print("start train")
             # train
             train_loss, train_acc = self._train(train_loader, tr_itt, loss_sum_tr, acc_sum_tr)
-
+            print("start validation")
             # validate
             val_loss, val_acc = self._validate(val_loader, tst_itt, loss_sum_val, acc_sum_val)
 
-            print(f"Epoch {epoch} Train Acc {train_acc} Val Acc {val_acc} Train Loss {train_loss} Val Loss {val_loss}")
+            print(f"Epoch {epoch} Train Acc {train_acc}% Val Acc {val_acc}% Train Loss {train_loss} Val Loss {val_loss}")
             outcsv.write(
                 f"{epoch},{train_acc},{val_acc},{train_loss},{val_loss}\n")
 
