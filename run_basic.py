@@ -217,7 +217,7 @@ print("\n------> TRAINING ARGUMENTS... ----------------------------------------\
 
 set_evaluation_strategy = "epoch"           # Default = "no"
 print("evaluation strategy:", set_evaluation_strategy)
-set_per_device_train_batch_size = 8         # Default = 8
+set_per_device_train_batch_size = 4         # Default = 8
 print("per_device_train_batch_size:", set_per_device_train_batch_size)
 set_gradient_accumulation_steps = 2         # Default = 4
 print("gradient_accumulation_steps:", set_gradient_accumulation_steps)

@@ -26,5 +26,7 @@ def start_prompt():
         "What perctage of the data do you want for training enter as percentage in decimal form eg. 0.30 for 30%?"))
     return split
 
-def populate_csv(split): 
-    
+
+for l in lang:
+    dir_path = data_path + lang + "/"
+
