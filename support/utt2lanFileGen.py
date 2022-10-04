@@ -28,7 +28,7 @@ dialect_dict = {
     "EGY": ['EGY', 'SDN'],
     "GLF": ['IRQ', 'KWT', 'ARE', 'QAT', 'OMN', 'SAU', 'YEM'],
     "LEV": ['PSE', 'LBN', 'SYR', 'JOR'],
-    "NOR": ['MRT', 'MAR', 'DZA', 'LIB']
+    "NOR": ['MRT', 'MAR', 'DZA', 'LBY']
 }
 
 regional_dialects = regional_NOR_dialects + regional_EGY_dialects + regional_GLF_dialects + regional_LEV_dialects

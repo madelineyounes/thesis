@@ -1,0 +1,96 @@
+SUMMARY REPORT
+DIALECT: EGY
+Language 	files/total     pct
+ar 		    702/760         92.37%
+iw 		    4/760 	        0.53%
+sw 		    3/760 	        0.39%
+DIALECT: SDN
+Language 	files/total 	pct
+ar 		    677/760 	    89.08%
+so 		    18/760 	        2.37%
+am 		    13/760 	        1.n  71%
+DIALECT: IRQ
+Language 	 files/total 	pct
+ar 		     695/760 	    91.45%
+mt 		     8/760 	        1.05%
+so 		     7/760 	        0.92%
+DIALECT: KWT
+Language 	 files/total 	pct
+ar 		     646/760 	    85.00%
+so 		     24/760 	    3.16%
+iw 		     13/760 	    1.71%
+DIALECT: ARE
+Language 	files/total 	pct
+ar 		    636/760 	    83.68%
+so 		    18/760 	        2.37%
+iw 		    13/760 	        1.71%
+DIALECT: QAT
+Language 	files/total 	pct
+ar 		    705/760 	    92.76%
+so 		    6/760 	        0.79%
+mt 		    4/760 	        0.53%
+DIALECT: OMN
+Language 	files/total 	pct
+ar 		    638/760 	    83.95%
+nn 		    20/760 	        2.63%
+so 		    17/760 	        2.24%
+DIALECT: SAU
+Language 	files/total 	pct
+ar 		    623/760 	    81.97%
+en 		    26/760 	        3.42%
+so 		    25/760 	        3.29%
+DIALECT: YEM
+Language 	files/total 	pct
+ar 		    620/760 	    81.58%
+so 		    70/760 	        9.21%
+as 		    6/760 	        0.79%
+DIALECT: PSE
+Language 	files/total 	pct
+ar 		    684/760 	    90.00%
+so 		    8/760 	        1.05%
+tt 		    6/760 	        0.79%
+DIALECT: LBN
+Language 	files/total 	pct
+ar 		    649/760 	    85.39%
+iw 		    27/760 	        3.55%
+sl 		    6/760 	        0.79%
+DIALECT: SYR
+Language 	files/total 	pct
+ar 		    685/756 	    90.61%
+nn 		    8/756 	        1.06%
+iw 		    5/756 	        0.66%
+DIALECT: JOR
+Language 	files/total 	pct
+ar 		    692/721 	    95.98%
+am 		    4/721 	        0.55%
+ps 		    3/721 	        0.42%
+DIALECT: MRT
+Language 	files/total 	pct
+ar 		    398/509 	    78.19%
+so 		    33/509 	        6.48%
+am 		    9/509 	        1.77%
+DIALECT: MAR
+Language 	files/total 	pct
+ar 		    635/760 	    83.55%
+nn 		    12/760 	        1.58%
+fr 		    10/760 	        1.32%
+DIALECT: DZA
+Language 	files/total 	pct
+ar 		    659/745 	    88.46%
+so 		    14/745 	        1.88%
+mt 		    10/745 	        1.34%
+DIALECT: LBY
+Language 	files/total 	pct
+ar 		    715/760 	    94.08%
+tt 		    5/760 	        0.66%
+jw 		    2/760 	        0.26%
+
+
+OVERALL SUMMARY11059/12611 		 87.69%
+
+Comments: 
+- Jordian (JOR) arabic was identified as Arabic with the highest level of accuracy at 95.98%. 
+- Yemen (YEM) arabic was indentified with a lowest accurasy of 81.58% and was misidentified as Somali (so) at 9.21%. 
+- Somali (so) was the most likely language arabic would be misidentified as. 
+
+

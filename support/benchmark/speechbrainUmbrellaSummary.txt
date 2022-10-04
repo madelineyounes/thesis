@@ -1,0 +1,29 @@
+SUMMARY REPORT
+
+DIALECT: NOR
+Language    files/total 	pct
+ar 		    2407/2774 	    86.77%
+so 		    52/2774 	    1.87%
+fr 		    24/2774 	    0.87%
+DIALECT: EGY
+Language 	files/total 	pct
+ar 		    1379/1520 	    90.72%
+so 		    21/1520 	    1.38%
+am 		    15/1520 	    0.99%
+DIALECT: GLF
+Language 	files/total 	pct
+ar 		    4563/5320 	    85.77%
+so 		    167/5320 	    3.14%
+iw 		    42/5320 	    0.79%
+DIALECT: LEV
+Language 	files/total 	pct
+ar 		    2710/2997 	    90.42%
+iw 		    39/2997 	    1.30%
+so 		    19/2997 	    0.63%
+
+OVERALL SUMMARY 11059/12611 		 87.69%
+
+Comments:
+- Highest Accuarcy for Egyptian (EGY) 90.72%
+- Lowest Accuarcy was for Gulf (GLF) 85.77%
+- The Languages most likely to be mistaken for arabic were Somali (so) and Hebrew (iw)
