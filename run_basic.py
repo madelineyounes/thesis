@@ -47,6 +47,7 @@ from transformers import (
     Wav2Vec2FeatureExtractor,
     AutoConfig,
     Wav2Vec2CTCTokenizer,
+    Wav2Vec2ForSequenceClassification
 )
 from transformers.models.wav2vec2.modeling_wav2vec2 import (
     Wav2Vec2PreTrainedModel,
@@ -666,8 +667,8 @@ print("SUCCESS: Defined Accuracy evaluation metric.")
 # checkpointing and also set the loss reduction to "mean".
 
 print("--> Loading pre-trained checkpoint...")
-
-model = Wav2Vec2ForSpeechClassification.from_pretrained(
+# NOTE: SWAPED Wav2Vec2ForSpeechClassification to Wav2Vec2ForSequenceClassification
+model = Wav2Vec2ForSequenceClassification.from_pretrained(
     pretrained_mod,
     config=config
 )
