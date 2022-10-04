@@ -14,7 +14,7 @@ data_label_path = "/srv/scratch/z5208494/dataset/"
 #data_path = data_label_path+"dev_segments/"
 data_path = "/srv/scratch/z5208494/dataset/test_segments/"
 '''
-Program to generate a text file with all the file names to be used in trainging. 
+Program to generate a csv file with all the file names to be used in trainging. 
 The training data will be selected and using the 4 umbrella dialect categories (EGY, LEV, NOR, GLF) 
 or the 17 specific regional dialects. The program will select enough data for a specified amount.
 '''
@@ -36,7 +36,7 @@ umbrella_dialects = ['NOR', 'EGY', 'GLF', 'LEV']
 
 def start_prompt():
     start_messag = '''
-    This program generates a text file with a list of file names to be used as training data 
+    This program generates a csv file with a list of file names to be used as training data 
     for an arabic DID. The inputs are a selection of the dialect grouping system to be used (char)
     and the amount of data that needs to be collected for each of those dialects (float). 
     '''
@@ -45,11 +45,11 @@ def start_prompt():
     total_time = float(input("How much data for each dialect in hrs?"))
     return dialect_group, total_time
 
-def gen_txt(dialect_group, total_time):
+def gen_csv(dialect_group, total_time):
     '''
-    Function that generates a txt file which will contain a list of the files to be used as training data. 
+    Function that generates a csv file which will contain a list of the files to be used as training data. 
     '''
-    print("generating txt file...")
+    print("generating csv file...")
     counter = 0
     filename = output_path + "data_{d}_{t}_hrs_{count}_.csv".format(d=dialect_group, t=str(int(total_time)), count = counter)
     while os.path.isfile(filename.format(count=counter)):
@@ -62,14 +62,14 @@ def gen_txt(dialect_group, total_time):
     f.close()
     return filename
 
-def populate_txt(file:string, dialect:string, total_time:float, dialect_group:string, time_counter: float):
+def populate_csv(file:string, dialect:string, total_time:float, dialect_group:string, time_counter: float):
     '''
-    Function that takes in the txt file, the dialect abbrevation and 
+    Function that takes in the csv file, the dialect abbrevation and 
     the total time of the training data. 
     '''
     print("populating doc ...")
     train_lines = tuple(
-        open('../data/adi17_official_test_label.txt', 'r'))
+        open('../data/adi17_official_test_label.csv', 'r'))
     out_lines = tuple(open(file, 'r'))
     out_file = open(file, 'a+')
     info_time = 0
@@ -103,18 +103,18 @@ def populate_txt(file:string, dialect:string, total_time:float, dialect_group:st
 def main():
     dialect_group, total_time = start_prompt()
     total_time = 3600*total_time # convert hours to seconds
-    txt_file = gen_txt(dialect_group, total_time/3600)
-    print("Generated the file " + txt_file)
+    csv_file = gen_csv(dialect_group, total_time/3600)
+    print("Generated the file " + csv_file)
 
     if dialect_group == 'r':
         for dialect in regional_dialects:
-            populate_txt(txt_file, dialect, total_time, dialect_group, 0)
+            populate_csv(csv_file, dialect, total_time, dialect_group, 0)
     else:
         for dialect in umbrella_dialects: 
             time_counter = 0
             for d in regional_dialects: 
                 if d in dialect_dict[dialect]:
-                    time_counter += populate_txt(txt_file, d,
+                    time_counter += populate_csv(csv_file, d,
                                                  total_time, dialect_group, time_counter)
 
 if __name__ == "__main__":

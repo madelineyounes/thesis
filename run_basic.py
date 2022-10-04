@@ -736,10 +736,12 @@ class myTrainer(Trainer):
             if epoch != 0 and epoch % set_unfreezing_step == 0 :
                 if epoch // set_unfreezing_step < (num_transformers-trainable_transformers):
                     if multi_gpu:
+                        print("multi GPU used")
                         for param in model.module.wav2vec2.encoder.layers[num_transformers-(epoch//set_unfreezing_step) - trainable_transformers].parameters():
                             param.requires_grad = True
                     else:
                         for param in model.wav2vec2.encoder.layers[num_transformers-(epoch//set_unfreezing_step)-trainable_transformers].parameters():
+                            print(param)
                             param.requires_grad = True
         
                 model_parameters = filter(lambda p: p.requires_grad, model.parameters())
