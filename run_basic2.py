@@ -27,11 +27,13 @@ from typing import Any, Dict, List, Optional, Union
 import pyarrow.csv as csv
 import pyarrow as pa
 from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
 from typing import Optional, Tuple, Any, Dict, Union
 import customTransform as T
 import torch.nn as nn
 import time
 import math
+import matplotlib.pyplot as plt
 from torch.nn import BCEWithLogitsLoss, CrossEntropyLoss, MSELoss
 from torch.utils.data import DataLoader
 import torchaudio
@@ -179,7 +181,7 @@ if eval_pretrained:
 
 print("\n------> MODEL ARGUMENTS... -------------------------------------------\n")
 # For setting model = Wav2Vec2ForCTC.from_pretrained()
-set_num_of_workers = 2  # equivilent to cpus*gpu
+set_num_of_workers = 1  # equivilent to cpus*gpu
 print("number_of_worker:", set_num_of_workers)
 set_hidden_dropout = 0.1                    # Default = 0.1
 print("hidden_dropout:", set_hidden_dropout)
@@ -224,7 +226,7 @@ set_adam_epsilon = 0.00000001               # Default = 0.00000001
 print("adam_epsilon:", set_adam_epsilon)
 set_unfreezing_step = 10                   # Default = 3.0
 print("unfreezing_step:", set_unfreezing_step)
-set_num_train_epochs = 100                  # Default = 3.0
+set_num_train_epochs = 55                  # Default = 3.0
 print("num_train_epochs:", set_num_train_epochs)
 set_max_steps = -1                       # Default = -1, overrides epochs
 print("max_steps:", set_max_steps)
@@ -234,24 +236,16 @@ set_warmup_ratio = 0.1                      # Default = 0.0
 print("warmup_ratio:", set_warmup_ratio)
 set_logging_strategy = "steps"              # Default = "steps"
 print("logging_strategy:", set_logging_strategy)
-set_logging_steps = 10                      # Default = 500
+set_logging_steps = 500                      # Default = 500
 print("logging_steps:", set_logging_steps)
 set_save_strategy = "epoch"                 # Default = "steps"
 print("save_strategy:", set_save_strategy)
 set_save_steps = 500                         # Default = 500
 print("save_steps:", set_save_steps)
-set_save_total_limit = 40                   # Optional
-print("save_total_limit:", set_save_total_limit)
 set_fp16 = False                             # Default = False
 print("fp16:", set_fp16)
-set_eval_steps = 100                         # Optional
-print("eval_steps:", set_eval_steps)
 set_load_best_model_at_end = False           # Default = False
 print("load_best_model_at_end:", set_load_best_model_at_end)
-set_metric_for_best_model = "accuracy"           # Optional
-print("metric_for_best_model:", set_metric_for_best_model)
-set_greater_is_better = False               # Optional
-print("greater_is_better:", set_greater_is_better)
 set_group_by_length = True                  # Default = False
 print("group_by_length:", set_group_by_length)
 set_push_to_hub = False                      # Default = False
@@ -325,9 +319,6 @@ for i, label in enumerate(label_list):
     id2label[str(i)] = label
 
 num_labels = len(id2label)
-
-print("\n------> Creating blank confusion matrix ... -----------------------\n")
-matrix = np.empty((0, num_labels), dtype=int)
 # ------------------------------------------
 #       Processing transcription
 # ------------------------------------------
@@ -506,43 +497,22 @@ class DataCollatorCTCWithPadding:
         batch["labels"] = torch.stack(label_features)
         return batch
 
+#data_collator = DataCollatorCTCWithPadding()
 
-data_collator = DataCollatorCTCWithPadding()
-# 2) Evaluation metric
-#    Using Accuaracy
-print("--> Defining evaluation metric...")
-# The model will return a sequence of logit vectors y.
-# We are interested in the most likely prediction of the mode and
-# thus take argmax(...) of the logits. We also transform the
-# encoded label back to the original string by replacing -100
-# with the pad_token_id and decoding the ids while making sure
-# that consecutive tokens are not grouped to the same token in
-# CTC style.
-acc_metric = load_metric("accuracy")
-# NOTE: CAN PROBS DELETE THIS SECTION
-"""
-def compute_metrics(pred):
-    print("PRED", pred)
-    pred_logits = pred.predictions
-    pred_ids = np.argmax(pred_logits, axis=-1)
 
-    pred.label_ids[pred.label_ids == -100] = processor.tokenizer.pad_token_id
+def plot_data(x_label, y_label, matrix):
+    fig, ax = plt.subplots()
+    cax = ax.matshow(matrix, cmap=plt.cm.Blues)
 
-    pred_str = processor.batch_decode(pred_ids)
-    # we do not want to group tokens when computing the metrics
-    print("LABELS IDS", pred.label_ids)
-    label_str = processor.batch_decode(pred.label_ids, group_tokens=False)
-    print("LABELS STRING", label_str)
-    print("PRED IDS", pred_str)
-    acc = acc_metric.compute(predictions=pred_str, references=pred.label_ids)
-    return {"accuracy": acc}
-"""
-print("SUCCESS: Defined Accuracy evaluation metric.")
-# 3) Load pre-trained checkpoint
-# Load pre-trained Wav2Vec2 checkpoint. The tokenizer's pad_token_id
-# must be to define the model's pad_token_id or in the case of Wav2Vec2ForCTC
-# also CTC's blank token. To save GPU memory, we enable PyTorch's gradient
-# checkpointing and also set the loss reduction to "mean".
+    fig.colorbar(cax)
+    xaxis = np.arange(len(x_label))
+    yaxis = np.arange(len(y_label))
+    ax.set_xticks(xaxis)
+    ax.set_yticks(yaxis)
+    ax.set_xticklabels(x_label)
+    ax.set_yticklabels(y_label)
+    plt.savefig("output/"+experiment_id+".png")
+
 
 print("--> Loading pre-trained checkpoint...")
 # NOTE: SWAPED Wav2Vec2ForSpeechClassification to Wav2Vec2ForSequenceClassification
@@ -563,8 +533,6 @@ if torch.cuda.device_count() > 1:
 model.to(device)
 
 print("-------- Setting up Model --------")
-
-
 for param in model.wav2vec2.feature_extractor.parameters():
     param.requires_grad = False
 
@@ -599,9 +567,8 @@ def multi_acc(y_pred, y_test):
     y_pred_softmax = torch.log_softmax(y_pred, dim=1)
     _, y_pred_tags = torch.max(y_pred_softmax, dim=1)
 
-    correct_pred = (y_pred_tags == y_test).float()
+    correct_pred = (y_pred_tags == y_test).float().to(device).contiguous()
     acc = correct_pred.sum() / len(correct_pred)
-
     acc = torch.round(acc * 100)
     return acc
 
@@ -631,6 +598,9 @@ class myTrainer(Trainer):
                 lambda p: p.requires_grad, model.parameters())
             params = sum([np.prod(p.size()) for p in model_parameters])
             print('Trainable Parameters : ' + str(params))
+            if torch.cuda.is_available():
+                gc.collect()
+                torch.cuda.empty_cache()
 
             loss_sum_tr = 0
             acc_sum_tr = 0
@@ -646,7 +616,7 @@ class myTrainer(Trainer):
             # validate
             val_loss, val_acc = self._validate(
                 val_loader, tst_itt, loss_sum_val, acc_sum_val)
-            torch.cuda.empty_cache()
+
             print(
                 f"Epoch {epoch} Train Acc {train_acc}% Val Acc {val_acc}% Train Loss {train_loss} Val Loss {val_loss}")
             outcsv.write(
@@ -718,8 +688,10 @@ class myTrainer(Trainer):
             (labels.shape[0])).long().to(device).contiguous())
         return loss, acc
 
-    def _gen_prediction(self, loader, tst_itt):
+    def _evaluate(self, loader, tst_itt):
         # put model in evaluation mode
+        y_true = []
+        y_pred = []
         self.model.eval()
         with torch.no_grad():
             for i in range(len(loader)):
@@ -733,54 +705,24 @@ class myTrainer(Trainer):
                     labels = data['labels'].long().to(device).contiguous()
                     labels = labels.reshape(
                         (labels.shape[0])).long().to(device).contiguous()
-                    prediction = model(**inputs).logits
+                    predictions = model(**inputs).logits
+                    preds = predictions[0]
+
+                    for p in preds:
+                        y_pred.append(np.argmax(p))
+
+                    for l in labels.numpy():
+                        y_true.append(l)
 
                 except StopIteration:
                     break
 
-    def _predict(self, test_dataloader):
-        """
-        Run prediction and returns predictions and potential metrics.
-        Depending on the dataset and your use case, your test dataset may contain labels. In that case, this method
-        will also return metrics, like in `evaluate()`.
-        Args:
-            test_dataset (`Dataset`):
-                Dataset to run the predictions on. If it is an `datasets.Dataset`, columns not accepted by the
-                `model.forward()` method are automatically removed. Has to implement the method `__len__`
-            ignore_keys (`Lst[str]`, *optional*):
-                A list of keys in the output of your model (if it is a dictionary) that should be ignored when
-                gathering predictions.
-            metric_key_prefix (`str`, *optional*, defaults to `"test"`):
-                An optional prefix to be used as the metrics key prefix. For example the metrics "bleu" will be named
-                "test_bleu" if the prefix is "test" (default)
-        <Tip>
-        If your predictions or labels have different sequence length (for instance because you're doing dynamic padding
-        in a token classification task) the predictions will be padded (on the right) to allow for concatenation into
-        one array. The padding index is -100.
-        </Tip>
-        Returns: *NamedTuple* A namedtuple with the following keys:
-            - predictions (`np.ndarray`): The predictions on `test_dataset`.
-            - label_ids (`np.ndarray`, *optional*): The labels (if the dataset contained some).
-            - metrics (`Dict[str, float]`, *optional*): The potential dictionary of metrics (if the dataset contained
-              labels).
-        """
-        # memory metrics - must set up as early as possible
-        self._memory_tracker.start()
-        start_time = time.time()
-
-        eval_loop = self.prediction_loop if self.args.use_legacy_prediction_loop else self.evaluation_loop
-        output = eval_loop(test_dataloader, description="Prediction")
-        total_batch_size = self.args.eval_batch_size * self.args.world_size
-        output.metrics.update(
-            speed_metrics(
-                split="test",
-                start_time=start_time,
-                num_samples=output.num_samples,
-                num_steps=math.ceil(output.num_samples / total_batch_size),
-            )
-        )
-        self._memory_tracker.stop_and_update_metrics(output.metrics)
-        return PredictionOutput(predictions=output.predictions, label_ids=output.label_ids, metrics=output.metrics)
+        c_matrix = confusion_matrix(y_true, y_pred, normalize='all')
+        print("CONFUSION MATRIX")
+        print(c_matrix)
+        print("CLASSIFICATION REPORT")
+        print(classification_report(y_true, y_pred))
+        plot_data(label_list, label_list, c_matrix)
 
 
 # model.freeze_feature_extractor()
@@ -824,7 +766,6 @@ trainer = myTrainer(
     model=model,
     optimizers=(optimizer, lr_scheduler),
     args=training_args,
-    data_collator=data_collator,
 )
 
 # ------------------------------------------
@@ -839,8 +780,8 @@ if training:
     # Use avaliable GPUs
     if torch.cuda.is_available():
         device = torch.device("cuda")
-        torch.cuda.empty_cache()
         gc.collect()
+        torch.cuda.empty_cache()
     else:
         device = ("cpu")
     # Train
@@ -855,21 +796,8 @@ if training:
 # Evaluate fine-tuned model on test set.
 print("\n------> EVALUATING MODEL... ------------------------------------------ \n")
 
-
-results = trainer._predict(testDataLoader)
-y_true = results[1]
-# create an array selecting the highest prediction value.
-y_pred = []
-for predicts in results[0]:
-    p = np.where(predicts == np.amax(predicts))
-    y_pred.append(p[0][0])
-
-
-print("CLASSIFICATION REPORT")
-print(classification_report(y_true, y_pred))
-
-# Deeper look into model: running the first test sample through the model,
-# take the predicted ids and convert them to their corresponding tokens.
+tst_itt = iter(testDataLoader)
+trainer. _evaluate(testDataLoader, tst_itt)
 
 print("\n------> SUCCESSFULLY FINISHED ---------------------------------------- \n")
 now = datetime.now()

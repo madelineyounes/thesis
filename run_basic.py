@@ -675,7 +675,7 @@ class myTrainer(Trainer):
             (labels.shape[0])).long().to(device).contiguous())
         return loss, acc
 
-    def _gen_prediction(self, loader, tst_itt):
+    def _evaluate(self, loader, tst_itt):
         # put model in evaluation mode
         y_true = []
         y_pred = []
@@ -710,51 +710,6 @@ class myTrainer(Trainer):
         print("CLASSIFICATION REPORT")
         print(classification_report(y_true, y_pred))
         plot_data(label_list, label_list, c_matrix)
-        
-    def _predict(self, test_dataloader):
-        """
-        Run prediction and returns predictions and potential metrics.
-        Depending on the dataset and your use case, your test dataset may contain labels. In that case, this method
-        will also return metrics, like in `evaluate()`.
-        Args:
-            test_dataset (`Dataset`):
-                Dataset to run the predictions on. If it is an `datasets.Dataset`, columns not accepted by the
-                `model.forward()` method are automatically removed. Has to implement the method `__len__`
-            ignore_keys (`Lst[str]`, *optional*):
-                A list of keys in the output of your model (if it is a dictionary) that should be ignored when
-                gathering predictions.
-            metric_key_prefix (`str`, *optional*, defaults to `"test"`):
-                An optional prefix to be used as the metrics key prefix. For example the metrics "bleu" will be named
-                "test_bleu" if the prefix is "test" (default)
-        <Tip>
-        If your predictions or labels have different sequence length (for instance because you're doing dynamic padding
-        in a token classification task) the predictions will be padded (on the right) to allow for concatenation into
-        one array. The padding index is -100.
-        </Tip>
-        Returns: *NamedTuple* A namedtuple with the following keys:
-            - predictions (`np.ndarray`): The predictions on `test_dataset`.
-            - label_ids (`np.ndarray`, *optional*): The labels (if the dataset contained some).
-            - metrics (`Dict[str, float]`, *optional*): The potential dictionary of metrics (if the dataset contained
-              labels).
-        """
-        # memory metrics - must set up as early as possible
-        self._memory_tracker.start()
-        start_time = time.time()
-
-        eval_loop = self.prediction_loop if self.args.use_legacy_prediction_loop else self.evaluation_loop
-        output = eval_loop(test_dataloader, description="Prediction")
-        total_batch_size = self.args.eval_batch_size * self.args.world_size
-        output.metrics.update(
-            speed_metrics(
-                split="test",
-                start_time=start_time,
-                num_samples=output.num_samples,
-                num_steps=math.ceil(output.num_samples / total_batch_size),
-            )
-        )
-        self._memory_tracker.stop_and_update_metrics(output.metrics)
-        return PredictionOutput(predictions=output.predictions, label_ids=output.label_ids, metrics=output.metrics)
-
 
 # model.freeze_feature_extractor()
 optimizer = Adafactor(model.parameters(), scale_parameter=True,
@@ -827,20 +782,8 @@ if training:
 # Evaluate fine-tuned model on test set.
 print("\n------> EVALUATING MODEL... ------------------------------------------ \n")
 
-
-results = trainer._predict(testDataLoader)
-y_true = results[1]
-# create an array selecting the highest prediction value.
-y_pred = []
-for predicts in results[0]:
-    p = np.where(predicts == np.amax(predicts))
-    y_pred.append(p[0][0])
-
-
-
-
-# Deeper look into model: running the first test sample through the model,
-# take the predicted ids and convert them to their corresponding tokens.
+tst_itt = iter(testDataLoader)
+trainer. _evaluate(testDataLoader, tst_itt)
 
 print("\n------> SUCCESSFULLY FINISHED ---------------------------------------- \n")
 now = datetime.now()
