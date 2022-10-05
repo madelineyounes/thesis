@@ -147,7 +147,7 @@ print("train_filename:", train_filename)
 # For generating filepath to file location
 
 #evaluation_filename = "adi17_test_umbrella_label"
-evaluation_filename =  "train_u_50f"
+evaluation_filename = "train_u_50f"
 print("evaluation_filename:", evaluation_filename)
 # Resume training from/ use checkpoint (True/False)
 # Set to True for:
@@ -179,7 +179,7 @@ if eval_pretrained:
 
 print("\n------> MODEL ARGUMENTS... -------------------------------------------\n")
 # For setting model = Wav2Vec2ForCTC.from_pretrained()
-set_num_of_workers = 1  # equivilent to cpus*gpu 
+set_num_of_workers = 8  # equivilent to cpus*gpu
 print("number_of_worker:", set_num_of_workers)
 set_hidden_dropout = 0.1                    # Default = 0.1
 print("hidden_dropout:", set_hidden_dropout)
@@ -208,7 +208,7 @@ print("\n------> TRAINING ARGUMENTS... ----------------------------------------\
 # For setting training_args = TrainingArguments()
 set_evaluation_strategy = "no"           # Default = "no"
 print("evaluation strategy:", set_evaluation_strategy)
-set_per_device_train_batch_size = 6         # Default = 8
+set_per_device_train_batch_size = 4         # Default = 8
 print("per_device_train_batch_size:", set_per_device_train_batch_size)
 set_gradient_accumulation_steps = 2         # Default = 4
 print("gradient_accumulation_steps:", set_gradient_accumulation_steps)
@@ -268,7 +268,7 @@ print("--> data_train_fp:", data_train_fp)
 # Path to dataframe csv for test dataset
 data_test_fp = data_base_fp + evaluation_filename + ".csv"
 print("--> data_test_fp:", data_test_fp)
-# Path to results csv 
+# Path to results csv
 output_csv_fp = "output/results_" + experiment_id + ".csv"
 outcsv = open(output_csv_fp, 'w+')
 outcsv.write("epoch,train_acc,val_acc,train_loss,val_loss\n")
@@ -363,12 +363,14 @@ print("\n------> PRE-PROCESSING DATA... ----------------------------------------
 
 target_sampling_rate = feature_extractor.sampling_rate
 
+
 def speech_file_to_array_fn(path):
     speech_array, sampling_rate = torchaudio.load(path)
     resampler = torchaudio.transforms.Resample(
         sampling_rate, target_sampling_rate)
     speech = resampler(speech_array).squeeze().numpy()
     return speech
+
 
 def label_to_id(label, label_list):
 
@@ -377,12 +379,13 @@ def label_to_id(label, label_list):
 
     return label
 
+
 # Audio files are stored as .wav format
 # We want to store both audio values and sampling rate
 # in the dataset.
 # We write a map(...) function accordingly.
 max_duration = 5
-print("Max Duration:",max_duration, "s")
+print("Max Duration:", max_duration, "s")
 sampling_rate = feature_extractor.sampling_rate
 print("Sampling Rate:",  sampling_rate)
 
@@ -406,8 +409,8 @@ print("Check data has been processed correctly... ")
 print("Train Data Sample")
 TrainData = next(iter(trainDataLoader))
 print(TrainData)
-print("Training DataCustom Files: "+ str(len(traincustomdata)))
-print("Training Data Files: "+ str(len(trainDataLoader)))
+print("Training DataCustom Files: " + str(len(traincustomdata)))
+print("Training Data Files: " + str(len(trainDataLoader)))
 
 print("Test Data Sample")
 TestData = next(iter(testDataLoader))
@@ -448,6 +451,8 @@ config = AutoConfig.from_pretrained(
 setattr(config, 'pooling_mode', set_pooling_mode)
 
 print("--> Defining Classifer")
+
+
 class DataCollatorCTCWithPadding:
     """
     Data collator that will dynamically pad the inputs received.
@@ -501,6 +506,7 @@ class DataCollatorCTCWithPadding:
         batch["labels"] = torch.stack(label_features)
         return batch
 
+
 data_collator = DataCollatorCTCWithPadding()
 # 2) Evaluation metric
 #    Using Accuaracy
@@ -545,7 +551,8 @@ model = Wav2Vec2ForSequenceClassification.from_pretrained(
     config=config
 )
 
-model.classifier = nn.Linear(in_features=256, out_features=num_labels, bias=True)
+model.classifier = nn.Linear(
+    in_features=256, out_features=num_labels, bias=True)
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 multi_gpu = False
@@ -587,6 +594,7 @@ if trainable_transformers > 0:
 # the feature extraction part.
 print("SUCCESS: Pre-trained checkpoint loaded.")
 
+
 def multi_acc(y_pred, y_test):
     y_pred_softmax = torch.log_softmax(y_pred, dim=1)
     _, y_pred_tags = torch.max(y_pred_softmax, dim=1)
@@ -597,13 +605,15 @@ def multi_acc(y_pred, y_test):
     acc = torch.round(acc * 100)
     return acc
 
+
 print("--> Defining Custom Trainer Class...")
 
 
 class myTrainer(Trainer):
     def fit(self, train_loader, val_loader, epochs):
-        """
+
         for epoch in range(epochs):
+            """
             print("EPOCH unfeeze : " + str(epoch % set_unfreezing_step))
            
             if epoch != 0 and epoch % set_unfreezing_step == 0 :
@@ -616,32 +626,35 @@ class myTrainer(Trainer):
                         for param in model.wav2vec2.encoder.layers[num_transformers-(epoch//set_unfreezing_step)-trainable_transformers].parameters():
                             print("grad change")
                             param.requires_grad = True
-        """
-        model_parameters = filter(lambda p: p.requires_grad, model.parameters())
-        params = sum([np.prod(p.size()) for p in model_parameters])
-        print('Trainable Parameters : ' + str(params))
-        
-        loss_sum_tr = 0
-        acc_sum_tr = 0
-        loss_sum_val = 0
-        acc_sum_val = 0
-        tr_itt = iter(trainDataLoader)
-        tst_itt = iter(testDataLoader)
-        print("start train")
-        # train
-        train_loss, train_acc = self._train(train_loader, tr_itt, loss_sum_tr, acc_sum_tr)
-        print("start validation")
-        # validate
-        val_loss, val_acc = self._validate(val_loader, tst_itt, loss_sum_val, acc_sum_val)
+            """
+            model_parameters = filter(
+                lambda p: p.requires_grad, model.parameters())
+            params = sum([np.prod(p.size()) for p in model_parameters])
+            print('Trainable Parameters : ' + str(params))
 
-        print(f"Epoch {epoch} Train Acc {train_acc}% Val Acc {val_acc}% Train Loss {train_loss} Val Loss {val_loss}")
-        outcsv.write(f"{epoch},{train_acc},{val_acc},{train_loss},{val_loss}\n")
+            loss_sum_tr = 0
+            acc_sum_tr = 0
+            loss_sum_val = 0
+            acc_sum_val = 0
+            tr_itt = iter(trainDataLoader)
+            tst_itt = iter(testDataLoader)
+            print("start train")
+            # train
+            train_loss, train_acc = self._train(
+                train_loader, tr_itt, loss_sum_tr, acc_sum_tr)
+            print("start validation")
+            # validate
+            val_loss, val_acc = self._validate(
+                val_loader, tst_itt, loss_sum_val, acc_sum_val)
+            torch.cuda.empty_cache()
+            print(
+                f"Epoch {epoch} Train Acc {train_acc}% Val Acc {val_acc}% Train Loss {train_loss} Val Loss {val_loss}")
+            outcsv.write(
+                f"{epoch},{train_acc},{val_acc},{train_loss},{val_loss}\n")
 
         # on the last epoch generate a con
 
     def _train(self, loader, tr_itt, loss_sum_tr, acc_sum_tr):
-        torch.cuda.empty_cache()
-        gc.collect()
         # put model in train mode
         self.model.train()
         for i in range(len(loader)):
@@ -649,8 +662,10 @@ class myTrainer(Trainer):
             try:
                 data = next(tr_itt)
                 inputs = {}
-                inputs['input_values'] = data['input_values'].float().to(device).contiguous()
-                inputs['attention_mask'] = data['attention_mask'].long().to(device).contiguous()
+                inputs['input_values'] = data['input_values'].float().to(
+                    device).contiguous()
+                inputs['attention_mask'] = data['attention_mask'].long().to(
+                    device).contiguous()
                 labels = data['labels'].long().to(device).contiguous()
                 # loss
                 loss, acc = self._compute_loss(model, inputs, labels)
@@ -697,7 +712,8 @@ class myTrainer(Trainer):
     def _compute_loss(self, model, inputs, labels):
         prediction = model(**inputs).logits
         lossfct = CrossEntropyLoss()
-        loss = lossfct(prediction, labels.reshape((labels.shape[0])).long().to(device).contiguous())
+        loss = lossfct(prediction, labels.reshape(
+            (labels.shape[0])).long().to(device).contiguous())
         acc = multi_acc(prediction, labels.reshape(
             (labels.shape[0])).long().to(device).contiguous())
         return loss, acc
@@ -718,8 +734,6 @@ class myTrainer(Trainer):
                     labels = labels.reshape(
                         (labels.shape[0])).long().to(device).contiguous()
                     prediction = model(**inputs).logits
-
-
 
                 except StopIteration:
                     break
@@ -824,9 +838,9 @@ if training:
     print("\n------> STARTING TRAINING... ----------------------------------------- \n")
     # Use avaliable GPUs
     if torch.cuda.is_available():
-        gc.collect()
         device = torch.device("cuda")
         torch.cuda.empty_cache()
+        gc.collect()
     else:
         device = ("cpu")
     # Train
