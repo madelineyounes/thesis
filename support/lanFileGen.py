@@ -12,11 +12,11 @@ output_path = "../data/"
 test_input_file = output_path + "adi17_official_dev_label.txt"
 train_input_file = output_path +"adi17_official_test_label.txt"
 
-test_u_out_file = output_path +"test_u_100f.csv"
-train_u_out_file = output_path+ "train_u_100f.csv"
+test_u_out_file = output_path +"test_u_50f.csv"
+train_u_out_file = output_path+ "train_u_50f.csv"
 
-test_r_out_file = output_path + "test_r_100f.csv"
-train_r_out_file = output_path +"train_r_100f.csv"
+test_r_out_file = output_path + "test_r_50f.csv"
+train_r_out_file = output_path +"train_r_50f.csv"
 
 dialect_dict = {
     "EGY": ['EGY', 'SDN'],
@@ -27,7 +27,7 @@ dialect_dict = {
 
 umbrella_dialects = ['NOR', 'EGY', 'GLF', 'LEV']
 
-num_files = 100 
+num_files = 50 
 
 train_lines = tuple(open(train_input_file, 'r'))
 test_lines = tuple(open(test_input_file, 'r'))
@@ -56,11 +56,11 @@ for d in umbrella_dialects:
             if rd in line.rstrip("\n"):
                 if  dcount < numf:
                     filename = line.split(' ')[0]
-                    ftrain.write(filename + ",{d}\n")
+                    ftrain.write(filename + f",{d}\n")
                     dcount += 1
                 if rdcount < numf:
                     filename = line.split(' ')[0]
-                    frtrain.write(filename + ",{rd}\n")
+                    frtrain.write(filename + f",{rd}\n")
                     rdcount += 1
         dcount = 0
         rdcount = 0
@@ -68,11 +68,11 @@ for d in umbrella_dialects:
             if rd in line.rstrip("\n"):
                 if dcount < numf:
                     filename = line.split(' ')[0]
-                    ftest.write(filename + ",{d}\n")
+                    ftest.write(filename + f",{d}\n")
                     dcount += 1
                 if rdcount < numf:
                     filename = line.split(' ')[0]
-                    frtest.write(filename + ",{rd}\n")
+                    frtest.write(filename + f",{rd}\n")
                     rdcount += 1
 
 ftrain.close()
