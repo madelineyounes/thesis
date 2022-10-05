@@ -5,13 +5,56 @@ import pickle
 import pandas as pd
 import torchaudio
 import torch
-import fnmatch
+import numpy as np
+import tensorflow as tf
+from matplotlib.ticker import PercentFormatter
 import os
+from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
+import matplotlib.pyplot as plt
+
+y_true = []
+y_pred = []
+label_list = ['NOR', 'EGY', 'GLF', 'LEV']
+label2id, id2label = dict(), dict()
+for i, label in enumerate(label_list):
+    label2id[label] = str(i)
+    id2label[str(i)] = label
+
+experiment_id = "test"
+def plot_data(x_label, y_label, matrix):
+    fig, ax = plt.subplots()
+    cax = ax.matshow(matrix, cmap=plt.cm.Blues)
+
+    fig.colorbar(cax)
+    xaxis = np.arange(len(x_label))
+    yaxis = np.arange(len(y_label))
+    ax.set_xticks(xaxis)
+    ax.set_yticks(yaxis)
+    ax.set_xticklabels(x_label)
+    ax.set_yticklabels(y_label)
+    plt.savefig("output/"+experiment_id+".png")
 
 
-dir_path = "/Users/myounes/Documents/Code/thesis_files/dev_segments/_FBO2f3kW5Q_000136-000568.wav"
-target_sampling_rate = 16000
-speech_array, sampling_rate = torchaudio.load(dir_path, format="wav")
-resampler = torchaudio.transforms.Resample(sampling_rate, target_sampling_rate)
-speech = resampler(speech_array).squeeze().numpy()
-print(speech)
+preds = tf.constant([[-0.7204,  0.0392,  0.5136,  0.2023],
+                        [-0.9115, -0.0212,  0.7294,  0.2992],
+        [-0.8858, -0.0124,  0.7047,  0.2535],
+    [-0.8116, -0.0200,  0.6766,  0.2349]])
+labels = tf.constant([2, 2, 3, 2])
+
+print (preds)
+print(labels)
+
+for p in preds:
+    y_pred.append(np.argmax(p))
+print(y_pred)
+for l in labels.numpy(): 
+    y_true.append(l)
+print(label2id)
+
+c_matrix = confusion_matrix(y_true, y_pred, normalize='all')
+print("CONFUSION MATRIX")
+print(c_matrix)
+print("CLASSIFICATION REPORT")
+print(classification_report(y_true, y_pred))
+plot_data(label_list, label_list, c_matrix)

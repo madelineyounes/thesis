@@ -27,11 +27,13 @@ from typing import Any, Dict, List, Optional, Union
 import pyarrow.csv as csv
 import pyarrow as pa
 from sklearn.metrics import classification_report
+from sklearn.metrics import confusion_matrix
 from typing import Optional, Tuple, Any, Dict, Union
 import customTransform as T
 import torch.nn as nn
 import time
 import math
+import matplotlib.pyplot as plt
 from torch.nn import BCEWithLogitsLoss, CrossEntropyLoss, MSELoss
 from torch.utils.data import DataLoader
 import torchaudio
@@ -179,7 +181,7 @@ if eval_pretrained:
 
 print("\n------> MODEL ARGUMENTS... -------------------------------------------\n")
 # For setting model = Wav2Vec2ForCTC.from_pretrained()
-set_num_of_workers = 2  # equivilent to cpus*gpu 
+set_num_of_workers = 1  # equivilent to cpus*gpu 
 print("number_of_worker:", set_num_of_workers)
 set_hidden_dropout = 0.1                    # Default = 0.1
 print("hidden_dropout:", set_hidden_dropout)
@@ -208,7 +210,7 @@ print("\n------> TRAINING ARGUMENTS... ----------------------------------------\
 # For setting training_args = TrainingArguments()
 set_evaluation_strategy = "no"           # Default = "no"
 print("evaluation strategy:", set_evaluation_strategy)
-set_per_device_train_batch_size = 10         # Default = 8
+set_per_device_train_batch_size = 4         # Default = 8
 print("per_device_train_batch_size:", set_per_device_train_batch_size)
 set_gradient_accumulation_steps = 2         # Default = 4
 print("gradient_accumulation_steps:", set_gradient_accumulation_steps)
@@ -325,9 +327,6 @@ for i, label in enumerate(label_list):
     id2label[str(i)] = label
 
 num_labels = len(id2label)
-
-print("\n------> Creating blank confusion matrix ... -----------------------\n")
-matrix = np.empty((0, num_labels), dtype=int)
 # ------------------------------------------
 #       Processing transcription
 # ------------------------------------------
@@ -501,42 +500,19 @@ class DataCollatorCTCWithPadding:
         batch["labels"] = torch.stack(label_features)
         return batch
 
-data_collator = DataCollatorCTCWithPadding()
-# 2) Evaluation metric
-#    Using Accuaracy
-print("--> Defining evaluation metric...")
-# The model will return a sequence of logit vectors y.
-# We are interested in the most likely prediction of the mode and
-# thus take argmax(...) of the logits. We also transform the
-# encoded label back to the original string by replacing -100
-# with the pad_token_id and decoding the ids while making sure
-# that consecutive tokens are not grouped to the same token in
-# CTC style.
-acc_metric = load_metric("accuracy")
-# NOTE: CAN PROBS DELETE THIS SECTION
-"""
-def compute_metrics(pred):
-    print("PRED", pred)
-    pred_logits = pred.predictions
-    pred_ids = np.argmax(pred_logits, axis=-1)
+#data_collator = DataCollatorCTCWithPadding()
+def plot_data(x_label, y_label, matrix):
+    fig, ax = plt.subplots()
+    cax = ax.matshow(matrix, cmap=plt.cm.Blues)
 
-    pred.label_ids[pred.label_ids == -100] = processor.tokenizer.pad_token_id
-
-    pred_str = processor.batch_decode(pred_ids)
-    # we do not want to group tokens when computing the metrics
-    print("LABELS IDS", pred.label_ids)
-    label_str = processor.batch_decode(pred.label_ids, group_tokens=False)
-    print("LABELS STRING", label_str)
-    print("PRED IDS", pred_str)
-    acc = acc_metric.compute(predictions=pred_str, references=pred.label_ids)
-    return {"accuracy": acc}
-"""
-print("SUCCESS: Defined Accuracy evaluation metric.")
-# 3) Load pre-trained checkpoint
-# Load pre-trained Wav2Vec2 checkpoint. The tokenizer's pad_token_id
-# must be to define the model's pad_token_id or in the case of Wav2Vec2ForCTC
-# also CTC's blank token. To save GPU memory, we enable PyTorch's gradient
-# checkpointing and also set the loss reduction to "mean".
+    fig.colorbar(cax)
+    xaxis = np.arange(len(x_label))
+    yaxis = np.arange(len(y_label))
+    ax.set_xticks(xaxis)
+    ax.set_yticks(yaxis)
+    ax.set_xticklabels(x_label)
+    ax.set_yticklabels(y_label)
+    plt.savefig("output/"+experiment_id+".png")
 
 print("--> Loading pre-trained checkpoint...")
 # NOTE: SWAPED Wav2Vec2ForSpeechClassification to Wav2Vec2ForSequenceClassification
@@ -556,8 +532,6 @@ if torch.cuda.device_count() > 1:
 model.to(device)
 
 print("-------- Setting up Model --------")
-
-
 for param in model.wav2vec2.feature_extractor.parameters():
     param.requires_grad = False
 
@@ -591,15 +565,12 @@ def multi_acc(y_pred, y_test):
     y_pred_softmax = torch.log_softmax(y_pred, dim=1)
     _, y_pred_tags = torch.max(y_pred_softmax, dim=1)
 
-    correct_pred = (y_pred_tags == y_test).float()
+    correct_pred = (y_pred_tags == y_test).float().to(device).contiguous()
     acc = correct_pred.sum() / len(correct_pred)
-
     acc = torch.round(acc * 100)
     return acc
 
 print("--> Defining Custom Trainer Class...")
-
-
 class myTrainer(Trainer):
     def fit(self, train_loader, val_loader, epochs):
         
@@ -621,7 +592,10 @@ class myTrainer(Trainer):
             model_parameters = filter(lambda p: p.requires_grad, model.parameters())
             params = sum([np.prod(p.size()) for p in model_parameters])
             print('Trainable Parameters : ' + str(params))
-            
+            if torch.cuda.is_available():
+                gc.collect()
+                torch.cuda.empty_cache()
+
             loss_sum_tr = 0
             acc_sum_tr = 0
             loss_sum_val = 0
@@ -634,7 +608,7 @@ class myTrainer(Trainer):
             print("start validation")
             # validate
             val_loss, val_acc = self._validate(val_loader, tst_itt, loss_sum_val, acc_sum_val)
-            torch.cuda.empty_cache()
+            
             print(f"Epoch {epoch} Train Acc {train_acc}% Val Acc {val_acc}% Train Loss {train_loss} Val Loss {val_loss}")
             outcsv.write(f"{epoch},{train_acc},{val_acc},{train_loss},{val_loss}\n")
 
@@ -703,6 +677,8 @@ class myTrainer(Trainer):
 
     def _gen_prediction(self, loader, tst_itt):
         # put model in evaluation mode
+        y_true = []
+        y_pred = []
         self.model.eval()
         with torch.no_grad():
             for i in range(len(loader)):
@@ -716,11 +692,25 @@ class myTrainer(Trainer):
                     labels = data['labels'].long().to(device).contiguous()
                     labels = labels.reshape(
                         (labels.shape[0])).long().to(device).contiguous()
-                    prediction = model(**inputs).logits
+                    predictions = model(**inputs).logits
+                    preds = predictions[0]
+                    
+                    for p in preds: 
+                        y_pred.append(np.argmax(p)) 
+                    
+                    for l in labels.numpy():
+                        y_true.append(l)
 
                 except StopIteration:
                     break
 
+        c_matrix = confusion_matrix(y_true, y_pred, normalize='all')
+        print("CONFUSION MATRIX")
+        print(c_matrix)
+        print("CLASSIFICATION REPORT")
+        print(classification_report(y_true, y_pred))
+        plot_data(label_list, label_list, c_matrix)
+        
     def _predict(self, test_dataloader):
         """
         Run prediction and returns predictions and potential metrics.
@@ -807,7 +797,6 @@ trainer = myTrainer(
     model=model,
     optimizers=(optimizer, lr_scheduler),
     args=training_args,
-    data_collator=data_collator,
 )
 
 # ------------------------------------------
@@ -822,8 +811,8 @@ if training:
     # Use avaliable GPUs
     if torch.cuda.is_available():
         device = torch.device("cuda")
-        torch.cuda.empty_cache()
         gc.collect()
+        torch.cuda.empty_cache()
     else:
         device = ("cpu")
     # Train
@@ -848,8 +837,7 @@ for predicts in results[0]:
     y_pred.append(p[0][0])
 
 
-print("CLASSIFICATION REPORT")
-print(classification_report(y_true, y_pred))
+
 
 # Deeper look into model: running the first test sample through the model,
 # take the predicted ids and convert them to their corresponding tokens.
