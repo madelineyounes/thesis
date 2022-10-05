@@ -602,8 +602,9 @@ print("--> Defining Custom Trainer Class...")
 
 class myTrainer(Trainer):
     def fit(self, train_loader, val_loader, epochs):
-        """
+        
         for epoch in range(epochs):
+            """
             print("EPOCH unfeeze : " + str(epoch % set_unfreezing_step))
            
             if epoch != 0 and epoch % set_unfreezing_step == 0 :
@@ -616,32 +617,30 @@ class myTrainer(Trainer):
                         for param in model.wav2vec2.encoder.layers[num_transformers-(epoch//set_unfreezing_step)-trainable_transformers].parameters():
                             print("grad change")
                             param.requires_grad = True
-        """
-        model_parameters = filter(lambda p: p.requires_grad, model.parameters())
-        params = sum([np.prod(p.size()) for p in model_parameters])
-        print('Trainable Parameters : ' + str(params))
-        
-        loss_sum_tr = 0
-        acc_sum_tr = 0
-        loss_sum_val = 0
-        acc_sum_val = 0
-        tr_itt = iter(trainDataLoader)
-        tst_itt = iter(testDataLoader)
-        print("start train")
-        # train
-        train_loss, train_acc = self._train(train_loader, tr_itt, loss_sum_tr, acc_sum_tr)
-        print("start validation")
-        # validate
-        val_loss, val_acc = self._validate(val_loader, tst_itt, loss_sum_val, acc_sum_val)
-
-        print(f"Epoch {epoch} Train Acc {train_acc}% Val Acc {val_acc}% Train Loss {train_loss} Val Loss {val_loss}")
-        outcsv.write(f"{epoch},{train_acc},{val_acc},{train_loss},{val_loss}\n")
+            """
+            model_parameters = filter(lambda p: p.requires_grad, model.parameters())
+            params = sum([np.prod(p.size()) for p in model_parameters])
+            print('Trainable Parameters : ' + str(params))
+            
+            loss_sum_tr = 0
+            acc_sum_tr = 0
+            loss_sum_val = 0
+            acc_sum_val = 0
+            tr_itt = iter(trainDataLoader)
+            tst_itt = iter(testDataLoader)
+            print("start train")
+            # train
+            train_loss, train_acc = self._train(train_loader, tr_itt, loss_sum_tr, acc_sum_tr)
+            print("start validation")
+            # validate
+            val_loss, val_acc = self._validate(val_loader, tst_itt, loss_sum_val, acc_sum_val)
+            torch.cuda.empty_cache()
+            print(f"Epoch {epoch} Train Acc {train_acc}% Val Acc {val_acc}% Train Loss {train_loss} Val Loss {val_loss}")
+            outcsv.write(f"{epoch},{train_acc},{val_acc},{train_loss},{val_loss}\n")
 
         # on the last epoch generate a con
 
     def _train(self, loader, tr_itt, loss_sum_tr, acc_sum_tr):
-        torch.cuda.empty_cache()
-        gc.collect()
         # put model in train mode
         self.model.train()
         for i in range(len(loader)):
@@ -824,6 +823,7 @@ if training:
     if torch.cuda.is_available():
         device = torch.device("cuda")
         torch.cuda.empty_cache()
+        gc.collect()
     else:
         device = ("cpu")
     # Train

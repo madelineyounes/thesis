@@ -719,6 +719,8 @@ class myTrainer(Trainer):
                         (labels.shape[0])).long().to(device).contiguous()
                     prediction = model(**inputs).logits
 
+
+
                 except StopIteration:
                     break
 
@@ -822,6 +824,7 @@ if training:
     print("\n------> STARTING TRAINING... ----------------------------------------- \n")
     # Use avaliable GPUs
     if torch.cuda.is_available():
+        gc.collect()
         device = torch.device("cuda")
         torch.cuda.empty_cache()
     else:
