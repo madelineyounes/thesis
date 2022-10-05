@@ -40,6 +40,7 @@ import customTransform as T
 from customData import CustomDataset
 from trainer_util import PredictionOutput, speed_metrics
 from transformers.file_utils import ModelOutput
+import gc
 from transformers import (
     Trainer,
     TrainingArguments,
@@ -639,6 +640,8 @@ class myTrainer(Trainer):
         # on the last epoch generate a con
 
     def _train(self, loader, tr_itt, loss_sum_tr, acc_sum_tr):
+        torch.cuda.empty_cache()
+        gc.collect()
         # put model in train mode
         self.model.train()
         for i in range(len(loader)):
