@@ -207,7 +207,7 @@ set_ctc_loss_reduction = "mean"             # Default = "sum"
 print("ctc_loss_reduction:", set_ctc_loss_reduction)
 set_ctc_zero_infinity = False               # Default = False
 print("ctc_zero_infinity:", set_ctc_zero_infinity)
-set_gradient_checkpointing = True           # Default = False
+set_gradient_checkpointing = False           # Default = False
 print("gradient_checkpointing:", set_gradient_checkpointing)
 set_pooling_mode = "mean"
 print("pooling_mode:", set_pooling_mode)
@@ -696,13 +696,14 @@ for param in model.wav2vec2.encoder.parameters():
 for param in model.wav2vec2.feature_projection.parameters():
     param.requires_grad = False
 
+""""
 trainable_transformers = 12
 num_transformers = 12
 if trainable_transformers > 0:
-
     for i in range(num_transformers-trainable_transformers, num_transformers, 1):
         for param in model.wav2vec2.encoder.layers[i].parameters():
             param.requires_grad = True
+"""
 
 # 1) Define model
 
@@ -732,7 +733,7 @@ class myTrainer(Trainer):
     def fit(self, train_loader, val_loader, epochs):
         for epoch in range(epochs):
             print("EPOCH unfeeze : " + str(epoch % set_unfreezing_step))
-
+            """"
             if epoch != 0 and epoch % set_unfreezing_step == 0 :
                 if epoch // set_unfreezing_step < (num_transformers-trainable_transformers):
                     if multi_gpu:
@@ -743,11 +744,11 @@ class myTrainer(Trainer):
                         for param in model.wav2vec2.encoder.layers[num_transformers-(epoch//set_unfreezing_step)-trainable_transformers].parameters():
                             print("grad change")
                             param.requires_grad = True
-        
-                model_parameters = filter(lambda p: p.requires_grad, model.parameters())
-                params = sum([np.prod(p.size()) for p in model_parameters])
-                print('Updated Parameters at Epoch ' + str(epoch) + ' Trainable Parameters : ' + str(params))
-
+             """
+            model_parameters = filter(lambda p: p.requires_grad, model.parameters())
+            params = sum([np.prod(p.size()) for p in model_parameters])
+            print('Updated Parameters at Epoch ' + str(epoch) + ' Trainable Parameters : ' + str(params))
+           
             loss_sum_tr = 0
             acc_sum_tr = 0
             loss_sum_val = 0
@@ -773,9 +774,9 @@ class myTrainer(Trainer):
             try:
                 data = next(tr_itt)
                 inputs = {}
-                inputs['input_values'] = data['input_values'].float().cuda().contiguous()
-                inputs['attention_mask'] = data['attention_mask'].long().cuda().contiguous()
-                labels = data['labels'].long().cuda().contiguous()
+                inputs['input_values'] = data['input_values'].float().to(device).contiguous()
+                inputs['attention_mask'] = data['attention_mask'].long().to(device).contiguous()
+                labels = data['labels'].long().to(device).contiguous()
                 # loss
                 loss, acc = self._compute_loss(model, inputs, labels)
                 # remove gradient from previous passes
@@ -805,10 +806,10 @@ class myTrainer(Trainer):
                     data = next(tst_itt)
                     inputs = {}
                     inputs['input_values'] = data['input_values'].float(
-                    ).cuda().contiguous()
+                    ).to(device).contiguous()
                     inputs['attention_mask'] = data['attention_mask'].long(
-                    ).cuda().contiguous()
-                    labels = data['labels'].long().cuda().contiguous()
+                    ).to(device).contiguous()
+                    labels = data['labels'].long().to(device).contiguous()
                     loss, acc = self._compute_loss(model, inputs, labels)
                     loss_sum_val += loss.detach()
                     acc_sum_val += acc.detach()
@@ -821,9 +822,9 @@ class myTrainer(Trainer):
     def _compute_loss(self, model, inputs, labels):
         prediction = model(**inputs).logits
         lossfct = CrossEntropyLoss()
-        loss = lossfct(prediction, labels.reshape((labels.shape[0])).long().cuda().contiguous())
+        loss = lossfct(prediction, labels.reshape((labels.shape[0])).long().to(device).contiguous())
         acc = multi_acc(prediction, labels.reshape(
-            (labels.shape[0])).long().cuda().contiguous())
+            (labels.shape[0])).long().to(device).contiguous())
         return loss, acc
 
     def _predict(self, test_dataloader):
