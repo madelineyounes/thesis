@@ -165,17 +165,6 @@ model_name = "facebook/wav2vec2-base"
 # model_name = "elgeish/wav2vec2-large-xlsr-53-arabic"
 # model_name = "facebook/wav2vec2-base"
 # try log0/wav2vec2-base-lang-id
-"""
-# Use a pretrained tokenizer (True/False)
-#     True: Use existing tokenizer (if custom dataset has same vocab)
-#     False: Use custom tokenizer (if custom dataset has different vocab)
-use_pretrained_tokenizer = True
-print("use_pretrained_tokenizer:", use_pretrained_tokenizer)
-# Set tokenizer
-pretrained_tokenizer = model_name
-if use_pretrained_tokenizer:
-    print("pretrained_tokenizer:", pretrained_tokenizer)
-"""
 
 # Evaluate existing model instead of newly trained model (True/False)
 #     True: use the model in the filepath set by 'eval_model' for eval
@@ -199,7 +188,7 @@ set_attention_dropout = 0.1                 # Default = 0.1
 print("attention_dropoutput:", set_attention_dropout)
 set_feat_proj_dropout = 0.0                 # Default = 0.1
 print("feat_proj_dropout:", set_feat_proj_dropout)
-set_layerdrop = 0.05                        # Default = 0.1
+set_layerdrop = 0.1                        # Default = 0.1
 print("layerdrop:", set_layerdrop)
 set_mask_time_prob = 0.065                  # Default = 0.05
 print("mask_time_prob:", set_mask_time_prob)
@@ -216,8 +205,7 @@ print("pooling_mode:", set_pooling_mode)
 
 print("\n------> TRAINING ARGUMENTS... ----------------------------------------\n")
 # For setting training_args = TrainingArguments()
-
-set_evaluation_strategy = "epoch"           # Default = "no"
+set_evaluation_strategy = "no"           # Default = "no"
 print("evaluation strategy:", set_evaluation_strategy)
 set_per_device_train_batch_size = 4         # Default = 8
 print("per_device_train_batch_size:", set_per_device_train_batch_size)
@@ -237,7 +225,7 @@ set_unfreezing_step = 10                   # Default = 3.0
 print("unfreezing_step:", set_unfreezing_step)
 set_num_train_epochs = 100                  # Default = 3.0
 print("num_train_epochs:", set_num_train_epochs)
-set_max_steps = 35000                       # Default = -1, overrides epochs
+set_max_steps = -1                       # Default = -1, overrides epochs
 print("max_steps:", set_max_steps)
 set_lr_scheduler_type = "linear"            # Default = "linear"
 print("lr_scheduler_type:", set_lr_scheduler_type)
@@ -249,7 +237,7 @@ set_logging_steps = 10                      # Default = 500
 print("logging_steps:", set_logging_steps)
 set_save_strategy = "epoch"                 # Default = "steps"
 print("save_strategy:", set_save_strategy)
-set_save_steps = 1000                         # Default = 500
+set_save_steps = 500                         # Default = 500
 print("save_steps:", set_save_steps)
 set_save_total_limit = 40                   # Optional
 print("save_total_limit:", set_save_total_limit)
@@ -257,7 +245,7 @@ set_fp16 = False                             # Default = False
 print("fp16:", set_fp16)
 set_eval_steps = 100                         # Optional
 print("eval_steps:", set_eval_steps)
-set_load_best_model_at_end = True           # Default = False
+set_load_best_model_at_end = False           # Default = False
 print("load_best_model_at_end:", set_load_best_model_at_end)
 set_metric_for_best_model = "accuracy"           # Optional
 print("metric_for_best_model:", set_metric_for_best_model)
@@ -317,14 +305,7 @@ pretrained_mod = model_name
 if use_checkpoint:
     pretrained_mod = checkpoint
 print("--> pretrained_mod:", pretrained_mod)
-# Path to pre-trained tokenizer
-# If use_pretrained_tokenizer = True
-"""
-if use_pretrained_tokenizer:
-    print("--> pretrained_tokenizer:", pretrained_tokenizer)
-    tokenizer = Wav2Vec2ForSequenceClassification.from_pretrained(pretrained_tokenizer)
 
-"""
 # ------------------------------------------
 #         Preparing dataset
 # ------------------------------------------
@@ -381,7 +362,6 @@ print("\n------> PRE-PROCESSING DATA... ----------------------------------------
 
 target_sampling_rate = feature_extractor.sampling_rate
 
-
 def speech_file_to_array_fn(path):
     speech_array, sampling_rate = torchaudio.load(path)
     resampler = torchaudio.transforms.Resample(
@@ -389,14 +369,12 @@ def speech_file_to_array_fn(path):
     speech = resampler(speech_array).squeeze().numpy()
     return speech
 
-
 def label_to_id(label, label_list):
 
     if len(label_list) > 0:
         return label_list.index(label) if label in label_list else -1
 
     return label
-
 
 # Audio files are stored as .wav format
 # We want to store both audio values and sampling rate
@@ -422,7 +400,6 @@ trainDataLoader = DataLoader(
 
 testDataLoader = DataLoader(
     testcustomdata, batch_size=set_per_device_train_batch_size, shuffle=True, num_workers=set_num_of_workers)
-
 
 print("Check data has been processed correctly... ")
 print("Train Data Sample")
@@ -719,8 +696,6 @@ class myTrainer(Trainer):
         loss = lossfct(prediction, labels.reshape((labels.shape[0])).long().to(device).contiguous())
         acc = multi_acc(prediction, labels.reshape(
             (labels.shape[0])).long().to(device).contiguous())
-        print(
-            f"PREDICT: {prediction} labels: {labels.reshape((labels.shape[0])).long().to(device).contiguous()}")
         return loss, acc
 
     def _gen_prediction(self, loader, tst_itt):
