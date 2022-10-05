@@ -550,3 +550,39 @@ SUCCESS: Pre-trained checkpoint loaded.
 ------> STARTING TRAINING... ----------------------------------------- 
 
 Trainable Parameters : 198660
+start train
+start validation
+Epoch 0 Train Acc 26.75% Val Acc 24.836734771728516% Train Loss 0.6938591599464417 Val Loss 1.3861247301101685
+Trainable Parameters : 198660
+start train
+start validation
+Epoch 1 Train Acc 25.75% Val Acc 25.163265228271484% Train Loss 0.6937351226806641 Val Loss 1.3885248899459839
+Trainable Parameters : 198660
+start train
+start validation
+Epoch 2 Train Acc 29.75% Val Acc 26.183673858642578% Train Loss 0.6908717751502991 Val Loss 1.3921856880187988
+Trainable Parameters : 198660
+start train
+start validation
+Epoch 3 Train Acc 32.0% Val Acc 23.979591369628906% Train Loss 0.687953770160675 Val Loss 1.3971894979476929
+Trainable Parameters : 198660
+start train
+start validation
+Epoch 4 Train Acc 31.0% Val Acc 23.122447967529297% Train Loss 0.6848595142364502 Val Loss 1.4063589572906494
+Trainable Parameters : 198660
+start train
+start validation
+Epoch 5 Train Acc 32.5% Val Acc 21.59183692932129% Train Loss 0.6792348623275757 Val Loss 1.41541588306427
+Trainable Parameters : 198660
+start train
+start validation
+Epoch 6 Train Acc 39.25% Val Acc 23.306121826171875% Train Loss 0.6744768619537354 Val Loss 1.4332448244094849
+Trainable Parameters : 198660
+start train
+start validation
+Epoch 7 Train Acc 39.75% Val Acc 21.59183692932129% Train Loss 0.6711426377296448 Val Loss 1.4447318315505981
+Trainable Parameters : 198660
+start train
+start validation
+Epoch 8 Train Acc 43.5% Val Acc 22.448978424072266% Train Loss 0.6719842553138733 Val Loss 1.4545320272445679
+Trainable Parameters : 198660
