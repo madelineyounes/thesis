@@ -618,7 +618,7 @@ class myTrainer(Trainer):
         """
         model_parameters = filter(lambda p: p.requires_grad, model.parameters())
         params = sum([np.prod(p.size()) for p in model_parameters])
-        print('Updated Parameters at Epoch ' + str(epoch) + ' Trainable Parameters : ' + str(params))
+        print('Trainable Parameters : ' + str(params))
         
         loss_sum_tr = 0
         acc_sum_tr = 0
