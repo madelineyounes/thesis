@@ -369,3 +369,7 @@ start train
 start validation
 Epoch 6 Train Acc 40.25% Val Acc 24.32653045654297% Train Loss 0.6736268997192383 Val Loss 1.4421051740646362
 Trainable Parameters : 198660
+start train
+start validation
+Epoch 7 Train Acc 40.75% Val Acc 21.081632614135742% Train Loss 0.6716794371604919 Val Loss 1.452630877494812
+Trainable Parameters : 198660
