@@ -165,16 +165,6 @@ model_name = "facebook/wav2vec2-base"
 # model_name = "facebook/wav2vec2-base"
 # try log0/wav2vec2-base-lang-id
 
-# Use a pretrained tokenizer (True/False)
-#     True: Use existing tokenizer (if custom dataset has same vocab)
-#     False: Use custom tokenizer (if custom dataset has different vocab)
-use_pretrained_tokenizer = True
-print("use_pretrained_tokenizer:", use_pretrained_tokenizer)
-# Set tokenizer
-pretrained_tokenizer = model_name
-if use_pretrained_tokenizer:
-    print("pretrained_tokenizer:", pretrained_tokenizer)
-
 # Evaluate existing model instead of newly trained model (True/False)
 #     True: use the model in the filepath set by 'eval_model' for eval
 #     False: use the model trained from this script for eval
@@ -315,10 +305,6 @@ if use_checkpoint:
     pretrained_mod = checkpoint
 print("--> pretrained_mod:", pretrained_mod)
 # Path to pre-trained tokenizer
-# If use_pretrained_tokenizer = True
-if use_pretrained_tokenizer:
-    print("--> pretrained_tokenizer:", pretrained_tokenizer)
-    tokenizer = Wav2Vec2CTCTokenizer.from_pretrained(pretrained_tokenizer)
 
 # ------------------------------------------
 #         Preparing dataset
@@ -339,6 +325,8 @@ for i, label in enumerate(label_list):
 
 num_labels = len(id2label)
 
+print("\n------> Creating blank confusion matrix ... -----------------------\n")
+matrix = np.empty((0, num_labels), dtype=int)
 # ------------------------------------------
 #       Processing transcription
 # ------------------------------------------
@@ -361,8 +349,7 @@ feature_extractor = Wav2Vec2FeatureExtractor(
     feature_size=1, sampling_rate=16000, padding_value=0.0, do_normalize=True, return_attention_mask=True,  return_tensors='pt').from_pretrained(model_name)
 # Feature extractor and tokenizer wrapped into a single
 # Wav2Vec2Processor class so we only need a model and processor object
-processor = Wav2Vec2Processor(
-    feature_extractor=feature_extractor, tokenizer=tokenizer)
+processor = Wav2Vec2Processor(feature_extractor=feature_extractor)
 
 # Save to re-use the just created processor and the fine-tuned model
 processor.save_pretrained(model_fp)
@@ -464,116 +451,6 @@ config = AutoConfig.from_pretrained(
 setattr(config, 'pooling_mode', set_pooling_mode)
 
 print("--> Defining Classifer")
-@dataclass
-class SpeechClassifierOutput(ModelOutput):
-    loss: Optional[torch.FloatTensor] = None
-    logits: torch.FloatTensor = None
-    hidden_states: Optional[Tuple[torch.FloatTensor]] = None
-    attentions: Optional[Tuple[torch.FloatTensor]] = None
-
-class Wav2Vec2ClassificationHead(nn.Module):
-    """Head for wav2vec classification task."""
-
-    def __init__(self, config):
-        super().__init__()
-        self.dense = nn.Linear(config.hidden_size, config.hidden_size)
-        self.dropout = nn.Dropout(config.final_dropout)
-        self.out_proj = nn.Linear(config.hidden_size, config.num_labels)
-
-    def forward(self, features, **kwargs):
-        x = features
-        x = self.dropout(x)
-        x = self.dense(x)
-        x = torch.tanh(x)
-        x = self.dropout(x)
-        x = self.out_proj(x)
-        return x
-class Wav2Vec2ForSpeechClassification(Wav2Vec2PreTrainedModel):
-    def __init__(self, config):
-        super().__init__(config)
-        self.num_labels = config.num_labels
-        self.pooling_mode = config.pooling_mode
-        self.config = config
-
-        self.wav2vec2 = Wav2Vec2Model(config)
-        self.classifier = Wav2Vec2ClassificationHead(config)
-
-        self.init_weights()
-
-    def freeze_feature_extractor(self):
-        self.wav2vec2.feature_extractor._freeze_parameters()
-
-    def merged_strategy(
-            self,
-            hidden_states,
-            mode="mean"
-    ):
-        if mode == "mean":
-            outputs = torch.mean(hidden_states, dim=1)
-        elif mode == "sum":
-            outputs = torch.sum(hidden_states, dim=1)
-        elif mode == "max":
-            outputs = torch.max(hidden_states, dim=1)[0]
-        else:
-            raise Exception(
-                "The pooling method hasn't been defined! Your pooling mode must be one of these ['mean', 'sum', 'max']")
-
-        return outputs
-
-    def forward(
-            self,
-            input_values,
-            attention_mask,
-            output_attentions=None,
-            output_hidden_states=None,
-            return_dict=None,
-            labels=None,
-    ):
-        return_dict = return_dict if return_dict is not None else self.config.use_return_dict
-        outputs = self.wav2vec2(
-            input_values,
-            attention_mask=attention_mask,
-            output_attentions=output_attentions,
-            output_hidden_states=output_hidden_states,
-            return_dict=return_dict,
-        )
-        hidden_states = outputs[0]
-        hidden_states = self.merged_strategy(
-            hidden_states, mode=self.pooling_mode)
-        logits = self.classifier(hidden_states)
-
-        loss = None
-        if labels is not None:
-            if self.config.problem_type is None:
-                if self.num_labels == 1:
-                    self.config.problem_type = "regression"
-                elif self.num_labels > 1 and (labels.dtype == torch.long or labels.dtype == torch.int):
-                    self.config.problem_type = "single_label_classification"
-                else:
-                    self.config.problem_type = "multi_label_classification"
-
-            if self.config.problem_type == "regression":
-                loss_fct = MSELoss()
-                loss = loss_fct(logits.view(-1, self.num_labels), labels)
-            elif self.config.problem_type == "single_label_classification":
-                loss_fct = CrossEntropyLoss()
-                print("LOSS LABELS,", labels)
-                loss = loss_fct(logits.view(-1, self.num_labels), labels)
-            elif self.config.problem_type == "multi_label_classification":
-                loss_fct = BCEWithLogitsLoss()
-                loss = loss_fct(logits, labels)
-
-        if not return_dict:
-            output = (logits,) + outputs[2:]
-            return ((loss,) + output) if loss is not None else output
-
-        return SpeechClassifierOutput(
-            loss=loss,
-            logits=logits,
-            hidden_states=outputs.hidden_states,
-            attentions=outputs.attentions,
-        )
-
 class DataCollatorCTCWithPadding:
     """
     Data collator that will dynamically pad the inputs received.
@@ -611,8 +488,6 @@ class DataCollatorCTCWithPadding:
                           for feature in features]
         label_features = [feature["labels"]
                           for feature in features]
-        d_type = torch.long if isinstance(
-            label_features[0], int) else torch.float
 
         self.feature_extractor = feature_extractor
         self.padding = True
@@ -641,7 +516,7 @@ print("--> Defining evaluation metric...")
 # that consecutive tokens are not grouped to the same token in
 # CTC style.
 acc_metric = load_metric("accuracy")
-
+# NOTE: CAN PROBS DELETE THIS SECTION
 def compute_metrics(pred):
     print("PRED", pred)
     pred_logits = pred.predictions
@@ -656,7 +531,6 @@ def compute_metrics(pred):
     print("LABELS STRING", label_str)
     print("PRED IDS", pred_str)
     acc = acc_metric.compute(predictions=pred_str, references=pred.label_ids)
-
     return {"accuracy": acc}
 
 print("SUCCESS: Defined Accuracy evaluation metric.")
@@ -679,7 +553,6 @@ device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 multi_gpu = False
 if torch.cuda.device_count() > 1:
     print('GPUs Used : ', torch.cuda.device_count(), 'GPUs!')
-   # model = nn.DataParallel(model)
     multi_gpu = True
 
 model.to(device)
@@ -763,8 +636,9 @@ class myTrainer(Trainer):
             val_loss, val_acc = self._validate(val_loader, tst_itt, loss_sum_val, acc_sum_val)
 
             print(f"Epoch {epoch} Train Acc {train_acc}% Val Acc {val_acc}% Train Loss {train_loss} Val Loss {val_loss}")
-            outcsv.write(
-                f"{epoch},{train_acc},{val_acc},{train_loss},{val_loss}\n")
+            outcsv.write(f"{epoch},{train_acc},{val_acc},{train_loss},{val_loss}\n")
+
+            # on the last epoch generate a con
 
     def _train(self, loader, tr_itt, loss_sum_tr, acc_sum_tr):
         # put model in train mode
@@ -825,7 +699,31 @@ class myTrainer(Trainer):
         loss = lossfct(prediction, labels.reshape((labels.shape[0])).long().to(device).contiguous())
         acc = multi_acc(prediction, labels.reshape(
             (labels.shape[0])).long().to(device).contiguous())
+        print(
+            f"PREDICT: {prediction} labels: {labels.reshape((labels.shape[0])).long().to(device).contiguous()}")
         return loss, acc
+
+    def _gen_prediction(self, loader, tst_itt):
+        # put model in evaluation mode
+        self.model.eval()
+        with torch.no_grad():
+            for i in range(len(loader)):
+                try:
+                    data = next(tst_itt)
+                    inputs = {}
+                    inputs['input_values'] = data['input_values'].float(
+                    ).to(device).contiguous()
+                    inputs['attention_mask'] = data['attention_mask'].long(
+                    ).to(device).contiguous()
+                    labels = data['labels'].long().to(device).contiguous()
+                    labels = labels.reshape(
+                        (labels.shape[0])).long().to(device).contiguous()
+                    prediction = model(**inputs).logits
+
+                except StopIteration:
+                    break
+
+
 
     def _predict(self, test_dataloader):
         """
