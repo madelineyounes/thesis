@@ -164,7 +164,7 @@ model_name = "facebook/wav2vec2-base"
 # model_name = "elgeish/wav2vec2-large-xlsr-53-arabic"
 # model_name = "facebook/wav2vec2-base"
 # try log0/wav2vec2-base-lang-id
-
+"""
 # Use a pretrained tokenizer (True/False)
 #     True: Use existing tokenizer (if custom dataset has same vocab)
 #     False: Use custom tokenizer (if custom dataset has different vocab)
@@ -174,6 +174,7 @@ print("use_pretrained_tokenizer:", use_pretrained_tokenizer)
 pretrained_tokenizer = model_name
 if use_pretrained_tokenizer:
     print("pretrained_tokenizer:", pretrained_tokenizer)
+"""
 
 # Evaluate existing model instead of newly trained model (True/False)
 #     True: use the model in the filepath set by 'eval_model' for eval
@@ -311,16 +312,18 @@ print("--> finetuned_results_fp:", finetuned_results_fp)
 # If 2)must set use_checkpoint = True
 # Default model to fine-tune is facebook's model
 pretrained_mod = model_name
+
 if use_checkpoint:
     pretrained_mod = checkpoint
 print("--> pretrained_mod:", pretrained_mod)
 # Path to pre-trained tokenizer
 # If use_pretrained_tokenizer = True
+"""
 if use_pretrained_tokenizer:
     print("--> pretrained_tokenizer:", pretrained_tokenizer)
     tokenizer = Wav2Vec2ForSequenceClassification.from_pretrained(pretrained_tokenizer)
 
-
+"""
 # ------------------------------------------
 #         Preparing dataset
 # ------------------------------------------
@@ -364,11 +367,10 @@ feature_extractor = Wav2Vec2FeatureExtractor(
     feature_size=1, sampling_rate=16000, padding_value=0.0, do_normalize=True, return_attention_mask=True,  return_tensors='pt').from_pretrained(model_name)
 # Feature extractor and tokenizer wrapped into a single
 # Wav2Vec2Processor class so we only need a model and processor object
-processor = Wav2Vec2Processor(
-    feature_extractor=feature_extractor, tokenizer=tokenizer)
+#processor = Wav2Vec2Processor(feature_extractor=feature_extractor, tokenizer=tokenizer)
 
 # Save to re-use the just created processor and the fine-tuned model
-processor.save_pretrained(model_fp)
+#processor.save_pretrained(model_fp)
 print("SUCCESS: Created feature extractor.")
 
 # ------------------------------------------
@@ -533,6 +535,7 @@ print("--> Defining evaluation metric...")
 # CTC style.
 acc_metric = load_metric("accuracy")
 # NOTE: CAN PROBS DELETE THIS SECTION
+"""
 def compute_metrics(pred):
     print("PRED", pred)
     pred_logits = pred.predictions
@@ -548,7 +551,7 @@ def compute_metrics(pred):
     print("PRED IDS", pred_str)
     acc = acc_metric.compute(predictions=pred_str, references=pred.label_ids)
     return {"accuracy": acc}
-
+"""
 print("SUCCESS: Defined Accuracy evaluation metric.")
 # 3) Load pre-trained checkpoint
 # Load pre-trained Wav2Vec2 checkpoint. The tokenizer's pad_token_id
@@ -826,7 +829,6 @@ trainer = myTrainer(
     optimizers=(optimizer, lr_scheduler),
     args=training_args,
     data_collator=data_collator,
-    tokenizer=tokenizer,
 )
 
 # ------------------------------------------
