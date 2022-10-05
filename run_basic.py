@@ -165,6 +165,16 @@ model_name = "facebook/wav2vec2-base"
 # model_name = "facebook/wav2vec2-base"
 # try log0/wav2vec2-base-lang-id
 
+# Use a pretrained tokenizer (True/False)
+#     True: Use existing tokenizer (if custom dataset has same vocab)
+#     False: Use custom tokenizer (if custom dataset has different vocab)
+use_pretrained_tokenizer = True
+print("use_pretrained_tokenizer:", use_pretrained_tokenizer)
+# Set tokenizer
+pretrained_tokenizer = model_name
+if use_pretrained_tokenizer:
+    print("pretrained_tokenizer:", pretrained_tokenizer)
+
 # Evaluate existing model instead of newly trained model (True/False)
 #     True: use the model in the filepath set by 'eval_model' for eval
 #     False: use the model trained from this script for eval
@@ -305,6 +315,11 @@ if use_checkpoint:
     pretrained_mod = checkpoint
 print("--> pretrained_mod:", pretrained_mod)
 # Path to pre-trained tokenizer
+# If use_pretrained_tokenizer = True
+if use_pretrained_tokenizer:
+    print("--> pretrained_tokenizer:", pretrained_tokenizer)
+    tokenizer = Wav2Vec2ForSequenceClassification.from_pretrained(pretrained_tokenizer)
+
 
 # ------------------------------------------
 #         Preparing dataset
@@ -349,7 +364,8 @@ feature_extractor = Wav2Vec2FeatureExtractor(
     feature_size=1, sampling_rate=16000, padding_value=0.0, do_normalize=True, return_attention_mask=True,  return_tensors='pt').from_pretrained(model_name)
 # Feature extractor and tokenizer wrapped into a single
 # Wav2Vec2Processor class so we only need a model and processor object
-processor = Wav2Vec2Processor(feature_extractor=feature_extractor)
+processor = Wav2Vec2Processor(
+    feature_extractor=feature_extractor, tokenizer=tokenizer)
 
 # Save to re-use the just created processor and the fine-tuned model
 processor.save_pretrained(model_fp)
@@ -722,8 +738,6 @@ class myTrainer(Trainer):
 
                 except StopIteration:
                     break
-
-
 
     def _predict(self, test_dataloader):
         """
