@@ -516,10 +516,7 @@ def plot_data(x_label, y_label, matrix):
 
 print("--> Loading pre-trained checkpoint...")
 # NOTE: SWAPED Wav2Vec2ForSpeechClassification to Wav2Vec2ForSequenceClassification
-model = Wav2Vec2ForSequenceClassification.from_pretrained(
-    pretrained_mod,
-    config=config
-)
+model = Wav2Vec2ForSequenceClassification.from_pretrained(config[pretrained_mod])
 
 model.classifier = nn.Linear(in_features=256, out_features=num_labels, bias=True)
 
@@ -527,6 +524,7 @@ device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 multi_gpu = False
 if torch.cuda.device_count() > 1:
     print('GPUs Used : ', torch.cuda.device_count(), 'GPUs!')
+    model = nn.DataParallel(model)
     multi_gpu = True
 
 model.to(device)
