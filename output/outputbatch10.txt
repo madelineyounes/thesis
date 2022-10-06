@@ -1,0 +1,180 @@
+Wed Oct 5 22:10:30 AEDT 2022
+------------------------------------------------------------------------
+                         run_umbrellaDID.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_basic2.py
+Started: 05/10/2022 22:10:35
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: wav2vec-ADI17-initialtest
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: umbrella_100f_devdata
+train_filename: test_u_100f
+evaluation_filename: train_u_50f
+use_checkpoint: False
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+number_of_worker: 8
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.1
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: no
+per_device_train_batch_size: 4
+gradient_accumulation_steps: 2
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 100
+max_steps: -1
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 500
+save_total_limit: 40
+fp16: False
+eval_steps: 100
+load_best_model_at_end: False
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/test_u_100f.csv
+--> data_test_fp: data/train_u_50f.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/umbrella_100f_devdata_local/wav2vec-ADI17-initialtest
+--> finetuned_results_fp: /srv/scratch/z5208494/output/umbrella_100f_devdata_local/wav2vec-ADI17-initialtest_finetuned_results.csv
+--> pretrained_mod: facebook/wav2vec2-base
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+
+------> Creating blank confusion matrix ... -----------------------
+
+
+------> CREATING WAV2VEC2 FEATURE EXTRACTOR... -----------------------
+
+SUCCESS: Created feature extractor.
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 5 s
+Sampling Rate: 16000
+Create a custom dataset ---> 
+Check data has been processed correctly... 
+Train Data Sample
+{'input_values': tensor([[-0.0780, -0.0675, -0.0571,  ...,  0.0000,  0.0000,  0.0000],
+        [-2.9229, -2.0009, -0.8876,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.1446,  0.1212,  0.1158,  ...,  2.1693,  1.7339,  1.3007],
+        [ 0.0661,  0.0988,  0.1030,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([2, 2, 3, 1])}
+Training DataCustom Files: 398
+Training Data Files: 100
+Test Data Sample
+/home/z5208494/.local/lib/python3.8/site-packages/transformers/configuration_utils.py:363: UserWarning: Passing `gradient_checkpointing` to a config initialization is deprecated and will be removed in v5 Transformers. Using `model.gradient_checkpointing_enable()` instead, or if you are using the `Trainer` API, pass `gradient_checkpointing=True` in your `TrainingArguments`.
+  warnings.warn(
+Some weights of the model checkpoint at facebook/wav2vec2-base were not used when initializing Wav2Vec2ForSequenceClassification: ['project_q.weight', 'quantizer.codevectors', 'quantizer.weight_proj.bias', 'project_hid.weight', 'quantizer.weight_proj.weight', 'project_q.bias', 'project_hid.bias']
+- This IS expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of Wav2Vec2ForSequenceClassification were not initialized from the model checkpoint at facebook/wav2vec2-base and are newly initialized: ['projector.weight', 'classifier.weight', 'projector.bias', 'classifier.bias']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+{'input_values': tensor([[ 0.0538,  0.0684,  0.0982,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.8312, -1.1390, -0.9257,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.7227,  0.9496,  1.1298,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.5971, -0.4314, -1.0923,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([2, 3, 1, 2])}
+Test CustomData Files: 195
+Test Data Files: 49
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Defining Classifer
+--> Defining evaluation metric...
+SUCCESS: Defined Accuracy evaluation metric.
+--> Loading pre-trained checkpoint...
+GPUs Used :  4 GPUs!
+-------- Setting up Model --------
+SUCCESS: Pre-trained checkpoint loaded.
+--> Defining Custom Trainer Class...
+
+------> STARTING TRAINING... ----------------------------------------- 
+
+Trainable Parameters : 198660
+start train
+start validation
+Epoch 0 Train Acc 22.75% Val Acc 28.571428298950195% Train Loss 0.6957700848579407 Val Loss 1.3867090940475464
+Trainable Parameters : 198660
+start train
+start validation
+Epoch 1 Train Acc 25.0% Val Acc 26.693876266479492% Train Loss 0.6939364671707153 Val Loss 1.3882120847702026
+Trainable Parameters : 198660
+start train
+start validation
+Epoch 2 Train Acc 25.25% Val Acc 21.428571701049805% Train Loss 0.6928192973136902 Val Loss 1.3904852867126465
+Trainable Parameters : 198660
+start train
+start validation
+Epoch 3 Train Acc 32.5% Val Acc 22.959182739257812% Train Loss 0.6894325017929077 Val Loss 1.3957618474960327
+Trainable Parameters : 198660
+start train
+start validation
+Epoch 4 Train Acc 36.75% Val Acc 22.61224365234375% Train Loss 0.6844506859779358 Val Loss 1.4051997661590576
+Trainable Parameters : 198660
+start train
+start validation
+Epoch 5 Train Acc 40.75% Val Acc 22.102041244506836% Train Loss 0.6801326870918274 Val Loss 1.414477825164795
+Trainable Parameters : 198660
+start train
+start validation
+Epoch 6 Train Acc 42.0% Val Acc 25.346939086914062% Train Loss 0.6738805770874023 Val Loss 1.432680368423462
+Trainable Parameters : 198660
+start train
+start validation
+Epoch 7 Train Acc 41.25% Val Acc 25.510204315185547% Train Loss 0.6712166666984558 Val Loss 1.4446057081222534
+Trainable Parameters : 198660
