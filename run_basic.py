@@ -516,7 +516,7 @@ def plot_data(x_label, y_label, matrix):
 
 print("--> Loading pre-trained checkpoint...")
 # NOTE: SWAPED Wav2Vec2ForSpeechClassification to Wav2Vec2ForSequenceClassification
-model = Wav2Vec2ForSequenceClassification.from_pretrained(config[pretrained_mod])
+model = Wav2Vec2ForSequenceClassification.from_pretrained(pretrained_mod)
 
 model.classifier = nn.Linear(in_features=256, out_features=num_labels, bias=True)
 
