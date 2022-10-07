@@ -226,7 +226,7 @@ set_adam_epsilon = 0.00000001               # Default = 0.00000001
 print("adam_epsilon:", set_adam_epsilon)
 set_unfreezing_step = 10                   # Default = 3.0
 print("unfreezing_step:", set_unfreezing_step)
-set_num_train_epochs = 100                  # Default = 3.0
+set_num_train_epochs = 3                  # Default = 3.0
 print("num_train_epochs:", set_num_train_epochs)
 set_max_steps = -1                       # Default = -1, overrides epochs
 print("max_steps:", set_max_steps)
@@ -346,11 +346,10 @@ print("\n------> CREATING WAV2VEC2 FEATURE EXTRACTOR... -----------------------\
 #   fine-tuning large-lv60
 # feature_extractor = AutoFeatureExtractor.from_pretrained(model_name)
 feature_extractor = Wav2Vec2FeatureExtractor(
-    feature_size=1, sampling_rate=16000, padding_value=0.0, do_normalize=True, return_attention_mask=True,  return_tensors='pt').from_pretrained(model_name)
+    feature_size=1, sampling_rate=16000, padding_value=0.0, do_normalize=True, return_attention_mask=False,  return_tensors='pt').from_pretrained(model_name)
 # Feature extractor and tokenizer wrapped into a single
 # Wav2Vec2Processor class so we only need a model and processor object
 #processor = Wav2Vec2Processor(feature_extractor=feature_extractor, tokenizer=tokenizer)
-
 # Save to re-use the just created processor and the fine-tuned model
 #processor.save_pretrained(model_fp)
 print("SUCCESS: Created feature extractor.")
@@ -359,6 +358,16 @@ print("SUCCESS: Created feature extractor.")
 #             Pre-process Data
 # ------------------------------------------
 print("\n------> PRE-PROCESSING DATA... ----------------------------------------- \n")
+
+def print_gpu_info():
+    #Additional Info when using cuda
+    if device.type == 'cuda':
+        print(torch.cuda.get_device_name(0))
+        print('Memory Usage:')
+        print('Allocated:', round(torch.cuda.memory_allocated(0)/1024**3, 1), 'GB')
+        print('Cached:   ', round(torch.cuda.memory_cached(0)/1024**3, 1), 'GB')
+    else:
+        print('not using cuda')
 
 target_sampling_rate = feature_extractor.sampling_rate
 
@@ -375,7 +384,7 @@ def label_to_id(label, label_list):
         return label_list.index(label) if label in label_list else -1
 
     return label
-
+print_gpu_info()
 # Audio files are stored as .wav format
 # We want to store both audio values and sampling rate
 # in the dataset.
@@ -445,7 +454,7 @@ config = AutoConfig.from_pretrained(
     problem_type="single_label_classification",
 )
 setattr(config, 'pooling_mode', set_pooling_mode)
-
+print_gpu_info()
 print("--> Defining Classifer")
 class DataCollatorCTCWithPadding:
     """
@@ -516,8 +525,7 @@ def plot_data(x_label, y_label, matrix):
 
 print("--> Loading pre-trained checkpoint...")
 # NOTE: SWAPED Wav2Vec2ForSpeechClassification to Wav2Vec2ForSequenceClassification
-model = Wav2Vec2ForSequenceClassification.from_pretrained(pretrained_mod)
-
+model = Wav2Vec2ForSequenceClassification.from_pretrained(model_name)
 model.classifier = nn.Linear(in_features=256, out_features=num_labels, bias=True)
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
@@ -526,7 +534,7 @@ if torch.cuda.device_count() > 1:
     print('GPUs Used : ', torch.cuda.device_count(), 'GPUs!')
     model = nn.DataParallel(model)
     multi_gpu = True
-
+print_gpu_info()
 model.to(device)
 
 print("-------- Setting up Model --------")
@@ -601,12 +609,15 @@ class myTrainer(Trainer):
             tr_itt = iter(trainDataLoader)
             tst_itt = iter(testDataLoader)
             print("start train")
+            print_gpu_info()
             # train
             train_loss, train_acc = self._train(train_loader, tr_itt, loss_sum_tr, acc_sum_tr)
+            print_gpu_info()
             print("start validation")
+            print_gpu_info()
             # validate
             val_loss, val_acc = self._validate(val_loader, tst_itt, loss_sum_val, acc_sum_val)
-            
+            print_gpu_info()
             print(f"Epoch {epoch} Train Acc {train_acc}% Val Acc {val_acc}% Train Loss {train_loss} Val Loss {val_loss}")
             outcsv.write(f"{epoch},{train_acc},{val_acc},{train_loss},{val_loss}\n")
 

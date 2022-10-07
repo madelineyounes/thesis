@@ -226,7 +226,7 @@ set_adam_epsilon = 0.00000001               # Default = 0.00000001
 print("adam_epsilon:", set_adam_epsilon)
 set_unfreezing_step = 10                   # Default = 3.0
 print("unfreezing_step:", set_unfreezing_step)
-set_num_train_epochs = 55                  # Default = 3.0
+set_num_train_epochs = 3                  # Default = 3.0
 print("num_train_epochs:", set_num_train_epochs)
 set_max_steps = -1                       # Default = -1, overrides epochs
 print("max_steps:", set_max_steps)
@@ -338,7 +338,7 @@ print("\n------> CREATING WAV2VEC2 FEATURE EXTRACTOR... -----------------------\
 #   fine-tuning large-lv60
 # feature_extractor = AutoFeatureExtractor.from_pretrained(model_name)
 feature_extractor = Wav2Vec2FeatureExtractor(
-    feature_size=1, sampling_rate=16000, padding_value=0.0, do_normalize=True, return_attention_mask=True,  return_tensors='pt').from_pretrained(model_name)
+    feature_size=1, sampling_rate=16000, padding_value=0.0, do_normalize=True, return_attention_mask=False,  return_tensors='pt').from_pretrained(model_name)
 # Feature extractor and tokenizer wrapped into a single
 # Wav2Vec2Processor class so we only need a model and processor object
 #processor = Wav2Vec2Processor(feature_extractor=feature_extractor, tokenizer=tokenizer)
@@ -707,10 +707,8 @@ class myTrainer(Trainer):
                         (labels.shape[0])).long().to(device).contiguous()
                     predictions = model(**inputs).logits
                     preds = predictions[0]
-
                     for p in preds:
-                        y_pred.append(np.argmax(p))
-
+                        y_pred.append(p.cpu().np.argmax())
                     for l in labels.numpy():
                         y_true.append(l)
 
