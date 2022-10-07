@@ -708,7 +708,7 @@ class myTrainer(Trainer):
                     predictions = model(**inputs).logits
                     preds = predictions[0]
                     for p in preds:
-                        y_pred.append(p.cpu().np.argmax())
+                        y_pred.append(np.argmax(p.cpu()))
                     for l in labels.numpy():
                         y_true.append(l)
 
