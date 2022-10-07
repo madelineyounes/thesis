@@ -532,6 +532,19 @@ if torch.cuda.device_count() > 1:
 
 model.to(device)
 
+def print_gpu_info():
+    #Additional Info when using cuda
+    if device.type == 'cuda':
+        print(torch.cuda.get_device_name(0))
+        print('Memory Usage:')
+        print('Allocated:', round(torch.cuda.memory_allocated(0)/1024**3, 1), 'GB')
+        print('Cached:   ', round(torch.cuda.memory_cached(0)/1024**3, 1), 'GB')
+    else:
+        print('not using cuda')
+
+
+print_gpu_info()
+
 print("-------- Setting up Model --------")
 for param in model.wav2vec2.feature_extractor.parameters():
     param.requires_grad = False
@@ -541,7 +554,7 @@ for param in model.wav2vec2.encoder.parameters():
 
 for param in model.wav2vec2.feature_projection.parameters():
     param.requires_grad = False
-
+print_gpu_info()
 """"
 trainable_transformers = 12
 num_transformers = 12
@@ -608,15 +621,17 @@ class myTrainer(Trainer):
             acc_sum_val = 0
             tr_itt = iter(trainDataLoader)
             tst_itt = iter(testDataLoader)
+            print_gpu_info()
             print("start train")
             # train
             train_loss, train_acc = self._train(
                 train_loader, tr_itt, loss_sum_tr, acc_sum_tr)
+            print_gpu_info()
             print("start validation")
             # validate
             val_loss, val_acc = self._validate(
                 val_loader, tst_itt, loss_sum_val, acc_sum_val)
-
+            print_gpu_info()
             print(
                 f"Epoch {epoch} Train Acc {train_acc}% Val Acc {val_acc}% Train Loss {train_loss} Val Loss {val_loss}")
             outcsv.write(
