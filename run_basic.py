@@ -17,6 +17,7 @@
 #pip3 install dataclasses
 #pip3 install torchvision
 from transformers.optimization import Adafactor, AdafactorSchedule
+from torch.nn.parallel import DistributedDataParallel as DDP
 import numpy as np
 import pandas as pd
 import random
@@ -477,6 +478,7 @@ device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 multi_gpu = False
 if torch.cuda.device_count() > 1:
     print('GPUs Used : ', torch.cuda.device_count(), 'GPUs!')
+    model.to(device)
     model = nn.DataParallel(model)
     multi_gpu = True
 print_gpu_info()
