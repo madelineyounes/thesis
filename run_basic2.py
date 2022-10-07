@@ -729,7 +729,9 @@ class myTrainer(Trainer):
 
                 except StopIteration:
                     break
-
+        print("true & pred")
+        print(y_true)
+        print(y_pred)
         c_matrix = confusion_matrix(y_true, y_pred, normalize='all')
         print("CONFUSION MATRIX")
         print(c_matrix)
