@@ -36,7 +36,7 @@ def plot_data(x_label, y_label, matrix):
     plt.savefig("output/"+experiment_id+".png")
 
 
-preds = tf.constant([[-0.7204,  0.0392,  0.5136,  0.2023],
+preds = tf.constant([[-0.7204,  0.5,  0.5,  0.2023],
                         [-0.9115, -0.0212,  0.7294,  0.2992],
         [-0.8858, -0.0124,  0.7047,  0.2535],
     [-0.8116, -0.0200,  0.6766,  0.2349]])

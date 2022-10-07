@@ -159,9 +159,9 @@ if use_checkpoint:
     print("checkpoint:", checkpoint)
 
 # Use pretrained model
-model_name = "superb/wav2vec2-base-superb-sid"
+# model_name = "superb/wav2vec2-base-superb-sid"
 # model_name = "elgeish/wav2vec2-large-xlsr-53-arabic"
-# model_name = "facebook/wav2vec2-base"
+model_name = "facebook/wav2vec2-base"
 # try log0/wav2vec2-base-lang-id
 
 # Evaluate existing model instead of newly trained model (True/False)
@@ -469,16 +469,6 @@ print("--> Loading pre-trained checkpoint...")
 model = Wav2Vec2ForSequenceClassification.from_pretrained(model_name)
 model.classifier = nn.Linear(in_features=256, out_features=num_labels, bias=True)
 
-device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
-multi_gpu = False
-if torch.cuda.device_count() > 1:
-    print('GPUs Used : ', torch.cuda.device_count(), 'GPUs!')
-    model = nn.DataParallel(model)
-    model = nn.DataParallel(model_name)
-    multi_gpu = True
-print_gpu_info()
-model.to(device)
-
 print("-------- Setting up Model --------")
 for param in model.wav2vec2.feature_extractor.parameters():
     param.requires_grad = False
@@ -488,6 +478,15 @@ for param in model.wav2vec2.encoder.parameters():
 
 for param in model.wav2vec2.feature_projection.parameters():
     param.requires_grad = False
+
+device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+multi_gpu = False
+if torch.cuda.device_count() > 1:
+    print('GPUs Used : ', torch.cuda.device_count(), 'GPUs!')
+    model = nn.DataParallel(model)
+    multi_gpu = True
+print_gpu_info()
+model.to(device)
 
 """"
 trainable_transformers = 12

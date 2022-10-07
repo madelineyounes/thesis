@@ -427,6 +427,8 @@ print("SUCCESS: Data ready for training and evaluation.")
 # 3) Load a pre-trained checkpoint
 # 4) Define the training configuration
 print("\n------> PREPARING FOR TRAINING & EVALUATION... ----------------------- \n")
+dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+print("TIME:", dt_string)
 
 print("--> Defining pooling layer...")
 print("Number of labels:", num_labels)
@@ -621,17 +623,14 @@ class myTrainer(Trainer):
             acc_sum_val = 0
             tr_itt = iter(trainDataLoader)
             tst_itt = iter(testDataLoader)
-            print_gpu_info()
             print("start train")
             # train
             train_loss, train_acc = self._train(
                 train_loader, tr_itt, loss_sum_tr, acc_sum_tr)
-            print_gpu_info()
             print("start validation")
             # validate
             val_loss, val_acc = self._validate(
                 val_loader, tst_itt, loss_sum_val, acc_sum_val)
-            print_gpu_info()
             print(
                 f"Epoch {epoch} Train Acc {train_acc}% Val Acc {val_acc}% Train Loss {train_loss} Val Loss {val_loss}")
             outcsv.write(
@@ -646,6 +645,8 @@ class myTrainer(Trainer):
             # forward pass
             try:
                 data = next(tr_itt)
+                print_gpu_info()
+                print ("get data")
                 inputs = {}
                 inputs['input_values'] = data['input_values'].float().to(
                     device).contiguous()
@@ -653,7 +654,12 @@ class myTrainer(Trainer):
                     device).contiguous()
                 labels = data['labels'].long().to(device).contiguous()
                 # loss
+                print_gpu_info()
+                print("get loss & acc")
                 loss, acc = self._compute_loss(model, inputs, labels)
+                print_gpu_info()
+
+                print("backward")
                 # remove gradient from previous passes
                 self.optimizer.zero_grad()
 
@@ -661,6 +667,7 @@ class myTrainer(Trainer):
                     loss = loss / self.args.gradient_accumulation_steps
 
                 loss.backward()
+                print_gpu_info()
                 # parameters update
                 self.optimizer.step()
 
@@ -723,9 +730,10 @@ class myTrainer(Trainer):
                     predictions = model(**inputs).logits
                     preds = predictions[0]
                     for p in preds:
-                        y_pred.append(np.argmax(p.cpu()))
+                        print(p)
+                        y_pred.append(np.argmax(p.item()))
                     for l in labels.cpu():
-                        y_true.append(l)
+                        y_true.append(l.item())
 
                 except StopIteration:
                     break
@@ -787,6 +795,8 @@ trainer = myTrainer(
 
 if training:
     print("\n------> STARTING TRAINING... ----------------------------------------- \n")
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    print("TIME:", dt_string)
     # Use avaliable GPUs
     if torch.cuda.is_available():
         device = torch.device("cuda")
@@ -805,6 +815,8 @@ if training:
 # ------------------------------------------
 # Evaluate fine-tuned model on test set.
 print("\n------> EVALUATING MODEL... ------------------------------------------ \n")
+dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+print("TIME:", dt_string)
 
 tst_itt = iter(testDataLoader)
 trainer. _evaluate(testDataLoader, tst_itt)
