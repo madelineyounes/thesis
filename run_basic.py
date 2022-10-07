@@ -384,7 +384,7 @@ def label_to_id(label, label_list):
         return label_list.index(label) if label in label_list else -1
 
     return label
-print_gpu_info()
+
 # Audio files are stored as .wav format
 # We want to store both audio values and sampling rate
 # in the dataset.
@@ -454,7 +454,6 @@ config = AutoConfig.from_pretrained(
     problem_type="single_label_classification",
 )
 setattr(config, 'pooling_mode', set_pooling_mode)
-print_gpu_info()
 print("--> Defining Classifer")
 class DataCollatorCTCWithPadding:
     """
