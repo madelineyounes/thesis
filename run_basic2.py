@@ -709,7 +709,7 @@ class myTrainer(Trainer):
                     preds = predictions[0]
                     for p in preds:
                         y_pred.append(np.argmax(p.cpu()))
-                    for l in labels.numpy():
+                    for l in labels.cpu().np():
                         y_true.append(l)
 
                 except StopIteration:
