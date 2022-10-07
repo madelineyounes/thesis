@@ -724,7 +724,7 @@ if training:
     trainer.fit(trainDataLoader, testDataLoader, set_num_train_epochs)
 
     # Save the model
-    model.save_pretrained(model_fp)
+    model.module.save_pretrained(model_fp)
 
 # ------------------------------------------
 #            Evaluation

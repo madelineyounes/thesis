@@ -729,9 +729,8 @@ class myTrainer(Trainer):
                         (labels.shape[0])).long().to(device).contiguous()
                     predictions = model(**inputs).logits
                     preds = predictions[0]
-                    for p in preds:
-                        print(p)
-                        y_pred.append(np.argmax(p.item()))
+                    print(preds)
+                    y_pred.append(np.argmax(preds.item()))
                     for l in labels.cpu():
                         y_true.append(l.item())
 
