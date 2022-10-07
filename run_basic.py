@@ -21,9 +21,6 @@ import numpy as np
 import pandas as pd
 import random
 import torch
-from dataclasses import dataclass
-from datasets import load_metric, load_dataset
-from typing import Any, Dict, List, Optional, Union
 import pyarrow.csv as csv
 import pyarrow as pa
 from sklearn.metrics import classification_report
@@ -47,8 +44,6 @@ import gc
 from transformers import (
     Trainer,
     TrainingArguments,
-    Wav2Vec2Processor,
-    Wav2Vec2FeatureExtractor,
     AutoConfig,
     Wav2Vec2ForSequenceClassification
 )
@@ -478,7 +473,7 @@ device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 multi_gpu = False
 if torch.cuda.device_count() > 1:
     print('GPUs Used : ', torch.cuda.device_count(), 'GPUs!')
-    model = DDP(model)
+    model = nn.DataParallel(model)
     multi_gpu = True
 print_gpu_info()
 model.to(device)
