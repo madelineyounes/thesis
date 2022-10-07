@@ -17,7 +17,6 @@
 #pip3 install dataclasses
 #pip3 install torchvision
 from transformers.optimization import Adafactor, AdafactorSchedule
-from torch.nn.parallel import DistributedDataParallel as DDP
 import numpy as np
 import pandas as pd
 import random
@@ -39,6 +38,7 @@ from torch.nn import BCEWithLogitsLoss, CrossEntropyLoss, MSELoss
 from torch.utils.data import DataLoader
 import torchaudio
 from torchvision import transforms
+import torch.distributed as dist
 import customTransform as T
 from customData import CustomDataset
 from trainer_util import PredictionOutput, speed_metrics
@@ -164,7 +164,7 @@ if use_checkpoint:
     print("checkpoint:", checkpoint)
 
 # Use pretrained model
-model_name = "facebook/wav2vec2-base"
+model_name = "superb/wav2vec2-base-superb-sid"
 # model_name = "elgeish/wav2vec2-large-xlsr-53-arabic"
 # model_name = "facebook/wav2vec2-base"
 # try log0/wav2vec2-base-lang-id
@@ -363,7 +363,7 @@ def print_gpu_info():
         print(torch.cuda.get_device_name(0))
         print('Memory Usage:')
         print('Allocated:', round(torch.cuda.memory_allocated(0)/1024**3, 1), 'GB')
-        print('Cached:   ', round(torch.cuda.memory_cached(0)/1024**3, 1), 'GB')
+        print('Cached:   ', round(torch.cuda.mem(0)/1024**3, 1), 'GB')
     else:
         print('not using cuda')
 
@@ -478,8 +478,7 @@ device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 multi_gpu = False
 if torch.cuda.device_count() > 1:
     print('GPUs Used : ', torch.cuda.device_count(), 'GPUs!')
-    model.to(device)
-    model = nn.DataParallel(model)
+    model = DDP(model)
     multi_gpu = True
 print_gpu_info()
 model.to(device)
@@ -625,7 +624,7 @@ class myTrainer(Trainer):
 
     def _compute_loss(self, model, inputs, labels):
         prediction = model(**inputs).logits
-        lossfct = CrossEntropyLoss()
+        lossfct = CrossEntropyLoss().to(device)
         loss = lossfct(prediction, labels.reshape((labels.shape[0])).long().to(device).contiguous())
         acc = multi_acc(prediction, labels.reshape(
             (labels.shape[0])).long().to(device).contiguous())
