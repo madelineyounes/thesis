@@ -198,7 +198,7 @@ print("\n------> TRAINING ARGUMENTS... ----------------------------------------\
 # For setting training_args = TrainingArguments()
 set_evaluation_strategy = "no"           # Default = "no"
 print("evaluation strategy:", set_evaluation_strategy)
-batch_size = 4        # Default = 8
+batch_size = 6        # Default = 8
 print("batch_size:", batch_size)
 set_gradient_accumulation_steps = 2         # Default = 4
 print("gradient_accumulation_steps:", set_gradient_accumulation_steps)
@@ -261,7 +261,7 @@ print("--> data_test_fp:", data_test_fp)
 # Path to results csv 
 output_csv_fp = "output/results_" + experiment_id + ".csv"
 outcsv = open(output_csv_fp, 'w+')
-outcsv.write("epoch,train_acc,val_acc,train_loss,val_loss\n")
+outcsv.write("epoch,train_acc,val_acc,train_loss,val_loss")
 
 
 # Dataframe file
@@ -356,7 +356,7 @@ def print_gpu_info():
         print('not using cuda')
 
 
-max_duration = 8
+max_duration = 10
 print("Max Duration:", max_duration, "s")
 sampling_rate = 16000
 target_sampling_rate = 16000
@@ -547,7 +547,7 @@ class myTrainer(Trainer):
             # validate
             val_loss, val_acc = self._validate(val_loader, tst_itt, loss_sum_val, acc_sum_val)
             print(f"Epoch {epoch} Train Acc {train_acc}% Val Acc {val_acc}% Train Loss {train_loss} Val Loss {val_loss}")
-            outcsv.write(f"{epoch},{train_acc},{val_acc},{train_loss},{val_loss}\n")
+            outcsv.write(f"{epoch},{train_acc},{val_acc},{train_loss},{val_loss}")
 
         # on the last epoch generate a con
 
@@ -632,7 +632,7 @@ class myTrainer(Trainer):
                     predictions = model(**inputs).logits
 
                     for j in range(0, batch_size):
-                        y_pred.append(np.argmax(predictions[j].item()))
+                        y_pred.append(np.argmax(predictions[j][0].item()))
                         y_true.append(labels[j].cpu().item())
                 except StopIteration:
                     break

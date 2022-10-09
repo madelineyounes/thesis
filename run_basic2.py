@@ -650,7 +650,7 @@ class myTrainer(Trainer):
                     predictions = model(**inputs).logits
 
                     for j in range(0, batch_size):
-                        y_pred.append(np.argmax(predictions[j].item()))
+                        y_pred.append(np.argmax(predictions[j][0].item()))
                         y_true.append(labels[j].cpu().item())
                 except StopIteration:
                     break
