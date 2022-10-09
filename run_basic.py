@@ -18,27 +18,20 @@
 #pip3 install torchvision
 from transformers.optimization import Adafactor, AdafactorSchedule
 import numpy as np
-import pandas as pd
-import random
 import torch
-import pyarrow.csv as csv
-import pyarrow as pa
 from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
 from typing import Optional, Tuple, Any, Dict, Union
 import customTransform as T
 import torch.nn as nn
-import time
-import math
 import matplotlib.pyplot as plt
-from torch.nn import BCEWithLogitsLoss, CrossEntropyLoss, MSELoss
+from torch.nn import CrossEntropyLoss
 from torch.utils.data import DataLoader
 import torchaudio
 from torchvision import transforms
 import torch.distributed as dist
 import customTransform as T
 from customData import CustomDataset
-from trainer_util import PredictionOutput, speed_metrics
 from transformers.file_utils import ModelOutput
 import gc
 from transformers import (
@@ -205,7 +198,7 @@ print("\n------> TRAINING ARGUMENTS... ----------------------------------------\
 # For setting training_args = TrainingArguments()
 set_evaluation_strategy = "no"           # Default = "no"
 print("evaluation strategy:", set_evaluation_strategy)
-set_per_device_train_batch_size = 4         # Default = 8
+set_per_device_train_batch_size = 40         # Default = 8
 print("per_device_train_batch_size:", set_per_device_train_batch_size)
 set_gradient_accumulation_steps = 2         # Default = 4
 print("gradient_accumulation_steps:", set_gradient_accumulation_steps)
@@ -485,7 +478,7 @@ if torch.cuda.device_count() > 1:
     print('GPUs Used : ', torch.cuda.device_count(), 'GPUs!')
     model = nn.DataParallel(model)
     multi_gpu = True
-print_gpu_info()
+
 model.to(device)
 
 """"
@@ -549,16 +542,10 @@ class myTrainer(Trainer):
             acc_sum_val = 0
             tr_itt = iter(trainDataLoader)
             tst_itt = iter(testDataLoader)
-            print("start train")
-            print_gpu_info()
-            # train
+             # train
             train_loss, train_acc = self._train(train_loader, tr_itt, loss_sum_tr, acc_sum_tr)
-            print_gpu_info()
-            print("start validation")
-            print_gpu_info()
             # validate
             val_loss, val_acc = self._validate(val_loader, tst_itt, loss_sum_val, acc_sum_val)
-            print_gpu_info()
             print(f"Epoch {epoch} Train Acc {train_acc}% Val Acc {val_acc}% Train Loss {train_loss} Val Loss {val_loss}")
             outcsv.write(f"{epoch},{train_acc},{val_acc},{train_loss},{val_loss}\n")
 
@@ -644,13 +631,10 @@ class myTrainer(Trainer):
                         (labels.shape[0])).long().to(device).contiguous()
                     predictions = model(**inputs).logits
                     preds = predictions[0]
-                    
-                    for p in preds: 
-                        y_pred.append(np.argmax(p)) 
-                    
-                    for l in labels.numpy():
-                        y_true.append(l)
-
+                    print(preds)
+                    y_pred.append(np.argmax(preds[0].item()))
+                    for l in labels.cpu():
+                        y_true.append(l.item())
                 except StopIteration:
                     break
 

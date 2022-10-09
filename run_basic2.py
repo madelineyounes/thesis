@@ -18,29 +18,19 @@
 #pip3 install torchvision
 from transformers.optimization import Adafactor, AdafactorSchedule
 import numpy as np
-import pandas as pd
-import random
 import torch
-from dataclasses import dataclass
-from datasets import load_metric, load_dataset
-from typing import Any, Dict, List, Optional, Union
-import pyarrow.csv as csv
-import pyarrow as pa
 from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
 from typing import Optional, Tuple, Any, Dict, Union
 import customTransform as T
 import torch.nn as nn
-import time
-import math
 import matplotlib.pyplot as plt
-from torch.nn import BCEWithLogitsLoss, CrossEntropyLoss, MSELoss
+from torch.nn import CrossEntropyLoss
 from torch.utils.data import DataLoader
 import torchaudio
 from torchvision import transforms
 import customTransform as T
 from customData import CustomDataset
-from trainer_util import PredictionOutput, speed_metrics
 from transformers.file_utils import ModelOutput
 import gc
 from transformers import (
@@ -445,7 +435,6 @@ setattr(config, 'pooling_mode', set_pooling_mode)
 
 print("--> Defining Classifer")
 
-
 class DataCollatorCTCWithPadding:
     """
     Data collator that will dynamically pad the inputs received.
@@ -517,6 +506,7 @@ def plot_data(x_label, y_label, matrix):
 
 
 print("--> Loading pre-trained checkpoint...")
+print("-------- Setting up Model --------")
 # NOTE: SWAPED Wav2Vec2ForSpeechClassification to Wav2Vec2ForSequenceClassification
 model = Wav2Vec2ForSequenceClassification.from_pretrained(
     pretrained_mod,
@@ -526,10 +516,21 @@ model = Wav2Vec2ForSequenceClassification.from_pretrained(
 model.classifier = nn.Linear(
     in_features=256, out_features=num_labels, bias=True)
 
+for param in model.wav2vec2.feature_extractor.parameters():
+    param.requires_grad = False
+
+for param in model.wav2vec2.encoder.parameters():
+    param.requires_grad = False
+
+for param in model.wav2vec2.feature_projection.parameters():
+    param.requires_grad = False
+
+
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 multi_gpu = False
 if torch.cuda.device_count() > 1:
     print('GPUs Used : ', torch.cuda.device_count(), 'GPUs!')
+    model = nn.DataParallel(model)
     multi_gpu = True
 
 model.to(device)
@@ -545,18 +546,7 @@ def print_gpu_info():
         print('not using cuda')
 
 
-print_gpu_info()
 
-print("-------- Setting up Model --------")
-for param in model.wav2vec2.feature_extractor.parameters():
-    param.requires_grad = False
-
-for param in model.wav2vec2.encoder.parameters():
-    param.requires_grad = False
-
-for param in model.wav2vec2.feature_projection.parameters():
-    param.requires_grad = False
-print_gpu_info()
 """"
 trainable_transformers = 12
 num_transformers = 12
@@ -645,8 +635,6 @@ class myTrainer(Trainer):
             # forward pass
             try:
                 data = next(tr_itt)
-                print_gpu_info()
-                print ("get data")
                 inputs = {}
                 inputs['input_values'] = data['input_values'].float().to(
                     device).contiguous()
@@ -654,12 +642,7 @@ class myTrainer(Trainer):
                     device).contiguous()
                 labels = data['labels'].long().to(device).contiguous()
                 # loss
-                print_gpu_info()
-                print("get loss & acc")
                 loss, acc = self._compute_loss(model, inputs, labels)
-                print_gpu_info()
-
-                print("backward")
                 # remove gradient from previous passes
                 self.optimizer.zero_grad()
 
@@ -667,7 +650,6 @@ class myTrainer(Trainer):
                     loss = loss / self.args.gradient_accumulation_steps
 
                 loss.backward()
-                print_gpu_info()
                 # parameters update
                 self.optimizer.step()
 
@@ -730,10 +712,9 @@ class myTrainer(Trainer):
                     predictions = model(**inputs).logits
                     preds = predictions[0]
                     print(preds)
-                    y_pred.append(np.argmax(preds.item()))
+                    y_pred.append(np.argmax(preds[0].item()))
                     for l in labels.cpu():
                         y_true.append(l.item())
-
                 except StopIteration:
                     break
                     
@@ -743,7 +724,6 @@ class myTrainer(Trainer):
         print("CLASSIFICATION REPORT")
         print(classification_report(y_true, y_pred))
         plot_data(label_list, label_list, c_matrix)
-
 
 # model.freeze_feature_extractor()
 optimizer = Adafactor(model.parameters(), scale_parameter=True,
@@ -807,7 +787,7 @@ if training:
     trainer.fit(trainDataLoader, testDataLoader, set_num_train_epochs)
 
     # Save the model
-    model.save_pretrained(model_fp)
+    model.module.save_pretrained(model_fp)
 
 # ------------------------------------------
 #            Evaluation
