@@ -98,7 +98,7 @@ print("training:", training)
 # For
 #     1) naming model output directory
 #     2) naming results file
-experiment_id = "wav2vec-ADI17-1000-files"
+experiment_id = "wav2vec-ADI17-1s"
 print("experiment_id:", experiment_id)
 
 # DatasetDict Id
@@ -127,8 +127,8 @@ base_cache_fp = "/srv/scratch/z5208494/cache/huggingface/datasets/"
 # Training dataset name and filename
 # Dataset name and filename of the csv file containing the training data
 # For generating filepath to file location
-train_name = "umbrella_1000f_devdata"
-train_filename = "test_u_1000f"
+train_name = "umbrella_500f_devdata"
+train_filename = "test_u_500f"
 print("train_name:", train_name)
 print("train_filename:", train_filename)
 
@@ -137,7 +137,7 @@ print("train_filename:", train_filename)
 # For generating filepath to file location
 
 #evaluation_filename = "adi17_test_umbrella_label"
-evaluation_filename =  "train_u_1000f"
+evaluation_filename =  "train_u_500f"
 print("evaluation_filename:", evaluation_filename)
 # Resume training from/ use checkpoint (True/False)
 # Set to True for:
@@ -198,7 +198,7 @@ print("\n------> TRAINING ARGUMENTS... ----------------------------------------\
 # For setting training_args = TrainingArguments()
 set_evaluation_strategy = "no"           # Default = "no"
 print("evaluation strategy:", set_evaluation_strategy)
-batch_size = 12        # Default = 8
+batch_size = 4        # Default = 8
 print("batch_size:", batch_size)
 set_gradient_accumulation_steps = 2         # Default = 4
 print("gradient_accumulation_steps:", set_gradient_accumulation_steps)
@@ -214,7 +214,7 @@ set_adam_epsilon = 0.00000001               # Default = 0.00000001
 print("adam_epsilon:", set_adam_epsilon)
 set_unfreezing_step = 10                   # Default = 3.0
 print("unfreezing_step:", set_unfreezing_step)
-set_num_train_epochs = 3                  # Default = 3.0
+set_num_train_epochs = 100                  # Default = 3.0
 print("num_train_epochs:", set_num_train_epochs)
 set_max_steps = -1                       # Default = -1, overrides epochs
 print("max_steps:", set_max_steps)
@@ -261,7 +261,7 @@ print("--> data_test_fp:", data_test_fp)
 # Path to results csv 
 output_csv_fp = "output/results_" + experiment_id + ".csv"
 outcsv = open(output_csv_fp, 'w+')
-outcsv.write("epoch,train_acc,val_acc,train_loss,val_loss")
+outcsv.write("epoch,train_acc,val_acc,train_loss,val_loss\n")
 
 
 # Dataframe file
@@ -356,7 +356,7 @@ def print_gpu_info():
         print('not using cuda')
 
 
-max_duration = 5
+max_duration = 6
 print("Max Duration:", max_duration, "s")
 sampling_rate = 16000
 target_sampling_rate = 16000
@@ -547,7 +547,7 @@ class myTrainer(Trainer):
             # validate
             val_loss, val_acc = self._validate(val_loader, tst_itt, loss_sum_val, acc_sum_val)
             print(f"Epoch {epoch} Train Acc {train_acc}% Val Acc {val_acc}% Train Loss {train_loss} Val Loss {val_loss}")
-            outcsv.write(f"{epoch},{train_acc},{val_acc},{train_loss},{val_loss}")
+            outcsv.write(f"{epoch},{train_acc},{val_acc},{train_loss},{val_loss}\n")
 
         # on the last epoch generate a con
 
@@ -631,7 +631,7 @@ class myTrainer(Trainer):
                         (labels.shape[0])).long().to(device).contiguous()
                     predictions = model(**inputs).logits
 
-                    for j in range(0, batch_size - 1):
+                    for j in range(0, len(predictions)):
                         y_pred.append(np.argmax(predictions[j][0].item()))
                         y_true.append(labels[j].cpu().item())
                 except StopIteration:
