@@ -631,7 +631,7 @@ class myTrainer(Trainer):
                         (labels.shape[0])).long().to(device).contiguous()
                     predictions = model(**inputs).logits
 
-                    for j in range(0, batch_size - 1):
+                    for j in range(0, len(predictions)):
                         y_pred.append(np.argmax(predictions[j][0].item()))
                         y_true.append(labels[j].cpu().item())
                 except StopIteration:
