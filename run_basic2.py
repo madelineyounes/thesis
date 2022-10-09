@@ -29,6 +29,7 @@ from torch.nn import CrossEntropyLoss
 from torch.utils.data import DataLoader
 import torchaudio
 from torchvision import transforms
+import torch.distributed as dist
 import customTransform as T
 from customData import CustomDataset
 from transformers.file_utils import ModelOutput
@@ -36,10 +37,7 @@ import gc
 from transformers import (
     Trainer,
     TrainingArguments,
-    Wav2Vec2Processor,
-    Wav2Vec2FeatureExtractor,
     AutoConfig,
-    Wav2Vec2CTCTokenizer,
     Wav2Vec2ForSequenceClassification
 )
 from transformers.models.wav2vec2.modeling_wav2vec2 import (
@@ -154,9 +152,9 @@ if use_checkpoint:
     print("checkpoint:", checkpoint)
 
 # Use pretrained model
-model_name = "facebook/wav2vec2-base"
+# model_name = "superb/wav2vec2-base-superb-sid"
 # model_name = "elgeish/wav2vec2-large-xlsr-53-arabic"
-# model_name = "facebook/wav2vec2-base"
+model_name = "facebook/wav2vec2-base"
 # try log0/wav2vec2-base-lang-id
 
 # Evaluate existing model instead of newly trained model (True/False)
@@ -200,8 +198,8 @@ print("\n------> TRAINING ARGUMENTS... ----------------------------------------\
 # For setting training_args = TrainingArguments()
 set_evaluation_strategy = "no"           # Default = "no"
 print("evaluation strategy:", set_evaluation_strategy)
-set_per_device_train_batch_size = 4         # Default = 8
-print("per_device_train_batch_size:", set_per_device_train_batch_size)
+batch_size = 15        # Default = 8
+print("batch_size:", batch_size)
 set_gradient_accumulation_steps = 2         # Default = 4
 print("gradient_accumulation_steps:", set_gradient_accumulation_steps)
 set_learning_rate = 0.00004                 # Default = 0.00005
@@ -226,16 +224,24 @@ set_warmup_ratio = 0.1                      # Default = 0.0
 print("warmup_ratio:", set_warmup_ratio)
 set_logging_strategy = "steps"              # Default = "steps"
 print("logging_strategy:", set_logging_strategy)
-set_logging_steps = 500                      # Default = 500
+set_logging_steps = 10                      # Default = 500
 print("logging_steps:", set_logging_steps)
 set_save_strategy = "epoch"                 # Default = "steps"
 print("save_strategy:", set_save_strategy)
 set_save_steps = 500                         # Default = 500
 print("save_steps:", set_save_steps)
+set_save_total_limit = 40                   # Optional
+print("save_total_limit:", set_save_total_limit)
 set_fp16 = False                             # Default = False
 print("fp16:", set_fp16)
+set_eval_steps = 100                         # Optional
+print("eval_steps:", set_eval_steps)
 set_load_best_model_at_end = False           # Default = False
 print("load_best_model_at_end:", set_load_best_model_at_end)
+set_metric_for_best_model = "accuracy"           # Optional
+print("metric_for_best_model:", set_metric_for_best_model)
+set_greater_is_better = False               # Optional
+print("greater_is_better:", set_greater_is_better)
 set_group_by_length = True                  # Default = False
 print("group_by_length:", set_group_by_length)
 set_push_to_hub = False                      # Default = False
@@ -326,13 +332,10 @@ print("\n------> CREATING WAV2VEC2 FEATURE EXTRACTOR... -----------------------\
 #   normalised or not. Usually, speech models perform better when true.
 # - return_attention_mask: set to false for Wav2Vec2, but true for
 #   fine-tuning large-lv60
-# feature_extractor = AutoFeatureExtractor.from_pretrained(model_name)
-feature_extractor = Wav2Vec2FeatureExtractor(
-    feature_size=1, sampling_rate=16000, padding_value=0.0, do_normalize=True, return_attention_mask=False,  return_tensors='pt').from_pretrained(model_name)
+#feature_extractor = Wav2Vec2FeatureExtractor(feature_size=1, sampling_rate=16000, padding_value=0.0, do_normalize=True, return_attention_mask=False,  return_tensors='pt').from_pretrained(model_name)
 # Feature extractor and tokenizer wrapped into a single
 # Wav2Vec2Processor class so we only need a model and processor object
 #processor = Wav2Vec2Processor(feature_extractor=feature_extractor, tokenizer=tokenizer)
-
 # Save to re-use the just created processor and the fine-tuned model
 #processor.save_pretrained(model_fp)
 print("SUCCESS: Created feature extractor.")
@@ -342,7 +345,24 @@ print("SUCCESS: Created feature extractor.")
 # ------------------------------------------
 print("\n------> PRE-PROCESSING DATA... ----------------------------------------- \n")
 
-target_sampling_rate = feature_extractor.sampling_rate
+
+def print_gpu_info():
+    #Additional Info when using cuda
+    if device.type == 'cuda':
+        print(torch.cuda.get_device_name(0))
+        print('Memory Usage:')
+        print('Allocated:', round(torch.cuda.memory_allocated(0)/1024**3, 1), 'GB')
+        print('Cached:   ', round(torch.cuda.memory_cached(0)/1024**3, 1), 'GB')
+    else:
+        print('not using cuda')
+
+
+max_duration = 5
+print("Max Duration:", max_duration, "s")
+sampling_rate = 16000
+target_sampling_rate = 16000
+print("Sampling Rate:",  sampling_rate)
+print("Target Sampling Rate:",  target_sampling_rate)
 
 
 def speech_file_to_array_fn(path):
@@ -360,15 +380,11 @@ def label_to_id(label, label_list):
 
     return label
 
-
 # Audio files are stored as .wav format
 # We want to store both audio values and sampling rate
 # in the dataset.
 # We write a map(...) function accordingly.
-max_duration = 5
-print("Max Duration:", max_duration, "s")
-sampling_rate = feature_extractor.sampling_rate
-print("Sampling Rate:",  sampling_rate)
+
 
 # create custom dataset class
 print("Create a custom dataset ---> ")
@@ -381,10 +397,10 @@ testcustomdata = CustomDataset(
     csv_fp=data_test_fp, data_fp=test_data_path, labels=label_list, transform=random_transforms, model_name=model_name, max_length=max_duration)
 
 trainDataLoader = DataLoader(
-    traincustomdata, batch_size=set_per_device_train_batch_size, shuffle=True, num_workers=set_num_of_workers)
+    traincustomdata, batch_size=batch_size, shuffle=True, num_workers=set_num_of_workers)
 
 testDataLoader = DataLoader(
-    testcustomdata, batch_size=set_per_device_train_batch_size, shuffle=True, num_workers=set_num_of_workers)
+    testcustomdata, batch_size=batch_size, shuffle=True, num_workers=set_num_of_workers)
 
 print("Check data has been processed correctly... ")
 print("Train Data Sample")
@@ -417,8 +433,6 @@ print("SUCCESS: Data ready for training and evaluation.")
 # 3) Load a pre-trained checkpoint
 # 4) Define the training configuration
 print("\n------> PREPARING FOR TRAINING & EVALUATION... ----------------------- \n")
-dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-print("TIME:", dt_string)
 
 print("--> Defining pooling layer...")
 print("Number of labels:", num_labels)
@@ -432,63 +446,6 @@ config = AutoConfig.from_pretrained(
     problem_type="single_label_classification",
 )
 setattr(config, 'pooling_mode', set_pooling_mode)
-
-print("--> Defining Classifer")
-
-class DataCollatorCTCWithPadding:
-    """
-    Data collator that will dynamically pad the inputs received.
-    Args:
-        feature_extractor (:class:`~transformers.Wav2Vec2FeatureExtractor`)
-            The feature_extractor used for proccessing the data.
-        padding (:obj:`bool`, :obj:`str` or :class:`~transformers.tokenization_utils_base.PaddingStrategy`, `optional`, defaults to :obj:`True`):
-            Select a strategy to pad the returned sequences (according to the model's padding side and padding index)
-            among:
-            * :obj:`True` or :obj:`'longest'`: Pad to the longest sequence in the batch (or no padding if only a single
-              sequence if provided).
-            * :obj:`'max_length'`: Pad to a maximum length specified with the argument :obj:`max_length` or to the
-              maximum acceptable input length for the model if that argument is not provided.
-            * :obj:`False` or :obj:`'do_not_pad'` (default): No padding (i.e., can output a batch with sequences of
-              different lengths).
-        max_length (:obj:`int`, `optional`):
-            Maximum length of the ``input_values`` of the returned list and optionally padding length (see above).
-        max_length_labels (:obj:`int`, `optional`):
-            Maximum length of the ``labels`` returned list and optionally padding length (see above).
-        pad_to_multiple_of (:obj:`int`, `optional`):
-            If set will pad the sequence to a multiple of the provided value.
-            This is especially useful to enable the use of Tensor Cores on NVIDIA hardware with compute capability >=
-            7.5 (Volta).
-    """
-
-    feature_extractor: Wav2Vec2FeatureExtractor
-    padding: Union[bool, str] = True
-    max_length: Optional[int] = None
-    max_length_labels: Optional[int] = None
-    pad_to_multiple_of: Optional[int] = None
-    pad_to_multiple_of_labels: Optional[int] = None
-
-    def __call__(self, features: List[Dict[str, Union[List[int], torch.Tensor]]]) -> Dict[str, torch.Tensor]:
-        input_features = [{"input_values": feature["input_values"]}
-                          for feature in features]
-        label_features = [feature["labels"]
-                          for feature in features]
-
-        self.feature_extractor = feature_extractor
-        self.padding = True
-
-        batch = self.feature_extractor.pad(
-            input_features,
-            padding=self.padding,
-            max_length=self.max_length,
-            pad_to_multiple_of=self.pad_to_multiple_of,
-            return_tensors="pt",
-            return_attention_mask=True,
-        )
-
-        batch["labels"] = torch.stack(label_features)
-        return batch
-
-#data_collator = DataCollatorCTCWithPadding()
 
 
 def plot_data(x_label, y_label, matrix):
@@ -506,16 +463,12 @@ def plot_data(x_label, y_label, matrix):
 
 
 print("--> Loading pre-trained checkpoint...")
-print("-------- Setting up Model --------")
 # NOTE: SWAPED Wav2Vec2ForSpeechClassification to Wav2Vec2ForSequenceClassification
-model = Wav2Vec2ForSequenceClassification.from_pretrained(
-    pretrained_mod,
-    config=config
-)
-
+model = Wav2Vec2ForSequenceClassification.from_pretrained(model_name)
 model.classifier = nn.Linear(
     in_features=256, out_features=num_labels, bias=True)
 
+print("-------- Setting up Model --------")
 for param in model.wav2vec2.feature_extractor.parameters():
     param.requires_grad = False
 
@@ -525,7 +478,6 @@ for param in model.wav2vec2.encoder.parameters():
 for param in model.wav2vec2.feature_projection.parameters():
     param.requires_grad = False
 
-
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 multi_gpu = False
 if torch.cuda.device_count() > 1:
@@ -534,18 +486,6 @@ if torch.cuda.device_count() > 1:
     multi_gpu = True
 
 model.to(device)
-
-def print_gpu_info():
-    #Additional Info when using cuda
-    if device.type == 'cuda':
-        print(torch.cuda.get_device_name(0))
-        print('Memory Usage:')
-        print('Allocated:', round(torch.cuda.memory_allocated(0)/1024**3, 1), 'GB')
-        print('Cached:   ', round(torch.cuda.memory_cached(0)/1024**3, 1), 'GB')
-    else:
-        print('not using cuda')
-
-
 
 """"
 trainable_transformers = 12
@@ -613,11 +553,9 @@ class myTrainer(Trainer):
             acc_sum_val = 0
             tr_itt = iter(trainDataLoader)
             tst_itt = iter(testDataLoader)
-            print("start train")
             # train
             train_loss, train_acc = self._train(
                 train_loader, tr_itt, loss_sum_tr, acc_sum_tr)
-            print("start validation")
             # validate
             val_loss, val_acc = self._validate(
                 val_loader, tst_itt, loss_sum_val, acc_sum_val)
@@ -685,7 +623,7 @@ class myTrainer(Trainer):
 
     def _compute_loss(self, model, inputs, labels):
         prediction = model(**inputs).logits
-        lossfct = CrossEntropyLoss()
+        lossfct = CrossEntropyLoss().to(device)
         loss = lossfct(prediction, labels.reshape(
             (labels.shape[0])).long().to(device).contiguous())
         acc = multi_acc(prediction, labels.reshape(
@@ -710,20 +648,20 @@ class myTrainer(Trainer):
                     labels = labels.reshape(
                         (labels.shape[0])).long().to(device).contiguous()
                     predictions = model(**inputs).logits
-                    preds = predictions[0]
-                    print(preds)
-                    y_pred.append(np.argmax(preds[0].item()))
-                    for l in labels.cpu():
-                        y_true.append(l.item())
+
+                    for j in range(0, batch_size):
+                        y_pred.append(np.argmax(predictions[j].item()))
+                        y_true.append(labels[j].cpu().item())
                 except StopIteration:
                     break
-                    
+
         c_matrix = confusion_matrix(y_true, y_pred, normalize='all')
         print("CONFUSION MATRIX")
         print(c_matrix)
         print("CLASSIFICATION REPORT")
         print(classification_report(y_true, y_pred))
         plot_data(label_list, label_list, c_matrix)
+
 
 # model.freeze_feature_extractor()
 optimizer = Adafactor(model.parameters(), scale_parameter=True,
@@ -733,7 +671,7 @@ lr_scheduler = AdafactorSchedule(optimizer)
 training_args = TrainingArguments(
     output_dir=model_fp,
     evaluation_strategy=set_evaluation_strategy,
-    per_device_train_batch_size=set_per_device_train_batch_size,
+    per_device_train_batch_size=batch_size,
     gradient_accumulation_steps=set_gradient_accumulation_steps,
     gradient_checkpointing=set_gradient_checkpointing,
     learning_rate=set_learning_rate,
@@ -749,9 +687,12 @@ training_args = TrainingArguments(
     logging_steps=set_logging_steps,
     save_strategy=set_save_strategy,
     save_steps=set_save_steps,
+    save_total_limit=set_save_total_limit,
     fp16=set_fp16,
     eval_steps=myTrainer,
     load_best_model_at_end=set_load_best_model_at_end,
+    metric_for_best_model=set_metric_for_best_model,
+    greater_is_better=set_greater_is_better,
     group_by_length=set_group_by_length,
     hub_token='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',
     push_to_hub=set_push_to_hub,
@@ -774,8 +715,6 @@ trainer = myTrainer(
 
 if training:
     print("\n------> STARTING TRAINING... ----------------------------------------- \n")
-    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-    print("TIME:", dt_string)
     # Use avaliable GPUs
     if torch.cuda.is_available():
         device = torch.device("cuda")
@@ -794,8 +733,6 @@ if training:
 # ------------------------------------------
 # Evaluate fine-tuned model on test set.
 print("\n------> EVALUATING MODEL... ------------------------------------------ \n")
-dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-print("TIME:", dt_string)
 
 tst_itt = iter(testDataLoader)
 trainer. _evaluate(testDataLoader, tst_itt)
