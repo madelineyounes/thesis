@@ -198,8 +198,8 @@ print("\n------> TRAINING ARGUMENTS... ----------------------------------------\
 # For setting training_args = TrainingArguments()
 set_evaluation_strategy = "no"           # Default = "no"
 print("evaluation strategy:", set_evaluation_strategy)
-set_per_device_train_batch_size = 10         # Default = 8
-print("per_device_train_batch_size:", set_per_device_train_batch_size)
+batch_size = 20         # Default = 8
+print("batch_size:", batch_size)
 set_gradient_accumulation_steps = 2         # Default = 4
 print("gradient_accumulation_steps:", set_gradient_accumulation_steps)
 set_learning_rate = 0.00004                 # Default = 0.00005
@@ -356,7 +356,7 @@ def print_gpu_info():
         print('not using cuda')
 
 
-max_duration = 5
+max_duration = 10
 print("Max Duration:", max_duration, "s")
 sampling_rate = 16000
 target_sampling_rate = 16000
@@ -394,10 +394,10 @@ testcustomdata = CustomDataset(
     csv_fp=data_test_fp, data_fp=test_data_path, labels=label_list, transform=random_transforms, model_name=model_name, max_length=max_duration)
 
 trainDataLoader = DataLoader(
-    traincustomdata, batch_size=set_per_device_train_batch_size, shuffle=True, num_workers=set_num_of_workers)
+    traincustomdata, batch_size=batch_size, shuffle=True, num_workers=set_num_of_workers)
 
 testDataLoader = DataLoader(
-    testcustomdata, batch_size=set_per_device_train_batch_size, shuffle=True, num_workers=set_num_of_workers)
+    testcustomdata, batch_size=batch_size, shuffle=True, num_workers=set_num_of_workers)
 
 print("Check data has been processed correctly... ")
 print("Train Data Sample")
@@ -630,11 +630,10 @@ class myTrainer(Trainer):
                     labels = labels.reshape(
                         (labels.shape[0])).long().to(device).contiguous()
                     predictions = model(**inputs).logits
-                    preds = predictions[0]
-                    print(preds)
-                    y_pred.append(np.argmax(preds[0].item()))
-                    for l in labels.cpu():
-                        y_true.append(l.item())
+
+                    for j in range(0, batch_size):
+                        y_pred.append(np.argmax(predictions[j].item()))
+                        y_true.append(labels[j].cpu().item())
                 except StopIteration:
                     break
 
@@ -653,7 +652,7 @@ lr_scheduler = AdafactorSchedule(optimizer)
 training_args = TrainingArguments(
     output_dir=model_fp,
     evaluation_strategy=set_evaluation_strategy,
-    per_device_train_batch_size=set_per_device_train_batch_size,
+    batch_size=batch_size,
     gradient_accumulation_steps=set_gradient_accumulation_steps,
     gradient_checkpointing=set_gradient_checkpointing,
     learning_rate=set_learning_rate,
