@@ -319,3 +319,196 @@ Epoch 75 Train Acc 71.11585235595703% Val Acc 25.6706600189209% Train Loss 0.367
 Trainable Parameters : 198660
 Epoch 76 Train Acc 71.3963394165039% Val Acc 24.61077880859375% Train Loss 0.37093988060951233 Val Loss 3.1657514572143555
 Trainable Parameters : 198660
+Epoch 77 Train Acc 73.37804412841797% Val Acc 27.413175582885742% Train Loss 0.35744839906692505 Val Loss 3.778211832046509
+Trainable Parameters : 198660
+Epoch 78 Train Acc 72.90853118896484% Val Acc 27.586828231811523% Train Loss 0.3593519926071167 Val Loss 4.0026164054870605
+Trainable Parameters : 198660
+Epoch 79 Train Acc 73.36585235595703% Val Acc 26.491018295288086% Train Loss 0.35610833764076233 Val Loss 4.35413122177124
+Trainable Parameters : 198660
+Epoch 80 Train Acc 71.07316589355469% Val Acc 26.45509147644043% Train Loss 0.37270936369895935 Val Loss 4.322908878326416
+Trainable Parameters : 198660
+Epoch 81 Train Acc 71.70121765136719% Val Acc 25.952096939086914% Train Loss 0.359483003616333 Val Loss 3.79655385017395
+Trainable Parameters : 198660
+Mon Oct 10 16:59:41 AEDT 2022
+------------------------------------------------------------------------
+                         run_500f.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_500f.py
+Started: 10/10/2022 16:59:48
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: wav2vec-ADI17-500-files
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: umbrella_500f_devdata
+train_filename: test_u_500f
+evaluation_filename: train_u_500f
+use_checkpoint: False
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+number_of_worker: 1
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.1
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: no
+batch_size: 12
+gradient_accumulation_steps: 2
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 100
+max_steps: -1
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 500
+save_total_limit: 40
+fp16: False
+eval_steps: 100
+load_best_model_at_end: False
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/test_u_500f.csv
+--> data_test_fp: data/train_u_500f.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/umbrella_500f_devdata_local/wav2vec-ADI17-500-files
+--> finetuned_results_fp: /srv/scratch/z5208494/output/umbrella_500f_devdata_local/wav2vec-ADI17-500-files_finetuned_results.csv
+--> pretrained_mod: facebook/wav2vec2-base
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+
+------> CREATING WAV2VEC2 FEATURE EXTRACTOR... -----------------------
+
+SUCCESS: Created feature extractor.
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 5 s
+Sampling Rate: 16000
+Target Sampling Rate: 16000
+Create a custom dataset ---> 
+Check data has been processed correctly... 
+Train Data Sample
+{'input_values': tensor([[ 2.6794e-01,  1.4265e-01,  9.5450e-02,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-2.1706e-01, -2.0059e-01, -4.7173e-02,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [ 3.3388e+00,  2.0114e+00,  1.0376e+00,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        ...,
+        [ 3.1266e-03,  5.1869e-03,  8.1302e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-2.8524e+00, -2.6766e+00, -1.7229e+00,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-2.9667e+00, -3.3215e+00, -3.5383e+00,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([2, 3, 2, 0, 2, 3, 2, 3, 0, 1, 1, 2])}
+Training DataCustom Files: 1963
+Training Data Files: 164
+Test Data Sample
+/home/z5208494/.local/lib/python3.8/site-packages/transformers/configuration_utils.py:363: UserWarning: Passing `gradient_checkpointing` to a config initialization is deprecated and will be removed in v5 Transformers. Using `model.gradient_checkpointing_enable()` instead, or if you are using the `Trainer` API, pass `gradient_checkpointing=True` in your `TrainingArguments`.
+  warnings.warn(
+Some weights of the model checkpoint at facebook/wav2vec2-base were not used when initializing Wav2Vec2ForSequenceClassification: ['project_hid.weight', 'project_q.weight', 'quantizer.codevectors', 'quantizer.weight_proj.bias', 'quantizer.weight_proj.weight', 'project_q.bias', 'project_hid.bias']
+- This IS expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of Wav2Vec2ForSequenceClassification were not initialized from the model checkpoint at facebook/wav2vec2-base and are newly initialized: ['classifier.weight', 'projector.bias', 'projector.weight', 'classifier.bias']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+{'input_values': tensor([[-0.7046, -0.6310, -0.3184,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0133, -0.0133, -0.0071,  ...,  0.0000,  0.0000,  0.0000],
+        [-1.0431, -1.2030, -1.1993,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [ 0.0583,  0.0808,  0.0110,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0448,  0.1608,  0.3422,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0359,  0.0485,  0.0693,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0, 0, 0, 0, 1, 0, 2, 0, 1, 3, 0, 2])}
+Test CustomData Files: 1997
+Test Data Files: 167
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Loading pre-trained checkpoint...
+-------- Setting up Model --------
+GPUs Used :  4 GPUs!
+SUCCESS: Pre-trained checkpoint loaded.
+--> Defining Custom Trainer Class...
+
+------> STARTING TRAINING... ----------------------------------------- 
+
+Trainable Parameters : 198660
+Epoch 0 Train Acc 23.29878044128418% Val Acc 26.04790496826172% Train Loss 0.6953955888748169 Val Loss 1.3858144283294678
+Trainable Parameters : 198660
+Epoch 1 Train Acc 25.30487632751465% Val Acc 25.694612503051758% Train Loss 0.6931220293045044 Val Loss 1.3849756717681885
+Trainable Parameters : 198660
+Epoch 2 Train Acc 29.170730590820312% Val Acc 22.892215728759766% Train Loss 0.6901795864105225 Val Loss 1.3854128122329712
+Trainable Parameters : 198660
+Epoch 3 Train Acc 32.743900299072266% Val Acc 23.077844619750977% Train Loss 0.6873948574066162 Val Loss 1.3872438669204712
+Trainable Parameters : 198660
+Epoch 4 Train Acc 32.341461181640625% Val Acc 23.802396774291992% Train Loss 0.6833845973014832 Val Loss 1.3881744146347046
+Trainable Parameters : 198660
+Epoch 5 Train Acc 34.2621955871582% Val Acc 26.131736755371094% Train Loss 0.6810389757156372 Val Loss 1.3904622793197632
+Trainable Parameters : 198660
+Epoch 6 Train Acc 34.5121955871582% Val Acc 22.479042053222656% Train Loss 0.6772848963737488 Val Loss 1.4055360555648804
+Trainable Parameters : 198660
+Epoch 7 Train Acc 36.85975646972656% Val Acc 23.688623428344727% Train Loss 0.6719425916671753 Val Loss 1.4058743715286255
+Trainable Parameters : 198660
+Epoch 8 Train Acc 35.585365295410156% Val Acc 22.83233642578125% Train Loss 0.6698246598243713 Val Loss 1.4125984907150269
+Trainable Parameters : 198660
+Epoch 9 Train Acc 36.975608825683594% Val Acc 22.862276077270508% Train Loss 0.664792001247406 Val Loss 1.4299081563949585
+Trainable Parameters : 198660
+Epoch 10 Train Acc 37.02438735961914% Val Acc 22.79640769958496% Train Loss 0.6622077226638794 Val Loss 1.4469201564788818
+Trainable Parameters : 198660
