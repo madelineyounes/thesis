@@ -48,7 +48,7 @@ from datetime import datetime
 import os
 print(
     "------------------------------------------------------------------------")
-print("                         run_umbrellaDID.py                            ")
+print("                         run_500f.py                            ")
 print("------------------------------------------------------------------------")
 # ------------------------------------------
 #       Import required packages

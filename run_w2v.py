@@ -48,7 +48,7 @@ from datetime import datetime
 import os
 print(
     "------------------------------------------------------------------------")
-print("                         run_umbrellaDID.py                            ")
+print("                         run_w2v.py                            ")
 print("------------------------------------------------------------------------")
 # ------------------------------------------
 #       Import required packages
@@ -98,7 +98,7 @@ print("training:", training)
 # For
 #     1) naming model output directory
 #     2) naming results file
-experiment_id = "wav2vec-ADI17-2s"
+experiment_id = "wav2vec-ADI17-w2v"
 print("experiment_id:", experiment_id)
 
 # DatasetDict Id
@@ -137,7 +137,7 @@ print("train_filename:", train_filename)
 # For generating filepath to file location
 
 #evaluation_filename = "adi17_test_umbrella_label"
-evaluation_filename =  "train_u_500f"
+evaluation_filename =  "train_u_100f"
 print("evaluation_filename:", evaluation_filename)
 # Resume training from/ use checkpoint (True/False)
 # Set to True for:
@@ -356,7 +356,7 @@ def print_gpu_info():
         print('not using cuda')
 
 
-max_duration = 2
+max_duration = 5
 print("Max Duration:", max_duration, "s")
 sampling_rate = 16000
 target_sampling_rate = 16000

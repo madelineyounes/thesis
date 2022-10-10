@@ -48,7 +48,7 @@ from datetime import datetime
 import os
 print(
     "------------------------------------------------------------------------")
-print("                         run_umbrellaDID.py                            ")
+print("                         run_8s.py                            ")
 print("------------------------------------------------------------------------")
 # ------------------------------------------
 #       Import required packages
@@ -98,7 +98,7 @@ print("training:", training)
 # For
 #     1) naming model output directory
 #     2) naming results file
-experiment_id = "wav2vec-ADI17-1s"
+experiment_id = "wav2vec-ADI17-8s"
 print("experiment_id:", experiment_id)
 
 # DatasetDict Id
