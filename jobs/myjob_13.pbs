@@ -11,7 +11,7 @@
 # Go into thesis folder
 cd /home/z5208494/thesis/
 
-echo ""$(date)"" 2>&1 | tee -a output/out_4s.txt
+echo ""$(date)"" 2>&1 | tee -a output/out_xlsr.txt
 
 # This runs the test script
-python3 run_4s.py 2>&1 | tee -a output/out_4s.txt
+python3 run_xlsr.py 2>&1 | tee -a output/out_xlsr.txt
