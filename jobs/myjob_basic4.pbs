@@ -1,8 +1,8 @@
 #!/bin/bash
 #!/bin/bash
 
-#PBS -l select=1:ncpus=12:ngpus=2:mem=32gb
-#PBS -l walltime=8:00:00
+#PBS -l select=1:ncpus=4:ngpus=1:mem=4gb
+#PBS -l walltime=1:00:00
 #PBS -M z5208494@unsw.edu.au
 #PBS -m ae
 #PBS -j oe
@@ -11,7 +11,7 @@
 # Go into thesis folder
 cd /home/z5208494/thesis/
 
-echo ""$(date)"" 2>&1 | tee -a output/output50epoch.txt
+echo ""$(date)"" 2>&1 | tee -a output/outputBasic2.txt
 
 # This runs the test script
-python3 run_basic2.py 2>&1 | tee -a output/output50epoch.txt
+python3 run_basic2.py 2>&1 | tee -a output/outputBasic2.txt
