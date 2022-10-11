@@ -500,6 +500,7 @@ if trainable_transformers > 0:
 # Thus, we can set the requires_grad to False for all parameters of
 # the feature extraction part.
 print("SUCCESS: Pre-trained checkpoint loaded.")
+lossfct = CrossEntropyLoss()
 
 def multi_acc(y_pred, y_test):
     y_pred_softmax = torch.log_softmax(y_pred, dim=1)
@@ -532,6 +533,7 @@ class myTrainer(Trainer):
             model_parameters = filter(lambda p: p.requires_grad, model.parameters())
             params = sum([np.prod(p.size()) for p in model_parameters])
             print('Trainable Parameters : ' + str(params))
+            print_gpu_info()
             if torch.cuda.is_available():
                 gc.collect()
                 torch.cuda.empty_cache()
@@ -544,6 +546,7 @@ class myTrainer(Trainer):
             tst_itt = iter(testDataLoader)
              # train
             train_loss, train_acc = self._train(train_loader, tr_itt, loss_sum_tr, acc_sum_tr)
+            print_gpu_info()
             # validate
             val_loss, val_acc = self._validate(val_loader, tst_itt, loss_sum_val, acc_sum_val)
             print(f"Epoch {epoch} Train Acc {train_acc}% Val Acc {val_acc}% Train Loss {train_loss} Val Loss {val_loss}")
@@ -606,7 +609,6 @@ class myTrainer(Trainer):
 
     def _compute_loss(self, model, inputs, labels):
         prediction = model(**inputs).logits
-        lossfct = CrossEntropyLoss().to(device)
         loss = lossfct(prediction, labels.reshape((labels.shape[0])).long().to(device).contiguous())
         acc = multi_acc(prediction, labels.reshape(
             (labels.shape[0])).long().to(device).contiguous())
