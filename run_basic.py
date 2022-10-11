@@ -128,7 +128,7 @@ base_cache_fp = "/srv/scratch/z5208494/cache/huggingface/datasets/"
 # Dataset name and filename of the csv file containing the training data
 # For generating filepath to file location
 train_name = "umbrella_100f_devdata"
-train_filename = "test_u_100f"
+train_filename = "dev_u_100f"
 print("train_name:", train_name)
 print("train_filename:", train_filename)
 
@@ -137,7 +137,7 @@ print("train_filename:", train_filename)
 # For generating filepath to file location
 
 #evaluation_filename = "adi17_test_umbrella_label"
-evaluation_filename =  "train_u_50f"
+evaluation_filename =  "test_u_50f"
 print("evaluation_filename:", evaluation_filename)
 # Resume training from/ use checkpoint (True/False)
 # Set to True for:

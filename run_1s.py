@@ -137,7 +137,7 @@ print("train_filename:", train_filename)
 # For generating filepath to file location
 
 #evaluation_filename = "adi17_test_umbrella_label"
-evaluation_filename =  "train_u_500f"
+evaluation_filename =  "dev_u_500f"
 print("evaluation_filename:", evaluation_filename)
 # Resume training from/ use checkpoint (True/False)
 # Set to True for:
