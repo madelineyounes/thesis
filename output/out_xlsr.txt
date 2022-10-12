@@ -782,3 +782,152 @@ Original Traceback (most recent call last):
     attn_weights = torch.bmm(query_states, key_states.transpose(1, 2))
 RuntimeError: CUDA out of memory. Tried to allocate 978.00 MiB (GPU 0; 39.59 GiB total capacity; 36.59 GiB already allocated; 454.19 MiB free; 37.09 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
 
+Wed Oct 12 13:07:20 AEDT 2022
+------------------------------------------------------------------------
+                         run_w2v.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_xlsr.py
+Started: 12/10/2022 13:07:26
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: wav2vec-ADI17-xlsr
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: umbrella_500f_devdata
+train_filename: dev_u_500f
+evaluation_filename: test_u_100f
+use_checkpoint: False
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+number_of_worker: 1
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.1
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: no
+batch_size: 2
+gradient_accumulation_steps: 2
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 100
+max_steps: -1
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 500
+save_total_limit: 40
+fp16: False
+eval_steps: 100
+load_best_model_at_end: False
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/dev_u_500f.csv
+--> data_test_fp: data/test_u_100f.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/umbrella_500f_devdata_local/wav2vec-ADI17-xlsr
+--> finetuned_results_fp: /srv/scratch/z5208494/output/umbrella_500f_devdata_local/wav2vec-ADI17-xlsr_finetuned_results.csv
+--> pretrained_mod: elgeish/wav2vec2-large-xlsr-53-arabic
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+
+------> CREATING WAV2VEC2 FEATURE EXTRACTOR... -----------------------
+
+SUCCESS: Created feature extractor.
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 2 s
+Sampling Rate: 16000
+Target Sampling Rate: 16000
+Create a custom dataset ---> 
+Check data has been processed correctly... 
+Train Data Sample
+{'input_values': tensor([[-0.0780,  0.0343,  0.0872,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0335,  0.0316,  0.0458,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1, 2])}
+Training DataCustom Files: 1963
+Training Data Files: 982
+Test Data Sample
+Some weights of the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic were not used when initializing Wav2Vec2ForSequenceClassification: ['lm_head.bias', 'lm_head.weight']
+- This IS expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of Wav2Vec2ForSequenceClassification were not initialized from the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic and are newly initialized: ['classifier.bias', 'classifier.weight', 'projector.weight', 'projector.bias']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+{'input_values': tensor([[0.0173, 0.0519, 0.0599,  ..., 0.0000, 0.0000, 0.0000],
+        [0.8125, 0.5474, 0.4316,  ..., 0.0000, 0.0000, 0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0, 2])}
+Test CustomData Files: 398
+Test Data Files: 199
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Loading pre-trained checkpoint...
+-------- Setting up Model --------
+GPUs Used :  4 GPUs!
+SUCCESS: Pre-trained checkpoint loaded.
+--> Defining Custom Trainer Class...
+
+------> STARTING TRAINING... ----------------------------------------- 
+
+Trainable Parameters : 264452
+Epoch 0 Train Acc 27.647659301757812% Val Acc 19.095478057861328% Train Loss 0.6920713782310486 Val Loss 1.4037423133850098
+Trainable Parameters : 264452
+Epoch 1 Train Acc 34.97963333129883% Val Acc 24.874372482299805% Train Loss 0.6773145794868469 Val Loss 1.4196841716766357
+Trainable Parameters : 264452
+Epoch 2 Train Acc 41.90427780151367% Val Acc 26.63316535949707% Train Loss 0.6500877141952515 Val Loss 1.451863169670105
+Trainable Parameters : 264452
+Epoch 3 Train Acc 44.70468521118164% Val Acc 30.65326690673828% Train Loss 0.6199058294296265 Val Loss 1.4849843978881836
+Trainable Parameters : 264452
+Epoch 4 Train Acc 49.898170471191406% Val Acc 31.909547805786133% Train Loss 0.5874601006507874 Val Loss 1.5911213159561157
+Trainable Parameters : 264452
+Epoch 5 Train Acc 52.03666305541992% Val Acc 30.65326690673828% Train Loss 0.5708149075508118 Val Loss 1.589703917503357
+Trainable Parameters : 264452
+Epoch 6 Train Acc 53.411407470703125% Val Acc 31.155778884887695% Train Loss 0.5507737398147583 Val Loss 1.56169593334198
+Trainable Parameters : 264452
+Epoch 7 Train Acc 54.78615188598633% Val Acc 35.67839050292969% Train Loss 0.535412609577179 Val Loss 1.5316576957702637
+Trainable Parameters : 264452
