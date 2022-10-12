@@ -39,11 +39,12 @@ for l in lan:
             print(f)
             ftrain.write(f + f",{l}\n")
             trcount += 1
-
-        if filename.is_file() and tscount < num_files:
+        elif filename.is_file() and tscount < num_files:
             f = filename.name.rstrip(".wav")
             ftest.write(f + f",{l}\n")
             tscount += 1
+        else:
+            break
 
 ftrain.close()
 ftest.close()
