@@ -232,7 +232,7 @@ set_save_steps = 500                         # Default = 500
 print("save_steps:", set_save_steps)
 set_save_total_limit = 40                   # Optional
 print("save_total_limit:", set_save_total_limit)
-set_fp16 = False                             # Default = False
+set_fp16 = True                             # Default = False
 print("fp16:", set_fp16)
 set_eval_steps = 100                         # Optional
 print("eval_steps:", set_eval_steps)
