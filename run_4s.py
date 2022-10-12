@@ -200,9 +200,9 @@ set_evaluation_strategy = "no"           # Default = "no"
 print("evaluation strategy:", set_evaluation_strategy)
 batch_size = 12        # Default = 8
 print("batch_size:", batch_size)
-set_gradient_accumulation_steps = 2         # Default = 4
+set_gradient_accumulation_steps = 4         # Default = 4
 print("gradient_accumulation_steps:", set_gradient_accumulation_steps)
-set_learning_rate = 0.00004                 # Default = 0.00005
+set_learning_rate = 0.0001                 # Default = 0.00005
 print("learning_rate:", set_learning_rate)
 set_weight_decay = 0.01                     # Default = 0
 print("weight_decay:", set_weight_decay)
