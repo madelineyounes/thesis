@@ -42,7 +42,7 @@ for l in lan:
 
         if filename.is_file() and tscount < num_files:
             f = filename.name.rstrip(".wav")
-            ftest.write(filename + f",{l}\n")
+            ftest.write(f + f",{l}\n")
             tscount += 1
 
 ftrain.close()
