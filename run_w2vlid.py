@@ -38,13 +38,7 @@ from transformers import (
     Trainer,
     TrainingArguments,
     AutoConfig,
-    Wav2Vec2ForSequenceClassification, 
-    Wav2Vec2FeatureExtractor,
     HubertForSequenceClassification
-)
-from transformers.models.wav2vec2.modeling_wav2vec2 import (
-    Wav2Vec2PreTrainedModel,
-    Wav2Vec2Model
 )
 from datetime import datetime
 import os
@@ -465,13 +459,13 @@ model = HubertForSequenceClassification.from_pretrained(model_name)
 model.classifier = nn.Linear(in_features=256, out_features=num_labels, bias=True)
 
 print("-------- Setting up Model --------")
-for param in model.wav2vec2.feature_extractor.parameters():
+for param in model.hubert.feature_extractor.parameters():
     param.requires_grad = False
 
-for param in model.wav2vec2.encoder.parameters():
+for param in model.hubert.encoder.parameters():
     param.requires_grad = False
 
-for param in model.wav2vec2.feature_projection.parameters():
+for param in model.hubert.feature_projection.parameters():
     param.requires_grad = False
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
@@ -488,7 +482,7 @@ trainable_transformers = 12
 num_transformers = 12
 if trainable_transformers > 0:
     for i in range(num_transformers-trainable_transformers, num_transformers, 1):
-        for param in model.wav2vec2.encoder.layers[i].parameters():
+        for param in model.hubert.encoder.layers[i].parameters():
             param.requires_grad = True
 """
 
@@ -524,7 +518,7 @@ class myTrainer(Trainer):
                 if epoch // set_unfreezing_step < (num_transformers-trainable_transformers):
                     if multi_gpu:
                         print("multi GPU used")
-                        for param in model.module.wav2vec2.encoder.layers[num_transformers-(epoch//set_unfreezing_step) - trainable_transformers].parameters():
+                        for param in model.module.hubert.encoder.layers[num_transformers-(epoch//set_unfreezing_step) - trainable_transformers].parameters():
                             param.requires_grad = True
                     else:
                         for param in model.wav2vec2.encoder.layers[num_transformers-(epoch//set_unfreezing_step)-trainable_transformers].parameters():
