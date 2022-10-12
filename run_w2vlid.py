@@ -39,7 +39,8 @@ from transformers import (
     TrainingArguments,
     AutoConfig,
     Wav2Vec2ForSequenceClassification, 
-    HubertForSequencrClassification
+    Wav2Vec2FeatureExtractor,
+    HubertForSequenceClassification
 )
 from transformers.models.wav2vec2.modeling_wav2vec2 import (
     Wav2Vec2PreTrainedModel,
@@ -460,7 +461,7 @@ def plot_data(x_label, y_label, matrix):
 
 print("--> Loading pre-trained checkpoint...")
 # NOTE: SWAPED Wav2Vec2ForSpeechClassification to Wav2Vec2ForSequenceClassification
-model = HubertForSequencrClassification.from_pretrained(model_name)
+model = HubertForSequenceClassification.from_pretrained(model_name)
 model.classifier = nn.Linear(in_features=256, out_features=num_labels, bias=True)
 
 print("-------- Setting up Model --------")
