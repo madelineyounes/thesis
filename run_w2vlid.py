@@ -38,7 +38,8 @@ from transformers import (
     Trainer,
     TrainingArguments,
     AutoConfig,
-    Wav2Vec2ForSequenceClassification
+    Wav2Vec2ForSequenceClassification, 
+    HubertForSequencrClassification
 )
 from transformers.models.wav2vec2.modeling_wav2vec2 import (
     Wav2Vec2PreTrainedModel,
@@ -202,7 +203,7 @@ batch_size = 12        # Default = 8
 print("batch_size:", batch_size)
 set_gradient_accumulation_steps = 2         # Default = 4
 print("gradient_accumulation_steps:", set_gradient_accumulation_steps)
-set_learning_rate = 0.00004                 # Default = 0.00005
+set_learning_rate = 0.0001                 # Default = 0.00005
 print("learning_rate:", set_learning_rate)
 set_weight_decay = 0.01                     # Default = 0
 print("weight_decay:", set_weight_decay)
@@ -459,7 +460,7 @@ def plot_data(x_label, y_label, matrix):
 
 print("--> Loading pre-trained checkpoint...")
 # NOTE: SWAPED Wav2Vec2ForSpeechClassification to Wav2Vec2ForSequenceClassification
-model = Wav2Vec2ForSequenceClassification.from_pretrained(model_name)
+model = HubertForSequencrClassification.from_pretrained(model_name)
 model.classifier = nn.Linear(in_features=256, out_features=num_labels, bias=True)
 
 print("-------- Setting up Model --------")
