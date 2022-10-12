@@ -44,7 +44,7 @@ class CustomDataset(Dataset):
             idx = idx.tolist()
 
         audiopath = self.data_fp + \
-            self.data_frame.iloc[idx, 1] + "\""+ \
+            self.data_frame.iloc[idx, 1] + "/"+ \
             self.data_frame.iloc[idx, 0] + ".wav"
         speech = speech_file_to_array_fn(audiopath, self.sampling_rate)
 
