@@ -36,6 +36,7 @@ for l in lan:
     for filename in os.scandir(directory):
         if filename.is_file() and trcount < num_files:
             f = filename.name.rsplit(".wav")
+            print(f)
             ftrain.write(f + f",{l}\n")
             trcount += 1
 
