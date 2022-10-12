@@ -98,7 +98,7 @@ print("training:", training)
 # For
 #     1) naming model output directory
 #     2) naming results file
-experiment_id = "wav2vec-ADI17-4s"
+experiment_id = "wav2vec-ADI17-lr00001"
 print("experiment_id:", experiment_id)
 
 # DatasetDict Id
@@ -590,22 +590,14 @@ class myTrainer(Trainer):
                 try:
                     data = next(tst_itt)
                     inputs = {}
-                    print("before inputs")
-                    print_gpu_info()
                     inputs['input_values'] = data['input_values'].float(
                     ).to(device).contiguous()
-                    print("audio")
-                    print_gpu_info()
                     inputs['attention_mask'] = data['attention_mask'].long(
                     ).to(device).contiguous()
-                    print("labels")
-                    print_gpu_info()
                     labels = data['labels'].long().to(device).contiguous()
                     loss, acc = self._compute_loss(model, inputs, labels)
                     loss_sum_val += loss.detach()
                     acc_sum_val += acc.detach()
-                    print("detach")
-                    print_gpu_info()
                 except StopIteration:
                     break
         loss_tot_val = loss_sum_val/len(loader)
