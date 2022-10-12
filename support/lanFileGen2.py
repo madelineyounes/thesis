@@ -35,10 +35,12 @@ for l in lan:
     tscount = 0
     for filename in os.scandir(directory):
         if filename.is_file() and trcount < num_files:
-            ftrain.write(filename + f",{l}\n")
+            f = filename.name.rsplit(".wav")
+            ftrain.write(f + f",{l}\n")
             trcount += 1
 
         if filename.is_file() and tscount < num_files:
+            f = filename.name.rsplit(".wav")
             ftest.write(filename + f",{l}\n")
             tscount += 1
 
