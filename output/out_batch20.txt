@@ -314,3 +314,70 @@ Epoch 79 Train Acc 69.69696807861328% Val Acc 39.650001525878906% Train Loss 0.3
 Trainable Parameters : 264452
 Epoch 80 Train Acc 69.59596252441406% Val Acc 38.54999923706055% Train Loss 0.382334440946579 Val Loss 1.7947460412979126
 Trainable Parameters : 264452
+Epoch 81 Train Acc 68.9595947265625% Val Acc 42.150001525878906% Train Loss 0.3872448205947876 Val Loss 1.7314081192016602
+Trainable Parameters : 264452
+Epoch 82 Train Acc 69.26262664794922% Val Acc 41.900001525878906% Train Loss 0.3941374123096466 Val Loss 1.6715288162231445
+Trainable Parameters : 264452
+Epoch 83 Train Acc 69.16161346435547% Val Acc 36.45000076293945% Train Loss 0.3855755031108856 Val Loss 2.063898801803589
+Trainable Parameters : 264452
+Epoch 84 Train Acc 68.86869049072266% Val Acc 37.35000228881836% Train Loss 0.3941011130809784 Val Loss 1.889142394065857
+Trainable Parameters : 264452
+Epoch 85 Train Acc 71.36363983154297% Val Acc 38.20000076293945% Train Loss 0.3816273510456085 Val Loss 2.0732502937316895
+Trainable Parameters : 264452
+Epoch 86 Train Acc 69.39393615722656% Val Acc 44.60000228881836% Train Loss 0.38365238904953003 Val Loss 1.6901037693023682
+Trainable Parameters : 264452
+Epoch 87 Train Acc 68.21212005615234% Val Acc 32.400001525878906% Train Loss 0.3878929018974304 Val Loss 1.9961942434310913
+Trainable Parameters : 264452
+Epoch 88 Train Acc 69.54545593261719% Val Acc 39.150001525878906% Train Loss 0.37663254141807556 Val Loss 2.1384437084198
+Trainable Parameters : 264452
+Epoch 89 Train Acc 70.6868667602539% Val Acc 37.70000076293945% Train Loss 0.37389153242111206 Val Loss 1.9308780431747437
+Trainable Parameters : 264452
+Epoch 90 Train Acc 70.60606384277344% Val Acc 35.35000228881836% Train Loss 0.378463476896286 Val Loss 2.0272772312164307
+Trainable Parameters : 264452
+Epoch 91 Train Acc 69.71717071533203% Val Acc 33.35000228881836% Train Loss 0.38306647539138794 Val Loss 2.202735662460327
+Trainable Parameters : 264452
+Epoch 92 Train Acc 68.90908813476562% Val Acc 37.29999923706055% Train Loss 0.3949481248855591 Val Loss 1.9678343534469604
+Trainable Parameters : 264452
+Epoch 93 Train Acc 70.25252532958984% Val Acc 39.70000076293945% Train Loss 0.3730068802833557 Val Loss 1.7702420949935913
+Trainable Parameters : 264452
+Epoch 94 Train Acc 71.61616516113281% Val Acc 37.95000076293945% Train Loss 0.3664751648902893 Val Loss 1.9349533319473267
+Trainable Parameters : 264452
+Epoch 95 Train Acc 70.25252532958984% Val Acc 42.0% Train Loss 0.38376355171203613 Val Loss 1.6243985891342163
+Trainable Parameters : 264452
+Epoch 96 Train Acc 70.0% Val Acc 39.79999923706055% Train Loss 0.394673228263855 Val Loss 2.0034775733947754
+Trainable Parameters : 264452
+Epoch 97 Train Acc 71.51515197753906% Val Acc 38.900001525878906% Train Loss 0.3799712359905243 Val Loss 1.8954206705093384
+Trainable Parameters : 264452
+Epoch 98 Train Acc 67.75757598876953% Val Acc 37.900001525878906% Train Loss 0.40066415071487427 Val Loss 1.9325984716415405
+Trainable Parameters : 264452
+Configuration saved in ../output/umbrella_500f_devdata_local/wav2vec-ADI17-batch-20/config.json
+Model weights saved in ../output/umbrella_500f_devdata_local/wav2vec-ADI17-batch-20/pytorch_model.bin
+Epoch 99 Train Acc 70.37373352050781% Val Acc 25.600000381469727% Train Loss 0.3844529986381531 Val Loss 2.491964101791382
+
+------> EVALUATING MODEL... ------------------------------------------ 
+
+/apps/python/3.8.3/lib/python3.8/site-packages/sklearn/metrics/_classification.py:1221: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/apps/python/3.8.3/lib/python3.8/site-packages/sklearn/metrics/_classification.py:1221: UndefinedMetricWarning: Recall and F-score are ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+CONFUSION MATRIX
+[[0.   0.   0.   0.  ]
+ [0.25 0.   0.   0.  ]
+ [0.5  0.   0.   0.25]
+ [0.   0.   0.   0.  ]]
+CLASSIFICATION REPORT
+              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00       0.0
+          98       0.00      0.00      0.00       1.0
+         100       0.00      0.00      0.00       3.0
+         398       0.00      0.00      0.00       0.0
+
+    accuracy                           0.00       4.0
+   macro avg       0.00      0.00      0.00       4.0
+weighted avg       0.00      0.00      0.00       4.0
+
+
+------> SUCCESSFULLY FINISHED ---------------------------------------- 
+
+Finished: 14/10/2022 00:29:04
