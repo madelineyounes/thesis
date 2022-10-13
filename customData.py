@@ -5,6 +5,10 @@ import pickle
 from torch.utils.data import Dataset
 import customTransform as T
 from torchvision import transforms
+from transformers.models.wav2vec2.modeling_wav2vec2 import (Wav2Vec2FeatureExtractor)
+
+
+feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained("facebook/wav2vec2-base")
 
 label_list = ['NOR', 'EGY', 'GLF', 'LEV']
 label2id, id2label = dict(), dict()
@@ -18,7 +22,7 @@ def speech_file_to_array_fn(path, target_sampling_rate):
     speech = resampler(speech_array).squeeze().numpy()
     return speech
 class CustomDataset(Dataset):
-    def __init__(self, csv_fp, data_fp, labels, transform=None, sampling_rate=16000, model_name="facebook/wav2vec2-base", max_length=0.1):
+    def __init__(self, csv_fp, data_fp, labels, transform=None, sampling_rate=16000, model_name="facebook/wav2vec2-base", max_length=0.1, feature_extractor=feature_extractor):
         """
         Args:
         csv_fp (string): Path to csv with audio file ids and labels.
@@ -46,8 +50,8 @@ class CustomDataset(Dataset):
         audiopath = self.data_fp + self.data_frame.iloc[idx, 0] + ".wav"
         speech = speech_file_to_array_fn(audiopath, self.sampling_rate)
         
-        # speech_features, mask = feature_extractor(
-        #     speech, sampling_rate=target_sampling_rate)
+        speech_features, mask = feature_extractor(
+            speech, sampling_rate=self.sampling_rate, do_normalize=True, return_attention_mask=True,  return_tensors='pt')
 
         if self.transform:
             speech_features = self.transform(speech)[0]

@@ -11,7 +11,7 @@
 # Go into thesis folder
 cd /home/z5208494/thesis/
 
-echo ""$(date)"" 2>&1 | tee -a output/out_lan.txt
+echo ""$(date)"" 2>&1 | tee -a output/out_lan_extractor.txt
 
 # This runs the test script
-python3 run_lan.py 2>&1 | tee -a output/out_lan.txt
+python3 run_lan.py 2>&1 | tee -a output/out_lan_extractor.txt

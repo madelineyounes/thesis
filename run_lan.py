@@ -41,6 +41,8 @@ from transformers import (
     Wav2Vec2ForSequenceClassification
 )
 from transformers.models.wav2vec2.modeling_wav2vec2 import (
+    Wav2Vec2FeatureExtractor,
+    Wav2Vec2Processor, 
     Wav2Vec2PreTrainedModel,
     Wav2Vec2Model
 )
@@ -98,7 +100,7 @@ print("training:", training)
 # For
 #     1) naming model output directory
 #     2) naming results file
-experiment_id = "wav2vec-lan-4s"
+experiment_id = "wav2vec-lan-extract"
 print("experiment_id:", experiment_id)
 
 # DatasetDict Id
@@ -330,12 +332,10 @@ print("\n------> CREATING WAV2VEC2 FEATURE EXTRACTOR... -----------------------\
 # - padding_value: for batched inference, shorter inputs are padded
 # - do_normalize: whether input should be zero-mean-unit-variance
 #   normalised or not. Usually, speech models perform better when true.
-# - return_attention_mask: set to false for Wav2Vec2, but true for
-#   fine-tuning large-lv60
-#feature_extractor = Wav2Vec2FeatureExtractor(feature_size=1, sampling_rate=16000, padding_value=0.0, do_normalize=True, return_attention_mask=False,  return_tensors='pt').from_pretrained(model_name)
+# - return_attention_mask: set to true
+feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained(model_name)
 # Feature extractor and tokenizer wrapped into a single
 # Wav2Vec2Processor class so we only need a model and processor object
-#processor = Wav2Vec2Processor(feature_extractor=feature_extractor, tokenizer=tokenizer)
 # Save to re-use the just created processor and the fine-tuned model
 #processor.save_pretrained(model_fp)
 print("SUCCESS: Created feature extractor.")
@@ -371,10 +371,8 @@ def speech_file_to_array_fn(path):
     return speech
 
 def label_to_id(label, label_list):
-
     if len(label_list) > 0:
         return label_list.index(label) if label in label_list else -1
-
     return label
 
 # Audio files are stored as .wav format
@@ -382,16 +380,15 @@ def label_to_id(label, label_list):
 # in the dataset.
 # We write a map(...) function accordingly.
 
-
 # create custom dataset class
 print("Create a custom dataset ---> ")
 random_transforms = transforms.Compose(
     [T.Extractor(model_name, sampling_rate, max_duration)])
 
 traincustomdata = CustomDataset(
-    csv_fp=data_train_fp, data_fp=training_data_path, labels=label_list, transform=random_transforms, model_name=model_name, max_length=max_duration)
+    csv_fp=data_train_fp, data_fp=training_data_path, labels=label_list, transform=random_transforms, model_name=model_name, max_length=max_duration, feature_extractor=feature_extractor)
 testcustomdata = CustomDataset(
-    csv_fp=data_test_fp, data_fp=test_data_path, labels=label_list, transform=random_transforms, model_name=model_name, max_length=max_duration)
+    csv_fp=data_test_fp, data_fp=test_data_path, labels=label_list, transform=random_transforms, model_name=model_name, max_length=max_duration, feature_extractor=feature_extractor)
 
 trainDataLoader = DataLoader(
     traincustomdata, batch_size=batch_size, shuffle=True, num_workers=set_num_of_workers)
@@ -491,7 +488,6 @@ if trainable_transformers > 0:
 """
 
 # 1) Define model
-
 # The first component of Wav2Vec2 consists of a stack of CNN layers
 # that are used to extract acoustically meaningful - but contextually
 # independent - features from the raw speech signal. This part of the
@@ -685,6 +681,8 @@ trainer = myTrainer(
     model=model,
     optimizers=(optimizer, lr_scheduler),
     args=training_args,
+    feature_extractor=feature_extractor, 
+    processor=processor
 )
 
 # ------------------------------------------
