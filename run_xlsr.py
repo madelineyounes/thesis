@@ -356,7 +356,7 @@ def print_gpu_info():
         print('not using cuda')
 
 
-max_duration = 5
+max_duration = 3
 print("Max Duration:", max_duration, "s")
 sampling_rate = 16000
 target_sampling_rate = 16000
