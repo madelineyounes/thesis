@@ -98,7 +98,7 @@ print("training:", training)
 # For
 #     1) naming model output directory
 #     2) naming results file
-experiment_id = "wav2vec-ADI17-100-files"
+experiment_id = "wav2vec-ADI17-extract-debug"
 print("experiment_id:", experiment_id)
 
 # DatasetDict Id

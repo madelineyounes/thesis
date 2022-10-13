@@ -50,9 +50,6 @@ class CustomDataset(Dataset):
         audiopath = self.data_fp + self.data_frame.iloc[idx, 0] + ".wav"
         speech = speech_file_to_array_fn(audiopath, self.sampling_rate)
         
-        speech_features, mask = feature_extractor(
-            speech, sampling_rate=self.sampling_rate, do_normalize=True, return_attention_mask=True,  return_tensors='pt')
-
         if self.transform:
             speech_features = self.transform(speech)[0]
             speech_mask = self.transform(speech)[1]
