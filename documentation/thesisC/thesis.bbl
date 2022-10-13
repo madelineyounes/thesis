@@ -1,0 +1,428 @@
+\begin{thebibliography}{10}
+
+\bibitem{noauthor_xls-r_nodate}
+{XLS}-{R}: {Self}-supervised speech processing for 128 languages, November.
+
+\bibitem{abdul-mageed_nadi_2020}
+Muhammad Abdul-Mageed, Chiyu Zhang, Houda Bouamor, and Nizar Habash.
+\newblock {NADI} 2020: {The} {First} {Nuanced} {Arabic} {Dialect}
+  {Identification} {Shared} {Task}.
+\newblock {\em arXiv:2010.11334 [cs]}, November 2020.
+\newblock arXiv: 2010.11334.
+
+\bibitem{albadr_spoken_2018}
+Musatafa Abbas~Abbood Albadr, Sabrina Tiun, Fahad~Taha AL-Dhief, and Mahmoud
+  A.~M. Sammour.
+\newblock Spoken language identification based on the enhanced self-adjusting
+  extreme learning machine approach.
+\newblock {\em PLOS ONE}, 13(4):e0194770, April 2018.
+
+\bibitem{alexei_baevski_first_2022}
+{Alexei Baevski}, Wei-Ning Hsu, {Qiantong Xu}, {Arun Babu}, Jiatao Gu, and
+  {Michael Auli}.
+\newblock The first high-performance self-supervised algorithm that works for
+  speech, vision, and text, January 2022.
+
+\bibitem{alfter_language_2015}
+David Alfter.
+\newblock Language {Segmentation}.
+\newblock {\em arXiv:1510.01717 [cs]}, October 2015.
+\newblock arXiv: 1510.01717.
+
+\bibitem{alhakeem_confidence_2021}
+Zainab Alhakeem and Hong-Goo Kang.
+\newblock Confidence {Learning} from {Noisy} {Labels} for {Arabic} {Dialect}
+  {Identification}.
+\newblock In {\em 2021 36th {International} {Technical} {Conference} on
+  {Circuits}/{Systems}, {Computers} and {Communications} ({ITC}-{CSCC})}, pages
+  1--4, 2021.
+
+\bibitem{ali_arabic_2021}
+Ahmed Ali, Shammur Chowdhury, Amir Hussein, and Yasser Hifny.
+\newblock Arabic {Code}-{Switching} {Speech} {Recognition} using {Monolingual}
+  {Data}.
+\newblock {\em arXiv:2107.01573 [cs, eess]}, July 2021.
+\newblock arXiv: 2107.01573.
+
+\bibitem{ali_mgb-5_2019}
+Ahmed Ali, Suwon Shon, Younes Samih, Hamdy Mubarak, Ahmed Abdelali, James
+  Glass, Steve Renals, and Khalid Choukri.
+\newblock The {MGB}-5 {Challenge}: {Recognition} and {Dialect} {Identification}
+  of {Dialectal} {Arabic} {Speech}.
+\newblock In {\em 2019 {IEEE} {Automatic} {Speech} {Recognition} and
+  {Understanding} {Workshop} ({ASRU})}, pages 1026--1033, 2019.
+
+\bibitem{babu_xls-r_2021}
+Arun Babu, Changhan Wang, Andros Tjandra, Kushal Lakhotia, Qiantong Xu, Naman
+  Goyal, Kritika Singh, Patrick von Platen, Yatharth Saraf, Juan Pino, Alexei
+  Baevski, Alexis Conneau, and Michael Auli.
+\newblock {XLS}-{R}: {Self}-supervised {Cross}-lingual {Speech}
+  {Representation} {Learning} at {Scale}.
+\newblock {\em arXiv:2111.09296 [cs, eess]}, December 2021.
+\newblock arXiv: 2111.09296.
+
+\bibitem{babu_xls-r_2021-1}
+Arun Babu, Changhan Wang, Andros Tjandra, Kushal Lakhotia, Qiantong Xu, Naman
+  Goyal, Kritika Singh, Patrick von Platen, Yatharth Saraf, Juan Pino, Alexei
+  Baevski, Alexis Conneau, and Michael Auli.
+\newblock {XLS}-{R}: {Self}-supervised {Cross}-lingual {Speech}
+  {Representation} {Learning} at {Scale}.
+\newblock {\em arXiv:2111.09296 [cs, eess]}, December 2021.
+\newblock arXiv: 2111.09296.
+
+\bibitem{baevski_effectiveness_2020}
+Alexei Baevski, Michael Auli, and Abdelrahman Mohamed.
+\newblock Effectiveness of self-supervised pre-training for speech recognition.
+\newblock {\em arXiv:1911.03912 [cs]}, May 2020.
+\newblock arXiv: 1911.03912.
+
+\bibitem{baevski_wav2vec_2020}
+Alexei Baevski, Henry Zhou, Abdelrahman Mohamed, and Michael Auli.
+\newblock wav2vec 2.0: {A} {Framework} for {Self}-{Supervised} {Learning} of
+  {Speech} {Representations}.
+\newblock {\em arXiv:2006.11477 [cs, eess]}, October 2020.
+\newblock arXiv: 2006.11477.
+
+\bibitem{bansal_self-supervised_2020}
+Trapit Bansal, Rishikesh Jha, Tsendsuren Munkhdalai, and Andrew McCallum.
+\newblock Self-{Supervised} {Meta}-{Learning} for {Few}-{Shot} {Natural}
+  {Language} {Classification} {Tasks}.
+\newblock {\em arXiv:2009.08445 [cs]}, November 2020.
+\newblock arXiv: 2009.08445.
+
+\bibitem{biadsy_dialect_2011}
+Fadi Biadsy, Julia Hirschberg, and Daniel Ellis.
+\newblock Dialect and {Accent} {Recognition} {Using} {Phonetic}-{Segmentation}
+  {Supervectors}.
+\newblock pages 745--748, January 2011.
+
+\bibitem{biadsy_spoken_2009}
+Fadi Biadsy, Julia Hirschberg, and Nizar Habash.
+\newblock Spoken {Arabic} dialect identification using phonotactic modeling.
+\newblock In {\em Proceedings of the {EACL} 2009 {Workshop} on {Computational}
+  {Approaches} to {Semitic} {Languages} - {Semitic} '09}, page~53, Athens,
+  Greece, 2009. Association for Computational Linguistics.
+
+\bibitem{boril_arabic_2012}
+Hynek Bořil, Abhijeet Sangwan, and John H.~L. Hansen.
+\newblock Arabic dialect identification - "is the secret in the silence?" and
+  other observations.
+\newblock In {\em Interspeech 2012}, pages 30--33. ISCA, September 2012.
+
+\bibitem{caron_deep_2019}
+Mathilde Caron, Piotr Bojanowski, Armand Joulin, and Matthijs Douze.
+\newblock Deep {Clustering} for {Unsupervised} {Learning} of {Visual}
+  {Features}.
+\newblock {\em arXiv:1807.05520 [cs]}, March 2019.
+\newblock arXiv: 1807.05520.
+
+\bibitem{chowdhury_towards_2021}
+Shammur~Absar Chowdhury, Amir Hussein, Ahmed Abdelali, and Ahmed Ali.
+\newblock Towards {One} {Model} to {Rule} {All}: {Multilingual} {Strategy} for
+  {Dialectal} {Code}-{Switching} {Arabic} {ASR}.
+\newblock {\em arXiv:2105.14779 [cs, eess]}, July 2021.
+\newblock arXiv: 2105.14779.
+
+\bibitem{chung_w2v-bert_2021}
+Yu-An Chung, Yu~Zhang, Wei Han, Chung-Cheng Chiu, James Qin, Ruoming Pang, and
+  Yonghui Wu.
+\newblock W2v-{BERT}: {Combining} {Contrastive} {Learning} and {Masked}
+  {Language} {Modeling} for {Self}-{Supervised} {Speech} {Pre}-{Training}.
+\newblock {\em arXiv:2108.06209 [cs, eess]}, September 2021.
+\newblock arXiv: 2108.06209.
+
+\bibitem{cornegruta_modelling_2016-1}
+Savelie Cornegruta, Robert Bakewell, Samuel Withey, and Giovanni Montana.
+\newblock Modelling {Radiological} {Language} with {Bidirectional} {Long}
+  {Short}-{Term} {Memory} {Networks}.
+\newblock {\em arXiv:1609.08409 [cs, stat]}, September 2016.
+\newblock arXiv: 1609.08409.
+
+\bibitem{dendani_self-supervised_2021}
+Bilal Dendani, Halima Bahi, and Toufik Sari.
+\newblock Self-{Supervised} {Speech} {Enhancement} for {Arabic} {Speech}
+  {Recognition} in {Real}-{World} {Environments}.
+\newblock {\em Traitement du Signal}, 38(2):349--358, April 2021.
+
+\bibitem{fan_exploring_2020}
+Zhiyun Fan, Meng Li, Shiyu Zhou, and Bo~Xu.
+\newblock Exploring wav2vec 2.0 on speaker verification and language
+  identification.
+\newblock 2020.
+\newblock Publisher: arXiv Version Number: 2.
+
+\bibitem{habash_guidelines_2008}
+Nizar Habash, Owen Rambow, Mona Diab, and Reem Kanjawi-Faraj.
+\newblock Guidelines for annotation of {Arabic} dialectness.
+\newblock In {\em Proceedings of the {LREC} {Workshop} on {HLT} \& {NLP} within
+  the {Arabic} world}, pages 49--53, 2008.
+
+\bibitem{hsu_hubert_2021}
+Wei-Ning Hsu, Benjamin Bolte, Yao-Hung~Hubert Tsai, Kushal Lakhotia, Ruslan
+  Salakhutdinov, and Abdelrahman Mohamed.
+\newblock {HuBERT}: {Self}-{Supervised} {Speech} {Representation} {Learning} by
+  {Masked} {Prediction} of {Hidden} {Units}.
+\newblock {\em arXiv:2106.07447 [cs, eess]}, June 2021.
+\newblock arXiv: 2106.07447.
+
+\bibitem{hussein_arabic_2021}
+Amir Hussein, Shinji Watanabe, and Ahmed Ali.
+\newblock Arabic {Speech} {Recognition} by {End}-to-{End}, {Modular} {Systems}
+  and {Human}.
+\newblock {\em arXiv:2101.08454 [cs, eess]}, June 2021.
+\newblock arXiv: 2101.08454.
+
+\bibitem{jauhiainen_automatic_2018}
+Tommi Jauhiainen, Marco Lui, Marcos Zampieri, Timothy Baldwin, and Krister
+  Lindén.
+\newblock Automatic {Language} {Identification} in {Texts}: {A} {Survey}.
+\newblock {\em arXiv:1804.08186 [cs]}, November 2018.
+\newblock arXiv: 1804.08186.
+
+\bibitem{jonathan_bgn_hubert_2021}
+{Jonathan Bgn}.
+\newblock {HuBERT}: {How} to {Apply} {BERT} to {Speech}, {Visually}
+  {Explained}, October 2021.
+
+\bibitem{khalifa_zero-resource_2021}
+Muhammad Khalifa, Hesham Hassan, and Aly Fahmy.
+\newblock Zero-{Resource} {Multi}-{Dialectal} {Arabic} {Natural} {Language}
+  {Understanding}.
+\newblock {\em International Journal of Advanced Computer Science and
+  Applications}, 12(3), 2021.
+\newblock arXiv: 2104.06591.
+
+\bibitem{lan_albert_2020}
+Zhenzhong Lan, Mingda Chen, Sebastian Goodman, Kevin Gimpel, Piyush Sharma, and
+  Radu Soricut.
+\newblock {ALBERT}: {A} {Lite} {BERT} for {Self}-supervised {Learning} of
+  {Language} {Representations}.
+\newblock {\em arXiv:1909.11942 [cs]}, February 2020.
+\newblock arXiv: 1909.11942.
+
+\bibitem{lang_self-supervised_2020}
+Hunter Lang and Hoifung Poon.
+\newblock Self-supervised self-supervision by combining deep learning and
+  probabilistic logic.
+\newblock {\em arXiv:2012.12474 [cs, stat]}, December 2020.
+\newblock arXiv: 2012.12474.
+
+\bibitem{lin_transformer-based_2020}
+Wanqiu Lin, Maulik Madhavi, Rohan~Kumar Das, and Haizhou Li.
+\newblock Transformer-based {Arabic} {Dialect} {Identification}.
+\newblock {\em arXiv:2011.00699 [eess]}, November 2020.
+\newblock arXiv: 2011.00699.
+
+\bibitem{liu_roberta_2019}
+Yinhan Liu, Myle Ott, Naman Goyal, Jingfei Du, Mandar Joshi, Danqi Chen, Omer
+  Levy, Mike Lewis, Luke Zettlemoyer, and Veselin Stoyanov.
+\newblock {RoBERTa}: {A} {Robustly} {Optimized} {BERT} {Pretraining}
+  {Approach}.
+\newblock {\em arXiv:1907.11692 [cs]}, July 2019.
+\newblock arXiv: 1907.11692.
+
+\bibitem{lopez-moreno_use_2016}
+Ignacio Lopez-Moreno, Javier Gonzalez-Dominguez, David Martinez, Oldřich
+  Plchot, Joaquin Gonzalez-Rodriguez, and Pedro~J. Moreno.
+\newblock On the use of deep feedforward neural networks for automatic language
+  identification.
+\newblock {\em Computer Speech \& Language}, 40:46--59, November 2016.
+
+\bibitem{lounnas_building_2019}
+Khaled Lounnas, Mourad Abbas, and Mohamed Lichouri.
+\newblock Building a {Speech} {Corpus} based on {Arabic} {Podcasts} for
+  {Language} and {Dialect} {Identification}.
+\newblock September 2019.
+
+\bibitem{miao_lstm-tdnn_2019}
+Xiaoxiao Miao and Ian McLoughlin.
+\newblock {LSTM}-{TDNN} with convolutional front-end for {Dialect}
+  {Identification} in the 2019 {Multi}-{Genre} {Broadcast} {Challenge}.
+\newblock {\em arXiv:1912.09003 [cs, eess]}, December 2019.
+\newblock arXiv: 1912.09003.
+
+\bibitem{miao_new_2019}
+Xiaoxiao Miao, Ian McLoughlin, and Yonghong Yan.
+\newblock A {New} {Time}-{Frequency} {Attention} {Mechanism} for {TDNN} and
+  {CNN}-{LSTM}-{TDNN}, with {Application} to {Language} {Identification}.
+\newblock In {\em Interspeech 2019}, pages 4080--4084. ISCA, September 2019.
+
+\bibitem{michael_ellis_accent_nodate}
+{Michael Ellis}.
+\newblock {\em Accent {Identification} for {English} {Speakers}}.
+\newblock PhD thesis, University of New South Wales.
+
+\bibitem{mohamed_arabic_2021}
+Omar Mohamed and Salah~A. Aly.
+\newblock Arabic {Speech} {Emotion} {Recognition} {Employing} {Wav2vec2}.0 and
+  {HuBERT} {Based} on {BAVED} {Dataset}.
+\newblock {\em arXiv:2110.04425 [cs]}, October 2021.
+\newblock arXiv: 2110.04425.
+
+\bibitem{mubarak_qasr_2021}
+Hamdy Mubarak, Amir Hussein, Shammur~Absar Chowdhury, and Ahmed Ali.
+\newblock {QASR}: {QCRI} {Aljazeera} {Speech} {Resource} -- {A} {Large} {Scale}
+  {Annotated} {Arabic} {Speech} {Corpus}.
+\newblock {\em arXiv:2106.13000 [cs, eess]}, June 2021.
+\newblock arXiv: 2106.13000.
+
+\bibitem{novotney_unsupervised_2011}
+Scott Novotney, Rich Schwartz, and Sanjeev Khudanpur.
+\newblock Unsupervised {Arabic} dialect adaptation with self-training.
+\newblock In {\em Interspeech 2011}, pages 541--544. ISCA, August 2011.
+
+\bibitem{perreault_dating_2012}
+Charles Perreault and Sarah Mathew.
+\newblock Dating the {Origin} of {Language} {Using} {Phonemic} {Diversity}.
+\newblock {\em PLoS ONE}, 7(4):e35289, April 2012.
+
+\bibitem{pohjalainen_spectral_2016}
+Jouni Pohjalainen, Fabien Fabien~Ringeval, Zixing Zhang, and Björn Schuller.
+\newblock Spectral and {Cepstral} {Audio} {Noise} {Reduction} {Techniques} in
+  {Speech} {Emotion} {Recognition}.
+\newblock In {\em Proceedings of the 24th {ACM} international conference on
+  {Multimedia}}, pages 670--674, Amsterdam The Netherlands, October 2016. ACM.
+
+\bibitem{ramesh_self-supervised_2021}
+G.~Ramesh, C.~Shiva Kumar, and K.~Sri~Rama Murty.
+\newblock Self-{Supervised} {Phonotactic} {Representations} for {Language}
+  {Identification}.
+\newblock In {\em Interspeech 2021}, pages 1514--1518. ISCA, August 2021.
+
+\bibitem{revay_multiclass_2019}
+Shauna Revay and Matthew Teschke.
+\newblock Multiclass {Language} {Identification} using {Deep} {Learning} on
+  {Spectral} {Images} of {Audio} {Signals}.
+\newblock {\em arXiv:1905.04348 [cs, eess]}, May 2019.
+\newblock arXiv: 1905.04348.
+
+\bibitem{salameh_fine-grained_2018}
+Mohammad Salameh, Houda Bouamor, and Nizar Habash.
+\newblock Fine-{Grained} {Arabic} {Dialect} {Identification}.
+\newblock In {\em Proceedings of the 27th {International} {Conference} on
+  {Computational} {Linguistics}}, pages 1332--1344, Santa Fe, New Mexico, USA,
+  August 2018. Association for Computational Linguistics.
+
+\bibitem{samih_neural_2017}
+Younes Samih, Mohammed Attia, Mohamed Eldesouki, Ahmed Abdelali, Hamdy Mubarak,
+  Laura Kallmeyer, and Kareem Darwish.
+\newblock A {Neural} {Architecture} for {Dialectal} {Arabic} {Segmentation}.
+\newblock In {\em Proceedings of the {Third} {Arabic} {Natural} {Language}
+  {Processing} {Workshop}}, pages 46--54, Valencia, Spain, 2017. Association
+  for Computational Linguistics.
+
+\bibitem{samih_multilingual_2016}
+Younes Samih, Suraj Maharjan, Mohammed Attia, Laura Kallmeyer, and Thamar
+  Solorio.
+\newblock Multilingual {Code}-switching {Identification} via {LSTM} {Recurrent}
+  {Neural} {Networks}.
+\newblock In {\em Proceedings of the {Second} {Workshop} on {Computational}
+  {Approaches} to {Code} {Switching}}, pages 50--59, Austin, Texas, 2016.
+  Association for Computational Linguistics.
+
+\bibitem{sanket_shah_firstworkshop_2020}
+{Sanket Shah}, {Sunayana Sitaram}, and {Rupeshkumar Mehta}.
+\newblock {FirstWorkshop} on {Speech} {Processing} for {Code}-switching in
+  {Multilingual} {Communities}: {Shared} {Task} on {Code}-switched {Spoken}
+  {Language} {Identification}.
+\newblock pages 24--28. Microsoft Research India, Microsoft Corporation,
+  October 2020.
+
+\bibitem{shon_convolutional_2018}
+Suwon Shon, Ahmed Ali, and James Glass.
+\newblock Convolutional {Neural} {Networks} and {Language} {Embeddings} for
+  {End}-to-{End} {Dialect} {Recognition}.
+\newblock {\em arXiv:1803.04567 [cs, eess]}, April 2018.
+\newblock arXiv: 1803.04567.
+
+\bibitem{shon_adi17_2020}
+Suwon Shon, Ahmed Ali, Younes Samih, Hamdy Mubarak, and James Glass.
+\newblock {ADI17}: {A} {Fine}-{Grained} {Arabic} {Dialect} {Identification}
+  {Dataset}.
+\newblock In {\em {ICASSP} 2020 - 2020 {IEEE} {International} {Conference} on
+  {Acoustics}, {Speech} and {Signal} {Processing} ({ICASSP})}, pages
+  8244--8248, Barcelona, Spain, May 2020. IEEE.
+
+\bibitem{shon_unsupervised_2018}
+Suwon Shon, Wei-Ning Hsu, and James Glass.
+\newblock Unsupervised {Representation} {Learning} of {Speech} for {Dialect}
+  {Identification}.
+\newblock {\em arXiv:1809.04458 [cs, eess]}, September 2018.
+\newblock arXiv: 1809.04458.
+
+\bibitem{soon_evaluating_2020}
+Guan-Lip Soon, Nur-Hana Samsudin, and Dennis Lim.
+\newblock Evaluating the {Effect} of {Multiple} {Filters} in {Automatic}
+  {Language} {Identification} without {Lexical} {Knowledge}.
+\newblock {\em International Journal of Advanced Computer Science and
+  Applications}, 11(10), 2020.
+
+\bibitem{tjandra_improved_2021}
+Andros Tjandra, Diptanu~Gon Choudhury, Frank Zhang, Kritika Singh, Alexis
+  Conneau, Alexei Baevski, Assaf Sela, Yatharth Saraf, and Michael Auli.
+\newblock Improved {Language} {Identification} {Through} {Cross}-{Lingual}
+  {Self}-{Supervised} {Learning}.
+\newblock {\em arXiv:2107.04082 [cs, eess]}, October 2021.
+\newblock arXiv: 2107.04082.
+
+\bibitem{tseng_mandarin-english_2021}
+Liang-Hsuan Tseng, Yu-Kuan Fu, Heng-Jui Chang, and Hung-yi Lee.
+\newblock Mandarin-{English} {Code}-switching {Speech} {Recognition} with
+  {Self}-supervised {Speech} {Representation} {Models}.
+\newblock {\em arXiv:2110.03504 [cs, eess]}, October 2021.
+\newblock arXiv: 2110.03504.
+
+\bibitem{tyler_cross-language_2009}
+Michael~D. Tyler and Anne Cutler.
+\newblock Cross-language differences in cue use for speech segmentation.
+\newblock {\em The Journal of the Acoustical Society of America},
+  126(1):367--376, July 2009.
+
+\bibitem{valk_voxlingua107_2020}
+Jörgen Valk and Tanel Alumäe.
+\newblock {VoxLingua107}: a {Dataset} for {Spoken} {Language} {Recognition}.
+\newblock {\em arXiv:2011.12998 [eess]}, November 2020.
+\newblock arXiv: 2011.12998.
+
+\bibitem{wadhawan_dialect_2021}
+Anshul Wadhawan.
+\newblock Dialect {Identification} in {Nuanced} {Arabic} {Tweets} {Using}
+  {Farasa} {Segmentation} and {AraBERT}.
+\newblock {\em arXiv:2102.09749 [cs]}, February 2021.
+\newblock arXiv: 2102.09749.
+
+\bibitem{wang_fine-tuned_2021}
+Yingzhi Wang, Abdelmoumene Boumadane, and Abdelwahab Heba.
+\newblock A {Fine}-tuned {Wav2vec} 2.0/{HuBERT} {Benchmark} {For} {Speech}
+  {Emotion} {Recognition}, {Speaker} {Verification} and {Spoken} {Language}
+  {Understanding}.
+\newblock {\em arXiv:2111.02735 [cs, eess]}, November 2021.
+\newblock arXiv: 2111.02735.
+
+\bibitem{zaidan_arabic_2014}
+Omar~F. Zaidan and Chris Callison-Burch.
+\newblock Arabic {Dialect} {Identification}.
+\newblock {\em Computational Linguistics}, 40(1):171--202, March 2014.
+
+\bibitem{zhang_no_2019}
+Chiyu Zhang and Muhammad Abdul-Mageed.
+\newblock No {Army}, {No} {Navy}: {BERT} {Semi}-{Supervised} {Learning} of
+  {Arabic} {Dialects}.
+\newblock In {\em Proceedings of the {Fourth} {Arabic} {Natural} {Language}
+  {Processing} {Workshop}}, pages 279--284, Florence, Italy, 2019. Association
+  for Computational Linguistics.
+
+\bibitem{zhang_languagedialect_2018}
+Qian Zhang and John H.~L. Hansen.
+\newblock Language/{Dialect} {Recognition} {Based} on {Unsupervised} {Deep}
+  {Learning}.
+\newblock {\em IEEE/ACM Transactions on Audio, Speech, and Language
+  Processing}, 26(5):873--882, 2018.
+
+\bibitem{zhang_survey_2021}
+Wen Zhang, Lingfei Deng, Lei Zhang, and Dongrui Wu.
+\newblock A {Survey} on {Negative} {Transfer}.
+\newblock {\em arXiv:2009.00909 [cs, stat]}, August 2021.
+\newblock arXiv: 2009.00909.
+
+\end{thebibliography}

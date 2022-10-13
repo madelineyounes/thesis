@@ -1,0 +1,473 @@
+\chapter{Literature Review}\label{ch:lit review}
+\section{An Introduction to LID and DID systems}
+Dialect identification (DID) is a specialised task of Language Identification (LID)
+which identifies the dialects within a language. It poses more challenges compared to LID, 
+as dialects share many acoustic, linguistic features and speaker characteristics. An accurate LID 
+or DID allows for more specialised models to be used for other speech related tasks including ASR, speech transcription and 
+Natural Learning Processing (NLP).
+Over time the methodology of LID and DID systems has evolved. 
+Traditionally Phonematic Modelling was used to construct Arabic DIDs which is discussed further in 
+\ref{sec:phonematic}. Then traditional machine learning networks were used, which is explored in Section 
+\ref{sec:tradML}. Current research is exploring the viability of utilising transfer based learning methods 
+for LIDs and DIDs, which is detailed in Section \ref{sec:transfer}. Table \ref{tab:MLapplications} compares 
+the accuracies that were achieved both with traditional machine learning methods and transfer learning.  
+
+
+\begin{table}[hbt!]
+    \begin{center}
+    \begin{tabular}{|m{3cm} | m{2.5cm} | m{2cm} |  m{3cm} |  m{1.7cm} | m{2cm} |}
+        \hline
+        \textbf{Application} & \textbf{Features} & \textbf{Pretrained Model} & \textbf{Downstream Model} &\textbf{Accuracy} &\textbf{Year, Paper}\\
+        \hline
+        Arabic DID \newline(17 dialects) & 80 dimensional Fbank & 
+        Transformer Based Network (trained on ADI17) & CNN & 86.29\% & (2020), [31] \\
+        \hline
+        Arabic DID \newline(5 dialects) & i-vector + FBANK + \newline word + \newline char + \newline phoneme & 
+        N/A & E2E CNN+RNN+FC, DNN+SNN (feature extraction) & 81.36\% & (2018), [49] \\
+        \hline
+        LID (English, Spanish, French, German, Russian, and Italian) & Spectrograms & 
+        Resnet50 & CNN + RESnets & 89\% & (2019), [45]\\
+        \hline
+        LID (Arabic, English, Malay, French, Spanish, German, Persian, and Urdu) & 
+        Acoustic features (MFCC + GMM + i-vector) & N/A & ESA-ELM (Enhanced Self- Adjusting Extreme Learning Machine) 
+        & 96.25\% & (2018), [53]\\
+        \hline
+        LID \newline(26 languages) & N/A & wav2vec 2.0 & pooling layer + linear layer & 95.5\% & (2021), [38]\\
+        \hline
+    \end{tabular}
+    \caption{Recent Machine Learning Implementations of LIDs \& DIDs.}
+    \label{tab:MLapplications}
+    \end{center}
+\end{table}
+
+\pagebreak
+\section{Traditional Methodologies}
+\subsection{Phonematic Modeling}\label{sec:phonematic}
+A phoneme in linguistics is the smallest unit of sound which can convey meaning (for instance, the sound /c/ in cat). 
+Phonematic modeling utilises recognisers to identify the phonemes present within an audio segment. 
+Different dialects usually have different phoneme combinations and so, the identified phonemes are mapped 
+to identify a dialect. In the paper [15] this technique was used to construct an Arabic DID for 4 dialects (Gulf, Iraqi, Levantine, and Egyptian) plus MSA which took advantage of  
+English, Arabic, Japanese phone recognisers to identify the pheoneme differences between the dialects as seen in Figure \ref{fig:phoneRec}. This method was able to achieve high accuracy 
+levels for identifying MSA with F-Measures above 98\% and the highest of the dialects was Egyptian Arabic with an F-Measure of 90.2\% with 30s test-utterances. As seen in Figure \ref{fig:phoneAcc},  
+phonematic modelling for Arabic struggled when given shorter utterances and had particularly low accuracies for the Gulf dialect. The key challenges with using phoneme modelling is that 
+it relies on the distinguishing phonemes to be present in the test data and for finer regional dialects it requires there to be more shared phonemes between the dialects.
+
+\begin{figure}[H]
+    \CommonHeightRow{%
+        \begin{floatrow}[2]%
+            \ffigbox[\FBwidth]
+            {\includegraphics[height=6cm]{phonemModeling.png}}
+            {\caption{Parallel Phone Recognition \newline Followed by Language Modeling (PRLM)\newline for Arabic DID [15].}}\label{fig:phoneRec}
+            \ffigbox[\FBwidth]
+            {\includegraphics[height=6cm]{accuraciesPhonemModeling.png}}
+            {\caption{The accuracies and F-Measures \newline of the five-way classification task with different test-utterance durations [15].}}\label{fig:phoneAcc}
+        \end{floatrow}}%
+\end{figure}
+\pagebreak
+\subsection{Traditional Machine Learning}\label{sec:tradML}
+Traditional Machine learning has been used for both LID and DID systems as explored in papers [3,31,35,36,44,49,53]. 
+They operate by extracting key features from the training audio, which could be acoustic and/or linguistic then using some form 
+of traditional machine learning structure to learn the differences between dialects based on the extracted features. Papers [31,35,36,49] use 
+transformer based networks which are constructed with a similar structure to that shown in Figure \ref{fig:transformerLID}. Simple transformer 
+networks were compared to networks which used a combination of CNN, LTSM networks along with the transformer network. Convolutional Neural Networks (CNN)
+are composed of three types of layers, a convolutional layer, pooling layer and a fully-connected (FC) layer, with a greater amount of layers the complexity of 
+the network increases. CNNs learn through using filters to detect certain features in the training data and adjusting its weights accordingly. The Arabic DID explored in paper [32]
+used the ADI17 dataset which will be used in this thesis was able to achieve the highest accuracy of 86.29\% when cascaded with a CNN network.  
+In contrast, Bidirectional Long Short Term Memory (BiLSTM) is created from two Recurrent Neural Networks (RNN). It has the ability to combine information from both past and future inputs. 
+The structure of BiLSTM is shown in Figure \ref{fig:BiLTSM}. 
+Although, there are no papers showing the effectiveness of using BiLSTMs specifically for Arabic DID, LSTMs were used in [35,36], transformer based networks 
+and were able to achieve an accuracy of well over 90\% for all the ADI17 dialects in [36]. As well as this the papers [46,59] explored the use of BiLTSMs in text based Arabic DIDs and paper [54] explored
+its use in Mandarin/English LID with XLS-R producing a 92.7\% accuracy.
+Since, both CNN and BiLSTM networks have been used in traditional machine learning LIDs and DIDs they will be explored as possible downstream models to be used in this thesis.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{TransformerNetwork.png}
+    \caption{Transformer Network based LID [36].}
+    \label{fig:transformerLID}
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{BiLTSM.png}
+    \caption{BiLTSM Structure [20].}
+    \label{fig:BiLTSM}
+\end{figure}
+
+
+\section{Transfer Learning}\label{sec:transfer}
+Transfer learning is a form of deep machine learning which focuses on adapting a pretrained model to execute a 
+similar task. The pretraining enables rapid learning for modeling the task and often requires less data to 
+achieve a high level of accuracy in the secondary class. For the task of LID and DID, this often means applying 
+a pretrained model designed for speech tasks like ASR, speech synthesis etc. Transfer learning is a relatively new method for optimising 
+machine learning to complete a task and so, there are not a vast amount of papers exploring its use for some more niche tasks 
+like LID and DID. Papers [8, 23, 38, 58] have shown significant increases in accuracy using pretrained models for tasks 
+such as emotion recognition, ASR and NLP. 
+
+In addition to a pretrained model, a transfer learning system has a downstream model connected to it that allows the model to 
+adapt to more specific tasks. The system can then be trained end to end (E2E) or fine-tuned in portions, tuning the pretrained model, then 
+the downstream. It was found in the paper [58], which explored E2E training for wav2vec and HuBERT for the tasks Speaker Verification (SV), Intent Classification (IC) and Slot Filling (SF), that on average using E2E training 
+provides more accurate systems. For example, looking at their results for wav2vec, E2E outperformed segmented training by 12.47\% in SER, decreased EER by 3.26\% in SV, improved accuracy in IC by 39.98\% and SF by 36.66\%. 
+Thereby, this thesis will employ E2E training for the system. 
+
+
+\subsection{Pretrained Models}\label{sec:pretrain}
+The pretrained models are semi-self supervised machine learning models often designed by large tech companies, then trained on large amounts of 
+unlabeled and small amounts of labelled data. There are several pretrained models available for use for speech processing some of which are shown in Table \ref{tab:PretrainedModel},
+although the main ones that will be explored are HuBERT, wav2vec 2.0 and XLS-R developed by Facebook. 
+Wav2vec 2.0 is designed for speech data, consisting of a feature encoder, context network, quantisation module and 
+a contrastive loss layer. The feature encoder is a 7-layer, 512 channel CNN that translates a waveform into feature vectors, reducing the dimension of the audio 
+to 1D. It does this every 20ms and has a receptive field of 400 samples which is equivalent to 25ms of audio sampled at 16kHz. The quantisation layer 
+addresses the continuous nature of speech data, automatically learning discrete speech units such as phonemes and words. While the transformer encoder composed of 12 
+transformer blocks and learns from the vectors from the CNN. Wav2vec is pretrained using a contrastive task, masking a unit in the feature vector then predicting what 
+should be in that unit. In the case where the prediction is wrong a negative score is given and when right a positive, and the network then adjusts its weights accordingly.  
+HuBert is a hidden unit bidirectional and shares a structure with wav2vec 2.0 using a transformer based networks and contrastive based learning, although it uses BERT. 
+BERT is able to process a segment of speech simultaneously learning the surrounding context of a word. It aimed to improve wav2vec through the use of BERT prediction loss and 
+was able to produce up to 19\% and 13\% relative WER reduction for a 1B parameter model. XLS-R is a fine-tuned variant of wav2vec 2.0, that is trained using data from 128 different languages collected from  BABEL, MLS, CommonVoice and VoxPopuli speech corpa. 
+Tuning the model on languages other than English reduced error rates 14-34\% relative on average [10]. It has also shown to operate 
+with a higher degree of accuracy on low resource languages compared to other models as shown in Figure \ref{fig:XLSRBLEU}. 
+The paper [10] compared the accuracy when using no pretrained model, wav2vec 2.0 and XSL-R on a 26 language LID. The highest accuracy was consistently achieved by XLS-R as seen in 
+Figure \ref{fig:XLSRLID}, the highest being 95.7\% with 100hrs of labelled training data. 
+Hence, this thesis will be using XLS-R and benchmarking it against wav2vec 2.0, HuBERT will not be tested as 
+for the scope of this thesis it is too ambitious to explore more than two pretrained models. 
+
+There hasn't been any research into the application of pretrained models for Arabic DIDs but there has been limited reaserch into using wav2vec for LID systems. 
+The papers [10,38,53] demonstrate it as a possible methodology for LID. The paper [38] was able to achieve an accuracy of 95.5\%  for their 26 language LID utilising only 
+a simple pooling layer and linear layer as their downstream model as shown in Figure \ref{fig:wav2vec} and so this thesis will use this as the benchmark downstream model. 
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{wav2vecLID.png}
+    \caption{wav2vec 2.0 LID [38].}
+    \label{fig:wav2vec}
+\end{figure}
+
+\begin{figure}[H]
+    \CommonHeightRow{%
+        \begin{floatrow}[2]%
+            \ffigbox[\FBwidth]
+            {\includegraphics[height=6cm]{XLS-R-acc.png}}
+            {\caption{26 language LID test accuracy [10].}}\label{fig:XLSRLID}
+            \ffigbox[\FBwidth]
+            {\includegraphics[height=7cm]{XLS-R.png}}
+            {\caption{XLS-R BLEU Accuracy when Translating to English [1]}}\label{fig:XLSRBLEU}
+        \end{floatrow}}%
+\end{figure}
+
+\begin{table}[hbt!]
+    \begin{center}
+    \begin{tabular}{|m{3cm} || m{10cm} | m{3cm} |}
+        \hline
+        \textbf{Model} & \textbf{Key Features} & \textbf{Year, Paper}\\
+        \hline
+        Hubert & 
+        \textbf{Training:} 60k hrs of English unlabeled speech and 1hr of labelled speech.\newline 
+        \textbf{Structure:} Masked hidden units.
+        & (2021), [24]\\
+        \hline
+        Albert & Bert variant designed to be more lightweight. &(2020), [29]\\
+        \hline
+        w2v-Bert & wav2vec and HuBert hybrid.\newline
+        Slight accuracy improvement on some downstream tasks ~5\% to ~10\% improvement in WER reduction, 
+        but has a more complex structure. &(2021), [19]\\
+        \hline
+        wav2vec 2.0 & 
+        \textbf{Training:} 53k hrs of English unlabeled speech and 1hr of labelled speech.\newline
+        \textbf{Structure:} Masking and contrastive based learning. \newline
+        &(2020), [12]\\
+        \hline
+        XLS-R &
+        Fined tuned version of wav2vec 2.0.\newline
+        \textbf{Training:} 436k hrs unlabeled speech data in 128 languages. 
+         &(2021), [4]\\
+        \hline
+    \end{tabular}
+    \caption{Possible Pretrained Model Choices.}
+    \label{tab:PretrainedModel}
+    \end{center}
+\end{table}
+
+\chapter{Thesis Outline}\label{ch:outline}
+\section{Proposed Approach}
+As discussed in the Chapter \ref{ch:lit review}, using transfer learning for designing DID is a feasible method which 
+may be able to address some challenges with Arabic DID, as discussed in Sections \ref{sec:problem} and \ref{ch:background}. 
+This thesis will do this through constructing different transfer learning systems and comparing their accuracy. A block diagram 
+giving an overview of the system is shown in Figure \ref{fig:Block}. The portions which 
+will remain consistent in the system throughout experimentation will be the initial data preprocessing which will use the python packages noisereduce 
+to filter the data and perform channel normalisation. (The importance of preprocessing is covered in the section \ref{sec:dataset}.) As well as the outputting softmax layer which will classify the dialects based on the 
+given categorisations. In Thesis B, the classification of 4 generalised dialects will be explored and Thesis C will look to see if the system constructed 
+can then be applied to 17 regional dialects. The portions which will be investigated include the pretrained model and the downstream model. The choices for 
+each have been explained in Sections \ref{sec:pretrain} and \ref{sec:tradML}. The benchmark model for each section respectively will be wav2vec 2.0 and a simple 
+pooling + linear layer as the downstream model. It is expected that using XLS-R and BiLSTM will produce the system with the highest accuarcy DID. This thesis 
+will also investigate the minimum amount of data required to create an effective system, to validate the claim that transfer learning is a useful method for low resource 
+languages and will do this through varying both the amount of training data and the length of utterances for the test data. A breakdown of the tasks and testing which 
+will be performed are in Section \ref{sec:task}. 
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{BlockDiagram.png}
+    \caption{Block Diagram of Proposed Approach.}
+    \label{fig:Block}
+\end{figure}
+
+\section{Expected Outcomes}
+The expected outcomes of this thesis is to have designed an Arabic DID with at 
+least an accuracy of 85\% for both the 4 generalised dialects and the 17 finer dialects. 
+This will demonstrate that transfer learning is a viable methodology for 
+creating DIDs, particularly for low resource languages and dialects.
+It is also expected that using the more generalised language pretrained model XLS-R 
+will outperform a model utlising wav2vec 2.0. 
+
+\chapter{Preliminary Work}\label{ch:prelim}
+During the course of Thesis A, some preliminary work was conducted to prepare for the work which will be done in 
+Thesis B and Thesis C. This included gaining access to NCIS Supercomputer and setting up the SSH on my personal computer. 
+Setting up the development environment with jupyter notebook, python. Downloading the training ADI17 dataset and performing 
+some analysis on it which is detailed in the Section \ref{sec:dataset}. 
+
+\section{Dataset Analysis}\label{sec:dataset}
+\subsection{Dataset Selection}
+There are limited dialectal Arabic datasets available, ADI17 [50], QASR [39] and the ArPod [34]
+dataset were assessed as viable options to be used as training data for the DID to be designed in this 
+thesis. An exploration of their features and negative characteristics is in the Table \ref{tab:dataSetChoice}.\\
+
+\begin{table}[hbt!]
+    \begin{center}
+    \begin{tabular}{|m{1.5cm} || m{6cm} | m{4cm} | m{3cm}|}
+        \hline
+        \textbf{Dataset} & \textbf{Features} & \textbf{Associated Challenges} & \textbf{Access Status} \\
+        \hline
+        \hline
+        ADI17 &
+        {
+            \textbf{Amount:} 3000hrs of\newline conversational audio on various topics.\newline
+            \textbf{Source:} YouTube videos.\newline
+            \textbf{Languages/Dialects:} 17 regional dialects.\newline
+            Contains codeswitching. 
+        }
+        &
+        The dataset is noisy\newline with significant amount of acoustic variation. &
+        Access granted. \\
+        \hline
+        QASR: QCRI Aljazeera Speech Resource &
+        {
+            \textbf{Amount:} 2000hrs of\newline broadcast audio on various topics.\newline
+            \textbf{Source:} Aljazeera broadcasting network.\newline
+            \textbf{Languages/Dialects:} 3 Languages (English, French, Arabic),\newline 5 dialects (MSA, GLF, LEV,  NOR, EGY).\newline
+            Contains codeswitching. 
+        }&
+        Even though this\newline dataset has many\newline favourable features, no contact information is provided to access the dataset.&
+        Access unavailable (no contact\newline information provided)\\
+        \hline
+        ArPod&
+        {
+            \textbf{Amount:} 8hrs of high quality conversational audio.\newline
+            \textbf{Source:} Podcasts.\newline
+            \textbf{Languages/Dialects:} 2 Languages (English, Arabic),\newline 5 dialects (MSA, SAU, EGY, LEB, SYR).\newline
+        }&
+        The dataset is very small compared to alternate datasets and only contains data from a limited set of regional dialects. 
+        &
+        Access not\newline granted but can be obtained\newline through contacting Dr. Mourad Abbas\\
+        \hline
+    \end{tabular}
+    \caption{Possible Dataset Choices.}
+    \label{tab:dataSetChoice}
+    \end{center}
+\end{table}
+\pagebreak
+The \textbf{ADI17} dataset has been chosen to be used for this thesis as it was the most 
+suitable due to a couple of reasons. Particularly it was
+designed with the intention to be used for DID systems and has the largest amount of 
+associated resources. 
+
+\subsection{ADI17 Dataset}
+The \textbf(ADI17) comprised of audio segments from known Youtube videos with dialects from 17 different Middle Eastern and North
+African countries. The dataset is divided into training, development and test data groups. The training set contains 
+3000hrs of audio total while the development and test combined is 57hrs of audio. The specifics of the dataset can be seen in Figure \ref{fig:ADI17}.
+The data was collected from around 30 different Youtube channels per country and the primary dialect each Youtube channel used was verified by a human annotator. Using the Youtube channel's 
+dialect audio segment's dialectal label was allocated. The training data relies on this for its labelling, whilst 
+the test and development data was annotated by a human annotator. The audio segments are split into utterances, which are small portions  
+of audio generated by segmenting the original audio at silence points. These silence points are usually natural pauses in conversation and a threshold 
+is used to determine how long the silence must be before the audio is split. The creators of the ADI17 dataset have not specified the threshold that they used. 
+The dataset is labelled using 17 regions, Thesis B explores creating a DID of 4 generalised dialects that encompass this finer set of regional dialects as shown in Figure \ref{fig:Dialectgroups}. 
+So, for training in Thesis B a portion of data from each region is taken to construct the training set for the generalised dialects as shown in Figure \ref{fig:DialectSplit}. 
+The core challenges with the ADI17 dataset are that the acoustics are unbalanced across each of the dialect regions and the amount of data provided is unbalanced. The amount of noise in each of the 
+regions datasets is shown in Figure \ref{fig:noiseDataSet}, although its effect on the DID will be mitigated through using channel normalisation and filtering, as the papers [16, 42] have shown is effective at increasing 
+accuracy of Arabic DIDs. The dataset is also unbalanced in terms of amount of training data for each region as shown in Figure \ref{fig:trainplot}, with Jordan having the least amount of data. This will not affect Thesis B, as the generalised 
+dialect groups will collate portions of the data. While for Thesis C, the training data provided will be restricted to 10hrs to ensure that 
+the training sets for each region are even and balanced. 
+
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{DataSetDetails.png}
+    \caption{ADI17 Dataset Details.}
+    \label{fig:ADI17}
+\end{figure}
+
+
+\begin{figure}[H]
+    \CommonHeightRow{%
+        \begin{floatrow}[2]%
+            \ffigbox[\FBwidth]
+            {\includegraphics[height=6cm]{Trainingplot.png}}
+            {\caption{Plot of ADI17 Training Data.}}\label{fig:trainplot}
+            \ffigbox[\FBwidth]
+            {\includegraphics[height=3cm]{DialectGroups.png}}
+            {\caption{ADI17 Grouped into 4 major dialects.}}\label{fig:Dialectgroups}
+        \end{floatrow}}%
+\end{figure}
+
+\begin{figure}[H]
+    \CommonHeightRow{%
+        \begin{floatrow}[2]%
+            \ffigbox[\FBwidth]
+            {\includegraphics[height=7cm]{ADI17_Dataset.png}}
+            {\caption{Total data for each of the 4 dialects.}}\label{fig:DialectAmount}
+            \ffigbox[\FBwidth]
+            {\includegraphics[height=2cm]{ADI17_split.png}}
+            {\caption{ADI17 Grouped into 4 dialect groups.}}\label{fig:DialectSplit}
+        \end{floatrow}}%
+\end{figure}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=\textwidth]{noiseDataset.png}
+    \caption{ADI17 Dataset Noise levels. [6]}
+    \label{fig:noiseDataSet}
+\end{figure}
+
+
+
+
+
+\chapter{Thesis Plan}\label{ch:plan}
+\section{Timeline Overview}
+An overview of summarising the planned timeline for this thesis is presented in 
+Figure \ref{Gantt Chart}. Tasks have been broken into manageable 2-3 week intervals and testing, evaluating
+and assignment preparation have also been accounted for in the timeline. 
+Thesis A has comprised mainly of finding a focus topic, developing a sound understanding of the background information on dialectal Arabic, 
+LIDs, DIDs and transfer learning. Evaluated possible datasets, prebuilt models, python packages and downstream models 
+to be implemented in Thesis B. As well as gaining access to the Gadi supercomputer, dataset and performing some data analysis on the set. 
+
+The majority of the implementation and experimentation for this thesis will occur in 
+Thesis B. The dataset preprocessed using python audio processing packages such as NoiseReduce and PyAudio. 
+The main machine learning model with the pretrained model and downstream model will be implemented
+using the SpeechBrain Python toolkit.
+
+Thesis C focus will focus on evaluating the performance of the model developed in Thesis B and further 
+developing it. This evaluation will be done through changing the amount of classifier groups from 4 to 17. 
+In addition to testing the model with various utterance lengths. There has been significant time allocated in 
+Thesis C for reflecting, testing and iterating upon the model designed. 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\textwidth]{images/timeline.png}
+    \caption{Gantt Chart.}\label{Gantt Chart}
+\end{figure}
+\section{Thesis B}
+\subsection{Aims}
+Thesis B will investigate various methods for designing a DID for the 4 major
+Arabic dialects (EGY, GLF, LEV, NOR). All testing done in Thesis B will be done with 
+120sec utterance test data.\\
+The goals of Thesis B are as follows: 
+\begin{itemize}
+    \item Investigate the system's performance and determine if it is robust for low resource dialects. 
+    \item Benchmark a generalised language pretrained model against an English speech pretrained model.
+    \item Determine the most accurate downstream model architecture. 
+\end{itemize}
+
+\subsection{Task Breakdown}\label{sec:task}
+
+\begin{enumerate}
+    \item Dataset preprocessing. 
+    \item Build basic model (XLS-R, Linear Layer + Pooling).
+    \item Determine the minimum amount of labelled data required through training with:
+    \begin{itemize}
+        \item 100hrs
+        \item 10hrs 
+        \item 1hr 
+        \item 10mins
+    \end{itemize} 
+    \item Benchmark against wav2vec 2.0. 
+    \item Build model with CNN downstream architecture. 
+    \begin{itemize}
+        \item XLS-R with labelled data: 
+        \begin{itemize}
+            \item 100hrs
+            \item 10hrs 
+            \item 1hr 
+            \item 10mins
+        \end{itemize} 
+        \item wav2vec 2.0 with labelled data: 
+        \begin{itemize}
+            \item 100hrs
+            \item 10hrs 
+            \item 1hr 
+            \item 10mins
+        \end{itemize} 
+    \end{itemize}
+    \item Build model with BiLSTM downstream architecture.
+    \begin{itemize}
+        \item XLS-R trained with labelled data: 
+        \begin{itemize}
+            \item 100hrs
+            \item 10hrs 
+            \item 1hr 
+            \item 10mins
+        \end{itemize} 
+        \item wav2vec 2.0 with labelled data: 
+        \begin{itemize}
+            \item 100hrs
+            \item 10hrs 
+            \item 1hr 
+            \item 10mins
+        \end{itemize} 
+        \item Experiment fine tuning with unlabeled data
+    \end{itemize}
+\end{enumerate}
+
+\section{Thesis C}
+\subsection{Aims}
+Thesis C will extend upon the conclusions found in Thesis B, assessing the robustness and performance of 
+the DID designed through using a finer set of 17 dialect classifications 
+(DZA, EGY, IRQ, JOR, SAU, KWT, LBN, LBY, MRT, MAR, OMN, PSE, QAT, SDN, SYR, ARE, YEM).\\
+The goals of Thesis C are as follows: 
+\begin{itemize}
+    \item Prove a model can be used to identify a finer set of dialectal groups 
+    \item Evaluate the performance of the DID with utterances of various lengths.  
+\end{itemize}
+\subsection{Task Breakdown}
+
+\begin{enumerate}
+\item Assess the most accurate model from Thesis B and adapt it to include the 17 classifier groups.
+\item Observe its accuracy with labelled training data:
+    \begin{itemize}
+        \item 10hrs 
+        \item 1hr 
+        \item 10mins
+    \end{itemize}
+\item Evaluate the DID's accuracy with utterances of:
+    \begin{itemize}
+        \item 10hrs 
+        \item 1hr 
+        \item 10mins
+    \end{itemize}
+\end{enumerate}
+
+
+\section{Possible Challenges}
+The major challenges likely to be encountered in this thesis are:\\
+\textbf{Quality of Dataset:} There is acoustic variation across the dataset such as environmental noise and variation in the volume. 
+The acoustic variation could lead to the network overfitting and classifying based upon acoustic rather than linguistic dialectal differences. 
+As a non-Arabic speaker, I will be unable to audibly verify the accuracy of the dataset or identify any mislabeling errors.
+Filtering will be used to mitigate the acoustic variation within the dataset and 
+since, multiple papers have utlised the ADI17 dataset there is confidence that the dataset is reliable.\\\\
+\textbf{Time:} Machine learning systems especially when training with large amounts of data (100hrs) take time to process. So, tuning metaparameters 
+and making design changes may take several hours to present results. This time delay will make debugging challenging, 
+although by anticipating for this time delay and staying organised the effect this will have can be reduced. \\\\
+\textbf{Tuning Metaparamaters:}
+There are various different metaparameters, pruning methods and optimisers which can be used in designing a machine learning model. Tuning these will 
+take a significant amount of time, writing a script to cycle through different metaparameters can increase the efficiency of this task.\\\\
+\textbf{Negative Transfer:} In transfer learning, there is the risk that previous knowledge of a pretrained model may 
+damage the performance of specific task. This may cause significant issues so, by testing multiple amounts of training data and models, the occurance of  
+negative transference can be assessed. [62]
