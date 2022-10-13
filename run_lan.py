@@ -681,8 +681,6 @@ trainer = myTrainer(
     model=model,
     optimizers=(optimizer, lr_scheduler),
     args=training_args,
-    feature_extractor=feature_extractor, 
-    processor=processor
 )
 
 # ------------------------------------------
