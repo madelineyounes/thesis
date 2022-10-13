@@ -98,7 +98,7 @@ print("training:", training)
 # For
 #     1) naming model output directory
 #     2) naming results file
-experiment_id = "wav2vec-ADI17-8s"
+experiment_id = "wav2vec-ADI17-10s"
 print("experiment_id:", experiment_id)
 
 # DatasetDict Id
@@ -356,7 +356,7 @@ def print_gpu_info():
         print('not using cuda')
 
 
-max_duration = 8
+max_duration = 10
 print("Max Duration:", max_duration, "s")
 sampling_rate = 16000
 target_sampling_rate = 16000
@@ -632,8 +632,8 @@ class myTrainer(Trainer):
                     predictions = model(**inputs).logits
 
                     for j in range(0, len(predictions)):
-                        y_pred[np.argmax(predictions[j][0].item())]+=1
-                        y_true[labels[j].cpu().item()]+=1
+                        y_pred[np.argmax(predictions[j][0].item())] += 1
+                        y_true[labels[j].cpu().item()] += 1
                 except StopIteration:
                     break
 

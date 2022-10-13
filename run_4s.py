@@ -198,7 +198,7 @@ print("\n------> TRAINING ARGUMENTS... ----------------------------------------\
 # For setting training_args = TrainingArguments()
 set_evaluation_strategy = "no"           # Default = "no"
 print("evaluation strategy:", set_evaluation_strategy)
-batch_size = 12        # Default = 8
+batch_size = 20        # Default = 8
 print("batch_size:", batch_size)
 set_gradient_accumulation_steps = 2         # Default = 4
 print("gradient_accumulation_steps:", set_gradient_accumulation_steps)
@@ -614,8 +614,8 @@ class myTrainer(Trainer):
 
     def _evaluate(self, loader, tst_itt):
         # put model in evaluation mode
-        y_true = []
-        y_pred = []
+        y_true = [0, 0, 0, 0]
+        y_pred = [0, 0, 0, 0]
         self.model.eval()
         with torch.no_grad():
             for i in range(len(loader)):
@@ -632,8 +632,8 @@ class myTrainer(Trainer):
                     predictions = model(**inputs).logits
 
                     for j in range(0, len(predictions)):
-                        y_pred.append(np.argmax(predictions[j][0].item()))
-                        y_true.append(labels[j].cpu().item())
+                        y_pred[np.argmax(predictions[j][0].item())] += 1
+                        y_true[labels[j].cpu().item()]+=1
                 except StopIteration:
                     break
 
