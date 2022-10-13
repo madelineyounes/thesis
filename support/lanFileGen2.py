@@ -15,12 +15,12 @@ data_label_path = "/srv/scratch/z5208494/dataset/VoxLingua107/"
 
 output_path = "../data/"
 
-test_l_out_file = output_path +"test_lan_100f.csv"
-train_l_out_file = output_path+ "train_lan_100f.csv"
+test_l_out_file = output_path +"test_lan_1000f.csv"
+train_l_out_file = output_path+ "train_lan_1000f.csv"
 
 lan = ['ar', 'en', 'fr', 'it']
 
-num_files = 100 
+num_files = 1000
 
 firstline = "id,label\n"
 ftest = open(test_l_out_file, 'w')

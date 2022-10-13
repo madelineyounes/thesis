@@ -129,8 +129,8 @@ base_cache_fp = "/srv/scratch/z5208494/cache/huggingface/datasets/"
 # Training dataset name and filename
 # Dataset name and filename of the csv file containing the training data
 # For generating filepath to file location
-train_name = "voxlan_100f"
-train_filename = "train_lan_100f"
+train_name = "voxlan_1000f"
+train_filename = "train_lan_1000f"
 print("train_name:", train_name)
 print("train_filename:", train_filename)
 
@@ -200,7 +200,7 @@ print("\n------> TRAINING ARGUMENTS... ----------------------------------------\
 # For setting training_args = TrainingArguments()
 set_evaluation_strategy = "no"           # Default = "no"
 print("evaluation strategy:", set_evaluation_strategy)
-batch_size = 12        # Default = 8
+batch_size = 40        # Default = 8
 print("batch_size:", batch_size)
 set_gradient_accumulation_steps = 2         # Default = 4
 print("gradient_accumulation_steps:", set_gradient_accumulation_steps)
@@ -633,7 +633,7 @@ class myTrainer(Trainer):
                 except StopIteration:
                     break
 
-        c_matrix = confusion_matrix(y_true, y_pred, normalize='all')
+        c_matrix = confusion_matrix(y_pred, y_true, normalize='all')
         print("CONFUSION MATRIX")
         print(c_matrix)
         print("CLASSIFICATION REPORT")
