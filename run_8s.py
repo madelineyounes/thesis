@@ -198,7 +198,7 @@ print("\n------> TRAINING ARGUMENTS... ----------------------------------------\
 # For setting training_args = TrainingArguments()
 set_evaluation_strategy = "no"           # Default = "no"
 print("evaluation strategy:", set_evaluation_strategy)
-batch_size = 4        # Default = 8
+batch_size = 12        # Default = 8
 print("batch_size:", batch_size)
 set_gradient_accumulation_steps = 2         # Default = 4
 print("gradient_accumulation_steps:", set_gradient_accumulation_steps)
@@ -232,7 +232,7 @@ set_save_steps = 500                         # Default = 500
 print("save_steps:", set_save_steps)
 set_save_total_limit = 40                   # Optional
 print("save_total_limit:", set_save_total_limit)
-set_fp16 = False                             # Default = False
+set_fp16 = True                             # Default = False
 print("fp16:", set_fp16)
 set_eval_steps = 100                         # Optional
 print("eval_steps:", set_eval_steps)
