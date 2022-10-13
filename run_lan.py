@@ -386,9 +386,9 @@ random_transforms = transforms.Compose(
     [T.Extractor(model_name, sampling_rate, max_duration)])
 
 traincustomdata = CustomDataset(
-    csv_fp=data_train_fp, data_fp=training_data_path, labels=label_list, transform=random_transforms, model_name=model_name, max_length=max_duration, feature_extractor=feature_extractor)
+    csv_fp=data_train_fp, data_fp=training_data_path, labels=label_list, transform=random_transforms, model_name=model_name, max_length=max_duration)
 testcustomdata = CustomDataset(
-    csv_fp=data_test_fp, data_fp=test_data_path, labels=label_list, transform=random_transforms, model_name=model_name, max_length=max_duration, feature_extractor=feature_extractor)
+    csv_fp=data_test_fp, data_fp=test_data_path, labels=label_list, transform=random_transforms, model_name=model_name, max_length=max_duration)
 
 trainDataLoader = DataLoader(
     traincustomdata, batch_size=batch_size, shuffle=True, num_workers=set_num_of_workers)
