@@ -198,7 +198,7 @@ print("\n------> TRAINING ARGUMENTS... ----------------------------------------\
 # For setting training_args = TrainingArguments()
 set_evaluation_strategy = "no"           # Default = "no"
 print("evaluation strategy:", set_evaluation_strategy)
-batch_size = 12        # Default = 8
+batch_size = 24        # Default = 8
 print("batch_size:", batch_size)
 set_gradient_accumulation_steps = 2         # Default = 4
 print("gradient_accumulation_steps:", set_gradient_accumulation_steps)
@@ -232,7 +232,7 @@ set_save_steps = 500                         # Default = 500
 print("save_steps:", set_save_steps)
 set_save_total_limit = 40                   # Optional
 print("save_total_limit:", set_save_total_limit)
-set_fp16 = False                             # Default = False
+set_fp16 = True                             # Default = False
 print("fp16:", set_fp16)
 set_eval_steps = 100                         # Optional
 print("eval_steps:", set_eval_steps)
@@ -614,8 +614,8 @@ class myTrainer(Trainer):
 
     def _evaluate(self, loader, tst_itt):
         # put model in evaluation mode
-        y_true = []
-        y_pred = []
+        y_true = [0, 0, 0, 0]
+        y_pred = [0, 0, 0, 0]
         self.model.eval()
         with torch.no_grad():
             for i in range(len(loader)):
@@ -632,8 +632,8 @@ class myTrainer(Trainer):
                     predictions = model(**inputs).logits
 
                     for j in range(0, len(predictions)):
-                        y_pred.append(np.argmax(predictions[j][0].item()))
-                        y_true.append(labels[j].cpu().item())
+                        y_pred[np.argmax(predictions[j][0].item())] += 1
+                        y_true[labels[j].cpu().item()] += 1
                 except StopIteration:
                     break
 
@@ -707,7 +707,7 @@ if training:
     trainer.fit(trainDataLoader, testDataLoader, set_num_train_epochs)
 
     # Save the model
-    model.module.save_pretrained(model_fp)
+    #model.module.save_pretrained(model_fp)
 
 # ------------------------------------------
 #            Evaluation
