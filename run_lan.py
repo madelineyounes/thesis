@@ -38,11 +38,11 @@ from transformers import (
     Trainer,
     TrainingArguments,
     AutoConfig,
-    Wav2Vec2ForSequenceClassification
+    Wav2Vec2ForSequenceClassification, 
+    Wav2Vec2Processor,
+    Wav2Vec2FeatureExtractor,
 )
 from transformers.models.wav2vec2.modeling_wav2vec2 import (
-    Wav2Vec2FeatureExtractor,
-    Wav2Vec2Processor, 
     Wav2Vec2PreTrainedModel,
     Wav2Vec2Model
 )
