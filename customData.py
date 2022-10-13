@@ -7,9 +7,6 @@ import customTransform as T
 from torchvision import transforms
 from transformers.models.wav2vec2.modeling_wav2vec2 import (Wav2Vec2FeatureExtractor)
 
-
-feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained("facebook/wav2vec2-base")
-
 label_list = ['NOR', 'EGY', 'GLF', 'LEV']
 label2id, id2label = dict(), dict()
 for i, label in enumerate(label_list):
