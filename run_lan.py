@@ -139,7 +139,7 @@ print("train_filename:", train_filename)
 # For generating filepath to file location
 
 #evaluation_filename = "adi17_test_umbrella_label"
-evaluation_filename =  "test_lan_100f"
+evaluation_filename =  "test_lan_1000f"
 print("evaluation_filename:", evaluation_filename)
 # Resume training from/ use checkpoint (True/False)
 # Set to True for:
@@ -171,7 +171,7 @@ if eval_pretrained:
 
 print("\n------> MODEL ARGUMENTS... -------------------------------------------\n")
 # For setting model = Wav2Vec2ForCTC.from_pretrained()
-set_num_of_workers = 1  # equivilent to cpus*gpu 
+set_num_of_workers = 4  # equivilent to cpus*gpu 
 print("number_of_worker:", set_num_of_workers)
 set_hidden_dropout = 0.1                    # Default = 0.1
 print("hidden_dropout:", set_hidden_dropout)
@@ -179,11 +179,11 @@ set_activation_dropout = 0.1                # Default = 0.1
 print("activation_dropout:", set_activation_dropout)
 set_attention_dropout = 0.1                 # Default = 0.1
 print("attention_dropoutput:", set_attention_dropout)
-set_feat_proj_dropout = 0.0                 # Default = 0.1
+set_feat_proj_dropout = 0.1                 # Default = 0.1
 print("feat_proj_dropout:", set_feat_proj_dropout)
 set_layerdrop = 0.1                        # Default = 0.1
 print("layerdrop:", set_layerdrop)
-set_mask_time_prob = 0.065                  # Default = 0.05
+set_mask_time_prob = 0.05                  # Default = 0.05
 print("mask_time_prob:", set_mask_time_prob)
 set_mask_time_length = 10                   # Default = 10
 print("mask_time_length:", set_mask_time_length)
@@ -610,8 +610,8 @@ class myTrainer(Trainer):
 
     def _evaluate(self, loader, tst_itt):
         # put model in evaluation mode
-        y_true = []
-        y_pred = []
+        y_true = [0,0,0,0]
+        y_pred = [0,0,0,0]
         self.model.eval()
         with torch.no_grad():
             for i in range(len(loader)):
@@ -628,8 +628,8 @@ class myTrainer(Trainer):
                     predictions = model(**inputs).logits
 
                     for j in range(0, len(predictions)):
-                        y_pred.append(np.argmax(predictions[j][0].item()))
-                        y_true.append(labels[j].cpu().item())
+                        y_pred[np.argmax(predictions[j][0].item())]+=1
+                        y_true[labels[j].cpu().item()]+=1
                 except StopIteration:
                     break
 
