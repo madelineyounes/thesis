@@ -19,7 +19,7 @@ def speech_file_to_array_fn(path, target_sampling_rate):
     speech = resampler(speech_array).squeeze().numpy()
     return speech
 class CustomDataset(Dataset):
-    def __init__(self, csv_fp, data_fp, labels, transform=None, sampling_rate=16000, model_name="facebook/wav2vec2-base", max_length=0.1, feature_extractor):
+    def __init__(self, csv_fp, data_fp, labels, feature_extractor, transform=None, sampling_rate=16000, model_name="facebook/wav2vec2-base", max_length=0.1 ):
         """
         Args:
         csv_fp (string): Path to csv with audio file ids and labels.
