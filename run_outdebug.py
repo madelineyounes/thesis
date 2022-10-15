@@ -630,7 +630,7 @@ class myTrainer(Trainer):
                     labels = labels.reshape(
                         (labels.shape[0])).long().to(device).contiguous()
                     predictions = model(**inputs).logits
-                    preds = nn.softmax(predictions.cpu())
+                    preds = nn.Softmax(predictions.cpu())
                     print ("softmax")
                     print(preds)
                     print ("argmax")
