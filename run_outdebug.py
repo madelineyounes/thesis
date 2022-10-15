@@ -639,10 +639,11 @@ class myTrainer(Trainer):
                     for j in range(0, len(predictions)):
                         y_pred[np.argmax(predictions[j][0].item())] += 1
                         y_true[labels[j].cpu().item()] += 1
-                        
-                        print(predictions[j])
-                        print(predictions[0][j].item())
-                        print(np.argmax(predictions[j][0].item()))
+                        print("pred")
+                        print(preds[j][0])
+                        print(np.argmax(preds[j][0]))
+                        print("item")
+                        print(np.argmax(preds[j][0].item()))
                     print(y_true)
                     print(y_pred)
                 except StopIteration:
