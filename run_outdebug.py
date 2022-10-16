@@ -614,8 +614,11 @@ class myTrainer(Trainer):
 
     def _evaluate(self, loader, tst_itt):
         # put model in evaluation mode
-        y_true = [0, 0, 0, 0]
-        y_pred = [0, 0, 0, 0]
+        y_true1 = [0, 0, 0, 0]
+        y_pred1 = [0, 0, 0, 0]
+
+        y_true2 = []
+        y_pred2 = []
         self.model.eval()
         with torch.no_grad():
             for i in range(len(loader)):
@@ -631,18 +634,26 @@ class myTrainer(Trainer):
                         (labels.shape[0])).long().to(device).contiguous()
                     predictions = model(**inputs).logits
                     for j in range(0, len(predictions)):
-                        y_pred[np.argmax(predictions[j].cpu()).item()] += 1
-                        y_true[labels[j].cpu().item()] += 1
-                    print(y_true)
-                    print(y_pred)
+                        y_pred1[np.argmax(predictions[j].cpu()).item()] += 1
+                        y_true1[labels[j].cpu().item()] += 1
+
+                        y_pred2.append(np.argmax(predictions[j].cpu()).item())
+                        y_true2.append(labels[j].cpu().item())
                 except StopIteration:
                     break
-       
-        c_matrix = confusion_matrix(y_true, y_pred, normalize='all')
+        print(y_true1)
+        print(y_pred1)
+        print(y_true2)
+        print(y_pred2)
+        c_matrix = confusion_matrix(y_true1, y_pred1)
+        c_matrix2 = confusion_matrix(y_true2, y_pred2)
         print("CONFUSION MATRIX")
         print(c_matrix)
+        print(c_matrix2)
         print("CLASSIFICATION REPORT")
-        print(classification_report(y_true, y_pred))
+        print(classification_report(y_true1, y_pred1))
+        print(classification_report(y_true2, y_pred2))
+
         plot_data(label_list, label_list, c_matrix)
 
 # model.freeze_feature_extractor()
