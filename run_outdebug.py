@@ -642,9 +642,8 @@ class myTrainer(Trainer):
                         print("item")
                         print(predictions[j])
                         print(predictions[j][0])
-                        print(predictions[j][0].item())
-                        print(nn.Softmax(predictions[j][0]))
-                        print(np.argmax(predictions[j][0]))
+                        print(predictions[j].item().cpu())
+                        print(np.argmax(predictions[j].item().cpu()))
                     print(y_true)
                     print(y_pred)
                 except StopIteration:
