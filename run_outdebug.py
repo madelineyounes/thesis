@@ -641,7 +641,7 @@ class myTrainer(Trainer):
                         y_true[labels[j].cpu().item()] += 1
                         print("item")
                         print(predictions[j])
-                        print(np.argmax(predictions[j]))
+                        print(np.argmax(predictions[j].cpu()))
                     print(y_true)
                     print(y_pred)
                 except StopIteration:
