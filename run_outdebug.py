@@ -630,18 +630,9 @@ class myTrainer(Trainer):
                     labels = labels.reshape(
                         (labels.shape[0])).long().to(device).contiguous()
                     predictions = model(**inputs).logits
-                    preds = nn.Softmax(predictions.cpu())
-                    print ("softmax")
-                    print(preds)
-                    print ("predictions")
-                    print(predictions)
-
                     for j in range(0, len(predictions)):
-                        y_pred[np.argmax(predictions[j][0].item())] += 1
+                        y_pred[np.argmax(predictions[j].cpu()).item()] += 1
                         y_true[labels[j].cpu().item()] += 1
-                        print("item")
-                        print(predictions[j])
-                        print(np.argmax(predictions[j].cpu()))
                     print(y_true)
                     print(y_pred)
                 except StopIteration:
