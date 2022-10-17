@@ -23,7 +23,7 @@ dialect_dict = {
 
 umbrella_dialects = ['NOR', 'EGY', 'GLF', 'LEV']
 
-num_files = 300 
+num_files = 505 
 
 
 lines = tuple(open(input_file, 'r'))
