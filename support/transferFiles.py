@@ -27,6 +27,8 @@ for line in lines:
     file = line.split(' ')[0]
     localpath = target_path + file + ".wav"
     remotepath = local_path + file + ".wav"
+    print(remotepath)
     sftp.put(localpath, remotepath)
 sftp.close()
 ssh.close()
+print("done")
