@@ -564,3 +564,73 @@ Trainable Parameters : 151419140
 Epoch 85 Train Acc 98.34146118164062% Val Acc 41.67857360839844% Train Loss 0.022337747737765312 Val Loss 4.266042709350586
 EPOCH unfeeze : 6
 Trainable Parameters : 151419140
+Epoch 86 Train Acc 98.73170471191406% Val Acc 42.238094329833984% Train Loss 0.025348899886012077 Val Loss 4.249246120452881
+EPOCH unfeeze : 7
+Trainable Parameters : 151419140
+Epoch 87 Train Acc 98.28048706054688% Val Acc 43.63095474243164% Train Loss 0.02865883708000183 Val Loss 4.060497760772705
+EPOCH unfeeze : 8
+Trainable Parameters : 151419140
+Epoch 88 Train Acc 99.15853118896484% Val Acc 41.476192474365234% Train Loss 0.020114319398999214 Val Loss 4.3515777587890625
+EPOCH unfeeze : 9
+Trainable Parameters : 151419140
+Epoch 89 Train Acc 98.02438354492188% Val Acc 42.13095474243164% Train Loss 0.03892350569367409 Val Loss 3.870556116104126
+EPOCH unfeeze : 0
+Trainable Parameters : 151419140
+Epoch 90 Train Acc 98.75609588623047% Val Acc 38.869049072265625% Train Loss 0.024681352078914642 Val Loss 3.713502883911133
+EPOCH unfeeze : 1
+Trainable Parameters : 151419140
+Epoch 91 Train Acc 99.2682876586914% Val Acc 40.345237731933594% Train Loss 0.011105199344456196 Val Loss 4.492946147918701
+EPOCH unfeeze : 2
+Trainable Parameters : 151419140
+Epoch 92 Train Acc 99.90243530273438% Val Acc 42.14285659790039% Train Loss 0.0036116372793912888 Val Loss 4.596149921417236
+EPOCH unfeeze : 3
+Trainable Parameters : 151419140
+Epoch 93 Train Acc 99.54877471923828% Val Acc 38.7023811340332% Train Loss 0.006164072081446648 Val Loss 5.329680442810059
+EPOCH unfeeze : 4
+Trainable Parameters : 151419140
+Epoch 94 Train Acc 98.82926177978516% Val Acc 40.19047546386719% Train Loss 0.024361206218600273 Val Loss 4.510507106781006
+EPOCH unfeeze : 5
+Trainable Parameters : 151419140
+Epoch 95 Train Acc 98.75609588623047% Val Acc 46.27381134033203% Train Loss 0.02888142131268978 Val Loss 3.365264654159546
+EPOCH unfeeze : 6
+Trainable Parameters : 151419140
+Epoch 96 Train Acc 98.63414001464844% Val Acc 44.369049072265625% Train Loss 0.02578972466289997 Val Loss 3.627829074859619
+EPOCH unfeeze : 7
+Trainable Parameters : 151419140
+Epoch 97 Train Acc 99.60974884033203% Val Acc 43.66666793823242% Train Loss 0.009639015421271324 Val Loss 3.8482635021209717
+EPOCH unfeeze : 8
+Trainable Parameters : 151419140
+Epoch 98 Train Acc 98.60974884033203% Val Acc 42.16666793823242% Train Loss 0.026833416894078255 Val Loss 3.616201877593994
+EPOCH unfeeze : 9
+Trainable Parameters : 151419140
+Configuration saved in ../output/umbrella_500f_devdata_local/wav2vec-ADI17-xlsr_unfreeze/config.json
+Model weights saved in ../output/umbrella_500f_devdata_local/wav2vec-ADI17-xlsr_unfreeze/pytorch_model.bin
+Epoch 99 Train Acc 98.82926177978516% Val Acc 44.13095474243164% Train Loss 0.023140551522374153 Val Loss 4.210269927978516
+
+------> EVALUATING MODEL... ------------------------------------------ 
+
+/apps/python/3.8.3/lib/python3.8/site-packages/sklearn/metrics/_classification.py:1221: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/apps/python/3.8.3/lib/python3.8/site-packages/sklearn/metrics/_classification.py:1221: UndefinedMetricWarning: Recall and F-score are ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+CONFUSION MATRIX
+[[0.   0.   0.   0.  ]
+ [0.25 0.   0.   0.  ]
+ [0.5  0.   0.   0.25]
+ [0.   0.   0.   0.  ]]
+CLASSIFICATION REPORT
+              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00       0.0
+         497       0.00      0.00      0.00       1.0
+         500       0.00      0.00      0.00       3.0
+        1997       0.00      0.00      0.00       0.0
+
+    accuracy                           0.00       4.0
+   macro avg       0.00      0.00      0.00       4.0
+weighted avg       0.00      0.00      0.00       4.0
+
+
+------> SUCCESSFULLY FINISHED ---------------------------------------- 
+
+Finished: 14/10/2022 13:47:24
