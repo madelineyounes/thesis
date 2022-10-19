@@ -6,6 +6,7 @@ from torch.utils.data import Dataset
 import customTransform as T
 from torchvision import transforms
 from transformers.models.wav2vec2.modeling_wav2vec2 import (Wav2Vec2FeatureExtractor)
+import noisereduce as nr
 
 label_list = ['NOR', 'EGY', 'GLF', 'LEV']
 label2id, id2label = dict(), dict()
@@ -17,7 +18,8 @@ def speech_file_to_array_fn(path, target_sampling_rate):
     speech_array, sampling_rate = torchaudio.load(path)
     resampler = torchaudio.transforms.Resample(sampling_rate, target_sampling_rate)
     speech = resampler(speech_array).squeeze().numpy()
-    return speech
+    reduced_noise = nr.reduce_noise(y=speech, sr=sampling_rate)
+    return reduced_noise
 class CustomDataset(Dataset):
     def __init__(self, csv_fp, data_fp, labels, transform=None, sampling_rate=16000, model_name="facebook/wav2vec2-base", max_length=0.1):
         """
