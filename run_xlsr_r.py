@@ -31,7 +31,7 @@ import torchaudio
 from torchvision import transforms
 import torch.distributed as dist
 import customTransform as T
-from customData import CustomDataset
+from customDataRegional import CustomDataset
 from transformers.file_utils import ModelOutput
 import gc
 from transformers import (
