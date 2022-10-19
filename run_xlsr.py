@@ -615,8 +615,8 @@ class myTrainer(Trainer):
 
     def _evaluate(self, loader, tst_itt):
         # put model in evaluation mode
-        y_true = [0, 0, 0, 0]
-        y_pred = [0, 0, 0, 0]
+        y_true = []
+        y_pred = []
         self.model.eval()
         with torch.no_grad():
             for i in range(len(loader)):
@@ -631,19 +631,20 @@ class myTrainer(Trainer):
                     labels = labels.reshape(
                         (labels.shape[0])).long().to(device).contiguous()
                     predictions = model(**inputs).logits
-
                     for j in range(0, len(predictions)):
-                        y_pred[np.argmax(predictions[j][0].item())] += 1
-                        y_true[labels[j].cpu().item()] += 1
+                        y_pred.append(np.argmax(predictions[j].cpu()).item())
+                        y_true.append(labels[j].cpu().item())
                 except StopIteration:
                     break
 
-        c_matrix = confusion_matrix(y_true, y_pred, normalize='all')
+        c_matrix = confusion_matrix(y_true, y_pred)
         print("CONFUSION MATRIX")
         print(c_matrix)
         print("CLASSIFICATION REPORT")
         print(classification_report(y_true, y_pred))
+
         plot_data(label_list, label_list, c_matrix)
+
 
 # model.freeze_feature_extractor()
 optimizer = Adafactor(model.parameters(), scale_parameter=True,
