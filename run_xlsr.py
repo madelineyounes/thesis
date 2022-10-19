@@ -582,6 +582,7 @@ class myTrainer(Trainer):
         acc_tot_tr = acc_sum_tr/len(loader)
         return loss_tot_tr, acc_tot_tr
 
+
     def _validate(self, loader, tst_itt, loss_sum_val, acc_sum_val):
         # put model in evaluation mode
         self.model.eval()
