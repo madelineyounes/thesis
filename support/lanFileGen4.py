@@ -43,23 +43,25 @@ fval = open(val_u_out_file, 'w')
 fval.write(firstline)
 
 for d in umbrella_dialects:
+    numreg = len(dialect_dict[d])
+    numf = np.floor(num_files / numreg)
     for rd in dialect_dict[d]:
         dcount = 0
         for line in train_lines:
-            if rd in line.rstrip("\n") and dcount < num_files:
+            if rd in line.rstrip("\n") and dcount < numf:
                     filename = line.split(',')[0]
                     ftrain.write(filename + f",{d}\n")
                     dcount += 1
         dcount = 0
         for line in test_lines:
-            if rd in line.rstrip("\n") and dcount < num_files:
+            if rd in line.rstrip("\n") and dcount < numf:
                     filename = line.split(' ')[0]
                     ftest.write(filename + f",{d}\n")
                     dcount += 1
 
         dcount = 0
         for line in test_lines:
-            if rd in line.rstrip("\n") and dcount < num_files:
+            if rd in line.rstrip("\n") and dcount < numf:
                     filename = line.split(' ')[0]
                     fval.write(filename + f",{d}\n")
                     dcount += 1
