@@ -60,7 +60,7 @@ for d in umbrella_dialects:
                     dcount += 1
 
         dcount = 0
-        for line in test_lines:
+        for line in val_lines:
             if rd in line.rstrip("\n") and dcount < numf:
                     filename = line.split(' ')[0]
                     fval.write(filename + f",{d}\n")
