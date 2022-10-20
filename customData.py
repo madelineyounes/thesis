@@ -8,7 +8,7 @@ from torchvision import transforms
 from transformers.models.wav2vec2.modeling_wav2vec2 import (Wav2Vec2FeatureExtractor)
 import noisereduce as nr
 
-label_list = ['NOR', 'EGY', 'GLF', 'LEV']
+label_list = ['NOR', 'EGY', 'GLF']
 label2id, id2label = dict(), dict()
 for i, label in enumerate(label_list):
     label2id[label] = str(i)

@@ -47,7 +47,7 @@ for d in umbrella_dialects:
         dcount = 0
         for line in train_lines:
             if rd in line.rstrip("\n") and dcount < num_files:
-                    filename = line.split(' ')[0]
+                    filename = line.split(',')[0]
                     ftrain.write(filename + f",{d}\n")
                     dcount += 1
         dcount = 0
