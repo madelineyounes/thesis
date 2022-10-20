@@ -1,0 +1,30 @@
+Thu Oct 20 12:23:15 AEDT 2022
+------------------------------------------------------------------------
+                         run_w2v.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_xlsr.py
+Started: 20/10/2022 12:23:32
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: ADI17-xlsr-noise-reduced-2
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+Traceback (most recent call last):
+  File "run_xlsr.py", line 114, in <module>
+    print("test data path:", train_data_path)
+NameError: name 'train_data_path' is not defined
