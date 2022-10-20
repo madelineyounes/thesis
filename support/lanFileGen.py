@@ -9,8 +9,8 @@ Program that takes in original datafiles and limits them to an amount of files p
 
 output_path = "../data/"
 
-test_input_file = output_path + "adi17_official_dev_label.txt"
-train_input_file = output_path +"adi17_official_test_label.txt"
+train_input_file = output_path + "adi17_official_dev_label.txt"
+test_input_file = output_path +"adi17_official_test_label.txt"
 
 test_u_out_file = output_path +"test_u_250f.csv"
 train_u_out_file = output_path+ "dev_u_250f.csv"
