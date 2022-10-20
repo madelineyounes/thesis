@@ -19,7 +19,7 @@ def speech_file_to_array_fn(path, target_sampling_rate):
     resampler = torchaudio.transforms.Resample(sampling_rate, target_sampling_rate)
     speech = resampler(speech_array).squeeze().numpy()
     reduced_noise = nr.reduce_noise(y=speech, sr=sampling_rate)
-    return reduced_noise
+    return speech
 class CustomDataset(Dataset):
     def __init__(self, csv_fp, data_fp, labels, transform=None, sampling_rate=16000, model_name="facebook/wav2vec2-base", max_length=0.1):
         """

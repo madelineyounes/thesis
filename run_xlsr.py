@@ -98,7 +98,7 @@ print("training:", training)
 # For
 #     1) naming model output directory
 #     2) naming results file
-experiment_id = "ADI17-xlsr-noise-reduced-2"
+experiment_id = "ADI17-xlsr-NO-LEV"
 print("experiment_id:", experiment_id)
 
 # DatasetDict Id
@@ -131,18 +131,18 @@ base_cache_fp = "/srv/scratch/z5208494/cache/huggingface/datasets/"
 # Dataset name and filename of the csv file containing the training data
 # For generating filepath to file location
 train_name = "umbrella_500f_devdata"
-train_filename = "imported_u_train_files"
+train_filename = "train_u_NOLEV"
 print("train_name:", train_name)
 print("train_filename:", train_filename)
 
-validation_filename = "dev_u_250f"
+validation_filename = "dev_u_NOLEV"
 print("validation_filename:", validation_filename)
 
 # Evaluation dataset name and filename
 # Dataset name and filename of the csv file containing the evaluation data
 # For generating filepath to file location
 
-evaluation_filename =  "test_u_100f"
+evaluation_filename =  "test_u_NOLEV"
 print("evaluation_filename:", evaluation_filename)
 # Resume training from/ use checkpoint (True/False)
 # Set to True for:
@@ -319,7 +319,7 @@ print("--> pretrained_mod:", pretrained_mod)
 print("\n------> PREPARING DATASET LABELS... ------------------------------------\n")
 # Read the existing csv saved dataframes and
 # load as a DatasetDict
-label_list = ['NOR', 'EGY', 'GLF', 'LEV']
+label_list = ['NOR', 'EGY', 'GLF']
 label2id, id2label = dict(), dict()
 for i, label in enumerate(label_list):
     label2id[label] = str(i)
