@@ -110,8 +110,11 @@ print("datasetdict_id:", datasetdict_id)
 data_path = "/srv/scratch/z5208494/dataset/"
 print("data path:", data_path)
 
-training_data_path = "/srv/scratch/z5208494/dataset/dev_segments/"
-print("training data path:", training_data_path)
+test_data_path = "/srv/scratch/z5208494/dataset/train_segments/"
+print("test data path:", train_data_path)
+
+dev_data_path = "/srv/scratch/z5208494/dataset/dev_segments/"
+print("training data path:", dev_data_path)
 
 test_data_path = "/srv/scratch/z5208494/dataset/test_segments/"
 print("test data path:", test_data_path)
@@ -128,15 +131,17 @@ base_cache_fp = "/srv/scratch/z5208494/cache/huggingface/datasets/"
 # Dataset name and filename of the csv file containing the training data
 # For generating filepath to file location
 train_name = "umbrella_500f_devdata"
-train_filename = "dev_u_500f"
+train_filename = "imported_u_train_files"
 print("train_name:", train_name)
 print("train_filename:", train_filename)
+
+validation_filename = "dev_u_250"
+print("validation_filename:", validation_filename)
 
 # Evaluation dataset name and filename
 # Dataset name and filename of the csv file containing the evaluation data
 # For generating filepath to file location
 
-#evaluation_filename = "adi17_test_umbrella_label"
 evaluation_filename =  "test_u_100f"
 print("evaluation_filename:", evaluation_filename)
 # Resume training from/ use checkpoint (True/False)
@@ -255,9 +260,15 @@ print("\n------> GENERATING FILEPATHS... --------------------------------------\
 data_base_fp = "data/"
 data_train_fp = data_base_fp + train_filename + ".csv"
 print("--> data_train_fp:", data_train_fp)
+
+data_val_fp = data_base_fp + validation_filename + ".csv"
+print("--> data_test_fp:", data_val_fp)
+
 # Path to dataframe csv for test dataset
 data_test_fp = data_base_fp + evaluation_filename + ".csv"
 print("--> data_test_fp:", data_test_fp)
+
+
 # Path to results csv 
 output_csv_fp = "output/results_" + experiment_id + ".csv"
 outcsv = open(output_csv_fp, 'w+')
@@ -315,30 +326,6 @@ for i, label in enumerate(label_list):
     id2label[str(i)] = label
 
 num_labels = len(id2label)
-# ------------------------------------------
-#       Processing transcription
-# ------------------------------------------
-# Extracting all distinct letters of train and test set
-
-# ------------------------------------------
-#    Create Wav2Vec2 Feature Extractor
-# ------------------------------------------
-print("\n------> CREATING WAV2VEC2 FEATURE EXTRACTOR... -----------------------\n")
-# Instantiate a Wav2Vec2 feature extractor:
-# - feature_size: set to 1 because model was trained on raw speech signal
-# - sampling_rate: sampling rate the model is trained on
-# - padding_value: for batched inference, shorter inputs are padded
-# - do_normalize: whether input should be zero-mean-unit-variance
-#   normalised or not. Usually, speech models perform better when true.
-# - return_attention_mask: set to false for Wav2Vec2, but true for
-#   fine-tuning large-lv60
-#feature_extractor = Wav2Vec2FeatureExtractor(feature_size=1, sampling_rate=16000, padding_value=0.0, do_normalize=True, return_attention_mask=False,  return_tensors='pt').from_pretrained(model_name)
-# Feature extractor and tokenizer wrapped into a single
-# Wav2Vec2Processor class so we only need a model and processor object
-#processor = Wav2Vec2Processor(feature_extractor=feature_extractor, tokenizer=tokenizer)
-# Save to re-use the just created processor and the fine-tuned model
-#processor.save_pretrained(model_fp)
-print("SUCCESS: Created feature extractor.")
 
 # ------------------------------------------
 #             Pre-process Data
@@ -389,12 +376,18 @@ random_transforms = transforms.Compose(
     [T.Extractor(model_name, sampling_rate, max_duration)])
 
 traincustomdata = CustomDataset(
-    csv_fp=data_train_fp, data_fp=training_data_path, labels=label_list, transform=random_transforms, model_name=model_name, max_length=max_duration)
+    csv_fp=data_train_fp, data_fp=train_data_path, labels=label_list, transform=random_transforms, model_name=model_name, max_length=max_duration)
+valcustomdata = CustomDataset(
+    csv_fp=data_val_fp, data_fp=dev_data_path, labels=label_list, transform=random_transforms, model_name=model_name, max_length=max_duration)
 testcustomdata = CustomDataset(
     csv_fp=data_test_fp, data_fp=test_data_path, labels=label_list, transform=random_transforms, model_name=model_name, max_length=max_duration)
 
+
 trainDataLoader = DataLoader(
     traincustomdata, batch_size=batch_size, shuffle=True, num_workers=set_num_of_workers)
+
+valDataLoader = DataLoader(
+    valcustomdata, batch_size=batch_size, shuffle=True, num_workers=set_num_of_workers)
 
 testDataLoader = DataLoader(
     testcustomdata, batch_size=batch_size, shuffle=True, num_workers=set_num_of_workers)
@@ -405,6 +398,12 @@ TrainData = next(iter(trainDataLoader))
 print(TrainData)
 print("Training DataCustom Files: "+ str(len(traincustomdata)))
 print("Training Data Files: "+ str(len(trainDataLoader)))
+
+print("Val Data Sample")
+ValData = next(iter(valDataLoader))
+print(ValData)
+print("Test CustomData Files: " + str(len(valcustomdata)))
+print("Test Data Files: " + str(len(valDataLoader)))
 
 print("Test Data Sample")
 TestData = next(iter(testDataLoader))
@@ -541,7 +540,7 @@ class myTrainer(Trainer):
             loss_sum_val = 0
             acc_sum_val = 0
             tr_itt = iter(trainDataLoader)
-            tst_itt = iter(testDataLoader)
+            tst_itt = iter(valDataLoader)
              # train
             train_loss, train_acc = self._train(train_loader, tr_itt, loss_sum_tr, acc_sum_tr)
             # validate
@@ -615,6 +614,8 @@ class myTrainer(Trainer):
 
     def _evaluate(self, loader, tst_itt):
         # put model in evaluation mode
+        loss_sum = 0
+        acc_sum = 0
         y_true = []
         y_pred = []
         self.model.eval()
@@ -628,14 +629,21 @@ class myTrainer(Trainer):
                     inputs['attention_mask'] = data['attention_mask'].long(
                     ).to(device).contiguous()
                     labels = data['labels'].long().to(device).contiguous()
-                    labels = labels.reshape(
-                        (labels.shape[0])).long().to(device).contiguous()
+                    labels = labels.reshape((labels.shape[0])).long().to(device).contiguous()
                     predictions = model(**inputs).logits
+                    loss, acc = self._compute_loss(model, inputs, labels)
+                    loss_sum += loss.detach()
+                    acc_sum += acc.detach()
                     for j in range(0, len(predictions)):
                         y_pred.append(np.argmax(predictions[j].cpu()).item())
                         y_true.append(labels[j].cpu().item())
                 except StopIteration:
                     break
+
+        loss_tot = loss_sum/len(loader)
+        acc_tot = acc_sum/len(loader)
+        print(f"Final Test Acc:{acc_tot}% Loss:{loss_tot}")
+        outcsv.write(f"Final Test,{acc_tot},{loss_tot}\n")
 
         c_matrix = confusion_matrix(y_true, y_pred)
         print("CONFUSION MATRIX")
@@ -644,7 +652,6 @@ class myTrainer(Trainer):
         print(classification_report(y_true, y_pred))
 
         plot_data(label_list, label_list, c_matrix)
-
 
 # model.freeze_feature_extractor()
 optimizer = Adafactor(model.parameters(), scale_parameter=True,

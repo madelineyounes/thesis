@@ -12,11 +12,11 @@ output_path = "../data/"
 test_input_file = output_path + "adi17_official_dev_label.txt"
 train_input_file = output_path +"adi17_official_test_label.txt"
 
-test_u_out_file = output_path +"test_u_50f.csv"
-train_u_out_file = output_path+ "train_u_50f.csv"
+test_u_out_file = output_path +"test_u_250f.csv"
+train_u_out_file = output_path+ "dev_u_250f.csv"
 
-test_r_out_file = output_path + "test_r_50f.csv"
-train_r_out_file = output_path +"train_r_50f.csv"
+test_r_out_file = output_path + "test_r_250f.csv"
+train_r_out_file = output_path +"dev_r_250f.csv"
 
 dialect_dict = {
     "EGY": ['EGY', 'SDN'],
@@ -27,7 +27,7 @@ dialect_dict = {
 
 umbrella_dialects = ['NOR', 'EGY', 'GLF', 'LEV']
 
-num_files = 50 
+num_files = 250 
 
 train_lines = tuple(open(train_input_file, 'r'))
 test_lines = tuple(open(test_input_file, 'r'))
