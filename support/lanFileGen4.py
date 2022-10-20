@@ -11,7 +11,7 @@ output_path = "../data/"
 
 val_input_file = output_path + "adi17_official_dev_label.txt"
 test_input_file = output_path + "adi17_official_test_label.txt"
-train_input_file = output_path + "imported_u_train_files.csv"
+train_input_file = output_path + "imported_r_train_files.csv"
 
 test_u_out_file = output_path +"test_u_NOLEV.csv"
 val_u_out_file = output_path+ "dev_u_NOLEV.csv"
