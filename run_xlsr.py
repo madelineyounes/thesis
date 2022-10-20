@@ -98,7 +98,7 @@ print("training:", training)
 # For
 #     1) naming model output directory
 #     2) naming results file
-experiment_id = "ADI17-xlsr-noise-reduced"
+experiment_id = "ADI17-xlsr-noise-reduced-2"
 print("experiment_id:", experiment_id)
 
 # DatasetDict Id
