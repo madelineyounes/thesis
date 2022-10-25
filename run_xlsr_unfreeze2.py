@@ -21,6 +21,7 @@ import numpy as np
 import torch
 from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
+from typing import Optional, Tuple, Any, Dict, Union
 import customTransform as T
 import torch.nn as nn
 import matplotlib.pyplot as plt
@@ -30,7 +31,7 @@ import torchaudio
 from torchvision import transforms
 import torch.distributed as dist
 import customTransform as T
-from customDataNR import CustomDataset
+from customData import CustomDataset
 from transformers.file_utils import ModelOutput
 import gc
 from transformers import (
@@ -47,7 +48,7 @@ from datetime import datetime
 import os
 print(
     "------------------------------------------------------------------------")
-print("                         run_xlsr_nr.py                            ")
+print("                         run_xlsr.py                            ")
 print("------------------------------------------------------------------------")
 # ------------------------------------------
 #       Import required packages
@@ -97,7 +98,7 @@ print("training:", training)
 # For
 #     1) naming model output directory
 #     2) naming results file
-experiment_id = "ADI17-xlsr-nr"
+experiment_id = "ADI17-xlsr-araic-unfreeze"
 print("experiment_id:", experiment_id)
 
 # DatasetDict Id
@@ -318,7 +319,7 @@ print("--> pretrained_mod:", pretrained_mod)
 print("\n------> PREPARING DATASET LABELS... ------------------------------------\n")
 # Read the existing csv saved dataframes and
 # load as a DatasetDict
-label_list = ['NOR', 'EGY', 'GLF','LEV']
+label_list = ['NOR', 'EGY', 'GLF', 'LEV']
 label2id, id2label = dict(), dict()
 for i, label in enumerate(label_list):
     label2id[label] = str(i)
@@ -480,14 +481,14 @@ if torch.cuda.device_count() > 1:
 
 model.to(device)
 
-""""
+
 trainable_transformers = 12
 num_transformers = 12
 if trainable_transformers > 0:
     for i in range(num_transformers-trainable_transformers, num_transformers, 1):
         for param in model.wav2vec2.encoder.layers[i].parameters():
             param.requires_grad = True
-"""
+
 
 # 1) Define model
 
@@ -514,20 +515,20 @@ class myTrainer(Trainer):
     def fit(self, train_loader, val_loader, epochs):
         
         for epoch in range(epochs):
-            """
+
             print("EPOCH unfeeze : " + str(epoch % set_unfreezing_step))
            
             if epoch != 0 and epoch % set_unfreezing_step == 0 :
                 if epoch // set_unfreezing_step < (num_transformers-trainable_transformers):
                     if multi_gpu:
                         print("multi GPU used")
-                        for param in model.module.wav2vec2.encoder.layers[num_transformers-(epoch//set_unfreezing_step) - trainable_transformers].parameters():
+                        for param in model.module.module.wav2vec2.encoder.layers[num_transformers-(epoch//set_unfreezing_step) - trainable_transformers].parameters():
                             param.requires_grad = True
                     else:
-                        for param in model.wav2vec2.encoder.layers[num_transformers-(epoch//set_unfreezing_step)-trainable_transformers].parameters():
+                        for param in model.module.wav2vec2.encoder.layers[num_transformers-(epoch//set_unfreezing_step)-trainable_transformers].parameters():
                             print("grad change")
                             param.requires_grad = True
-            """
+
             model_parameters = filter(lambda p: p.requires_grad, model.parameters())
             params = sum([np.prod(p.size()) for p in model_parameters])
             print('Trainable Parameters : ' + str(params))

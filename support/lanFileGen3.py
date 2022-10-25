@@ -11,8 +11,8 @@ output_path = "../data/"
 
 input_file = output_path + "adi17_offical_train.txt"
 
-out_u_file = output_path +"imported_u_train_files.csv"
-out_r_file = output_path + "imported_r_train_files.csv"
+out_u_file = output_path +"u_train_700f.csv"
+out_r_file = output_path + "r_train_700f.csv"
 
 dialect_dict = {
     "EGY": ['EGY', 'SDN'],
@@ -23,7 +23,7 @@ dialect_dict = {
 
 umbrella_dialects = ['NOR', 'EGY', 'GLF', 'LEV']
 
-num_files = 1000
+num_files = 700
 
 
 lines = tuple(open(input_file, 'r'))

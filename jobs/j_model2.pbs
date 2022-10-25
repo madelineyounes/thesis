@@ -1,0 +1,17 @@
+#!/bin/bash
+#!/bin/bash
+
+#PBS -l select=1:ncpus=16:ngpus=2:mem=92gb
+#PBS -l walltime=10:00:00
+#PBS -M z5208494@unsw.edu.au
+#PBS -m ae
+#PBS -j oe
+#PBS -o /home/z5208494/OutputReport
+
+# Go into thesis folder
+cd /home/z5208494/thesis/
+
+echo ""$(date)"" 2>&1 | tee -a output/out_lid2.txt
+
+# This runs the test script
+python3 run_lid2.py 2>&1 | tee -a output/out_lid2.txt

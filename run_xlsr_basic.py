@@ -47,7 +47,7 @@ from datetime import datetime
 import os
 print(
     "------------------------------------------------------------------------")
-print("                         run_w2v.py                            ")
+print("                         run_xlsr_basic.py                            ")
 print("------------------------------------------------------------------------")
 # ------------------------------------------
 #       Import required packages
@@ -97,7 +97,7 @@ print("training:", training)
 # For
 #     1) naming model output directory
 #     2) naming results file
-experiment_id = "ADI17-xlsr-NO-LEV"
+experiment_id = "ADI17-xlsr-basic"
 print("experiment_id:", experiment_id)
 
 # DatasetDict Id
@@ -129,19 +129,19 @@ base_cache_fp = "/srv/scratch/z5208494/cache/huggingface/datasets/"
 # Training dataset name and filename
 # Dataset name and filename of the csv file containing the training data
 # For generating filepath to file location
-train_name = "umbrella_500f_devdata"
-train_filename = "imported_u_train_files"
+train_name = "u_train_700f"
+train_filename = "u_train_700f"
 print("train_name:", train_name)
 print("train_filename:", train_filename)
 
-validation_filename = "dev_u_NOLEV"
+validation_filename = "dev_u_200f"
 print("validation_filename:", validation_filename)
 
 # Evaluation dataset name and filename
 # Dataset name and filename of the csv file containing the evaluation data
 # For generating filepath to file location
 
-evaluation_filename =  "test_u_NOLEV"
+evaluation_filename =  "test_u_100f"
 print("evaluation_filename:", evaluation_filename)
 # Resume training from/ use checkpoint (True/False)
 # Set to True for:
@@ -157,7 +157,7 @@ if use_checkpoint:
 
 # Use pretrained model
 # model_name = "superb/wav2vec2-base-superb-sid"
-model_name = "elgeish/wav2vec2-large-xlsr-53-arabic"
+model_name = "facebook/wav2vec2-large-xlsr-53"
 #model_name = "facebook/wav2vec2-base"
 # try log0/wav2vec2-base-lang-id
 
@@ -318,7 +318,7 @@ print("--> pretrained_mod:", pretrained_mod)
 print("\n------> PREPARING DATASET LABELS... ------------------------------------\n")
 # Read the existing csv saved dataframes and
 # load as a DatasetDict
-label_list = ['NOR', 'EGY', 'GLF']
+label_list = ['NOR', 'EGY', 'GLF', 'LEV']
 label2id, id2label = dict(), dict()
 for i, label in enumerate(label_list):
     label2id[label] = str(i)
@@ -720,7 +720,7 @@ if training:
     trainer.fit(trainDataLoader, testDataLoader, set_num_train_epochs)
 
     # Save the model
-    model.module.save_pretrained(model_fp)
+    #model.module.save_pretrained(model_fp)
 
 # ------------------------------------------
 #            Evaluation

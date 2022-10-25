@@ -21,6 +21,7 @@ import numpy as np
 import torch
 from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
+from typing import Optional, Tuple, Any, Dict, Union
 import customTransform as T
 import torch.nn as nn
 import matplotlib.pyplot as plt
@@ -30,7 +31,7 @@ import torchaudio
 from torchvision import transforms
 import torch.distributed as dist
 import customTransform as T
-from customDataNR import CustomDataset
+from customData import CustomDataset
 from transformers.file_utils import ModelOutput
 import gc
 from transformers import (
@@ -47,7 +48,7 @@ from datetime import datetime
 import os
 print(
     "------------------------------------------------------------------------")
-print("                         run_xlsr_nr.py                            ")
+print("                         run_xlsr.py                            ")
 print("------------------------------------------------------------------------")
 # ------------------------------------------
 #       Import required packages
@@ -97,7 +98,7 @@ print("training:", training)
 # For
 #     1) naming model output directory
 #     2) naming results file
-experiment_id = "ADI17-xlsr-nr"
+experiment_id = "ADI17-w2v2-base"
 print("experiment_id:", experiment_id)
 
 # DatasetDict Id
@@ -157,8 +158,8 @@ if use_checkpoint:
 
 # Use pretrained model
 # model_name = "superb/wav2vec2-base-superb-sid"
-model_name = "elgeish/wav2vec2-large-xlsr-53-arabic"
-#model_name = "facebook/wav2vec2-base"
+#model_name = "elgeish/wav2vec2-large-xlsr-53-arabic"
+model_name = "facebook/wav2vec2-base"
 # try log0/wav2vec2-base-lang-id
 
 # Evaluate existing model instead of newly trained model (True/False)
@@ -318,7 +319,7 @@ print("--> pretrained_mod:", pretrained_mod)
 print("\n------> PREPARING DATASET LABELS... ------------------------------------\n")
 # Read the existing csv saved dataframes and
 # load as a DatasetDict
-label_list = ['NOR', 'EGY', 'GLF','LEV']
+label_list = ['NOR', 'EGY', 'GLF', 'LEV']
 label2id, id2label = dict(), dict()
 for i, label in enumerate(label_list):
     label2id[label] = str(i)
@@ -720,7 +721,7 @@ if training:
     trainer.fit(trainDataLoader, testDataLoader, set_num_train_epochs)
 
     # Save the model
-    model.module.save_pretrained(model_fp)
+    #model.module.save_pretrained(model_fp)
 
 # ------------------------------------------
 #            Evaluation
