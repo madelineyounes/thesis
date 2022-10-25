@@ -1,7 +1,7 @@
 import torch
 import torchaudio
 import pandas as pd
-import pickle
+from scipy.signal import butter, sosfilt
 from torch.utils.data import Dataset
 import customTransform as T
 from torchvision import transforms
@@ -14,13 +14,36 @@ for i, label in enumerate(label_list):
     label2id[label] = str(i)
     id2label[str(i)] = label
 
-def speech_file_to_array_fn(path, target_sampling_rate):
+
+def butter_bandpass_filter(data, lowcut, highcut, fs, order=5):
+    sos = butter(order, [lowcut, highcut], fs=fs, btype='band', output='sos')
+    y = sosfilt(sos, data)
+    samples = len(y)
+    return y, samples
+
+
+def band_pass_filter(rate, data):
+    lowcut = 50
+    highcut = 500
+    order = 5
+    return butter_bandpass_filter(data, lowcut, highcut, rate, order)
+
+def match_target_amplitude(sound, target_dBFS):
+    change_in_dBFS = target_dBFS - sound.dBFS
+    return sound.apply_gain(change_in_dBFS)
+
+def speech_file_to_array_fn(path, target_sampling_rate, norm):
     speech_array, sampling_rate = torchaudio.load(path)
     resampler = torchaudio.transforms.Resample(sampling_rate, target_sampling_rate)
     speech = resampler(speech_array).squeeze().numpy()
+    if norm is True:
+        speech = match_target_amplitude(speech, -20.0)
+
+    speech, samples = band_pass_filter(target_sampling_rate, speech)
     return speech
+
 class CustomDataset(Dataset):
-    def __init__(self, csv_fp, data_fp, labels, transform=None, sampling_rate=16000, model_name="facebook/wav2vec2-base", max_length=0.1):
+    def __init__(self, csv_fp, data_fp, labels, transform=None, sampling_rate=16000, model_name="facebook/wav2vec2-base", max_length=0.1, norm=False):
         """
         Args:
         csv_fp (string): Path to csv with audio file ids and labels.
@@ -46,7 +69,8 @@ class CustomDataset(Dataset):
             idx = idx.tolist()
 
         audiopath = self.data_fp + self.data_frame.iloc[idx, 0] + ".wav"
-        speech = speech_file_to_array_fn(audiopath, self.sampling_rate)
+        speech = speech_file_to_array_fn(
+            audiopath, self.sampling_rate, self.norm)
         
         if self.transform:
             speech_features = self.transform(speech)[0]

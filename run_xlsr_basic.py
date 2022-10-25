@@ -21,7 +21,6 @@ import numpy as np
 import torch
 from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
-from typing import Optional, Tuple, Any, Dict, Union
 import customTransform as T
 import torch.nn as nn
 import matplotlib.pyplot as plt
@@ -131,7 +130,7 @@ base_cache_fp = "/srv/scratch/z5208494/cache/huggingface/datasets/"
 # Dataset name and filename of the csv file containing the training data
 # For generating filepath to file location
 train_name = "umbrella_500f_devdata"
-train_filename = "train_u_NOLEV"
+train_filename = "imported_u_train_files"
 print("train_name:", train_name)
 print("train_filename:", train_filename)
 

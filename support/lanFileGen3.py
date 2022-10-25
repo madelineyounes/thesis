@@ -23,7 +23,7 @@ dialect_dict = {
 
 umbrella_dialects = ['NOR', 'EGY', 'GLF', 'LEV']
 
-num_files = 505 
+num_files = 1000
 
 
 lines = tuple(open(input_file, 'r'))
@@ -43,11 +43,11 @@ for d in umbrella_dialects:
         rdcount = 0
         for line in lines:
             if rd in line.rstrip("\n"):
-                if dcount < num_files:
+                if dcount <= num_files:
                     filename = line.split(' ')[0]
                     fUout.write(filename + f",{d}\n")
                     dcount += 1
-                if rdcount < num_files:
+                if rdcount <= num_files:
                     filename = line.split(' ')[0]
                     fRout.write(filename + f",{rd}\n")
                     rdcount += 1

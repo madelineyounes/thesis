@@ -26,7 +26,6 @@ def noise_filter(rate, data):
     return reduced_noise; 
 
 def band_pass_filter(rate, data): 
-    nyq = 0.5 * rate 
     lowcut = 50 
     highcut = 500
     order = 5
