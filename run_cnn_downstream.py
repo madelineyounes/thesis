@@ -1,7 +1,6 @@
 #----------------------------------------------------------
-# run_umbrellaDID.py
 # Purpose: Uses xlsr to create a audio classifer that
-# identifies arabic dialects using the ADI17 dataset.
+# identifies arabic dialects using the ADI17 dataset. Test using a cnn downstream model. 
 # Author: Madeline Younes, 2022
 #----------------------------------------------------------
 
@@ -31,7 +30,7 @@ import torchaudio
 from torchvision import transforms
 import torch.distributed as dist
 import customTransform as T
-from customDataBP import CustomDataset
+from customData import CustomDataset
 from transformers.file_utils import ModelOutput
 import gc
 from transformers import (
@@ -48,7 +47,7 @@ from datetime import datetime
 import os
 print(
     "------------------------------------------------------------------------")
-print("                         run_xlsr_bp_norm.py                            ")
+print("                         run_cnn_downstream.py                            ")
 print("------------------------------------------------------------------------")
 # ------------------------------------------
 #       Import required packages
@@ -98,7 +97,7 @@ print("training:", training)
 # For
 #     1) naming model output directory
 #     2) naming results file
-experiment_id = "ADI17-xlsr-bp-norm"
+experiment_id = "ADI17-xlsr-cnn"
 print("experiment_id:", experiment_id)
 
 # DatasetDict Id
@@ -157,24 +156,13 @@ if use_checkpoint:
     print("checkpoint:", checkpoint)
 
 # Use pretrained model
-# model_name = "superb/wav2vec2-base-superb-sid"
 model_name = "elgeish/wav2vec2-large-xlsr-53-arabic"
-#model_name = "facebook/wav2vec2-base"
-# try log0/wav2vec2-base-lang-id
+model_path = ""
 
-# Evaluate existing model instead of newly trained model (True/False)
-#     True: use the model in the filepath set by 'eval_model' for eval
-#     False: use the model trained from this script for eval
-eval_pretrained = False
-print("eval_pretrained:", eval_pretrained)
-# Set existing model to evaluate, if evaluating on existing model
-eval_model = checkpoint
-if eval_pretrained:
-    print("eval_model:", eval_model)
 
 print("\n------> MODEL ARGUMENTS... -------------------------------------------\n")
 # For setting model = Wav2Vec2ForCTC.from_pretrained()
-set_num_of_workers = 1  # equivilent to cpus*gpu 
+set_num_of_workers = 1  # equivilent to cpus*gpu
 print("number_of_worker:", set_num_of_workers)
 set_hidden_dropout = 0.1                    # Default = 0.1
 print("hidden_dropout:", set_hidden_dropout)
@@ -203,7 +191,7 @@ print("\n------> TRAINING ARGUMENTS... ----------------------------------------\
 # For setting training_args = TrainingArguments()
 set_evaluation_strategy = "no"           # Default = "no"
 print("evaluation strategy:", set_evaluation_strategy)
-batch_size = 40         # Default = 8
+batch_size = 40        # Default = 8
 print("batch_size:", batch_size)
 set_gradient_accumulation_steps = 2         # Default = 4
 print("gradient_accumulation_steps:", set_gradient_accumulation_steps)
@@ -269,7 +257,7 @@ data_test_fp = data_base_fp + evaluation_filename + ".csv"
 print("--> data_test_fp:", data_test_fp)
 
 
-# Path to results csv 
+# Path to results csv
 output_csv_fp = "output/results_" + experiment_id + ".csv"
 outcsv = open(output_csv_fp, 'w+')
 outcsv.write("epoch,train_acc,val_acc,train_loss,val_loss\n")
@@ -332,6 +320,7 @@ num_labels = len(id2label)
 # ------------------------------------------
 print("\n------> PRE-PROCESSING DATA... ----------------------------------------- \n")
 
+
 def print_gpu_info():
     #Additional Info when using cuda
     if device.type == 'cuda':
@@ -350,12 +339,14 @@ target_sampling_rate = 16000
 print("Sampling Rate:",  sampling_rate)
 print("Target Sampling Rate:",  target_sampling_rate)
 
+
 def speech_file_to_array_fn(path):
     speech_array, sampling_rate = torchaudio.load(path)
     resampler = torchaudio.transforms.Resample(
         sampling_rate, target_sampling_rate)
     speech = resampler(speech_array).squeeze().numpy()
     return speech
+
 
 def label_to_id(label, label_list):
 
@@ -376,11 +367,11 @@ random_transforms = transforms.Compose(
     [T.Extractor(model_name, sampling_rate, max_duration)])
 
 traincustomdata = CustomDataset(
-    csv_fp=data_train_fp, data_fp=train_data_path, labels=label_list, transform=random_transforms, model_name=model_name, max_length=max_duration, norm= True)
+    csv_fp=data_train_fp, data_fp=train_data_path, labels=label_list, transform=random_transforms, model_name=model_name, max_length=max_duration)
 valcustomdata = CustomDataset(
-    csv_fp=data_val_fp, data_fp=dev_data_path, labels=label_list, transform=random_transforms, model_name=model_name, max_length=max_duration, norm = True)
+    csv_fp=data_val_fp, data_fp=dev_data_path, labels=label_list, transform=random_transforms, model_name=model_name, max_length=max_duration)
 testcustomdata = CustomDataset(
-    csv_fp=data_test_fp, data_fp=test_data_path, labels=label_list, transform=random_transforms, model_name=model_name, max_length=max_duration, norm = True)
+    csv_fp=data_test_fp, data_fp=test_data_path, labels=label_list, transform=random_transforms, model_name=model_name, max_length=max_duration)
 
 
 trainDataLoader = DataLoader(
@@ -396,8 +387,8 @@ print("Check data has been processed correctly... ")
 print("Train Data Sample")
 TrainData = next(iter(trainDataLoader))
 print(TrainData)
-print("Training DataCustom Files: "+ str(len(traincustomdata)))
-print("Training Data Files: "+ str(len(trainDataLoader)))
+print("Training DataCustom Files: " + str(len(traincustomdata)))
+print("Training Data Files: " + str(len(trainDataLoader)))
 
 print("Val Data Sample")
 ValData = next(iter(valDataLoader))
@@ -443,6 +434,7 @@ config = AutoConfig.from_pretrained(
 )
 setattr(config, 'pooling_mode', set_pooling_mode)
 
+
 def plot_data(x_label, y_label, matrix, name):
     fig, ax = plt.subplots()
     cax = ax.matshow(matrix, cmap=plt.cm.Blues)
@@ -457,9 +449,10 @@ def plot_data(x_label, y_label, matrix, name):
     ax.set_yticklabels(y_label)
     plt.savefig("output/"+experiment_id+name+".png")
 
+
 print("--> Loading pre-trained checkpoint...")
-# NOTE: SWAPED Wav2Vec2ForSpeechClassification to Wav2Vec2ForSequenceClassification
 model = Wav2Vec2ForSequenceClassification.from_pretrained(model_name)
+model.load_state_dict(torch.load(model_path))
 model.classifier = nn.Linear(in_features=256, out_features=num_labels, bias=True)
 
 print("-------- Setting up Model --------")
@@ -501,6 +494,7 @@ if trainable_transformers > 0:
 # the feature extraction part.
 print("SUCCESS: Pre-trained checkpoint loaded.")
 
+
 def multi_acc(y_pred, y_test):
     y_pred_softmax = torch.log_softmax(y_pred, dim=1)
     _, y_pred_tags = torch.max(y_pred_softmax, dim=1)
@@ -510,10 +504,13 @@ def multi_acc(y_pred, y_test):
     acc = torch.round(acc * 100)
     return acc
 
+
 print("--> Defining Custom Trainer Class...")
+
+
 class myTrainer(Trainer):
     def fit(self, train_loader, val_loader, epochs):
-        
+
         for epoch in range(epochs):
             """
             print("EPOCH unfeeze : " + str(epoch % set_unfreezing_step))
@@ -529,7 +526,8 @@ class myTrainer(Trainer):
                             print("grad change")
                             param.requires_grad = True
             """
-            model_parameters = filter(lambda p: p.requires_grad, model.parameters())
+            model_parameters = filter(
+                lambda p: p.requires_grad, model.parameters())
             params = sum([np.prod(p.size()) for p in model_parameters])
             print('Trainable Parameters : ' + str(params))
             if torch.cuda.is_available():
@@ -542,12 +540,16 @@ class myTrainer(Trainer):
             acc_sum_val = 0
             tr_itt = iter(trainDataLoader)
             tst_itt = iter(valDataLoader)
-             # train
-            train_loss, train_acc = self._train(train_loader, tr_itt, loss_sum_tr, acc_sum_tr)
+            # train
+            train_loss, train_acc = self._train(
+                train_loader, tr_itt, loss_sum_tr, acc_sum_tr)
             # validate
-            val_loss, val_acc = self._validate(val_loader, tst_itt, loss_sum_val, acc_sum_val)
-            print(f"Epoch {epoch} Train Acc {train_acc}% Val Acc {val_acc}% Train Loss {train_loss} Val Loss {val_loss}")
-            outcsv.write(f"{epoch},{train_acc},{val_acc},{train_loss},{val_loss}\n")
+            val_loss, val_acc = self._validate(
+                val_loader, tst_itt, loss_sum_val, acc_sum_val)
+            print(
+                f"Epoch {epoch} Train Acc {train_acc}% Val Acc {val_acc}% Train Loss {train_loss} Val Loss {val_loss}")
+            outcsv.write(
+                f"{epoch},{train_acc},{val_acc},{train_loss},{val_loss}\n")
 
         # on the last epoch generate a con
 
@@ -559,8 +561,10 @@ class myTrainer(Trainer):
             try:
                 data = next(tr_itt)
                 inputs = {}
-                inputs['input_values'] = data['input_values'].float().to(device).contiguous()
-                inputs['attention_mask'] = data['attention_mask'].long().to(device).contiguous()
+                inputs['input_values'] = data['input_values'].float().to(
+                    device).contiguous()
+                inputs['attention_mask'] = data['attention_mask'].long().to(
+                    device).contiguous()
                 labels = data['labels'].long().to(device).contiguous()
                 # loss
                 loss, acc = self._compute_loss(model, inputs, labels)
@@ -581,7 +585,6 @@ class myTrainer(Trainer):
         loss_tot_tr = loss_sum_tr/len(loader)
         acc_tot_tr = acc_sum_tr/len(loader)
         return loss_tot_tr, acc_tot_tr
-
 
     def _validate(self, loader, tst_itt, loss_sum_val, acc_sum_val):
         # put model in evaluation mode
@@ -608,7 +611,8 @@ class myTrainer(Trainer):
     def _compute_loss(self, model, inputs, labels):
         prediction = model(**inputs).logits
         lossfct = CrossEntropyLoss().to(device)
-        loss = lossfct(prediction, labels.reshape((labels.shape[0])).long().to(device).contiguous())
+        loss = lossfct(prediction, labels.reshape(
+            (labels.shape[0])).long().to(device).contiguous())
         acc = multi_acc(prediction, labels.reshape(
             (labels.shape[0])).long().to(device).contiguous())
         return loss, acc
@@ -630,7 +634,8 @@ class myTrainer(Trainer):
                     inputs['attention_mask'] = data['attention_mask'].long(
                     ).to(device).contiguous()
                     labels = data['labels'].long().to(device).contiguous()
-                    labels = labels.reshape((labels.shape[0])).long().to(device).contiguous()
+                    labels = labels.reshape(
+                        (labels.shape[0])).long().to(device).contiguous()
                     predictions = model(**inputs).logits
                     loss, acc = self._compute_loss(model, inputs, labels)
                     loss_sum += loss.detach()
@@ -657,6 +662,7 @@ class myTrainer(Trainer):
 
         plot_data(label_list, label_list, c_matrix, "")
         plot_data(label_list, label_list, c_matrix_norm, "-norm")
+
 
 # model.freeze_feature_extractor()
 optimizer = Adafactor(model.parameters(), scale_parameter=True,

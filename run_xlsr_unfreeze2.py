@@ -486,7 +486,7 @@ trainable_transformers = 12
 num_transformers = 12
 if trainable_transformers > 0:
     for i in range(num_transformers-trainable_transformers, num_transformers, 1):
-        for param in model.wav2vec2.encoder.layers[i].parameters():
+        for param in model.module.wav2vec2.encoder.layers[i].parameters():
             param.requires_grad = True
 
 

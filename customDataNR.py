@@ -41,7 +41,7 @@ class CustomDataset(Dataset):
 
         self.data_frame = pd.read_csv(csv_fp, delimiter=',')
         self.data_fp = data_fp
-       
+        self.norm = norm
         self.sampling_rate = sampling_rate
         self.labels = labels
 
