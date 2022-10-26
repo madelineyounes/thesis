@@ -1,8 +1,8 @@
 #!/bin/bash
 #!/bin/bash
 
-#PBS -l select=1:ncpus=16:ngpus=2:mem=92gb
-#PBS -l walltime=20:00:00
+#PBS -l select=1:ncpus=24:ngpus=3:mem=138gb
+#PBS -l walltime=15:00:00
 #PBS -M z5208494@unsw.edu.au
 #PBS -m ae
 #PBS -j oe
