@@ -1,0 +1,392 @@
+Wed Oct 26 01:54:01 AEDT 2022
+------------------------------------------------------------------------
+                         run_w2v.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_lid2.py
+Started: 26/10/2022 01:54:17
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: ADI17-lid2
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+test data path: /srv/scratch/z5208494/dataset/train_segments/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: u_train_700f
+train_filename: u_train_700f
+validation_filename: dev_u_200f
+evaluation_filename: test_u_100f
+use_checkpoint: False
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+number_of_worker: 1
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.1
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: no
+batch_size: 24
+gradient_accumulation_steps: 2
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 100
+max_steps: -1
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 500
+save_total_limit: 40
+fp16: True
+eval_steps: 100
+load_best_model_at_end: False
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/u_train_700f.csv
+--> data_test_fp: data/dev_u_200f.csv
+--> data_test_fp: data/test_u_100f.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/u_train_700f_local/ADI17-lid2
+--> finetuned_results_fp: /srv/scratch/z5208494/output/u_train_700f_local/ADI17-lid2_finetuned_results.csv
+--> pretrained_mod: log0/wav2vec2-base-lang-id
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 10 s
+Sampling Rate: 16000
+Target Sampling Rate: 16000
+Create a custom dataset ---> 
+Check data has been processed correctly... 
+Train Data Sample
+{'input_values': tensor([[ 0.0367,  0.0405,  0.0438,  ..., -0.0161, -0.0187, -0.0222],
+        [ 0.1609,  0.1645,  0.1645,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0299, -0.0324, -0.0150,  ...,  0.0023,  0.0037,  0.0000],
+        ...,
+        [-0.0259, -0.0533, -0.0565,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0130, -0.0236, -0.0244,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0008, -0.0009, -0.0010,  ...,  0.0016,  0.0009, -0.0018]]), 'attention_mask': tensor([[1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1]]), 'labels': tensor([3, 2, 3, 2, 3, 3, 3, 3, 3, 0, 2, 2, 2, 2, 2, 2, 0, 2, 0, 3, 2, 0, 0, 0])}
+Training DataCustom Files: 10502
+Training Data Files: 438
+Val Data Sample
+{'input_values': tensor([[-0.0011, -0.0013, -0.0014,  ..., -0.0014, -0.0018, -0.0018],
+        [ 0.0141,  0.0126,  0.0105,  ...,  0.1276,  0.1180,  0.1062],
+        [ 0.0217,  0.0366,  0.0457,  ..., -0.0178, -0.0176, -0.0214],
+        ...,
+        [-0.0548, -0.0656, -0.0522,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0228, -0.0342, -0.0474,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0068, -0.0068, -0.0078,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 1, 1, 1],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1, 2, 3, 0, 2, 1, 2, 1, 0, 2, 1, 2, 3, 2, 3, 0, 3, 2, 3, 0, 1, 0, 1, 3])}
+Test CustomData Files: 813
+Test Data Files: 34
+Test Data Sample
+Using cuda_amp half precision backend
+{'input_values': tensor([[-0.0268, -0.0263, -0.0160,  ..., -0.0061,  0.0036,  0.0128],
+        [-0.0096, -0.0120, -0.0220,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0288, -0.0366, -0.0411,  ...,  0.0095, -0.0207, -0.0232],
+        ...,
+        [ 0.0220,  0.0132,  0.0378,  ..., -0.0041, -0.0053, -0.0111],
+        [-0.0017, -0.0015,  0.0010,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0013, -0.0009, -0.0014,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1],
+        ...,
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([3, 0, 1, 3, 2, 2, 2, 1, 0, 0, 1, 3, 1, 1, 0, 0, 0, 3, 1, 2, 1, 2, 3, 2])}
+Test CustomData Files: 398
+Test Data Files: 17
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Loading pre-trained checkpoint...
+-------- Setting up Model --------
+GPUs Used :  2 GPUs!
+SUCCESS: Pre-trained checkpoint loaded.
+--> Defining Custom Trainer Class...
+
+------> STARTING TRAINING... ----------------------------------------- 
+
+Trainable Parameters : 198660
+formats: can't open input file `/srv/scratch/z5208494/dataset/train_segments/yFM4x8SuPlA_011360-011922.wav': WAVE: RIFF header not found
+Traceback (most recent call last):
+  File "run_lid2.py", line 723, in <module>
+    trainer.fit(trainDataLoader, testDataLoader, set_num_train_epochs)
+  File "run_lid2.py", line 548, in fit
+    train_loss, train_acc = self._train(train_loader, tr_itt, loss_sum_tr, acc_sum_tr)
+  File "run_lid2.py", line 562, in _train
+    data = next(tr_itt)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 530, in __next__
+    data = self._next_data()
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 1224, in _next_data
+    return self._process_data(data)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 1250, in _process_data
+    data.reraise()
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/_utils.py", line 457, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/utils/data/_utils/worker.py", line 287, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/utils/data/_utils/fetch.py", line 49, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/utils/data/_utils/fetch.py", line 49, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/z5208494/thesis/customData.py", line 49, in __getitem__
+    speech = speech_file_to_array_fn(audiopath, self.sampling_rate)
+  File "/home/z5208494/thesis/customData.py", line 18, in speech_file_to_array_fn
+    speech_array, sampling_rate = torchaudio.load(path)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torchaudio/backend/sox_io_backend.py", line 153, in load
+    return torch.ops.torchaudio.sox_io_load_audio_file(
+RuntimeError: Error loading audio file: failed to open file /srv/scratch/z5208494/dataset/train_segments/yFM4x8SuPlA_011360-011922.wav
+
+Wed Oct 26 02:04:13 AEDT 2022
+------------------------------------------------------------------------
+                         run_w2v.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_lid2.py
+Started: 26/10/2022 02:04:27
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: ADI17-lid2
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+test data path: /srv/scratch/z5208494/dataset/train_segments/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: u_train_700f
+train_filename: u_train_700f
+validation_filename: dev_u_200f
+evaluation_filename: test_u_100f
+use_checkpoint: False
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+number_of_worker: 1
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.1
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: no
+batch_size: 24
+gradient_accumulation_steps: 2
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 100
+max_steps: -1
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 500
+save_total_limit: 40
+fp16: True
+eval_steps: 100
+load_best_model_at_end: False
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/u_train_700f.csv
+--> data_test_fp: data/dev_u_200f.csv
+--> data_test_fp: data/test_u_100f.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/u_train_700f_local/ADI17-lid2
+--> finetuned_results_fp: /srv/scratch/z5208494/output/u_train_700f_local/ADI17-lid2_finetuned_results.csv
+--> pretrained_mod: log0/wav2vec2-base-lang-id
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 10 s
+Sampling Rate: 16000
+Target Sampling Rate: 16000
+Create a custom dataset ---> 
+Check data has been processed correctly... 
+Train Data Sample
+{'input_values': tensor([[ 0.0965,  0.0549,  0.0194,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0005, -0.0005, -0.0003,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0323, -0.0312, -0.0319,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [ 0.0021,  0.0044,  0.0048,  ...,  0.0130,  0.0272,  0.0432],
+        [-0.0949, -0.0844, -0.0580,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.1466,  0.2186,  0.2831,  ...,  0.0003,  0.0007,  0.0004]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1]]), 'labels': tensor([1, 3, 1, 2, 3, 3, 3, 2, 0, 2, 0, 0, 2, 0, 2, 0, 2, 3, 3, 3, 3, 1, 3, 3])}
+Training DataCustom Files: 10502
+Training Data Files: 438
+Val Data Sample
+{'input_values': tensor([[-0.0024, -0.0056, -0.0022,  ...,  0.0251,  0.0346,  0.0316],
+        [ 0.1183,  0.0552,  0.0854,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0285,  0.0371,  0.0428,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [-0.0496, -0.0581, -0.0656,  ..., -0.0146, -0.0156, -0.0178],
+        [-0.0164, -0.0615, -0.0987,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.1202, -0.1206, -0.1253,  ...,  0.0346,  0.0462,  0.0628]]), 'attention_mask': tensor([[1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1]]), 'labels': tensor([3, 1, 0, 3, 2, 2, 1, 0, 0, 0, 2, 0, 2, 2, 2, 1, 2, 0, 1, 2, 2, 3, 1, 2])}
+Test CustomData Files: 813
+Test Data Files: 34
+Test Data Sample
+Using cuda_amp half precision backend
+{'input_values': tensor([[ 0.0078,  0.0043,  0.0067,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.1018,  0.0824,  0.0577,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0435,  0.0614,  0.0640,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [ 0.0210,  0.0350,  0.0399,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0050,  0.0099,  0.0168,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0110, -0.0010, -0.0126,  ...,  0.0253,  0.0140,  0.0248]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1]]), 'labels': tensor([1, 0, 2, 2, 0, 0, 0, 2, 3, 0, 3, 3, 1, 2, 1, 2, 2, 0, 2, 2, 1, 2, 1, 2])}
+Test CustomData Files: 398
+Test Data Files: 17
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Loading pre-trained checkpoint...
+-------- Setting up Model --------
+GPUs Used :  2 GPUs!
+SUCCESS: Pre-trained checkpoint loaded.
+--> Defining Custom Trainer Class...
+
+------> STARTING TRAINING... ----------------------------------------- 
+
+Trainable Parameters : 198660
+formats: can't open input file `/srv/scratch/z5208494/dataset/train_segments/bSKtof086RU_099570-100790.wav': WAVE: RIFF header not found
+Traceback (most recent call last):
+  File "run_lid2.py", line 723, in <module>
+    trainer.fit(trainDataLoader, testDataLoader, set_num_train_epochs)
+  File "run_lid2.py", line 548, in fit
+    train_loss, train_acc = self._train(train_loader, tr_itt, loss_sum_tr, acc_sum_tr)
+  File "run_lid2.py", line 562, in _train
+    data = next(tr_itt)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 530, in __next__
+    data = self._next_data()
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 1224, in _next_data
+    return self._process_data(data)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 1250, in _process_data
+    data.reraise()
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/_utils.py", line 457, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/utils/data/_utils/worker.py", line 287, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/utils/data/_utils/fetch.py", line 49, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/utils/data/_utils/fetch.py", line 49, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/z5208494/thesis/customData.py", line 49, in __getitem__
+    speech = speech_file_to_array_fn(audiopath, self.sampling_rate)
+  File "/home/z5208494/thesis/customData.py", line 18, in speech_file_to_array_fn
+    speech_array, sampling_rate = torchaudio.load(path)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torchaudio/backend/sox_io_backend.py", line 153, in load
+    return torch.ops.torchaudio.sox_io_load_audio_file(
+RuntimeError: Error loading audio file: failed to open file /srv/scratch/z5208494/dataset/train_segments/bSKtof086RU_099570-100790.wav
+

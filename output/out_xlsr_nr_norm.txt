@@ -1,0 +1,5 @@
+Wed Oct 26 16:25:37 AEDT 2022
+Traceback (most recent call last):
+  File "run_xlsr_nr_norm.py", line 34, in <module>
+    from customData import CustomDatasetNR
+ImportError: cannot import name 'CustomDatasetNR' from 'customData' (/home/z5208494/thesis/customData.py)
