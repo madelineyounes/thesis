@@ -6,7 +6,6 @@ from torch.utils.data import Dataset
 import customTransform as T
 from torchvision import transforms
 from transformers.models.wav2vec2.modeling_wav2vec2 import (Wav2Vec2FeatureExtractor)
-import noisereduce as nr
 
 label_list = ['NOR', 'EGY', 'GLF', 'LEV']
 label2id, id2label = dict(), dict()
