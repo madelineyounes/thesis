@@ -6,13 +6,15 @@ File contains a functions for filtering and normalising noisy audio files.
 """
 from hashlib import new
 from scipy.io import wavfile
+import torchaudio
 from scipy.signal import butter, sosfilt
 import matplotlib.pyplot as plt
 from pydub import AudioSegment
 import numpy as np
 import noisereduce as nr
 import matplotlib.pyplot as plt
-
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import minmax_scale
 
 def butter_bandpass_filter(data, lowcut, highcut, fs, order=5):
     sos = butter(order, [lowcut, highcut], fs=fs, btype='band', output='sos')
@@ -37,12 +39,14 @@ def match_target_amplitude(sound, target_dBFS):
 
 def export_file(filename):
     new_filename = filename.removesuffix('.wav') + 'myfilter_preprocessed.wav'
-    rate, data = wavfile.read(filename)
+    # rate, data = wavfile.read(filename)
+    data, rate = torchaudio.load(filename)
     reduced_noise = noise_filter(rate, data)
     filtered, samples = band_pass_filter(rate, reduced_noise)
     wavfile.write(new_filename, rate, np.int16(filtered))
     reduced_noise_segment = AudioSegment.from_wav(new_filename)
-    normalised_sound = match_target_amplitude(reduced_noise_segment, -20.0)
+    #normalised_sound = match_target_amplitude(reduced_noise_segment, -20.0)
+    normalised_sound = minmax_scale(reduced_noise_segment, feature_range=(0, 5))
     normalised_sound.export(new_filename, format="wav")
 
     r, normal = wavfile.read(new_filename)
@@ -69,7 +73,7 @@ def export_file(filename):
 
 
 def test_preprocessing(): 
-    export_file('../testfiles/--YRssvbUts_000027-000603.wav')
-    export_file('../testfiles/--zhvFBThyM_000027-001885.wav')
+    export_file('../testfiles/0eeDHhmAlek_014556-015026.wav')
+    export_file('../testfiles/1MkBNK1VNas_106954-108794.wav')
 
 test_preprocessing()
