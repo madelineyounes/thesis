@@ -122,6 +122,7 @@ Original Traceback (most recent call last):
     speech = speech_file_to_array_fn(audiopath, self.sampling_rate, self.norm)
 AttributeError: 'CustomDataset' object has no attribute 'norm'
 
+<<<<<<< HEAD
 Wed Oct 26 21:42:20 AEDT 2022
 ------------------------------------------------------------------------
                          run_xlsr_nr.py                            
@@ -406,3 +407,5 @@ Epoch 48 Train Acc 58.543724060058594% Val Acc 44.70000076293945% Train Loss 0.5
 Trainable Parameters : 264452
 Epoch 49 Train Acc 58.372623443603516% Val Acc 45.60000228881836% Train Loss 0.5028601288795471 Val Loss 1.33469820022583
 Trainable Parameters : 264452
+=======
+>>>>>>> ffaef3afa3ac930227cea1150efd6f9c798506a4

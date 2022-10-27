@@ -966,6 +966,7 @@ Epoch 57 Train Acc 62.09885787963867% Val Acc 52.10000228881836% Train Loss 0.46
 Trainable Parameters : 264452
 Epoch 58 Train Acc 61.577945709228516% Val Acc 48.400001525878906% Train Loss 0.4739810824394226 Val Loss 1.187937617301941
 Trainable Parameters : 264452
+<<<<<<< HEAD
 Epoch 59 Train Acc 62.75665283203125% Val Acc 48.10000228881836% Train Loss 0.46530959010124207 Val Loss 1.3279619216918945
 Trainable Parameters : 264452
 Epoch 60 Train Acc 61.923954010009766% Val Acc 47.900001525878906% Train Loss 0.4677696228027344 Val Loss 1.3831634521484375
@@ -1432,3 +1433,5 @@ weighted avg       0.65      0.63      0.62       398
 ------> SUCCESSFULLY FINISHED ---------------------------------------- 
 
 Finished: 27/10/2022 02:26:14
+=======
+>>>>>>> ffaef3afa3ac930227cea1150efd6f9c798506a4
