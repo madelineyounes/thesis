@@ -452,26 +452,53 @@ def plot_data(x_label, y_label, matrix, name):
 
 print("--> Loading pre-trained checkpoint...")
 # insert LeNet-5 CNN
+
+
+def new_forward(self, x):
+    out = self.classifier.layer1(x)
+    out = self.classifier.layer2(out)
+    out = out.reshape(out.size(0), -1)
+    out = self.classifier.fc(out)
+    out = self.classifier.relu(out)
+    out = self.classifier.fc1(out)
+    out = self.classifier.relu1(out)
+    out = self.classifier.fc2(out)
+    return out
+
 model = Wav2Vec2ForSequenceClassification.from_pretrained(
     model_name, ignore_mismatched_sizes=True)
-model.classifier = nn.Sequential(
+
+layer1=nn.Sequential(
     nn.Conv2d(1, 6, kernel_size=5, stride=1, padding=0),
     nn.BatchNorm2d(6),
     nn.ReLU(),
-    nn.MaxPool2d(kernel_size = 2, stride = 2),
+    nn.MaxPool2d(kernel_size=2, stride=2))
+layer2=nn.Sequential(
     nn.Conv2d(6, 16, kernel_size=5, stride=1, padding=0),
     nn.BatchNorm2d(16),
     nn.ReLU(),
-    nn.MaxPool2d(kernel_size = 2, stride = 2),
-    nn.Linear(400, 120),
-    nn.ReLU(),
-    nn.Linear(120, 84),
-    nn.ReLU(),
-    nn.Linear(84, num_labels, bias=True)
+    nn.MaxPool2d(kernel_size=2, stride=2))
+fc=nn.Linear(400, 120)
+relu=nn.ReLU()
+fc1=nn.Linear(120, 84)
+relu1=nn.ReLU()
+fc2=nn.Linear(84, num_labels)
+
+model.classifier = nn.Sequential(
+    layer1,
+    layer2,
+    fc,
+    relu,
+    fc1,
+    relu1,
+    fc2
 )
-
-
 model.load_state_dict(torch.load(model_path), strict=False)
+
+bound_method = new_forward.__get__(resent, resent.__class__)
+setattr(resent, 'forward', bound_method)
+
+
 print("-------- Setting up Model --------")
 for param in model.wav2vec2.feature_extractor.parameters():
     param.requires_grad = False
