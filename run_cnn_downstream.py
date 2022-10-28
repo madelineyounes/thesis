@@ -495,8 +495,8 @@ model.classifier = nn.Sequential(
 )
 model.load_state_dict(torch.load(model_path), strict=False)
 
-bound_method = new_forward.__get__(resent, resent.__class__)
-setattr(resent, 'forward', bound_method)
+bound_method = new_forward.__get__(model, model.__class__)
+setattr(model, 'forward', bound_method)
 
 
 print("-------- Setting up Model --------")
