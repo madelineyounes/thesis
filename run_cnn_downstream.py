@@ -451,6 +451,7 @@ def plot_data(x_label, y_label, matrix, name):
 
 
 print("--> Loading pre-trained checkpoint...")
+# insert LeNet-5 CNN
 model = Wav2Vec2ForSequenceClassification.from_pretrained(
     model_name, ignore_mismatched_sizes=True)
 model.classifier = nn.Sequential(
@@ -479,19 +480,6 @@ for param in model.wav2vec2.feature_projection.parameters():
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 multi_gpu = False
-
-# insert LeNet-5 CNN 
-
-model.add(nn.Conv2D(filters=6, kernel_size=(5, 5), activation='relu', input_shape=(32,32,1)) )
-model.add(nn.AveragePooling2D())
-model.add(nn.Conv2D(filters=16, kernel_size=(5, 5),
-          activation='relu'))
-model.add(nn.AveragePooling2D())
-model.add(nn.Flatten())
-model.add(nn.Dense(units=120, activation='relu'))
-model.add(nn.Dense(units=84, activation='relu'))
-model.add(nn.Dense(units=10, activation='relu'))
-
 
 if torch.cuda.device_count() > 1:
     print('GPUs Used : ', torch.cuda.device_count(), 'GPUs!')
