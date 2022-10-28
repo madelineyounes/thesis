@@ -455,6 +455,7 @@ print("--> Loading pre-trained checkpoint...")
 model = Wav2Vec2ForSequenceClassification.from_pretrained(
     model_name, ignore_mismatched_sizes=True)
 model.classifier = nn.Sequential(
+    nn.Linear(256, 256),
     nn.LSTM(256, 20, 2),
     nn.Linear(20, num_labels, bias=True)
 )

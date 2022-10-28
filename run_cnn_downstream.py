@@ -474,7 +474,6 @@ model.classifier = nn.Sequential(
 )
 #model.load_state_dict(torch.load(model_path), strict=False)
 
-
 print("-------- Setting up Model --------")
 for param in model.wav2vec2.feature_extractor.parameters():
     param.requires_grad = False
