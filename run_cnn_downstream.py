@@ -465,15 +465,15 @@ model.classifier = nn.Sequential(
     nn.Linear(in_features=17, out_features=num_labels, bias=True)
 )
 
-m = torch.load(model_path)
-model_dict = m.state_dict()
-for k in m.keys():
+model = torch.load(model_path)
+model_dict = model.state_dict()
+for k in model.keys():
     if 'fc_vidout' in k or 'fc_total' in k:
         continue
 
     if k in model_dict:
         pname = k
-        pval = m[k]
+        pval = model[k]
         model_dict[pname] = pval.clone().to(model_dict[pname].device)
 
 model.load_state_dict(model_dict)
