@@ -465,7 +465,7 @@ model.classifier = nn.Sequential(
     nn.Linear(in_features=17, out_features=num_labels, bias=True)
 )
 
-model = torch.load(model_path)
+model = torch.load(model_path)['state_dict']
 model_dict = model.state_dict()
 for k in model.keys():
     if 'fc_vidout' in k or 'fc_total' in k:
