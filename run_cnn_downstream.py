@@ -472,7 +472,7 @@ model.classifier = nn.Sequential(
     nn.Softmax(dim = 1),
     nn.Linear(84, num_labels, bias=True)
 )
-model.load_state_dict(torch.load(model_path), strict=False)
+#model.load_state_dict(torch.load(model_path), strict=False)
 
 
 print("-------- Setting up Model --------")
