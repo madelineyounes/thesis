@@ -452,12 +452,16 @@ def plot_data(x_label, y_label, matrix, name):
 
 print("--> Loading pre-trained checkpoint...")
 # insert LSTM
+class GetLSTMOutput(nn.Module):
+    def forward(self, x):
+        out, _ = x
+        return out
 model = Wav2Vec2ForSequenceClassification.from_pretrained(
     model_name, ignore_mismatched_sizes=True)
 model.classifier = nn.Sequential(
     nn.Linear(256, 256),
     nn.LSTM(256, 20, 2, batch_first=True, bidirectional=True),
-    nn.GetLSTMOutput(),
+    GetLSTMOutput(),
     nn.Dropout(p=0.5),
     nn.Linear(20, num_labels, bias=True)
 )
