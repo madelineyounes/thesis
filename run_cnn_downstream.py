@@ -157,7 +157,7 @@ if use_checkpoint:
 
 # Use pretrained model
 model_name = "elgeish/wav2vec2-large-xlsr-53-arabic"
-model_path = ""
+model_path = "/srv/scratch/z5208494/ADI17-xlsr-arabic/pytorch_model.bin"
 
 
 print("\n------> MODEL ARGUMENTS... -------------------------------------------\n")
@@ -453,7 +453,17 @@ def plot_data(x_label, y_label, matrix, name):
 print("--> Loading pre-trained checkpoint...")
 model = Wav2Vec2ForSequenceClassification.from_pretrained(model_name)
 model.load_state_dict(torch.load(model_path))
-model.classifier = nn.Linear(in_features=256, out_features=num_labels, bias=True)
+model.classifier = nn.Sequential(
+    nn.Conv2d(in_channels=256, out_channels=128,  kernel_size=(5, 5)),
+    nn.AvgPool2d(kernel_size=(5, 5)),
+    nn.Conv2d(in_channels=64, out_channels=10, kernel_size=(3, 3)),
+    nn.AvgPool2d(kernel_size=(3, 3)),
+    nn.Flatten(),
+    nn.Linear(10, 120),
+    nn.Linear(120, 84),
+    nn.Linear(84, 17),
+    nn.Linear(in_features=17, out_features=num_labels, bias=True)
+)
 
 print("-------- Setting up Model --------")
 for param in model.wav2vec2.feature_extractor.parameters():
@@ -467,6 +477,20 @@ for param in model.wav2vec2.feature_projection.parameters():
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 multi_gpu = False
+
+# insert LeNet-5 CNN 
+
+model.add(nn.Conv2D(filters=6, kernel_size=(5, 5), activation='relu', input_shape=(32,32,1)) )
+model.add(nn.AveragePooling2D())
+model.add(nn.Conv2D(filters=16, kernel_size=(5, 5),
+          activation='relu'))
+model.add(nn.AveragePooling2D())
+model.add(nn.Flatten())
+model.add(nn.Dense(units=120, activation='relu'))
+model.add(nn.Dense(units=84, activation='relu'))
+model.add(nn.Dense(units=10, activation='relu'))
+
+
 if torch.cuda.device_count() > 1:
     print('GPUs Used : ', torch.cuda.device_count(), 'GPUs!')
     model = nn.DataParallel(model)

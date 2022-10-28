@@ -3,7 +3,6 @@ Traceback (most recent call last):
   File "run_xlsr_bp_norm.py", line 34, in <module>
     from customData import CustomDatasetBP
 ImportError: cannot import name 'CustomDatasetBP' from 'customData' (/home/z5208494/thesis/customData.py)
-<<<<<<< HEAD
 Wed Oct 26 21:42:20 AEDT 2022
 ------------------------------------------------------------------------
                          run_xlsr_bp_norm.py                            
@@ -132,5 +131,3 @@ Original Traceback (most recent call last):
     change_in_dBFS = target_dBFS - sound.dBFS
 AttributeError: 'numpy.ndarray' object has no attribute 'dBFS'
 
-=======
->>>>>>> ffaef3afa3ac930227cea1150efd6f9c798506a4
