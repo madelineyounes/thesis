@@ -16,6 +16,10 @@ print("XLSR ARABIC")
 pretrain_model = Wav2Vec2ForSequenceClassification.from_pretrained(
     "elgeish/wav2vec2-large-xlsr-53-arabic")
 
+
+pretrain_model.classifier = nn.Linear(
+    in_features=256, out_features=num_labels, bias=True)
+
 pretrain_model.classifier = nn.Sequential(
     nn.Conv2d(in_channels=256, out_channels=128,  kernel_size=(5, 5)),
     nn.AvgPool2d(kernel_size=(5, 5)),
@@ -25,7 +29,7 @@ pretrain_model.classifier = nn.Sequential(
     nn.Linear(10,120),
     nn.Linear(120, 84),
     nn.Linear(84, 17),
-    nn.Linear(in_features=17, out_features=num_labels, bias=True)
+    nn.Linear(in_features=17, out_features=num_labels, bias=False)
 )
 
 try:
