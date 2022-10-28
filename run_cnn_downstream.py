@@ -453,7 +453,6 @@ def plot_data(x_label, y_label, matrix, name):
 print("--> Loading pre-trained checkpoint...")
 model = Wav2Vec2ForSequenceClassification.from_pretrained(
     model_name, ignore_mismatched_sizes=True)
-model.load_state_dict(torch.load(model_path), strict=False)
 model.classifier = nn.Sequential(
     nn.Conv2d(in_channels=256, out_channels=128,  kernel_size=(5, 5)),
     nn.AvgPool2d(kernel_size=(5, 5)),
@@ -466,6 +465,14 @@ model.classifier = nn.Sequential(
     nn.Linear(in_features=17, out_features=num_labels, bias=True)
 )
 
+def tensor_check_fn(param, input_param):
+	if param.shape != input_param.shape:
+		return False
+	return True
+
+
+model.load_state_dict(torch.load(model_path), strict=False,
+                      tensor_check_fn=tensor_check_fn)
 
 print("-------- Setting up Model --------")
 for param in model.wav2vec2.feature_extractor.parameters():
