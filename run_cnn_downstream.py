@@ -463,11 +463,12 @@ model.classifier = nn.Sequential(
     nn.BatchNorm2d(16),
     nn.ReLU(),
     nn.MaxPool2d(kernel_size = 2, stride = 2),
-    nn.Flatten(0, -1),
+    nn.Flatten(),
     nn.Linear(400, 120),
     nn.ReLU(),
     nn.Linear(120, 84),
     nn.ReLU(),
+    nn.Softmax(dim = 1),
     nn.Linear(84, num_labels, bias=True)
 )
 model.load_state_dict(torch.load(model_path), strict=False)
