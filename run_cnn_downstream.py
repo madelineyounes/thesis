@@ -455,6 +455,7 @@ print("--> Loading pre-trained checkpoint...")
 model = Wav2Vec2ForSequenceClassification.from_pretrained(
     model_name, ignore_mismatched_sizes=True)
 model.classifier = nn.Sequential(
+    nn.Flatten(1, -1),
     nn.Conv2d(1, 6, kernel_size=5, stride=1, padding=0),
     nn.BatchNorm2d(6),
     nn.ReLU(),
@@ -463,7 +464,7 @@ model.classifier = nn.Sequential(
     nn.BatchNorm2d(16),
     nn.ReLU(),
     nn.MaxPool2d(kernel_size = 2, stride = 2),
-    nn.Flatten(),
+    nn.Flatten(1, -1),
     nn.Linear(400, 120),
     nn.ReLU(),
     nn.Linear(120, 84),
