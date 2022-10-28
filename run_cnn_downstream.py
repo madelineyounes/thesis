@@ -465,8 +465,8 @@ model.classifier = nn.Sequential(
     nn.Linear(in_features=17, out_features=num_labels, bias=True)
 )
 
-model = torch.load(model_path)['state_dict']
-model_dict = model.state_dict()
+m = torch.load(model_path)
+model_dict = m.state_dict()
 for k in m.keys():
     if 'fc_vidout' in k or 'fc_total' in k:
         continue
@@ -477,7 +477,7 @@ for k in m.keys():
         model_dict[pname] = pval.clone().to(model_dict[pname].device)
 
 model.load_state_dict(model_dict)
-
+#model.load_state_dict(torch.load(model_path), strict=False)
 print("-------- Setting up Model --------")
 for param in model.wav2vec2.feature_extractor.parameters():
     param.requires_grad = False
