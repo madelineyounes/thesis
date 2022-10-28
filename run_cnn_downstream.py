@@ -465,14 +465,18 @@ model.classifier = nn.Sequential(
     nn.Linear(in_features=17, out_features=num_labels, bias=True)
 )
 
-def tensor_check_fn(param, input_param):
-	if param.shape != input_param.shape:
-		return False
-	return True
+model = torch.load(model_path)['state_dict']
+model_dict = model.state_dict()
+for k in m.keys():
+    if 'fc_vidout' in k or 'fc_total' in k:
+        continue
 
+    if k in model_dict:
+        pname = k
+        pval = m[k]
+        model_dict[pname] = pval.clone().to(model_dict[pname].device)
 
-model.load_state_dict(torch.load(model_path), strict=False,
-                      tensor_check_fn=tensor_check_fn)
+model.load_state_dict(model_dict)
 
 print("-------- Setting up Model --------")
 for param in model.wav2vec2.feature_extractor.parameters():
