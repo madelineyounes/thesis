@@ -463,7 +463,7 @@ model.classifier = nn.Sequential(
     nn.LSTM(256, 20, 2, batch_first=True, bidirectional=True),
     GetLSTMOutput(),
     nn.Dropout(p=0.5),
-    nn.Linear(20, num_labels, bias=True)
+    nn.Linear(14, num_labels, bias=True)
 )
 model.load_state_dict(torch.load(model_path), strict=False)
 
