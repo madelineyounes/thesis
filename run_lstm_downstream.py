@@ -459,11 +459,11 @@ class GetLSTMOutput(nn.Module):
 model = Wav2Vec2ForSequenceClassification.from_pretrained(
     model_name, ignore_mismatched_sizes=True)
 model.classifier = nn.Sequential(
-    nn.LSTM(256, 14, 2, batch_first=True, bidirectional=True),
+    nn.LSTM(256, 40, 1, batch_first=True, bidirectional=True),
     GetLSTMOutput(),
     nn.Dropout(p=0.5),
     nn.Softmax(dim = 1),
-    nn.Linear(14, num_labels, bias=True)
+    nn.Linear(40, num_labels, bias=True)
 )
 model.load_state_dict(torch.load(model_path), strict=False)
 
