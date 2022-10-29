@@ -460,9 +460,10 @@ model = Wav2Vec2ForSequenceClassification.from_pretrained(
     model_name, ignore_mismatched_sizes=True)
 model.classifier = nn.Sequential(
     nn.Linear(256, 256),
-    nn.LSTM(256, 20, 2, batch_first=True, bidirectional=True),
+    nn.LSTM(256, 2, 2, batch_first=True, bidirectional=True),
     GetLSTMOutput(),
     nn.Dropout(p=0.5),
+    nn.Softmax(dim = 1),
     nn.Linear(14, num_labels, bias=True)
 )
 model.load_state_dict(torch.load(model_path), strict=False)
