@@ -609,9 +609,19 @@ class myTrainer(Trainer):
 
     def _compute_loss(self, model, inputs, labels):
         prediction = model(**inputs).logits
+        grouped_pred = [] 
+        # average the predictions of multple inputs based on the group number 
+        for j in range(0, len(prediction)):
+            i = 0 
+            group_pred = np.array([0] * group_size, dtype='f')
+            for i in range (0, group_size):
+                group_pred = [a+b for a,
+                              b in zip(group_pred, prediction[j].cpu())]
+            group_pred = group_pred/group_size
+            grouped_pred.add(group_pred)
         lossfct = CrossEntropyLoss().to(device)
         loss = lossfct(prediction, labels.reshape((labels.shape[0])).long().to(device).contiguous())
-        acc = multi_acc(prediction, labels.reshape(
+        acc = multi_acc(grouped_pred, labels.reshape(
             (labels.shape[0])).long().to(device).contiguous())
         return loss, acc
 

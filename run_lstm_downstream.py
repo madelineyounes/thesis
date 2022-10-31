@@ -459,7 +459,7 @@ class GetLSTMOutput(nn.Module):
 model = Wav2Vec2ForSequenceClassification.from_pretrained(
     model_name, ignore_mismatched_sizes=True)
 model.classifier = nn.Sequential(
-    nn.LSTM(256, 14, 40, batch_first=True, bidirectional=True),
+    nn.LSTM(256, 2, 40, batch_first=True, bidirectional=True),
     GetLSTMOutput(),
     nn.Dropout(p=0.5),
     nn.Softmax(dim = 1),
