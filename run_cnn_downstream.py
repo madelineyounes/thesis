@@ -452,6 +452,11 @@ def plot_data(x_label, y_label, matrix, name):
 
 print("--> Loading pre-trained checkpoint...")
 # insert LeNet-5 CNN
+class GetCNNOutput(nn.Module):
+    def forward(self, x):
+        out, _ = x
+        return out
+
 model = Wav2Vec2ForSequenceClassification.from_pretrained(
     model_name, ignore_mismatched_sizes=True)
 model.classifier = nn.Sequential(
@@ -470,6 +475,7 @@ model.classifier = nn.Sequential(
     nn.Linear(120, 84),
     nn.ReLU(),
     nn.Softmax(dim = 1),
+    GetCNNOutput(),
     nn.Linear(84, num_labels, bias=True)
 )
 #model.load_state_dict(torch.load(model_path), strict=False)
