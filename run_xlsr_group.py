@@ -622,7 +622,8 @@ class myTrainer(Trainer):
                               b in zip(group_pred, prediction[j+i].cpu())]
             j+=i
             grouped_labels.append(currlabel)
-            group_pred = group_pred/i
+            group_pred[:] = [x / i for x in group_pred]
+
             grouped_pred.append(group_pred)
         lossfct = CrossEntropyLoss().to(device)
         loss = lossfct(grouped_pred, grouped_labels.to(device).contiguous())
