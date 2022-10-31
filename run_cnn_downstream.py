@@ -472,13 +472,13 @@ model.classifier = nn.Sequential(
     nn.Flatten(1, -1),
     nn.Linear(400, 120),
     nn.ReLU(),
-    nn.Linear(120, 84),
+    nn.Linear(120, 4),
     nn.ReLU(),
     nn.Softmax(dim = 1),
     GetCNNOutput(),
-    nn.Linear(84, num_labels, bias=True)
+    nn.Linear(4, num_labels, bias=True)
 )
-#model.load_state_dict(torch.load(model_path), strict=False)
+model.load_state_dict(torch.load(model_path), strict=False)
 
 print("-------- Setting up Model --------")
 for param in model.wav2vec2.feature_extractor.parameters():

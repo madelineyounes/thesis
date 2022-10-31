@@ -616,11 +616,13 @@ class myTrainer(Trainer):
             i = 0 
             group_pred = np.array([0] * group_size, dtype='f')
             currlabel = labels[j].cpu().item()
-            for i in range(0, group_size) and currlabel == labels[j].cpu().item():
-                group_pred = [a+b for a,
-                              b in zip(group_pred, prediction[j].cpu())]
-            grouped_labels.add()
-            group_pred = group_pred/group_size
+            for i in range(0, group_size):
+                if currlabel == labels[j+i].cpu().item():
+                    group_pred = [a+b for a,
+                              b in zip(group_pred, prediction[j+i].cpu())]
+            j+=i
+            grouped_labels.add(currlabel)
+            group_pred = group_pred/i
             grouped_pred.add(group_pred)
         lossfct = CrossEntropyLoss().to(device)
         loss = lossfct(grouped_pred, grouped_labels.to(device).contiguous())
