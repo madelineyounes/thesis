@@ -467,7 +467,6 @@ model.classifier = nn.Sequential(
 )
 model.load_state_dict(torch.load(model_path), strict=False)
 
-
 print("-------- Setting up Model --------")
 for param in model.wav2vec2.feature_extractor.parameters():
     param.requires_grad = False
@@ -477,6 +476,10 @@ for param in model.wav2vec2.encoder.parameters():
 
 for param in model.wav2vec2.feature_projection.parameters():
     param.requires_grad = False
+
+
+for param in model.wav2vec2.classifer.parameters():
+    param.requires_grad = True
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 multi_gpu = False
@@ -741,7 +744,7 @@ if training:
     trainer.fit(trainDataLoader, testDataLoader, set_num_train_epochs)
 
     # Save the model
-    model.module.save_pretrained(model_fp)
+    #model.module.save_pretrained(model_fp)
 
 # ------------------------------------------
 #            Evaluation
