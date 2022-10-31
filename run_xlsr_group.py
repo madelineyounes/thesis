@@ -623,7 +623,7 @@ class myTrainer(Trainer):
             j+=i
             grouped_labels.add(currlabel)
             group_pred = group_pred/i
-            grouped_pred.add(group_pred)
+            grouped_pred.append(group_pred)
         lossfct = CrossEntropyLoss().to(device)
         loss = lossfct(grouped_pred, grouped_labels.to(device).contiguous())
         acc = multi_acc(grouped_pred, grouped_labels.to(device).contiguous())
