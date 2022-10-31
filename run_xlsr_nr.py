@@ -151,7 +151,7 @@ print("evaluation_filename:", evaluation_filename)
 use_checkpoint = True
 print("use_checkpoint:", use_checkpoint)
 # Set checkpoint if resuming from/using checkpoint
-checkpoint = "/home/z5208494/output/u_train_700f_local/ADI17-xlsr-nr-first40/pytorch_model.bin"
+checkpoint = "/home/z5208494/output/u_train_700f_local/ADI17-xlsr-nr-first40/config.json"
 
 if use_checkpoint:
     print("checkpoint:", checkpoint)
