@@ -461,21 +461,20 @@ model = Wav2Vec2ForSequenceClassification.from_pretrained(
     model_name, ignore_mismatched_sizes=True)
 model.classifier = nn.Sequential(
     nn.Flatten(1, -1),
-    nn.Conv2d(1, 6, kernel_size=5, stride=1, padding=0),
+    nn.Conv2d(1, 6, kernel_size=3, stride=1, padding=0),
     nn.BatchNorm2d(6),
     nn.ReLU(),
     nn.MaxPool2d(kernel_size = 2, stride = 2),
-    nn.Conv2d(6, 16, kernel_size=5, stride=1, padding=0),
+    nn.Conv2d(6, 16, kernel_size=3, stride=1, padding=0),
     nn.BatchNorm2d(16),
     nn.ReLU(),
     nn.MaxPool2d(kernel_size = 2, stride = 2),
     nn.Flatten(1, -1),
-    nn.Linear(400, 120),
+    nn.Linear(256, 40),
     nn.ReLU(),
-    nn.Linear(120, 4),
+    nn.Linear(40, 4),
     nn.ReLU(),
     nn.Softmax(dim = 1),
-    GetCNNOutput(),
     nn.Linear(4, num_labels, bias=True)
 )
 model.load_state_dict(torch.load(model_path), strict=False)
