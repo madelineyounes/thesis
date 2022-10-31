@@ -477,10 +477,6 @@ for param in model.wav2vec2.encoder.parameters():
 for param in model.wav2vec2.feature_projection.parameters():
     param.requires_grad = False
 
-
-for param in model.wav2vec2.classifer.parameters():
-    param.requires_grad = True
-
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 multi_gpu = False
 
