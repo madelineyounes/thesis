@@ -97,7 +97,7 @@ print("training:", training)
 # For
 #     1) naming model output directory
 #     2) naming results file
-experiment_id = "ADI17-xlsr-nr-first40"
+experiment_id = "ADI17-xlsr-nr-second40"
 print("experiment_id:", experiment_id)
 
 # DatasetDict Id
@@ -148,10 +148,11 @@ print("evaluation_filename:", evaluation_filename)
 # 1) resuming from a saved checkpoint if training stopped midway through
 # 2) for using an existing finetuned model for evaluation
 # If 2), then must also set eval_pretrained = True
-use_checkpoint = False
+use_checkpoint = True
 print("use_checkpoint:", use_checkpoint)
 # Set checkpoint if resuming from/using checkpoint
-checkpoint = "/srv/scratch/z5208494/checkpoint/20211018-base-intial-test"
+checkpoint = "/home/z5208494/output/u_train_700f_local/ADI17-xlsr-nr-first40/pytorch_model.bin"
+
 if use_checkpoint:
     print("checkpoint:", checkpoint)
 
