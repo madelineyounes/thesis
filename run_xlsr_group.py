@@ -617,9 +617,9 @@ class myTrainer(Trainer):
             group_pred = np.array([0] * group_size, dtype='f')
             currlabel = labels[j].cpu().item()
             for i in range(0, group_size):
-                if currlabel == labels[j+i].cpu().item():
+                if currlabel == labels[j+i-1].cpu().item():
                     group_pred = [a+b for a,
-                              b in zip(group_pred, prediction[j+i].cpu())]
+                              b in zip(group_pred, prediction[j+i-1].cpu())]
             j+=i
             grouped_labels.append(currlabel)
             group_pred[:] = [x / i for x in group_pred]
