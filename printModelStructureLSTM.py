@@ -22,11 +22,11 @@ class GetLSTMOutput(nn.Module):
         return out
 
 model.classifier = nn.Sequential(
-    nn.LSTM(256, 40, 1, batch_first=False, bidirectional=True),
+    nn.LSTM(256, 2, 1, batch_first=False, bidirectional=True),
     GetLSTMOutput(),
     nn.Dropout(p=0.5),
     nn.Softmax(dim=1),
-    nn.Linear(40, num_labels, bias=True)
+    nn.Linear(14, num_labels, bias=True)
 )
 
 #model.load_state_dict(torch.load(model_path), strict=False)
