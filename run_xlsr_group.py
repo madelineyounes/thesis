@@ -627,7 +627,7 @@ class myTrainer(Trainer):
             grouped_pred.append(group_pred)
 
         grouped_pred = torch.FloatTensor(grouped_pred)
-        grouped_labels = torch.FloatTensor(grouped_labels)
+        grouped_labels = torch.LongTensor(grouped_labels)
 
         lossfct = CrossEntropyLoss().to(device)
         loss = lossfct(grouped_pred, grouped_labels)
