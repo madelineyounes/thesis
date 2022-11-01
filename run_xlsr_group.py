@@ -626,8 +626,8 @@ class myTrainer(Trainer):
 
             grouped_pred.append(group_pred)
         lossfct = CrossEntropyLoss().to(device)
-        loss = lossfct(grouped_pred, grouped_labels.to(device).contiguous())
-        acc = multi_acc(grouped_pred, grouped_labels.to(device).contiguous())
+        loss = lossfct(grouped_pred, grouped_labels)
+        acc = multi_acc(grouped_pred, grouped_labels)
         return loss, acc
 
     def _evaluate(self, loader, tst_itt):
