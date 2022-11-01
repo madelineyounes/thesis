@@ -57,32 +57,41 @@ for d in umbrella_dialects:
             if rd in line.rstrip("\n") and dcount < numf:
                     filename = line.split(',')[0]
                     filepath = train_data_path + filename + ".wav"
-                    info = WavInfoReader(filepath)
-                    info_time = info.data.frame_count / info.fmt.sample_rate 
-                    if info_time <= 5:
-                        ftrain.write(filename + f",{d}\n")
-                        dcount += 1
+                    try:
+                        info = WavInfoReader(filepath)
+                        info_time = info.data.frame_count / info.fmt.sample_rate 
+                        if info_time <= 5:
+                            ftrain.write(filename + f",{d}\n")
+                            dcount += 1
+                    except:
+                        pass
         dcount = 0
         for line in test_lines:
             if rd in line.rstrip("\n") and dcount < numf:
                     filename = line.split(' ')[0]
                     filepath = test_data_path + filename + ".wav"
-                    info = WavInfoReader(filepath)
-                    info_time = info.data.frame_count / info.fmt.sample_rate
-                    if info_time <= 5:
-                        ftest.write(filename + f",{d}\n")
-                        dcount += 1
+                    try: 
+                        info = WavInfoReader(filepath)
+                        info_time = info.data.frame_count / info.fmt.sample_rate
+                        if info_time <= 5:
+                            ftest.write(filename + f",{d}\n")
+                            dcount += 1
+                    except: 
+                        pass
 
         dcount = 0
         for line in val_lines:
             if rd in line.rstrip("\n") and dcount < numf:
                     filename = line.split(' ')[0]
                     filepath = dev_data_path + filename + ".wav"
-                    info = WavInfoReader(filepath)
-                    info_time = info.data.frame_count / info.fmt.sample_rate
-                    if info_time <= 5:
-                        fval.write(filename + f",{d}\n")
-                        dcount += 1
+                    try:
+                        info = WavInfoReader(filepath)
+                        info_time = info.data.frame_count / info.fmt.sample_rate
+                        if info_time <= 5:
+                            fval.write(filename + f",{d}\n")
+                            dcount += 1
+                    except:
+                        pass
 
 ftrain.close()
 ftest.close()
