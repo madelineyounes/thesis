@@ -151,7 +151,7 @@ print("evaluation_filename:", evaluation_filename)
 use_checkpoint = True
 print("use_checkpoint:", use_checkpoint)
 # Set checkpoint if resuming from/using checkpoint
-checkpoint = "/home/z5208494/output/u_train_700f_local/ADI17-xlsr-nr-first40/config.json"
+checkpoint = "/home/z5208494/output/u_train_700f_local/ADI17-xlsr-nr-first40/pytorch_model.bin"
 
 if use_checkpoint:
     print("checkpoint:", checkpoint)
@@ -296,17 +296,6 @@ print("--> model_fp:", model_fp)
 finetuned_results_fp = base_fp + train_name + \
     "_local/" + experiment_id + "_finetuned_results.csv"
 print("--> finetuned_results_fp:", finetuned_results_fp)
-# Pre-trained checkpoint model
-# For 1) Fine-tuning or
-#     2) resuming training from pre-trained model
-# If 1) must set use_checkpoint = False
-# If 2)must set use_checkpoint = True
-# Default model to fine-tune is facebook's model
-pretrained_mod = model_name
-
-if use_checkpoint:
-    pretrained_mod = checkpoint
-print("--> pretrained_mod:", pretrained_mod)
 
 # ------------------------------------------
 #         Preparing dataset
@@ -461,6 +450,8 @@ print("--> Loading pre-trained checkpoint...")
 # NOTE: SWAPED Wav2Vec2ForSpeechClassification to Wav2Vec2ForSequenceClassification
 model = Wav2Vec2ForSequenceClassification.from_pretrained(model_name)
 model.classifier = nn.Linear(in_features=256, out_features=num_labels, bias=True)
+if use_checkpoint:
+    model.load_state_dict(torch.load(checkpoint), strict=True)
 
 print("-------- Setting up Model --------")
 for param in model.wav2vec2.feature_extractor.parameters():
