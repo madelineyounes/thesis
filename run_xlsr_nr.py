@@ -296,6 +296,7 @@ print("--> model_fp:", model_fp)
 finetuned_results_fp = base_fp + train_name + \
     "_local/" + experiment_id + "_finetuned_results.csv"
 print("--> finetuned_results_fp:", finetuned_results_fp)
+pretrained_mod = model_name
 
 # ------------------------------------------
 #         Preparing dataset

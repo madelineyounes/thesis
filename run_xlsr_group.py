@@ -612,7 +612,7 @@ class myTrainer(Trainer):
         grouped_pred = [] 
         grouped_labels = []
         # average the predictions of multple inputs based on the group number 
-        for j in range(0, len(prediction)):
+        for j in range(0, len(prediction)-group_size):
             i = 0 
             group_pred = np.array([0] * group_size, dtype='f')
             currlabel = labels[j].cpu().item()
