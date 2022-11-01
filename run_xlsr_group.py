@@ -623,8 +623,12 @@ class myTrainer(Trainer):
             j+=i
             grouped_labels.append(currlabel)
             group_pred[:] = [x / i for x in group_pred]
-
+            
             grouped_pred.append(group_pred)
+
+        grouped_pred = torch.FloatTensor(grouped_pred)
+        grouped_labels = torch.FloatTensor(grouped_labels)
+
         lossfct = CrossEntropyLoss().to(device)
         loss = lossfct(grouped_pred, grouped_labels)
         acc = multi_acc(grouped_pred, grouped_labels)
