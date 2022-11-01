@@ -572,7 +572,7 @@ class myTrainer(Trainer):
                 if self.args.gradient_accumulation_steps > 1:
                     loss = loss / self.args.gradient_accumulation_steps
 
-                loss.backward()
+                #loss.backward()
                 # parameters update
                 self.optimizer.step()
 
