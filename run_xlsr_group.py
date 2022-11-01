@@ -566,13 +566,13 @@ class myTrainer(Trainer):
                 labels = data['labels'].long().to(device).contiguous()
                 # loss
                 loss, acc = self._compute_loss(model, inputs, labels)
-                # remove gradient from previous passes
+                loss.requires_grad = True                # remove gradient from previous passes
                 self.optimizer.zero_grad()
 
                 if self.args.gradient_accumulation_steps > 1:
                     loss = loss / self.args.gradient_accumulation_steps
 
-                #loss.backward()
+                loss.backward()
                 # parameters update
                 self.optimizer.step()
 
