@@ -15,9 +15,9 @@ val_input_file = output_path + "adi17_official_dev_label.txt"
 test_input_file = output_path + "adi17_official_test_label.txt"
 train_input_file = output_path + "imported_r_train_files.csv"
 
-test_u_out_file = output_path +"test_u_5s.csv"
-val_u_out_file = output_path+ "dev_u_5s.csv"
-train_u_out_file = output_path + "train_u_5s.csv"
+test_u_out_file = output_path +"test_u_10s.csv"
+val_u_out_file = output_path+ "dev_u_10s.csv"
+train_u_out_file = output_path + "train_u_10s.csv"
 
 train_data_path = "/srv/scratch/z5208494/dataset/train_segments/"
 dev_data_path = "/srv/scratch/z5208494/dataset/dev_segments/"
@@ -60,7 +60,7 @@ for d in umbrella_dialects:
                     try:
                         info = WavInfoReader(filepath)
                         info_time = info.data.frame_count / info.fmt.sample_rate 
-                        if info_time <= 5:
+                        if info_time >= 5 and info_time <= 10:
                             ftrain.write(filename + f",{d}\n")
                             dcount += 1
                     except:
@@ -73,7 +73,7 @@ for d in umbrella_dialects:
                     try: 
                         info = WavInfoReader(filepath)
                         info_time = info.data.frame_count / info.fmt.sample_rate
-                        if info_time <= 5:
+                        if info_time >= 5 and info_time <= 10:
                             ftest.write(filename + f",{d}\n")
                             dcount += 1
                     except: 
@@ -87,7 +87,7 @@ for d in umbrella_dialects:
                     try:
                         info = WavInfoReader(filepath)
                         info_time = info.data.frame_count / info.fmt.sample_rate
-                        if info_time <= 5:
+                        if info_time >= 5 and info_time <= 10:
                             fval.write(filename + f",{d}\n")
                             dcount += 1
                     except:
