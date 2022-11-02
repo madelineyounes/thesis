@@ -98,7 +98,7 @@ print("training:", training)
 # For
 #     1) naming model output directory
 #     2) naming results file
-experiment_id = "ADI17-xlsr-group-noshuffle"
+experiment_id = "ADI17-hubert-arabic"
 print("experiment_id:", experiment_id)
 
 # DatasetDict Id
@@ -158,7 +158,7 @@ if use_checkpoint:
 
 # Use pretrained model
 # model_name = "superb/wav2vec2-base-superb-sid"
-model_name = "elgeish/wav2vec2-large-xlsr-53-arabic"
+model_name = "asafaya/hubert-large-arabic-ft"
 #model_name = "facebook/wav2vec2-base"
 # try log0/wav2vec2-base-lang-id
 
@@ -205,8 +205,6 @@ set_evaluation_strategy = "no"           # Default = "no"
 print("evaluation strategy:", set_evaluation_strategy)
 batch_size = 40        # Default = 8
 print("batch_size:", batch_size)
-group_size = 4        # Default = 8
-print("group_size:", group_size)
 set_gradient_accumulation_steps = 2         # Default = 4
 print("gradient_accumulation_steps:", set_gradient_accumulation_steps)
 set_learning_rate = 0.00004                 # Default = 0.00005
@@ -386,13 +384,13 @@ testcustomdata = CustomDataset(
 
 
 trainDataLoader = DataLoader(
-    traincustomdata, batch_size=batch_size, shuffle=False, num_workers=set_num_of_workers)
+    traincustomdata, batch_size=batch_size, shuffle=True, num_workers=set_num_of_workers)
 
 valDataLoader = DataLoader(
-    valcustomdata, batch_size=batch_size, shuffle=False, num_workers=set_num_of_workers)
+    valcustomdata, batch_size=batch_size, shuffle=True, num_workers=set_num_of_workers)
 
 testDataLoader = DataLoader(
-    testcustomdata, batch_size=batch_size, shuffle=False, num_workers=set_num_of_workers)
+    testcustomdata, batch_size=batch_size, shuffle=True, num_workers=set_num_of_workers)
 
 print("Check data has been processed correctly... ")
 print("Train Data Sample")
@@ -566,7 +564,7 @@ class myTrainer(Trainer):
                 labels = data['labels'].long().to(device).contiguous()
                 # loss
                 loss, acc = self._compute_loss(model, inputs, labels)
-                loss.requires_grad = True                # remove gradient from previous passes
+                # remove gradient from previous passes
                 self.optimizer.zero_grad()
 
                 if self.args.gradient_accumulation_steps > 1:
@@ -609,29 +607,10 @@ class myTrainer(Trainer):
 
     def _compute_loss(self, model, inputs, labels):
         prediction = model(**inputs).logits
-        grouped_pred = [] 
-        grouped_labels = []
-        # average the predictions of multple inputs based on the group number 
-        for j in range(0, len(prediction)-group_size):
-            i = 0 
-            group_pred = np.array([0] * group_size, dtype='f')
-            currlabel = labels[j].cpu().item()
-            for i in range(0, group_size):
-                if currlabel == labels[j+i-1].cpu().item():
-                    group_pred = [a+b for a,
-                              b in zip(group_pred, prediction[j+i-1].cpu())]
-            j+=i
-            grouped_labels.append(currlabel)
-            group_pred[:] = [x / i for x in group_pred]
-            
-            grouped_pred.append(group_pred)
-
-        grouped_pred = torch.FloatTensor(grouped_pred)
-        grouped_labels = torch.LongTensor(grouped_labels)
-
         lossfct = CrossEntropyLoss().to(device)
-        loss = lossfct(grouped_pred, grouped_labels)
-        acc = multi_acc(grouped_pred, grouped_labels)
+        loss = lossfct(prediction, labels.reshape((labels.shape[0])).long().to(device).contiguous())
+        acc = multi_acc(prediction, labels.reshape(
+            (labels.shape[0])).long().to(device).contiguous())
         return loss, acc
 
     def _evaluate(self, loader, tst_itt):

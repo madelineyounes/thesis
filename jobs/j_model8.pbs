@@ -11,7 +11,7 @@
 # Go into thesis folder
 cd /home/z5208494/thesis/
 
-echo ""$(date)"" 2>&1 | tee -a output/out_xlsr_group_noshuffle.txt
+echo ""$(date)"" 2>&1 | tee -a output/out_hubert_arabic.txt
 
 # This runs the test script
-python3 run_xlsr_group.py 2>&1 | tee -a output/out_xlsr_group_noshuffle.txt
+python3 run_hubert_arabic.py 2>&1 | tee -a output/out_hubert_arabic.txt
