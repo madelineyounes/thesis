@@ -365,3 +365,46 @@ Epoch 92 Train Acc 27.25475311279297% Val Acc 0.0% Train Loss 0.6875002384185791
 Trainable Parameters : 264452
 Epoch 93 Train Acc 26.912548065185547% Val Acc 0.0% Train Loss 0.6870467066764832 Val Loss 1.441785454750061
 Trainable Parameters : 264452
+Epoch 94 Train Acc 27.543725967407227% Val Acc 0.0% Train Loss 0.6873995661735535 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 95 Train Acc 26.950571060180664% Val Acc 0.0% Train Loss 0.6872893571853638 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 96 Train Acc 27.353612899780273% Val Acc 0.0% Train Loss 0.6868096590042114 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 97 Train Acc 27.42585563659668% Val Acc 0.0% Train Loss 0.6873989701271057 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 98 Train Acc 27.467679977416992% Val Acc 0.0% Train Loss 0.6876187324523926 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 99 Train Acc 27.4372615814209% Val Acc 0.0% Train Loss 0.6872794032096863 Val Loss 1.441785454750061
+
+------> EVALUATING MODEL... ------------------------------------------ 
+
+/apps/python/3.8.3/lib/python3.8/site-packages/sklearn/metrics/_classification.py:1221: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+Final Test Acc:24.700000762939453% Loss:1.3891671895980835
+CONFUSION MATRIX
+[[ 2  0 21 77]
+ [ 1  0 17 82]
+ [ 2  0  9 87]
+ [ 3  0  7 90]]
+CONFUSION MATRIX NORMALISED
+[[0.00502513 0.         0.05276382 0.19346734]
+ [0.00251256 0.         0.04271357 0.20603015]
+ [0.00502513 0.         0.02261307 0.21859296]
+ [0.00753769 0.         0.01758794 0.22613065]]
+CLASSIFICATION REPORT
+              precision    recall  f1-score   support
+
+           0       0.25      0.02      0.04       100
+           1       0.00      0.00      0.00       100
+           2       0.17      0.09      0.12        98
+           3       0.27      0.90      0.41       100
+
+    accuracy                           0.25       398
+   macro avg       0.17      0.25      0.14       398
+weighted avg       0.17      0.25      0.14       398
+
+
+------> SUCCESSFULLY FINISHED ---------------------------------------- 
+
+Finished: 03/11/2022 00:13:32
