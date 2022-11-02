@@ -97,7 +97,7 @@ print("training:", training)
 # For
 #     1) naming model output directory
 #     2) naming results file
-experiment_id = "ADI17-xlsr-nr-second40"
+experiment_id = "ADI17-xlsr-nr-last20"
 print("experiment_id:", experiment_id)
 
 # DatasetDict Id
@@ -151,7 +151,7 @@ print("evaluation_filename:", evaluation_filename)
 use_checkpoint = True
 print("use_checkpoint:", use_checkpoint)
 # Set checkpoint if resuming from/using checkpoint
-checkpoint = "/srv/scratch/z5208494/ADI17-xlsr-nr-first40/pytorch_model.bin"
+checkpoint = "/srv/scratch/z5208494/ADI17-xlsr-nr-second40/pytorch_model.bin"
 
 if use_checkpoint:
     print("checkpoint:", checkpoint)
@@ -219,7 +219,7 @@ set_adam_epsilon = 0.00000001               # Default = 0.00000001
 print("adam_epsilon:", set_adam_epsilon)
 set_unfreezing_step = 10                   # Default = 3.0
 print("unfreezing_step:", set_unfreezing_step)
-set_num_train_epochs = 40                  # Default = 3.0
+set_num_train_epochs = 20                  # Default = 3.0
 print("num_train_epochs:", set_num_train_epochs)
 set_max_steps = -1                       # Default = -1, overrides epochs
 print("max_steps:", set_max_steps)
@@ -713,7 +713,7 @@ if training:
     trainer.fit(trainDataLoader, testDataLoader, set_num_train_epochs)
 
     # Save the model
-    model.module.save_pretrained(model_fp)
+    #model.module.save_pretrained(model_fp)
 
 # ------------------------------------------
 #            Evaluation
