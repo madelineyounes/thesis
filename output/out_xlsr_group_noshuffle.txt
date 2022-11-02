@@ -191,3 +191,63 @@ Epoch 5 Train Acc 27.657794952392578% Val Acc 0.0% Train Loss 0.687407374382019 
 Trainable Parameters : 264452
 Epoch 6 Train Acc 27.292776107788086% Val Acc 0.0% Train Loss 0.687371015548706 Val Loss 1.441785454750061
 Trainable Parameters : 264452
+Epoch 7 Train Acc 27.178707122802734% Val Acc 0.0% Train Loss 0.6871156692504883 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 8 Train Acc 27.63117790222168% Val Acc 0.0% Train Loss 0.6870444416999817 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 9 Train Acc 27.292776107788086% Val Acc 0.0% Train Loss 0.6871611475944519 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 10 Train Acc 27.235740661621094% Val Acc 0.0% Train Loss 0.6873456239700317 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 11 Train Acc 27.19391632080078% Val Acc 0.0% Train Loss 0.6873756647109985 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 12 Train Acc 27.18250846862793% Val Acc 0.0% Train Loss 0.6875879168510437 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 13 Train Acc 27.433460235595703% Val Acc 0.0% Train Loss 0.687408983707428 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 14 Train Acc 27.342205047607422% Val Acc 0.0% Train Loss 0.6871255040168762 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 15 Train Acc 26.97718620300293% Val Acc 0.0% Train Loss 0.6876077055931091 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 16 Train Acc 27.197717666625977% Val Acc 0.0% Train Loss 0.6876810789108276 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 17 Train Acc 26.84790802001953% Val Acc 0.0% Train Loss 0.687660813331604 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 18 Train Acc 27.247148513793945% Val Acc 0.0% Train Loss 0.687674343585968 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 19 Train Acc 27.475284576416016% Val Acc 0.0% Train Loss 0.6871417164802551 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 20 Train Acc 27.25475311279297% Val Acc 0.0% Train Loss 0.6873185038566589 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 21 Train Acc 27.673004150390625% Val Acc 0.0% Train Loss 0.6873816251754761 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 22 Train Acc 27.315589904785156% Val Acc 0.0% Train Loss 0.6872523427009583 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 23 Train Acc 27.064638137817383% Val Acc 0.0% Train Loss 0.6877102255821228 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 24 Train Acc 27.292776107788086% Val Acc 0.0% Train Loss 0.6872134804725647 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 25 Train Acc 27.475284576416016% Val Acc 0.0% Train Loss 0.6865875720977783 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 26 Train Acc 27.167299270629883% Val Acc 0.0% Train Loss 0.6872643232345581 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 27 Train Acc 26.95437240600586% Val Acc 0.0% Train Loss 0.68754643201828 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 28 Train Acc 27.06844139099121% Val Acc 0.0% Train Loss 0.6873020529747009 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 29 Train Acc 27.019010543823242% Val Acc 0.0% Train Loss 0.6872280240058899 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 30 Train Acc 27.292776107788086% Val Acc 0.0% Train Loss 0.687170147895813 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 31 Train Acc 27.70342254638672% Val Acc 0.0% Train Loss 0.6874723434448242 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 32 Train Acc 27.281368255615234% Val Acc 0.0% Train Loss 0.6873336434364319 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 33 Train Acc 27.657794952392578% Val Acc 0.0% Train Loss 0.6872938275337219 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 34 Train Acc 27.0% Val Acc 0.0% Train Loss 0.6873863339424133 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 35 Train Acc 27.414447784423828% Val Acc 0.0% Train Loss 0.6873376965522766 Val Loss 1.441785454750061
+Trainable Parameters : 264452
+Epoch 36 Train Acc 27.186311721801758% Val Acc 0.0% Train Loss 0.6870521306991577 Val Loss 1.441785454750061
+Trainable Parameters : 264452
