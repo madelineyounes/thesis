@@ -389,10 +389,10 @@ trainDataLoader = DataLoader(
     traincustomdata, batch_size=batch_size, shuffle=False, num_workers=set_num_of_workers)
 
 valDataLoader = DataLoader(
-    valcustomdata, batch_size=batch_size, shuffle=False, num_workers=set_num_of_workers)
+    valcustomdata, batch_size=batch_size, shuffle=True, num_workers=set_num_of_workers)
 
 testDataLoader = DataLoader(
-    testcustomdata, batch_size=batch_size, shuffle=False, num_workers=set_num_of_workers)
+    testcustomdata, batch_size=batch_size, shuffle=True, num_workers=set_num_of_workers)
 
 print("Check data has been processed correctly... ")
 print("Train Data Sample")
