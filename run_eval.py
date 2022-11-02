@@ -34,6 +34,7 @@ import customTransform as T
 from customData import CustomDataset
 from transformers.file_utils import ModelOutput
 import gc
+import tensorflow as tf 
 from transformers import (
     Trainer,
     TrainingArguments,
@@ -86,19 +87,14 @@ print("-->Importing pyarrow for loading dataset...")
 print("-->SUCCESS! All packages imported.")
 
 # ------------------------------------------
-#      Setting experiment arguments
-# ------------------------------------------
 print("\n------> EXPERIMENT ARGUMENTS ----------------------------------------- \n")
-# Perform Training (True/False)
-# If false, this will go straight to model evaluation
-training = True
-print("training:", training)
-
+batch_size = 40        # Default = 8
+print("batch_size:", batch_size)
 # Experiment ID
 # For
 #     1) naming model output directory
 #     2) naming results file
-experiment_id = "ADI17-xlsr-arabic"
+experiment_id = "ADI17-eval"
 print("experiment_id:", experiment_id)
 
 # DatasetDict Id
@@ -157,102 +153,9 @@ if use_checkpoint:
     print("checkpoint:", checkpoint)
 
 # Use pretrained model
-# model_name = "superb/wav2vec2-base-superb-sid"
-model_name = "elgeish/wav2vec2-large-xlsr-53-arabic"
-#model_name = "facebook/wav2vec2-base"
-# try log0/wav2vec2-base-lang-id
+model_path = "model/"
 
-# Evaluate existing model instead of newly trained model (True/False)
-#     True: use the model in the filepath set by 'eval_model' for eval
-#     False: use the model trained from this script for eval
-eval_pretrained = False
-print("eval_pretrained:", eval_pretrained)
-# Set existing model to evaluate, if evaluating on existing model
-eval_model = checkpoint
-if eval_pretrained:
-    print("eval_model:", eval_model)
-
-print("\n------> MODEL ARGUMENTS... -------------------------------------------\n")
-# For setting model = Wav2Vec2ForCTC.from_pretrained()
-set_num_of_workers = 1  # equivilent to cpus*gpu 
-print("number_of_worker:", set_num_of_workers)
-set_hidden_dropout = 0.1                    # Default = 0.1
-print("hidden_dropout:", set_hidden_dropout)
-set_activation_dropout = 0.1                # Default = 0.1
-print("activation_dropout:", set_activation_dropout)
-set_attention_dropout = 0.1                 # Default = 0.1
-print("attention_dropoutput:", set_attention_dropout)
-set_feat_proj_dropout = 0.0                 # Default = 0.1
-print("feat_proj_dropout:", set_feat_proj_dropout)
-set_layerdrop = 0.1                        # Default = 0.1
-print("layerdrop:", set_layerdrop)
-set_mask_time_prob = 0.065                  # Default = 0.05
-print("mask_time_prob:", set_mask_time_prob)
-set_mask_time_length = 10                   # Default = 10
-print("mask_time_length:", set_mask_time_length)
-set_ctc_loss_reduction = "mean"             # Default = "sum"
-print("ctc_loss_reduction:", set_ctc_loss_reduction)
-set_ctc_zero_infinity = False               # Default = False
-print("ctc_zero_infinity:", set_ctc_zero_infinity)
-set_gradient_checkpointing = False           # Default = False
-print("gradient_checkpointing:", set_gradient_checkpointing)
-set_pooling_mode = "mean"
-print("pooling_mode:", set_pooling_mode)
-
-print("\n------> TRAINING ARGUMENTS... ----------------------------------------\n")
-# For setting training_args = TrainingArguments()
-set_evaluation_strategy = "no"           # Default = "no"
-print("evaluation strategy:", set_evaluation_strategy)
-batch_size = 40        # Default = 8
-print("batch_size:", batch_size)
-set_gradient_accumulation_steps = 2         # Default = 4
-print("gradient_accumulation_steps:", set_gradient_accumulation_steps)
-set_learning_rate = 0.00004                 # Default = 0.00005
-print("learning_rate:", set_learning_rate)
-set_weight_decay = 0.01                     # Default = 0
-print("weight_decay:", set_weight_decay)
-set_adam_beta1 = 0.9                        # Default = 0.9
-print("adam_beta1:", set_adam_beta1)
-set_adam_beta2 = 0.98                       # Default = 0.999
-print("adam_beta2:", set_adam_beta2)
-set_adam_epsilon = 0.00000001               # Default = 0.00000001
-print("adam_epsilon:", set_adam_epsilon)
-set_unfreezing_step = 10                   # Default = 3.0
-print("unfreezing_step:", set_unfreezing_step)
-set_num_train_epochs = 100                  # Default = 3.0
-print("num_train_epochs:", set_num_train_epochs)
-set_max_steps = -1                       # Default = -1, overrides epochs
-print("max_steps:", set_max_steps)
-set_lr_scheduler_type = "linear"            # Default = "linear"
-print("lr_scheduler_type:", set_lr_scheduler_type)
-set_warmup_ratio = 0.1                      # Default = 0.0
-print("warmup_ratio:", set_warmup_ratio)
-set_logging_strategy = "steps"              # Default = "steps"
-print("logging_strategy:", set_logging_strategy)
-set_logging_steps = 10                      # Default = 500
-print("logging_steps:", set_logging_steps)
-set_save_strategy = "epoch"                 # Default = "steps"
-print("save_strategy:", set_save_strategy)
-set_save_steps = 500                         # Default = 500
-print("save_steps:", set_save_steps)
-set_save_total_limit = 40                   # Optional
-print("save_total_limit:", set_save_total_limit)
-set_fp16 = True                             # Default = False
-print("fp16:", set_fp16)
-set_eval_steps = 100                         # Optional
-print("eval_steps:", set_eval_steps)
-set_load_best_model_at_end = False           # Default = False
-print("load_best_model_at_end:", set_load_best_model_at_end)
-set_metric_for_best_model = "accuracy"           # Optional
-print("metric_for_best_model:", set_metric_for_best_model)
-set_greater_is_better = False               # Optional
-print("greater_is_better:", set_greater_is_better)
-set_group_by_length = True                  # Default = False
-print("group_by_length:", set_group_by_length)
-set_push_to_hub = False                      # Default = False
-print("push_to_hub:", set_push_to_hub)
-
-# ------------------------------------------
+#-----------------------------------------
 #        Generating file paths
 # ------------------------------------------
 print("\n------> GENERATING FILEPATHS... --------------------------------------\n")
@@ -296,17 +199,10 @@ print("--> model_fp:", model_fp)
 finetuned_results_fp = base_fp + train_name + \
     "_local/" + experiment_id + "_finetuned_results.csv"
 print("--> finetuned_results_fp:", finetuned_results_fp)
-# Pre-trained checkpoint model
-# For 1) Fine-tuning or
-#     2) resuming training from pre-trained model
-# If 1) must set use_checkpoint = False
-# If 2)must set use_checkpoint = True
-# Default model to fine-tune is facebook's model
-pretrained_mod = model_name
 
-if use_checkpoint:
-    pretrained_mod = checkpoint
-print("--> pretrained_mod:", pretrained_mod)
+print("\n------> LOAD SAVED MODEL ----------------------------------------- \n")
+model = tf.keras.models.load_model(model_path, custom_objects=None, compile=True, options=None)
+
 
 # ------------------------------------------
 #         Preparing dataset
@@ -372,8 +268,7 @@ def label_to_id(label, label_list):
 
 # create custom dataset class
 print("Create a custom dataset ---> ")
-random_transforms = transforms.Compose(
-    [T.Extractor(model_name, sampling_rate, max_duration)])
+random_transforms = transforms.Compose([T.Extractor(model, sampling_rate, max_duration)])
 
 traincustomdata = CustomDataset(
     csv_fp=data_train_fp, data_fp=train_data_path, labels=label_list, transform=random_transforms, model_name=model_name, max_length=max_duration)
@@ -430,19 +325,6 @@ print("SUCCESS: Data ready for training and evaluation.")
 # 4) Define the training configuration
 print("\n------> PREPARING FOR TRAINING & EVALUATION... ----------------------- \n")
 
-print("--> Defining pooling layer...")
-print("Number of labels:", num_labels)
-
-config = AutoConfig.from_pretrained(
-    pretrained_mod,
-    num_labels=num_labels,
-    label2id={label: i for i, label in enumerate(label_list)},
-    id2label={i: label for i, label in enumerate(label_list)},
-    finetuning_task="wav2vec2_clf",
-    problem_type="single_label_classification",
-)
-setattr(config, 'pooling_mode', set_pooling_mode)
-
 def plot_data(x_label, y_label, matrix, name):
     fig, ax = plt.subplots()
     cax = ax.matshow(matrix, cmap=plt.cm.Blues)
@@ -457,21 +339,9 @@ def plot_data(x_label, y_label, matrix, name):
     ax.set_yticklabels(y_label)
     plt.savefig("output/"+experiment_id+name+".png")
 
-print("--> Loading pre-trained checkpoint...")
-# NOTE: SWAPED Wav2Vec2ForSpeechClassification to Wav2Vec2ForSequenceClassification
-model = Wav2Vec2ForSequenceClassification.from_pretrained(model_name)
 model.classifier = nn.Linear(in_features=256, out_features=num_labels, bias=True)
 
 print("-------- Setting up Model --------")
-for param in model.wav2vec2.feature_extractor.parameters():
-    param.requires_grad = False
-
-for param in model.wav2vec2.encoder.parameters():
-    param.requires_grad = False
-
-for param in model.wav2vec2.feature_projection.parameters():
-    param.requires_grad = False
-
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 multi_gpu = False
 if torch.cuda.device_count() > 1:
@@ -511,218 +381,50 @@ def multi_acc(y_pred, y_test):
     return acc
 
 print("--> Defining Custom Trainer Class...")
-class myTrainer(Trainer):
-    def fit(self, train_loader, val_loader, epochs):
-        
-        for epoch in range(epochs):
-            """
-            print("EPOCH unfeeze : " + str(epoch % set_unfreezing_step))
-           
-            if epoch != 0 and epoch % set_unfreezing_step == 0 :
-                if epoch // set_unfreezing_step < (num_transformers-trainable_transformers):
-                    if multi_gpu:
-                        print("multi GPU used")
-                        for param in model.module.wav2vec2.encoder.layers[num_transformers-(epoch//set_unfreezing_step) - trainable_transformers].parameters():
-                            param.requires_grad = True
-                    else:
-                        for param in model.wav2vec2.encoder.layers[num_transformers-(epoch//set_unfreezing_step)-trainable_transformers].parameters():
-                            print("grad change")
-                            param.requires_grad = True
-            """
-            model_parameters = filter(lambda p: p.requires_grad, model.parameters())
-            params = sum([np.prod(p.size()) for p in model_parameters])
-            print('Trainable Parameters : ' + str(params))
-            if torch.cuda.is_available():
-                gc.collect()
-                torch.cuda.empty_cache()
-
-            loss_sum_tr = 0
-            acc_sum_tr = 0
-            loss_sum_val = 0
-            acc_sum_val = 0
-            tr_itt = iter(trainDataLoader)
-            tst_itt = iter(valDataLoader)
-             # train
-            train_loss, train_acc = self._train(train_loader, tr_itt, loss_sum_tr, acc_sum_tr)
-            # validate
-            val_loss, val_acc = self._validate(val_loader, tst_itt, loss_sum_val, acc_sum_val)
-            print(f"Epoch {epoch} Train Acc {train_acc}% Val Acc {val_acc}% Train Loss {train_loss} Val Loss {val_loss}")
-            outcsv.write(f"{epoch},{train_acc},{val_acc},{train_loss},{val_loss}\n")
-
-        # on the last epoch generate a con
-
-    def _train(self, loader, tr_itt, loss_sum_tr, acc_sum_tr):
-        # put model in train mode
-        self.model.train()
+def evaluate(self, loader, tst_itt):
+    # put model in evaluation mode
+    loss_sum = 0
+    acc_sum = 0
+    y_true = []
+    y_pred = []
+    self.model.eval()
+    with torch.no_grad():
         for i in range(len(loader)):
-            # forward pass
             try:
-                data = next(tr_itt)
+                data = next(tst_itt)
                 inputs = {}
-                inputs['input_values'] = data['input_values'].float().to(device).contiguous()
-                inputs['attention_mask'] = data['attention_mask'].long().to(device).contiguous()
+                inputs['input_values'] = data['input_values'].float(
+                ).to(device).contiguous()
+                inputs['attention_mask'] = data['attention_mask'].long(
+                ).to(device).contiguous()
                 labels = data['labels'].long().to(device).contiguous()
-                # loss
+                labels = labels.reshape((labels.shape[0])).long().to(device).contiguous()
+                predictions = model(**inputs).logits
                 loss, acc = self._compute_loss(model, inputs, labels)
-                # remove gradient from previous passes
-                self.optimizer.zero_grad()
-
-                if self.args.gradient_accumulation_steps > 1:
-                    loss = loss / self.args.gradient_accumulation_steps
-
-                loss.backward()
-                # parameters update
-                self.optimizer.step()
-
-                loss_sum_tr += loss.detach()
-                acc_sum_tr += acc.detach()
+                loss_sum += loss.detach()
+                acc_sum += acc.detach()
+                for j in range(0, len(predictions)):
+                    y_pred.append(np.argmax(predictions[j].cpu()).item())
+                    y_true.append(labels[j].cpu().item())
             except StopIteration:
                 break
-        loss_tot_tr = loss_sum_tr/len(loader)
-        acc_tot_tr = acc_sum_tr/len(loader)
-        return loss_tot_tr, acc_tot_tr
 
+    loss_tot = loss_sum/len(loader)
+    acc_tot = acc_sum/len(loader)
+    print(f"Final Test Acc:{acc_tot}% Loss:{loss_tot}")
+    outcsv.write(f"Final Test,{acc_tot},{loss_tot}\n")
 
-    def _validate(self, loader, tst_itt, loss_sum_val, acc_sum_val):
-        # put model in evaluation mode
-        self.model.eval()
-        with torch.no_grad():
-            for i in range(len(loader)):
-                try:
-                    data = next(tst_itt)
-                    inputs = {}
-                    inputs['input_values'] = data['input_values'].float(
-                    ).to(device).contiguous()
-                    inputs['attention_mask'] = data['attention_mask'].long(
-                    ).to(device).contiguous()
-                    labels = data['labels'].long().to(device).contiguous()
-                    loss, acc = self._compute_loss(model, inputs, labels)
-                    loss_sum_val += loss.detach()
-                    acc_sum_val += acc.detach()
-                except StopIteration:
-                    break
-        loss_tot_val = loss_sum_val/len(loader)
-        acc_tot_val = acc_sum_val/len(loader)
-        return loss_tot_val, acc_tot_val
+    c_matrix = confusion_matrix(y_true, y_pred)
+    c_matrix_norm = confusion_matrix(y_true, y_pred, normalize='all')
+    print("CONFUSION MATRIX")
+    print(c_matrix)
+    print("CONFUSION MATRIX NORMALISED")
+    print(c_matrix_norm)
+    print("CLASSIFICATION REPORT")
+    print(classification_report(y_true, y_pred))
 
-    def _compute_loss(self, model, inputs, labels):
-        prediction = model(**inputs).logits
-        lossfct = CrossEntropyLoss().to(device)
-        loss = lossfct(prediction, labels.reshape((labels.shape[0])).long().to(device).contiguous())
-        acc = multi_acc(prediction, labels.reshape(
-            (labels.shape[0])).long().to(device).contiguous())
-        return loss, acc
-
-    def _evaluate(self, loader, tst_itt):
-        # put model in evaluation mode
-        loss_sum = 0
-        acc_sum = 0
-        y_true = []
-        y_pred = []
-        self.model.eval()
-        with torch.no_grad():
-            for i in range(len(loader)):
-                try:
-                    data = next(tst_itt)
-                    inputs = {}
-                    inputs['input_values'] = data['input_values'].float(
-                    ).to(device).contiguous()
-                    inputs['attention_mask'] = data['attention_mask'].long(
-                    ).to(device).contiguous()
-                    labels = data['labels'].long().to(device).contiguous()
-                    labels = labels.reshape((labels.shape[0])).long().to(device).contiguous()
-                    predictions = model(**inputs).logits
-                    loss, acc = self._compute_loss(model, inputs, labels)
-                    loss_sum += loss.detach()
-                    acc_sum += acc.detach()
-                    for j in range(0, len(predictions)):
-                        y_pred.append(np.argmax(predictions[j].cpu()).item())
-                        y_true.append(labels[j].cpu().item())
-                except StopIteration:
-                    break
-
-        loss_tot = loss_sum/len(loader)
-        acc_tot = acc_sum/len(loader)
-        print(f"Final Test Acc:{acc_tot}% Loss:{loss_tot}")
-        outcsv.write(f"Final Test,{acc_tot},{loss_tot}\n")
-
-        c_matrix = confusion_matrix(y_true, y_pred)
-        c_matrix_norm = confusion_matrix(y_true, y_pred, normalize='all')
-        print("CONFUSION MATRIX")
-        print(c_matrix)
-        print("CONFUSION MATRIX NORMALISED")
-        print(c_matrix_norm)
-        print("CLASSIFICATION REPORT")
-        print(classification_report(y_true, y_pred))
-
-        plot_data(label_list, label_list, c_matrix, "")
-        plot_data(label_list, label_list, c_matrix_norm, "-norm")
-
-# model.freeze_feature_extractor()
-optimizer = Adafactor(model.parameters(), scale_parameter=True,
-                      relative_step=True, warmup_init=True, lr=None)
-lr_scheduler = AdafactorSchedule(optimizer)
-
-training_args = TrainingArguments(
-    output_dir=model_fp,
-    evaluation_strategy=set_evaluation_strategy,
-    per_device_train_batch_size=batch_size,
-    gradient_accumulation_steps=set_gradient_accumulation_steps,
-    gradient_checkpointing=set_gradient_checkpointing,
-    learning_rate=set_learning_rate,
-    weight_decay=set_weight_decay,
-    adam_beta1=set_adam_beta1,
-    adam_beta2=set_adam_beta2,
-    adam_epsilon=set_adam_epsilon,
-    num_train_epochs=set_num_train_epochs,
-    max_steps=set_max_steps,
-    lr_scheduler_type=set_lr_scheduler_type,
-    warmup_ratio=set_warmup_ratio,
-    logging_strategy=set_logging_strategy,
-    logging_steps=set_logging_steps,
-    save_strategy=set_save_strategy,
-    save_steps=set_save_steps,
-    save_total_limit=set_save_total_limit,
-    fp16=set_fp16,
-    eval_steps=myTrainer,
-    load_best_model_at_end=set_load_best_model_at_end,
-    metric_for_best_model=set_metric_for_best_model,
-    greater_is_better=set_greater_is_better,
-    group_by_length=set_group_by_length,
-    hub_token='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',
-    push_to_hub=set_push_to_hub,
-)
-# All instances can be passed to Trainer and
-# we are ready to start training!
-# model.gradient_checkpointing_enable()
-trainer = myTrainer(
-    model=model,
-    optimizers=(optimizer, lr_scheduler),
-    args=training_args,
-)
-
-# ------------------------------------------
-#               Training
-# ------------------------------------------
-# While the trained model yields a satisfying result on Timit's
-# test data, it is by no means an optimally fine-tuned model
-# for children's data.
-
-if training:
-    print("\n------> STARTING TRAINING... ----------------------------------------- \n")
-    # Use avaliable GPUs
-    if torch.cuda.is_available():
-        device = torch.device("cuda")
-        gc.collect()
-        torch.cuda.empty_cache()
-    else:
-        device = ("cpu")
-    # Train
-    trainer.fit(trainDataLoader, testDataLoader, set_num_train_epochs)
-
-    # Save the model
-    model.module.save_pretrained(model_fp)
-
+    plot_data(label_list, label_list, c_matrix, "")
+    plot_data(label_list, label_list, c_matrix_norm, "-norm")
 # ------------------------------------------
 #            Evaluation
 # ------------------------------------------
@@ -730,7 +432,7 @@ if training:
 print("\n------> EVALUATING MODEL... ------------------------------------------ \n")
 
 tst_itt = iter(testDataLoader)
-trainer. _evaluate(testDataLoader, tst_itt)
+evaluate(model, testDataLoader, tst_itt)
 
 print("\n------> SUCCESSFULLY FINISHED ---------------------------------------- \n")
 now = datetime.now()
