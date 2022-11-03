@@ -98,7 +98,7 @@ print("training:", training)
 # For
 #     1) naming model output directory
 #     2) naming results file
-experiment_id = "ADI17-xlsr-regional"
+experiment_id = "ADI17-xlsr-regional2"
 print("experiment_id:", experiment_id)
 
 # DatasetDict Id
@@ -127,17 +127,19 @@ base_cache_fp = "/srv/scratch/z5208494/cache/huggingface/datasets/"
 # Training dataset name and filename
 # Dataset name and filename of the csv file containing the training data
 # For generating filepath to file location
-train_name = "regional_500f_devdata"
-train_filename = "dev_r_500f"
+train_name = "r_train_700f"
+train_filename = "r_train_700f"
 print("train_name:", train_name)
 print("train_filename:", train_filename)
+
+validation_filename = "dev_r_200f"
+print("validation_filename:", validation_filename)
 
 # Evaluation dataset name and filename
 # Dataset name and filename of the csv file containing the evaluation data
 # For generating filepath to file location
 
-#evaluation_filename = "adi17_test_umbrella_label"
-evaluation_filename =  "test_r_500f"
+evaluation_filename = "test_r_100f"
 print("evaluation_filename:", evaluation_filename)
 # Resume training from/ use checkpoint (True/False)
 # Set to True for:
@@ -389,12 +391,18 @@ random_transforms = transforms.Compose(
     [T.Extractor(model_name, sampling_rate, max_duration)])
 
 traincustomdata = CustomDataset(
-    csv_fp=data_train_fp, data_fp=training_data_path, labels=label_list, transform=random_transforms, model_name=model_name, max_length=max_duration)
+    csv_fp=data_train_fp, data_fp=train_data_path, labels=label_list, transform=random_transforms, model_name=model_name, max_length=max_duration)
+valcustomdata = CustomDataset(
+    csv_fp=data_val_fp, data_fp=dev_data_path, labels=label_list, transform=random_transforms, model_name=model_name, max_length=max_duration)
 testcustomdata = CustomDataset(
     csv_fp=data_test_fp, data_fp=test_data_path, labels=label_list, transform=random_transforms, model_name=model_name, max_length=max_duration)
 
+
 trainDataLoader = DataLoader(
     traincustomdata, batch_size=batch_size, shuffle=True, num_workers=set_num_of_workers)
+
+valDataLoader = DataLoader(
+    valcustomdata, batch_size=batch_size, shuffle=True, num_workers=set_num_of_workers)
 
 testDataLoader = DataLoader(
     testcustomdata, batch_size=batch_size, shuffle=True, num_workers=set_num_of_workers)
@@ -403,8 +411,14 @@ print("Check data has been processed correctly... ")
 print("Train Data Sample")
 TrainData = next(iter(trainDataLoader))
 print(TrainData)
-print("Training DataCustom Files: "+ str(len(traincustomdata)))
-print("Training Data Files: "+ str(len(trainDataLoader)))
+print("Training DataCustom Files: " + str(len(traincustomdata)))
+print("Training Data Files: " + str(len(trainDataLoader)))
+
+print("Val Data Sample")
+ValData = next(iter(valDataLoader))
+print(ValData)
+print("Test CustomData Files: " + str(len(valcustomdata)))
+print("Test Data Files: " + str(len(valDataLoader)))
 
 print("Test Data Sample")
 TestData = next(iter(testDataLoader))
@@ -444,7 +458,7 @@ config = AutoConfig.from_pretrained(
 )
 setattr(config, 'pooling_mode', set_pooling_mode)
 
-def plot_data(x_label, y_label, matrix):
+def plot_data(x_label, y_label, matrix, name):
     fig, ax = plt.subplots()
     cax = ax.matshow(matrix, cmap=plt.cm.Blues)
 
@@ -453,9 +467,11 @@ def plot_data(x_label, y_label, matrix):
     yaxis = np.arange(len(y_label))
     ax.set_xticks(xaxis)
     ax.set_yticks(yaxis)
+    ax.tick_params(labelbottom=True, labeltop=False)
+    ax.set_xticklabels(x_label, rotation=45)
     ax.set_xticklabels(x_label)
     ax.set_yticklabels(y_label)
-    plt.savefig("output/"+experiment_id+".png")
+    plt.savefig("output/"+experiment_id+name+".png")
 
 print("--> Loading pre-trained checkpoint...")
 # NOTE: SWAPED Wav2Vec2ForSpeechClassification to Wav2Vec2ForSequenceClassification
@@ -541,7 +557,7 @@ class myTrainer(Trainer):
             loss_sum_val = 0
             acc_sum_val = 0
             tr_itt = iter(trainDataLoader)
-            tst_itt = iter(testDataLoader)
+            tst_itt = iter(valDataLoader)
              # train
             train_loss, train_acc = self._train(train_loader, tr_itt, loss_sum_tr, acc_sum_tr)
             # validate
@@ -631,19 +647,30 @@ class myTrainer(Trainer):
                     labels = labels.reshape(
                         (labels.shape[0])).long().to(device).contiguous()
                     predictions = model(**inputs).logits
+                    loss, acc = self._compute_loss(model, inputs, labels)
+                    loss_sum += loss.detach()
+                    acc_sum += acc.detach()
                     for j in range(0, len(predictions)):
                         y_pred.append(np.argmax(predictions[j].cpu()).item())
                         y_true.append(labels[j].cpu().item())
                 except StopIteration:
                     break
+        loss_tot = loss_sum/len(loader)
+        acc_tot = acc_sum/len(loader)
+        print(f"Final Test Acc:{acc_tot}% Loss:{loss_tot}")
+        outcsv.write(f"Final Test,{acc_tot},{loss_tot}\n")
 
         c_matrix = confusion_matrix(y_true, y_pred)
+        c_matrix_norm = confusion_matrix(y_true, y_pred, normalize='all')
         print("CONFUSION MATRIX")
         print(c_matrix)
+        print("CONFUSION MATRIX NORMALISED")
+        print(c_matrix_norm)
         print("CLASSIFICATION REPORT")
         print(classification_report(y_true, y_pred))
 
-        plot_data(label_list, label_list, c_matrix)
+        plot_data(label_list, label_list, c_matrix, "")
+        plot_data(label_list, label_list, c_matrix_norm, "-norm")   
 
 # model.freeze_feature_extractor()
 optimizer = Adafactor(model.parameters(), scale_parameter=True,
@@ -708,7 +735,7 @@ if training:
     trainer.fit(trainDataLoader, testDataLoader, set_num_train_epochs)
 
     # Save the model
-    model.module.save_pretrained(model_fp)
+    #model.module.save_pretrained(model_fp)
 
 # ------------------------------------------
 #            Evaluation
