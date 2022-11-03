@@ -12,11 +12,11 @@ output_path = "../data/"
 train_input_file = output_path + "adi17_official_dev_label.txt"
 test_input_file = output_path +"adi17_official_test_label.txt"
 
-test_u_out_file = output_path +"test_u_200f.csv"
-train_u_out_file = output_path+ "dev_u_200f.csv"
+test_u_out_file = output_path +"test_u_NOLEV.csv"
+train_u_out_file = output_path+ "dev_u_NOLEV.csv"
 
-test_r_out_file = output_path + "test_r_200f.csv"
-train_r_out_file = output_path +"dev_r_200f.csv"
+test_r_out_file = output_path + "test_r_NOLEV.csv"
+train_r_out_file = output_path +"dev_r_NOLEV.csv"
 
 dialect_dict = {
     "EGY": ['EGY', 'SDN'],
@@ -53,7 +53,7 @@ for d in umbrella_dialects:
         dcount = 0
         rdcount = 0 
         for line in train_lines:
-            if rd in line.rstrip("\n"):
+            if rd in line.rstrip("\n") and rd not in dialect_dict["LEV"]:
                 if  dcount <= numf:
                     filename = line.split(' ')[0]
                     ftrain.write(filename + f",{d}\n")
@@ -65,7 +65,7 @@ for d in umbrella_dialects:
         dcount = 0
         rdcount = 0
         for line in test_lines:
-            if rd in line.rstrip("\n"):
+            if rd in line.rstrip("\n")and rd not in dialect_dict["LEV"]:
                 if dcount <= numf:
                     filename = line.split(' ')[0]
                     ftest.write(filename + f",{d}\n")
