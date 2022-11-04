@@ -261,6 +261,9 @@ data_base_fp = "data/"
 data_train_fp = data_base_fp + train_filename + ".csv"
 print("--> data_train_fp:", data_train_fp)
 # Path to dataframe csv for test dataset
+data_val_fp = data_base_fp + validation_filename + ".csv"
+print("--> data_test_fp:", data_val_fp)
+
 data_test_fp = data_base_fp + evaluation_filename + ".csv"
 print("--> data_test_fp:", data_test_fp)
 # Path to results csv 
