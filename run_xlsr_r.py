@@ -110,8 +110,11 @@ print("datasetdict_id:", datasetdict_id)
 data_path = "/srv/scratch/z5208494/dataset/"
 print("data path:", data_path)
 
-training_data_path = "/srv/scratch/z5208494/dataset/dev_segments/"
-print("training data path:", training_data_path)
+train_data_path = "/srv/scratch/z5208494/dataset/train_segments/"
+print("test data path:", train_data_path)
+
+dev_data_path = "/srv/scratch/z5208494/dataset/dev_segments/"
+print("training data path:", dev_data_path)
 
 test_data_path = "/srv/scratch/z5208494/dataset/test_segments/"
 print("test data path:", test_data_path)

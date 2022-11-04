@@ -14,4 +14,4 @@ cd /home/z5208494/thesis/
 echo ""$(date)"" 2>&1 | tee -a output/out_dnn_4lyr.txt
 
 # This runs the test script
-python3 run_dnn_downstream_4layer.py 2>&1 | tee -a output/out_dnn_4lyr.txt
+python3 run_dnn_downstream_4layers.py 2>&1 | tee -a output/out_dnn_4lyr.txt
