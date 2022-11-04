@@ -637,6 +637,8 @@ class myTrainer(Trainer):
 
     def _evaluate(self, loader, tst_itt):
         # put model in evaluation mode
+        loss_sum = 0
+        acc_sum = 0
         y_true = []
         y_pred = []
         self.model.eval()
