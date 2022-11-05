@@ -628,11 +628,10 @@ class myTrainer(Trainer):
     def _compute_loss(self, model, inputs, labels):
         predictions = model(**inputs).logits
         grouped_pred,grouped_labels = self._group(predictions, labels)
-        grouped_pred = torch.FloatTensor(grouped_pred)
+        grouped_pred = torch.autograd.Variable(torch.FloatTensor(grouped_pred), requires_grad=True)
         grouped_labels = torch.FloatTensor(grouped_labels)
         lossfct = CrossEntropyLoss().to(device)
-        loss = lossfct(grouped_pred, grouped_labels.reshape(
-            (grouped_labels.shape[0])).float().to(device).contiguous())
+        loss = lossfct(grouped_pred, grouped_labels)
         acc = multi_acc(grouped_pred, grouped_labels)
         return loss, acc
 
