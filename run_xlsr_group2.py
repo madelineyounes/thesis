@@ -627,7 +627,7 @@ class myTrainer(Trainer):
 
     def _compute_loss(self, model, inputs, labels):
         predictions = model(**inputs).logits
-        grouped_pred,grouped_labels = _group(predictions, labels)
+        grouped_pred,grouped_labels = self._group(predictions, labels)
         grouped_pred = torch.FloatTensor(grouped_pred)
         grouped_labels = torch.LongTensor(grouped_labels)
         lossfct = CrossEntropyLoss().to(device)
