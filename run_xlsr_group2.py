@@ -630,6 +630,12 @@ class myTrainer(Trainer):
         grouped_pred,grouped_labels = self._group(predictions, labels)
         grouped_pred = torch.autograd.Variable(torch.FloatTensor(grouped_pred), requires_grad=True)
         grouped_labels = torch.FloatTensor(grouped_labels)
+
+        print(predictions)
+        print(labels)
+        print(grouped_pred)
+        print(grouped_labels)
+
         lossfct = CrossEntropyLoss().to(device)
         loss = lossfct(grouped_pred, grouped_labels)
         acc = multi_acc(grouped_pred, grouped_labels)
