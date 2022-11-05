@@ -613,7 +613,7 @@ class myTrainer(Trainer):
         group_labels = []
 
         num_groups = len(predictions)/ group_size
-        for j in num_groups:
+        for j in range (0, num_groups):
             g_pred = []
             g_label = []
             for i in range (0, group_size):
