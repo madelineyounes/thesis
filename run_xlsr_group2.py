@@ -612,7 +612,7 @@ class myTrainer(Trainer):
         group_pred = []
         group_labels = []
 
-        num_groups = len(predictions)/ group_size
+        num_groups = int(np.ceil(len(predictions)/ group_size))
         for j in range (0, num_groups):
             g_pred = []
             g_label = []
