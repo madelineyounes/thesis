@@ -632,7 +632,7 @@ class myTrainer(Trainer):
         grouped_labels = torch.FloatTensor(grouped_labels)
         lossfct = CrossEntropyLoss().to(device)
         loss = lossfct(grouped_pred, grouped_labels.reshape(
-            (grouped_labels.shape[0])).long().to(device).contiguous())
+            (grouped_labels.shape[0])).float().to(device).contiguous())
         acc = multi_acc(grouped_pred, grouped_labels)
         return loss, acc
 
