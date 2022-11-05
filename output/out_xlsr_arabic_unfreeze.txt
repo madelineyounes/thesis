@@ -1,0 +1,505 @@
+Sat Nov 5 11:42:10 AEDT 2022
+2022-11-05 11:42:12.126868: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F AVX512_VNNI FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2022-11-05 11:42:12.502745: I tensorflow/core/util/util.cc:169] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2022-11-05 11:42:12.635771: E tensorflow/stream_executor/cuda/cuda_blas.cc:2981] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2022-11-05 11:42:14.115493: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer.so.7'; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /apps/sox/14.4.2/lib:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/daal/lib/intel64_lin:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/ipp/lib/intel64:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/tbb/lib/intel64_lin/gcc4.4:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/tbb/lib/intel64/gcc4.4:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/mkl/lib/intel64_lin:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/debugger/libipt/intel64/lib:/apps/intel/Composer/debugger_2019/libipt/intel64/lib:/apps/intel/Composer/debugger_2019/iga/lib:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/compiler/lib/intel64:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/compiler/lib/intel64_lin:/apps/python/3.8.3/lib:/apps/gcc/8.4.0/lib64:/apps/gcc/8.4.0/lib:/apps/cuda/11.1/lib64:/apps/cuda/11.1/extras/CUPTI/lib64
+2022-11-05 11:42:14.117221: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer_plugin.so.7'; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /apps/sox/14.4.2/lib:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/daal/lib/intel64_lin:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/ipp/lib/intel64:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/tbb/lib/intel64_lin/gcc4.4:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/tbb/lib/intel64/gcc4.4:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/mkl/lib/intel64_lin:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/debugger/libipt/intel64/lib:/apps/intel/Composer/debugger_2019/libipt/intel64/lib:/apps/intel/Composer/debugger_2019/iga/lib:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/compiler/lib/intel64:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/compiler/lib/intel64_lin:/apps/python/3.8.3/lib:/apps/gcc/8.4.0/lib64:/apps/gcc/8.4.0/lib:/apps/cuda/11.1/lib64:/apps/cuda/11.1/extras/CUPTI/lib64
+2022-11-05 11:42:14.117230: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
+------------------------------------------------------------------------
+                         run_xlsr.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_xlsr_unfreeze2.py
+Started: 05/11/2022 11:42:25
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: ADI17-xlsr-araic-unfreeze
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+test data path: /srv/scratch/z5208494/dataset/train_segments/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: u_train_700f
+train_filename: u_train_700f
+validation_filename: dev_u_200f
+evaluation_filename: test_u_100f
+use_checkpoint: False
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+number_of_worker: 1
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.1
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: no
+batch_size: 24
+gradient_accumulation_steps: 2
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 100
+max_steps: -1
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 500
+save_total_limit: 40
+fp16: True
+eval_steps: 100
+load_best_model_at_end: False
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/u_train_700f.csv
+--> data_test_fp: data/dev_u_200f.csv
+--> data_test_fp: data/test_u_100f.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/u_train_700f_local/ADI17-xlsr-araic-unfreeze
+--> finetuned_results_fp: /srv/scratch/z5208494/output/u_train_700f_local/ADI17-xlsr-araic-unfreeze_finetuned_results.csv
+--> pretrained_mod: elgeish/wav2vec2-large-xlsr-53-arabic
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 10 s
+Sampling Rate: 16000
+Target Sampling Rate: 16000
+Create a custom dataset ---> 
+Check data has been processed correctly... 
+Train Data Sample
+{'input_values': tensor([[-0.9914, -1.2460, -1.2779,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0714,  0.4099,  0.8665,  ...,  0.1579,  0.3048,  0.2657],
+        [ 0.1919,  0.1116, -0.0228,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [ 0.6965,  0.1338, -0.4435,  ...,  0.0000,  0.0000,  0.0000],
+        [ 1.3460,  1.6853,  2.1760,  ...,  0.0000,  0.0000,  0.0000],
+        [-1.0643, -1.0495, -1.0303,  ..., -0.5699, -0.4763, -0.4512]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1]]), 'labels': tensor([1, 2, 3, 2, 2, 3, 2, 2, 2, 2, 0, 3, 2, 2, 2, 3, 2, 0, 1, 0, 2, 2, 2, 3])}
+Training DataCustom Files: 10502
+Training Data Files: 438
+Val Data Sample
+{'input_values': tensor([[ 0.0326,  0.0270,  0.0370,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.5457, -0.7358, -0.9234,  ...,  0.0000,  0.0000,  0.0000],
+        [ 3.0155,  2.3806,  1.4611,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [ 3.2281,  3.3580,  3.3146,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0647, -0.0888, -0.1077,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.5463, -0.5295, -0.5131,  ..., -0.6032, -0.5712, -0.5153]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1]]), 'labels': tensor([3, 1, 0, 3, 1, 2, 2, 1, 0, 1, 0, 2, 1, 2, 1, 1, 0, 3, 1, 2, 1, 1, 2, 1])}
+Test CustomData Files: 813
+Test Data Files: 34
+Test Data Sample
+Some weights of the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic were not used when initializing Wav2Vec2ForSequenceClassification: ['lm_head.bias', 'lm_head.weight']
+- This IS expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of Wav2Vec2ForSequenceClassification were not initialized from the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic and are newly initialized: ['classifier.bias', 'projector.bias', 'projector.weight', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Using cuda_amp half precision backend
+{'input_values': tensor([[-0.6754,  0.4478,  1.4024,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0429,  0.0454,  0.0409,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.2213, -0.2763, -0.3021,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [-0.0758,  0.1066,  0.4070,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.1865,  0.2309,  0.2290,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.1049,  0.1425,  0.3314,  ...,  0.7773, -0.1158, -0.7908]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1]]), 'labels': tensor([1, 3, 1, 1, 0, 3, 0, 2, 1, 3, 3, 2, 2, 1, 1, 3, 1, 1, 0, 0, 3, 3, 2, 0])}
+Test CustomData Files: 398
+Test Data Files: 17
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Loading pre-trained checkpoint...
+-------- Setting up Model --------
+GPUs Used :  3 GPUs!
+SUCCESS: Pre-trained checkpoint loaded.
+--> Defining Custom Trainer Class...
+
+------> STARTING TRAINING... ----------------------------------------- 
+
+EPOCH unfeeze : 0
+Trainable Parameters : 151419140
+Epoch 0 Train Acc 37.815067291259766% Val Acc 31.647058486938477% Train Loss 0.6538058519363403 Val Loss 1.4140287637710571
+EPOCH unfeeze : 1
+Trainable Parameters : 151419140
+Epoch 1 Train Acc 54.67123031616211% Val Acc 46.82352828979492% Train Loss 0.5362118482589722 Val Loss 1.220638632774353
+EPOCH unfeeze : 2
+Trainable Parameters : 151419140
+Epoch 2 Train Acc 71.06163787841797% Val Acc 72.35294342041016% Train Loss 0.38019800186157227 Val Loss 0.8011974096298218
+EPOCH unfeeze : 3
+Trainable Parameters : 151419140
+Epoch 3 Train Acc 79.48857879638672% Val Acc 68.17646789550781% Train Loss 0.2815968096256256 Val Loss 0.8205710649490356
+EPOCH unfeeze : 4
+Trainable Parameters : 151419140
+Epoch 4 Train Acc 85.42008972167969% Val Acc 62.588233947753906% Train Loss 0.20658475160598755 Val Loss 1.2165004014968872
+EPOCH unfeeze : 5
+Trainable Parameters : 151419140
+Epoch 5 Train Acc 88.69178009033203% Val Acc 65.35294342041016% Train Loss 0.16092482209205627 Val Loss 1.1214542388916016
+EPOCH unfeeze : 6
+Trainable Parameters : 151419140
+Epoch 6 Train Acc 90.43150329589844% Val Acc 67.35294342041016% Train Loss 0.13774144649505615 Val Loss 1.0087357759475708
+EPOCH unfeeze : 7
+Trainable Parameters : 151419140
+Epoch 7 Train Acc 91.80821228027344% Val Acc 59.764705657958984% Train Loss 0.11894139647483826 Val Loss 1.7285406589508057
+EPOCH unfeeze : 8
+Trainable Parameters : 151419140
+Epoch 8 Train Acc 92.42693328857422% Val Acc 73.23529815673828% Train Loss 0.10561081767082214 Val Loss 0.8520030379295349
+EPOCH unfeeze : 9
+Trainable Parameters : 151419140
+Epoch 9 Train Acc 93.34931182861328% Val Acc 68.5882339477539% Train Loss 0.09530896693468094 Val Loss 1.1970139741897583
+EPOCH unfeeze : 0
+Trainable Parameters : 151419140
+Epoch 10 Train Acc 93.4474868774414% Val Acc 69.11764526367188% Train Loss 0.0947556421160698 Val Loss 1.293389916419983
+EPOCH unfeeze : 1
+Trainable Parameters : 151419140
+Epoch 11 Train Acc 92.90182495117188% Val Acc 68.52941131591797% Train Loss 0.10287825018167496 Val Loss 1.3317605257034302
+EPOCH unfeeze : 2
+Trainable Parameters : 151419140
+Epoch 12 Train Acc 92.66438293457031% Val Acc 72.52941131591797% Train Loss 0.10108326375484467 Val Loss 0.99283766746521
+EPOCH unfeeze : 3
+Trainable Parameters : 151419140
+Epoch 13 Train Acc 93.34474182128906% Val Acc 62.35293960571289% Train Loss 0.0982653945684433 Val Loss 1.600152611732483
+EPOCH unfeeze : 4
+Trainable Parameters : 151419140
+Epoch 14 Train Acc 92.9703140258789% Val Acc 68.82353210449219% Train Loss 0.10318779945373535 Val Loss 1.2372164726257324
+EPOCH unfeeze : 5
+Trainable Parameters : 151419140
+Epoch 15 Train Acc 92.9520492553711% Val Acc 67.76470947265625% Train Loss 0.10472085326910019 Val Loss 1.107036828994751
+EPOCH unfeeze : 6
+Trainable Parameters : 151419140
+Epoch 16 Train Acc 92.73515319824219% Val Acc 62.94117736816406% Train Loss 0.10887801647186279 Val Loss 1.403509497642517
+EPOCH unfeeze : 7
+Trainable Parameters : 151419140
+Epoch 17 Train Acc 92.50456237792969% Val Acc 69.52941131591797% Train Loss 0.1108185350894928 Val Loss 1.1677442789077759
+EPOCH unfeeze : 8
+Trainable Parameters : 151419140
+Epoch 18 Train Acc 91.64154815673828% Val Acc 67.4117660522461% Train Loss 0.12496883422136307 Val Loss 1.1769691705703735
+EPOCH unfeeze : 9
+Trainable Parameters : 151419140
+Epoch 19 Train Acc 91.13241577148438% Val Acc 71.4117660522461% Train Loss 0.12597081065177917 Val Loss 1.0902198553085327
+EPOCH unfeeze : 0
+Trainable Parameters : 151419140
+Epoch 20 Train Acc 91.24885559082031% Val Acc 65.52941131591797% Train Loss 0.1286063939332962 Val Loss 1.0309596061706543
+EPOCH unfeeze : 1
+Trainable Parameters : 151419140
+Epoch 21 Train Acc 90.72830963134766% Val Acc 59.235294342041016% Train Loss 0.13231629133224487 Val Loss 1.686769962310791
+EPOCH unfeeze : 2
+Trainable Parameters : 151419140
+Epoch 22 Train Acc 90.32191467285156% Val Acc 71.29412078857422% Train Loss 0.14134414494037628 Val Loss 1.0169017314910889
+EPOCH unfeeze : 3
+Trainable Parameters : 151419140
+Epoch 23 Train Acc 89.82647705078125% Val Acc 69.47058868408203% Train Loss 0.14626333117485046 Val Loss 1.0399177074432373
+EPOCH unfeeze : 4
+Trainable Parameters : 151419140
+Epoch 24 Train Acc 91.3059310913086% Val Acc 61.411766052246094% Train Loss 0.12520743906497955 Val Loss 1.33375883102417
+EPOCH unfeeze : 5
+Trainable Parameters : 151419140
+Epoch 25 Train Acc 91.60501861572266% Val Acc 67.11764526367188% Train Loss 0.11861715465784073 Val Loss 1.1379436254501343
+EPOCH unfeeze : 6
+Trainable Parameters : 151419140
+Epoch 26 Train Acc 91.97716522216797% Val Acc 59.588233947753906% Train Loss 0.11835257709026337 Val Loss 1.7005871534347534
+EPOCH unfeeze : 7
+Trainable Parameters : 151419140
+Epoch 27 Train Acc 92.31963348388672% Val Acc 63.82352828979492% Train Loss 0.11339323222637177 Val Loss 1.3608927726745605
+EPOCH unfeeze : 8
+Trainable Parameters : 151419140
+Epoch 28 Train Acc 92.86300659179688% Val Acc 59.05882263183594% Train Loss 0.10260332375764847 Val Loss 1.4783929586410522
+EPOCH unfeeze : 9
+Trainable Parameters : 151419140
+Epoch 29 Train Acc 93.48172760009766% Val Acc 66.35294342041016% Train Loss 0.09910997748374939 Val Loss 1.4342429637908936
+EPOCH unfeeze : 0
+Trainable Parameters : 151419140
+Epoch 30 Train Acc 93.14382934570312% Val Acc 68.5882339477539% Train Loss 0.09748672693967819 Val Loss 1.2718794345855713
+EPOCH unfeeze : 1
+Trainable Parameters : 151419140
+Epoch 31 Train Acc 94.16666412353516% Val Acc 64.29412078857422% Train Loss 0.08517758548259735 Val Loss 1.4979534149169922
+EPOCH unfeeze : 2
+Trainable Parameters : 151419140
+Epoch 32 Train Acc 94.42237091064453% Val Acc 67.70587921142578% Train Loss 0.08618547022342682 Val Loss 1.5147696733474731
+EPOCH unfeeze : 3
+Trainable Parameters : 151419140
+Epoch 33 Train Acc 94.07077026367188% Val Acc 62.47058868408203% Train Loss 0.08276556432247162 Val Loss 1.5170186758041382
+EPOCH unfeeze : 4
+Trainable Parameters : 151419140
+Epoch 34 Train Acc 94.8013687133789% Val Acc 67.52941131591797% Train Loss 0.07657003402709961 Val Loss 1.3114960193634033
+EPOCH unfeeze : 5
+Trainable Parameters : 151419140
+Epoch 35 Train Acc 95.28766632080078% Val Acc 65.4117660522461% Train Loss 0.06938748806715012 Val Loss 1.6746504306793213
+EPOCH unfeeze : 6
+Trainable Parameters : 151419140
+Epoch 36 Train Acc 95.6164321899414% Val Acc 65.5882339477539% Train Loss 0.06417971104383469 Val Loss 1.420729637145996
+EPOCH unfeeze : 7
+Trainable Parameters : 151419140
+Epoch 37 Train Acc 95.57077026367188% Val Acc 68.11764526367188% Train Loss 0.06371701508760452 Val Loss 1.5381178855895996
+EPOCH unfeeze : 8
+Trainable Parameters : 151419140
+Epoch 38 Train Acc 96.01141357421875% Val Acc 63.411766052246094% Train Loss 0.06216457858681679 Val Loss 1.8191535472869873
+EPOCH unfeeze : 9
+Trainable Parameters : 151419140
+Epoch 39 Train Acc 95.83332824707031% Val Acc 69.17646789550781% Train Loss 0.0622640885412693 Val Loss 1.6768144369125366
+EPOCH unfeeze : 0
+Trainable Parameters : 151419140
+Epoch 40 Train Acc 95.7442855834961% Val Acc 65.4117660522461% Train Loss 0.060940057039260864 Val Loss 1.6984089612960815
+EPOCH unfeeze : 1
+Trainable Parameters : 151419140
+Epoch 41 Train Acc 96.33560943603516% Val Acc 64.64705657958984% Train Loss 0.05639616772532463 Val Loss 1.68864107131958
+EPOCH unfeeze : 2
+Trainable Parameters : 151419140
+Epoch 42 Train Acc 96.7305908203125% Val Acc 65.23529815673828% Train Loss 0.05025680363178253 Val Loss 1.5762892961502075
+EPOCH unfeeze : 3
+Trainable Parameters : 151419140
+Epoch 43 Train Acc 96.42237091064453% Val Acc 68.05882263183594% Train Loss 0.052278682589530945 Val Loss 1.286376953125
+EPOCH unfeeze : 4
+Trainable Parameters : 151419140
+Epoch 44 Train Acc 96.8675765991211% Val Acc 66.64705657958984% Train Loss 0.04845299944281578 Val Loss 1.672179937362671
+EPOCH unfeeze : 5
+Trainable Parameters : 151419140
+Epoch 45 Train Acc 96.69178009033203% Val Acc 68.5882339477539% Train Loss 0.04589032009243965 Val Loss 1.786346197128296
+EPOCH unfeeze : 6
+Trainable Parameters : 151419140
+Epoch 46 Train Acc 97.26026916503906% Val Acc 62.17647171020508% Train Loss 0.043251100927591324 Val Loss 2.404100179672241
+EPOCH unfeeze : 7
+Trainable Parameters : 151419140
+Epoch 47 Train Acc 96.97944641113281% Val Acc 65.4117660522461% Train Loss 0.044938310980796814 Val Loss 1.8850634098052979
+EPOCH unfeeze : 8
+Trainable Parameters : 151419140
+Epoch 48 Train Acc 97.00912475585938% Val Acc 65.64705657958984% Train Loss 0.04395950585603714 Val Loss 1.9125862121582031
+EPOCH unfeeze : 9
+Trainable Parameters : 151419140
+Epoch 49 Train Acc 97.21460723876953% Val Acc 69.52941131591797% Train Loss 0.04183906689286232 Val Loss 1.8542304039001465
+EPOCH unfeeze : 0
+Trainable Parameters : 151419140
+Epoch 50 Train Acc 97.36529541015625% Val Acc 64.23529815673828% Train Loss 0.04166731238365173 Val Loss 2.267664909362793
+EPOCH unfeeze : 1
+Trainable Parameters : 151419140
+Epoch 51 Train Acc 97.42237091064453% Val Acc 69.52941131591797% Train Loss 0.03836231306195259 Val Loss 1.5064746141433716
+EPOCH unfeeze : 2
+Trainable Parameters : 151419140
+Epoch 52 Train Acc 97.461181640625% Val Acc 67.29412078857422% Train Loss 0.03890490531921387 Val Loss 1.7277878522872925
+EPOCH unfeeze : 3
+Trainable Parameters : 151419140
+Epoch 53 Train Acc 97.85844421386719% Val Acc 67.5882339477539% Train Loss 0.031691089272499084 Val Loss 1.9206441640853882
+EPOCH unfeeze : 4
+Trainable Parameters : 151419140
+Epoch 54 Train Acc 97.50684356689453% Val Acc 66.64705657958984% Train Loss 0.03732244297862053 Val Loss 1.8574562072753906
+EPOCH unfeeze : 5
+Trainable Parameters : 151419140
+Epoch 55 Train Acc 97.88812255859375% Val Acc 63.94117736816406% Train Loss 0.03236202895641327 Val Loss 2.2429685592651367
+EPOCH unfeeze : 6
+Trainable Parameters : 151419140
+Epoch 56 Train Acc 97.72373962402344% Val Acc 65.29412078857422% Train Loss 0.03240744397044182 Val Loss 1.9652743339538574
+EPOCH unfeeze : 7
+Trainable Parameters : 151419140
+Epoch 57 Train Acc 97.93606567382812% Val Acc 64.47058868408203% Train Loss 0.03157763555645943 Val Loss 1.7110230922698975
+EPOCH unfeeze : 8
+Trainable Parameters : 151419140
+Epoch 58 Train Acc 97.93378448486328% Val Acc 67.5882339477539% Train Loss 0.02968367002904415 Val Loss 1.7590657472610474
+EPOCH unfeeze : 9
+Trainable Parameters : 151419140
+Epoch 59 Train Acc 97.94519805908203% Val Acc 68.35294342041016% Train Loss 0.030168358236551285 Val Loss 2.2532482147216797
+EPOCH unfeeze : 0
+Trainable Parameters : 151419140
+Epoch 60 Train Acc 98.24200439453125% Val Acc 71.82353210449219% Train Loss 0.027876563370227814 Val Loss 1.8118782043457031
+EPOCH unfeeze : 1
+Trainable Parameters : 151419140
+Epoch 61 Train Acc 97.95890045166016% Val Acc 66.47058868408203% Train Loss 0.03061480075120926 Val Loss 1.795917272567749
+EPOCH unfeeze : 2
+Trainable Parameters : 151419140
+Epoch 62 Train Acc 98.02510833740234% Val Acc 64.94117736816406% Train Loss 0.028520088642835617 Val Loss 2.0167593955993652
+EPOCH unfeeze : 3
+Trainable Parameters : 151419140
+Epoch 63 Train Acc 98.16438293457031% Val Acc 70.29412078857422% Train Loss 0.028262637555599213 Val Loss 2.0537257194519043
+EPOCH unfeeze : 4
+Trainable Parameters : 151419140
+Epoch 64 Train Acc 98.31963348388672% Val Acc 64.23529815673828% Train Loss 0.02497939206659794 Val Loss 2.251141309738159
+EPOCH unfeeze : 5
+Trainable Parameters : 151419140
+Epoch 65 Train Acc 98.20775604248047% Val Acc 66.82353210449219% Train Loss 0.02668791264295578 Val Loss 1.8725199699401855
+EPOCH unfeeze : 6
+Trainable Parameters : 151419140
+Epoch 66 Train Acc 98.58903503417969% Val Acc 65.88235473632812% Train Loss 0.022384053096175194 Val Loss 2.235262155532837
+EPOCH unfeeze : 7
+Trainable Parameters : 151419140
+Epoch 67 Train Acc 98.67579650878906% Val Acc 65.4117660522461% Train Loss 0.021314511075615883 Val Loss 2.1466197967529297
+EPOCH unfeeze : 8
+Trainable Parameters : 151419140
+Epoch 68 Train Acc 98.48401641845703% Val Acc 67.29412078857422% Train Loss 0.02415243536233902 Val Loss 2.6338388919830322
+EPOCH unfeeze : 9
+Trainable Parameters : 151419140
+Epoch 69 Train Acc 98.6369857788086% Val Acc 67.82353210449219% Train Loss 0.020974051207304 Val Loss 2.29042649269104
+EPOCH unfeeze : 0
+Trainable Parameters : 151419140
+Epoch 70 Train Acc 98.5136947631836% Val Acc 65.88235473632812% Train Loss 0.022487668320536613 Val Loss 2.726966619491577
+EPOCH unfeeze : 1
+Trainable Parameters : 151419140
+Epoch 71 Train Acc 98.56620788574219% Val Acc 67.52941131591797% Train Loss 0.02419375255703926 Val Loss 2.0345046520233154
+EPOCH unfeeze : 2
+Trainable Parameters : 151419140
+Epoch 72 Train Acc 98.58675384521484% Val Acc 68.70587921142578% Train Loss 0.021347304806113243 Val Loss 2.3714396953582764
+EPOCH unfeeze : 3
+Trainable Parameters : 151419140
+Epoch 73 Train Acc 98.7305908203125% Val Acc 67.76470947265625% Train Loss 0.019620968028903008 Val Loss 1.743172526359558
+EPOCH unfeeze : 4
+Trainable Parameters : 151419140
+Epoch 74 Train Acc 98.58903503417969% Val Acc 67.29412078857422% Train Loss 0.02228148654103279 Val Loss 2.1365091800689697
+EPOCH unfeeze : 5
+Trainable Parameters : 151419140
+Epoch 75 Train Acc 98.58447265625% Val Acc 67.82353210449219% Train Loss 0.021100446581840515 Val Loss 2.2668960094451904
+EPOCH unfeeze : 6
+Trainable Parameters : 151419140
+Epoch 76 Train Acc 98.5936050415039% Val Acc 68.64705657958984% Train Loss 0.02242901921272278 Val Loss 1.8918896913528442
+EPOCH unfeeze : 7
+Trainable Parameters : 151419140
+Epoch 77 Train Acc 98.78994750976562% Val Acc 65.5882339477539% Train Loss 0.017577428370714188 Val Loss 2.7984604835510254
+EPOCH unfeeze : 8
+Trainable Parameters : 151419140
+Epoch 78 Train Acc 98.81963348388672% Val Acc 67.5882339477539% Train Loss 0.0174133088439703 Val Loss 3.0400021076202393
+EPOCH unfeeze : 9
+Trainable Parameters : 151419140
+Epoch 79 Train Acc 99.00912475585938% Val Acc 65.0% Train Loss 0.016092311590909958 Val Loss 2.4738991260528564
+EPOCH unfeeze : 0
+Trainable Parameters : 151419140
+Epoch 80 Train Acc 98.68492889404297% Val Acc 68.17646789550781% Train Loss 0.020008545368909836 Val Loss 2.5568034648895264
+EPOCH unfeeze : 1
+Trainable Parameters : 151419140
+Epoch 81 Train Acc 98.74657440185547% Val Acc 67.82353210449219% Train Loss 0.018424559384584427 Val Loss 2.1755030155181885
+EPOCH unfeeze : 2
+Trainable Parameters : 151419140
+Epoch 82 Train Acc 98.95433044433594% Val Acc 71.23529815673828% Train Loss 0.015942169353365898 Val Loss 2.075105905532837
+EPOCH unfeeze : 3
+Trainable Parameters : 151419140
+Epoch 83 Train Acc 99.13469696044922% Val Acc 69.17646789550781% Train Loss 0.014384406618773937 Val Loss 2.682168960571289
+EPOCH unfeeze : 4
+Trainable Parameters : 151419140
+Epoch 84 Train Acc 98.91095733642578% Val Acc 69.5882339477539% Train Loss 0.0168165173381567 Val Loss 2.655519723892212
+EPOCH unfeeze : 5
+Trainable Parameters : 151419140
+Epoch 85 Train Acc 99.20091247558594% Val Acc 70.11764526367188% Train Loss 0.012153931893408298 Val Loss 3.1266887187957764
+EPOCH unfeeze : 6
+Trainable Parameters : 151419140
+Epoch 86 Train Acc 99.16438293457031% Val Acc 65.29412078857422% Train Loss 0.012110693380236626 Val Loss 3.147732973098755
+EPOCH unfeeze : 7
+Trainable Parameters : 151419140
+Epoch 87 Train Acc 99.13013458251953% Val Acc 68.29412078857422% Train Loss 0.012938547879457474 Val Loss 2.9128775596618652
+EPOCH unfeeze : 8
+Trainable Parameters : 151419140
+Epoch 88 Train Acc 99.14154815673828% Val Acc 71.4117660522461% Train Loss 0.01362881064414978 Val Loss 2.288803815841675
+EPOCH unfeeze : 9
+Trainable Parameters : 151419140
+Epoch 89 Train Acc 99.20319366455078% Val Acc 67.05882263183594% Train Loss 0.01447489857673645 Val Loss 2.672452211380005
+EPOCH unfeeze : 0
+Trainable Parameters : 151419140
+Epoch 90 Train Acc 98.60958862304688% Val Acc 65.82353210449219% Train Loss 0.01959986425936222 Val Loss 3.3909547328948975
+EPOCH unfeeze : 1
+Trainable Parameters : 151419140
+Epoch 91 Train Acc 99.27397155761719% Val Acc 66.0% Train Loss 0.012078759260475636 Val Loss 2.8876538276672363
+EPOCH unfeeze : 2
+Trainable Parameters : 151419140
+Epoch 92 Train Acc 99.08447265625% Val Acc 68.88235473632812% Train Loss 0.014108153060078621 Val Loss 2.173635244369507
+EPOCH unfeeze : 3
+Trainable Parameters : 151419140
+Epoch 93 Train Acc 99.19862365722656% Val Acc 63.11764907836914% Train Loss 0.01400305051356554 Val Loss 3.348977565765381
+EPOCH unfeeze : 4
+Trainable Parameters : 151419140
+Epoch 94 Train Acc 99.25113677978516% Val Acc 61.52941131591797% Train Loss 0.010872507467865944 Val Loss 3.030522346496582
+EPOCH unfeeze : 5
+Trainable Parameters : 151419140
+Epoch 95 Train Acc 98.98172760009766% Val Acc 65.64705657958984% Train Loss 0.01355544663965702 Val Loss 2.940717935562134
+EPOCH unfeeze : 6
+Trainable Parameters : 151419140
+Epoch 96 Train Acc 99.15068054199219% Val Acc 66.5882339477539% Train Loss 0.01339829433709383 Val Loss 2.942455530166626
+EPOCH unfeeze : 7
+Trainable Parameters : 151419140
+Epoch 97 Train Acc 99.39497375488281% Val Acc 64.05882263183594% Train Loss 0.011018337681889534 Val Loss 3.4570183753967285
+EPOCH unfeeze : 8
+Trainable Parameters : 151419140
+Epoch 98 Train Acc 99.18492889404297% Val Acc 64.11764526367188% Train Loss 0.012623707763850689 Val Loss 3.2422842979431152
+EPOCH unfeeze : 9
+Trainable Parameters : 151419140
+Epoch 99 Train Acc 99.2214584350586% Val Acc 67.05882263183594% Train Loss 0.011488880030810833 Val Loss 3.0151193141937256
+
+------> EVALUATING MODEL... ------------------------------------------ 
+
+Final Test Acc:73.17646789550781% Loss:2.299856185913086
+CONFUSION MATRIX
+[[78  7 10  5]
+ [11 37 28 24]
+ [ 2  6 86  4]
+ [ 1  0  8 91]]
+CONFUSION MATRIX NORMALISED
+[[0.1959799  0.01758794 0.02512563 0.01256281]
+ [0.02763819 0.09296482 0.07035176 0.06030151]
+ [0.00502513 0.01507538 0.2160804  0.01005025]
+ [0.00251256 0.         0.0201005  0.22864322]]
+CLASSIFICATION REPORT
+              precision    recall  f1-score   support
+
+           0       0.85      0.78      0.81       100
+           1       0.74      0.37      0.49       100
+           2       0.65      0.88      0.75        98
+           3       0.73      0.91      0.81       100
+
+    accuracy                           0.73       398
+   macro avg       0.74      0.73      0.72       398
+weighted avg       0.74      0.73      0.72       398
+
+
+------> SUCCESSFULLY FINISHED ---------------------------------------- 
+
+Finished: 05/11/2022 17:46:53
