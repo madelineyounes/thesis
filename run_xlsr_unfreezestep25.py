@@ -98,7 +98,7 @@ print("training:", training)
 # For
 #     1) naming model output directory
 #     2) naming results file
-experiment_id = "ADI17-xlsr-araic-unfreeze"
+experiment_id = "ADI17-xlsr-araic-unfreeze-step25"
 print("experiment_id:", experiment_id)
 
 # DatasetDict Id
@@ -217,7 +217,7 @@ set_adam_beta2 = 0.98                       # Default = 0.999
 print("adam_beta2:", set_adam_beta2)
 set_adam_epsilon = 0.00000001               # Default = 0.00000001
 print("adam_epsilon:", set_adam_epsilon)
-set_unfreezing_step = 10                   # Default = 3.0
+set_unfreezing_step = 25                   # Default = 3.0
 print("unfreezing_step:", set_unfreezing_step)
 set_num_train_epochs = 100                  # Default = 3.0
 print("num_train_epochs:", set_num_train_epochs)
