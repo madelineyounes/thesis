@@ -625,14 +625,14 @@ class myTrainer(Trainer):
 
             #pred = max(set(g_pred), key=g_pred.count)
             label = max(set(g_label), key=g_label.count)
-            group_pred.append(torch.FloatTensor(group_pred))
+            group_pred.append(group_pred)
             group_labels.append(label)
         return group_pred, group_labels
 
     def _compute_loss(self, model, inputs, labels):
         predictions = model(**inputs).logits
         grouped_pred,grouped_labels = self._group(predictions, labels)
-        grouped_pred = torch.autograd.Variable(torch.FloatTensor(grouped_pred), requires_grad=True)
+        grouped_pred = torch.autograd.Variable(grouped_pred, requires_grad=True)
         grouped_labels = torch.FloatTensor(grouped_labels)
 
         print(predictions)
