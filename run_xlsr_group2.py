@@ -629,7 +629,7 @@ class myTrainer(Trainer):
         predictions = model(**inputs).logits
         grouped_pred,grouped_labels = self._group(predictions, labels)
         grouped_pred = torch.FloatTensor(grouped_pred)
-        grouped_labels = torch.LongTensor(grouped_labels)
+        grouped_labels = torch.FloatTensor(grouped_labels)
         grouped_labels = grouped_labels.reshape(
             (grouped_labels.shape[0])).long().to(device).contiguous()
         lossfct = CrossEntropyLoss().to(device)
