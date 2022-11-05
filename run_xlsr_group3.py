@@ -618,10 +618,10 @@ class myTrainer(Trainer):
             g_label = []
             for i in range (0, group_size):
                 #g_pred.append(predictions[j+i][np.argmax(predictions[j+i].cpu().detach()).item()])
-                group_pred = [a+b for a,b in zip(group_pred, predictions[j+i].cpu())]
+                g_pred = [a+b for a, b in zip(g_pred, predictions[j+i].cpu())]
                 g_label.append(labels[j+i].cpu().item())
 
-            group_pred[:] = [x / group_size for x in group_pred]
+            g_pred[:] = [x / group_size for x in g_pred]
 
             #pred = max(set(g_pred), key=g_pred.count)
             label = max(set(g_label), key=g_label.count)
