@@ -625,7 +625,7 @@ class myTrainer(Trainer):
 
             #pred = max(set(g_pred), key=g_pred.count)
             label = max(set(g_label), key=g_label.count)
-            group_pred.append(group_pred)
+            group_pred.append(torch.FloatTensor(group_pred))
             group_labels.append(label)
         return group_pred, group_labels
 
