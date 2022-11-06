@@ -474,6 +474,13 @@ for param in model.hubert.encoder.parameters():
 for param in model.hubert.feature_projection.parameters():
     param.requires_grad = False
 
+trainable_transformers = 12
+num_transformers = 12
+if trainable_transformers > 0:
+    for i in range(num_transformers-trainable_transformers, num_transformers, 1):
+        for param in model.hubert.encoder.layers[i].parameters():
+            param.requires_grad = True
+
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 multi_gpu = False
 if torch.cuda.device_count() > 1:
@@ -482,15 +489,6 @@ if torch.cuda.device_count() > 1:
     multi_gpu = True
 
 model.to(device)
-
-
-trainable_transformers = 12
-num_transformers = 12
-if trainable_transformers > 0:
-    for i in range(num_transformers-trainable_transformers, num_transformers, 1):
-        for param in model.wav2vec2.encoder.layers[i].parameters():
-            param.requires_grad = True
-
 
 # 1) Define model
 
@@ -523,10 +521,10 @@ class myTrainer(Trainer):
                 if epoch // set_unfreezing_step < (num_transformers-trainable_transformers):
                     if multi_gpu:
                         print("multi GPU used")
-                        for param in model.module.wav2vec2.encoder.layers[num_transformers-(epoch//set_unfreezing_step) - trainable_transformers].parameters():
+                        for param in model.module.hubert.encoder.layers[num_transformers-(epoch//set_unfreezing_step) - trainable_transformers].parameters():
                             param.requires_grad = True
                     else:
-                        for param in model.wav2vec2.encoder.layers[num_transformers-(epoch//set_unfreezing_step)-trainable_transformers].parameters():
+                        for param in model.hubert.encoder.layers[num_transformers-(epoch//set_unfreezing_step)-trainable_transformers].parameters():
                             print("grad change")
                             param.requires_grad = True
 
