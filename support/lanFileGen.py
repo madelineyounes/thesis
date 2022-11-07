@@ -58,7 +58,7 @@ for d in umbrella_dialects:
                     filename = line.split(' ')[0]
                     ftrain.write(filename + f",{d}\n")
                     dcount += 1
-                if rdcount <= numf:
+                if rdcount <= num_files:
                     filename = line.split(' ')[0]
                     frtrain.write(filename + f",{rd}\n")
                     rdcount += 1
@@ -70,7 +70,7 @@ for d in umbrella_dialects:
                     filename = line.split(' ')[0]
                     ftest.write(filename + f",{d}\n")
                     dcount += 1
-                if rdcount <= numf:
+                if rdcount <= num_files:
                     filename = line.split(' ')[0]
                     frtest.write(filename + f",{rd}\n")
                     rdcount += 1
