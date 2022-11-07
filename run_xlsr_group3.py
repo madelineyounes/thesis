@@ -632,7 +632,7 @@ class myTrainer(Trainer):
     def _compute_loss(self, model, inputs, labels):
         predictions = model(**inputs).logits
         grouped_pred,grouped_labels = self._group(predictions, labels)
-        grouped_pred = torch.autograd.Variable(torch.FloatTensor(grouped_pred), requires_grad=True)
+        grouped_pred =torch.FloatTensor(grouped_pred)
         grouped_labels = torch.FloatTensor(grouped_labels)
 
         print(predictions)
