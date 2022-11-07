@@ -98,7 +98,7 @@ print("training:", training)
 # For
 #     1) naming model output directory
 #     2) naming results file
-experiment_id = "ADI17-xlsr-group-noshuffle-avg"
+experiment_id = "ADI17-xlsr-araic-unfreeze-x2EGY"
 print("experiment_id:", experiment_id)
 
 # DatasetDict Id
@@ -130,19 +130,19 @@ base_cache_fp = "/srv/scratch/z5208494/cache/huggingface/datasets/"
 # Training dataset name and filename
 # Dataset name and filename of the csv file containing the training data
 # For generating filepath to file location
-train_name = "u_train_700f"
-train_filename = "u_train_700f"
+train_name = "u_train_x2EGY"
+train_filename = "u_train_x2EGY"
 print("train_name:", train_name)
 print("train_filename:", train_filename)
 
-validation_filename = "dev_u_200f"
+validation_filename = "dev_u_x2EGY"
 print("validation_filename:", validation_filename)
 
 # Evaluation dataset name and filename
 # Dataset name and filename of the csv file containing the evaluation data
 # For generating filepath to file location
 
-evaluation_filename = "test_u_100f"
+evaluation_filename = "test_u_x2EGY"
 print("evaluation_filename:", evaluation_filename)
 # Resume training from/ use checkpoint (True/False)
 # Set to True for:
@@ -205,8 +205,6 @@ set_evaluation_strategy = "no"           # Default = "no"
 print("evaluation strategy:", set_evaluation_strategy)
 batch_size = 40        # Default = 8
 print("batch_size:", batch_size)
-group_size = 4        # Default = 8
-print("group_size:", group_size)
 set_gradient_accumulation_steps = 2         # Default = 4
 print("gradient_accumulation_steps:", set_gradient_accumulation_steps)
 set_learning_rate = 0.00004                 # Default = 0.00005
@@ -219,7 +217,7 @@ set_adam_beta2 = 0.98                       # Default = 0.999
 print("adam_beta2:", set_adam_beta2)
 set_adam_epsilon = 0.00000001               # Default = 0.00000001
 print("adam_epsilon:", set_adam_epsilon)
-set_unfreezing_step = 10                   # Default = 3.0
+set_unfreezing_step = 50                   # Default = 3.0
 print("unfreezing_step:", set_unfreezing_step)
 set_num_train_epochs = 100                  # Default = 3.0
 print("num_train_epochs:", set_num_train_epochs)
@@ -292,7 +290,7 @@ outcsv.write("epoch,train_acc,val_acc,train_loss,val_loss\n")
 data_cache_fp = base_cache_fp + datasetdict_id
 print("--> data_cache_fp:", data_cache_fp)
 # Path to save model output
-model_fp = "../output/" + train_name + "_local/" + experiment_id
+model_fp = base_fp + train_name + "_local/" + experiment_id
 print("--> model_fp:", model_fp)
 # Path to save results output
 finetuned_results_fp = base_fp + train_name + \
@@ -386,13 +384,13 @@ testcustomdata = CustomDataset(
 
 
 trainDataLoader = DataLoader(
-    traincustomdata, batch_size=batch_size, shuffle=False, num_workers=set_num_of_workers)
+    traincustomdata, batch_size=batch_size, shuffle=True, num_workers=set_num_of_workers)
 
 valDataLoader = DataLoader(
-    valcustomdata, batch_size=batch_size, shuffle=False, num_workers=set_num_of_workers)
+    valcustomdata, batch_size=batch_size, shuffle=True, num_workers=set_num_of_workers)
 
 testDataLoader = DataLoader(
-    testcustomdata, batch_size=batch_size, shuffle=False, num_workers=set_num_of_workers)
+    testcustomdata, batch_size=batch_size, shuffle=True, num_workers=set_num_of_workers)
 
 print("Check data has been processed correctly... ")
 print("Train Data Sample")
@@ -483,14 +481,14 @@ if torch.cuda.device_count() > 1:
 
 model.to(device)
 
-""""
+
 trainable_transformers = 12
 num_transformers = 12
 if trainable_transformers > 0:
     for i in range(num_transformers-trainable_transformers, num_transformers, 1):
-        for param in model.wav2vec2.encoder.layers[i].parameters():
+        for param in model.module.wav2vec2.encoder.layers[i].parameters():
             param.requires_grad = True
-"""
+
 
 # 1) Define model
 
@@ -517,20 +515,20 @@ class myTrainer(Trainer):
     def fit(self, train_loader, val_loader, epochs):
         
         for epoch in range(epochs):
-            """
+
             print("EPOCH unfeeze : " + str(epoch % set_unfreezing_step))
            
             if epoch != 0 and epoch % set_unfreezing_step == 0 :
                 if epoch // set_unfreezing_step < (num_transformers-trainable_transformers):
                     if multi_gpu:
                         print("multi GPU used")
-                        for param in model.module.wav2vec2.encoder.layers[num_transformers-(epoch//set_unfreezing_step) - trainable_transformers].parameters():
+                        for param in model.module.module.wav2vec2.encoder.layers[num_transformers-(epoch//set_unfreezing_step) - trainable_transformers].parameters():
                             param.requires_grad = True
                     else:
-                        for param in model.wav2vec2.encoder.layers[num_transformers-(epoch//set_unfreezing_step)-trainable_transformers].parameters():
+                        for param in model.module.wav2vec2.encoder.layers[num_transformers-(epoch//set_unfreezing_step)-trainable_transformers].parameters():
                             print("grad change")
                             param.requires_grad = True
-            """
+
             model_parameters = filter(lambda p: p.requires_grad, model.parameters())
             params = sum([np.prod(p.size()) for p in model_parameters])
             print('Trainable Parameters : ' + str(params))
@@ -566,7 +564,7 @@ class myTrainer(Trainer):
                 labels = data['labels'].long().to(device).contiguous()
                 # loss
                 loss, acc = self._compute_loss(model, inputs, labels)
-                loss.requires_grad = True                # remove gradient from previous passes
+                # remove gradient from previous passes
                 self.optimizer.zero_grad()
 
                 if self.args.gradient_accumulation_steps > 1:
@@ -607,42 +605,12 @@ class myTrainer(Trainer):
         acc_tot_val = acc_sum_val/len(loader)
         return loss_tot_val, acc_tot_val
 
-
-    def _group(self, predictions, labels):
-        group_pred = []
-        group_labels = []
-
-        num_groups = int(np.ceil(len(predictions)/ group_size))
-        for j in range (0, num_groups):
-            g_pred = []
-            g_label = []
-            for i in range (0, group_size):
-                #g_pred.append(predictions[j+i][np.argmax(predictions[j+i].cpu().detach()).item()])
-                g_pred = [a+b for a, b in zip(g_pred, predictions[j+i].cpu())]
-                g_label.append(labels[j+i].cpu().item())
-
-            g_pred[:] = [x / group_size for x in g_pred]
-
-            #pred = max(set(g_pred), key=g_pred.count)
-            label = max(set(g_label), key=g_label.count)
-            group_pred.append(group_pred)
-            group_labels.append(label)
-        return group_pred, group_labels
-
     def _compute_loss(self, model, inputs, labels):
-        predictions = model(**inputs).logits
-        grouped_pred,grouped_labels = self._group(predictions, labels)
-        grouped_pred = torch.autograd.Variable(torch.FloatTensor(grouped_pred), requires_grad=True)
-        grouped_labels = torch.FloatTensor(grouped_labels)
-
-        print(predictions)
-        print(labels)
-        print(grouped_pred)
-        print(grouped_labels)
-
+        prediction = model(**inputs).logits
         lossfct = CrossEntropyLoss().to(device)
-        loss = lossfct(grouped_pred, grouped_labels)
-        acc = multi_acc(grouped_pred, grouped_labels)
+        loss = lossfct(prediction, labels.reshape((labels.shape[0])).long().to(device).contiguous())
+        acc = multi_acc(prediction, labels.reshape(
+            (labels.shape[0])).long().to(device).contiguous())
         return loss, acc
 
     def _evaluate(self, loader, tst_itt):
@@ -753,7 +721,7 @@ if training:
     trainer.fit(trainDataLoader, testDataLoader, set_num_train_epochs)
 
     # Save the model
-    #model.module.save_pretrained(model_fp)
+    model.module.save_pretrained(model_fp)
 
 # ------------------------------------------
 #            Evaluation

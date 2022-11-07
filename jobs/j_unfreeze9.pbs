@@ -11,7 +11,7 @@
 # Go into thesis folder
 cd /home/z5208494/thesis/
 
-echo ""$(date)"" 2>&1 | tee -a output/out_xlsr_unfreezeNoLEV.txt
+echo ""$(date)"" 2>&1 | tee -a output/out_xlsr_unfreezex2EGY.txt
 
 # This runs the test script
-python3 run_xlsr_unfreezesNoLEV.py 2>&1 | tee -a output/out_xlsr_unfreezeNoLEV.txt
+python3 run_xlsr_unfreezex2EGY.py 2>&1 | tee -a output/out_xlsr_unfreezex2EGY.txt
