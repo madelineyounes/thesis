@@ -625,7 +625,7 @@ class myTrainer(Trainer):
 
             #pred = max(set(g_pred), key=g_pred.count)
             label = max(set(g_label), key=g_label.count)
-            group_pred.append(group_pred)
+            group_pred.append(g_pred)
             group_labels.append(label)
         return group_pred, group_labels
 
@@ -633,7 +633,7 @@ class myTrainer(Trainer):
         predictions = model(**inputs).logits
         grouped_pred,grouped_labels = self._group(predictions, labels)
         grouped_pred =torch.FloatTensor(grouped_pred)
-        grouped_labels = torch.FloatTensor(grouped_labels)
+        grouped_labels = torch.LongTensor(grouped_labels)
 
         print(predictions)
         print(labels)
