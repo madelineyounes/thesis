@@ -622,7 +622,7 @@ class myTrainer(Trainer):
                 g_label.append(labels[j+i].cpu().item())
 
             g_pred[:] = [x / group_size for x in g_pred]
-
+            print("g pred"+g_pred)
             #pred = max(set(g_pred), key=g_pred.count)
             label = max(set(g_label), key=g_label.count)
             group_pred.append(g_pred)
