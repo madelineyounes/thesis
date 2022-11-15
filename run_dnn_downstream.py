@@ -462,8 +462,9 @@ model.classifier = nn.Sequential(
     nn.ReLU(),
     nn.Linear(256, 256),
     nn.ReLU(),
-    nn.Linear(256, 20),
-    nn.Linear(20, num_labels, bias=True)
+    nn.Linear(256, 128),
+    nn.ReLU(),
+    nn.Linear(128, num_labels, bias=True)
 )
 model.load_state_dict(torch.load(model_path), strict=False)
 
