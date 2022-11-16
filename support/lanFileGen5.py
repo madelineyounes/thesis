@@ -32,7 +32,7 @@ dialect_dict = {
     "NOR": ['MRT', 'MAR', 'DZA', 'LBY']
 }
 
-num_files = 500 
+num_files = 100 
 
 train_lines = tuple(open(train_input_file, 'r'))
 test_lines = tuple(open(test_input_file, 'r'))
