@@ -14,7 +14,7 @@ test_input_file = output_path + "adi17_official_test_label.txt"
 train_input_file = output_path + "imported_r_train_files.csv"
 
 
-train_u_out_file = output_path + "train_u_1000f.csv"
+train_u_out_file = output_path + "u_train_u_25f.csv"
 
 umbrella_dialects = ['NOR', 'EGY', 'GLF', 'LEV']
 
@@ -34,7 +34,7 @@ ftrain.write(firstline)
 
 for d in umbrella_dialects:
     numreg = len(dialect_dict[d])
-    numf_train = np.floor(1000 / numreg)
+    numf_train = np.floor(25 / numreg)
     for rd in dialect_dict[d]:
         dcount = 0
         for line in train_lines:
