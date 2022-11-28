@@ -1,0 +1,1146 @@
+Sat Nov 5 19:44:27 AEDT 2022
+2022-11-05 19:44:28.316181: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F AVX512_VNNI FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2022-11-05 19:44:28.539153: I tensorflow/core/util/util.cc:169] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2022-11-05 19:44:28.573774: E tensorflow/stream_executor/cuda/cuda_blas.cc:2981] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2022-11-05 19:44:29.850020: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer.so.7'; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /apps/sox/14.4.2/lib:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/daal/lib/intel64_lin:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/ipp/lib/intel64:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/tbb/lib/intel64_lin/gcc4.4:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/tbb/lib/intel64/gcc4.4:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/mkl/lib/intel64_lin:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/debugger/libipt/intel64/lib:/apps/intel/Composer/debugger_2019/libipt/intel64/lib:/apps/intel/Composer/debugger_2019/iga/lib:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/compiler/lib/intel64:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/compiler/lib/intel64_lin:/apps/python/3.8.3/lib:/apps/gcc/8.4.0/lib64:/apps/gcc/8.4.0/lib:/apps/cuda/11.1/lib64:/apps/cuda/11.1/extras/CUPTI/lib64
+2022-11-05 19:44:29.850112: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer_plugin.so.7'; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /apps/sox/14.4.2/lib:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/daal/lib/intel64_lin:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/ipp/lib/intel64:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/tbb/lib/intel64_lin/gcc4.4:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/tbb/lib/intel64/gcc4.4:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/mkl/lib/intel64_lin:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/debugger/libipt/intel64/lib:/apps/intel/Composer/debugger_2019/libipt/intel64/lib:/apps/intel/Composer/debugger_2019/iga/lib:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/compiler/lib/intel64:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/compiler/lib/intel64_lin:/apps/python/3.8.3/lib:/apps/gcc/8.4.0/lib64:/apps/gcc/8.4.0/lib:/apps/cuda/11.1/lib64:/apps/cuda/11.1/extras/CUPTI/lib64
+2022-11-05 19:44:29.850121: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
+------------------------------------------------------------------------
+                         run_xlsr.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_xlsr_group2.py
+Started: 05/11/2022 19:44:40
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: ADI17-xlsr-group-noshuffle
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+test data path: /srv/scratch/z5208494/dataset/train_segments/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: u_train_700f
+train_filename: u_train_700f
+validation_filename: dev_u_200f
+evaluation_filename: test_u_100f
+use_checkpoint: False
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+number_of_worker: 1
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.1
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: no
+batch_size: 40
+group_size: 4
+gradient_accumulation_steps: 2
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 100
+max_steps: -1
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 500
+save_total_limit: 40
+fp16: True
+eval_steps: 100
+load_best_model_at_end: False
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/u_train_700f.csv
+--> data_test_fp: data/dev_u_200f.csv
+--> data_test_fp: data/test_u_100f.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/u_train_700f_local/ADI17-xlsr-group-noshuffle
+--> finetuned_results_fp: /srv/scratch/z5208494/output/u_train_700f_local/ADI17-xlsr-group-noshuffle_finetuned_results.csv
+--> pretrained_mod: elgeish/wav2vec2-large-xlsr-53-arabic
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 10 s
+Sampling Rate: 16000
+Target Sampling Rate: 16000
+Create a custom dataset ---> 
+Check data has been processed correctly... 
+Train Data Sample
+{'input_values': tensor([[-1.0190e-01, -3.2528e-02, -2.5984e-02,  ...,  2.5224e-01,
+          1.4884e-01,  4.3572e-02],
+        [-2.7371e-03, -3.1377e-04, -8.3915e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-1.1684e+00, -1.1966e+00, -7.6227e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        ...,
+        [-1.1671e+00, -6.2004e-01,  1.1060e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-2.7674e+00, -2.6100e+00, -2.4223e+00,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [ 1.0468e-01,  1.0468e-01,  1.2572e-01,  ..., -1.3336e+00,
+         -1.4835e+00, -1.5133e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1]]), 'labels': tensor([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])}
+Training DataCustom Files: 10502
+Training Data Files: 263
+Val Data Sample
+{'input_values': tensor([[-0.4927, -0.4918, -0.4810,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.8563,  0.1170, -0.2756,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0396,  0.0817, -0.1430,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [ 0.0776,  0.3548, -0.0021,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0193,  0.0315,  0.0193,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.6061, -0.3279, -0.0192,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])}
+Test CustomData Files: 813
+Test Data Files: 21
+Test Data Sample
+Some weights of the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic were not used when initializing Wav2Vec2ForSequenceClassification: ['lm_head.bias', 'lm_head.weight']
+- This IS expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of Wav2Vec2ForSequenceClassification were not initialized from the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic and are newly initialized: ['classifier.weight', 'projector.bias', 'projector.weight', 'classifier.bias']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Using cuda_amp half precision backend
+{'input_values': tensor([[ 0.0261,  0.0750,  0.1125,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [-0.2072, -0.2131, -0.2381,  ...,  0.0000,  0.0000,  0.0000],
+        [-1.4472, -1.3934, -1.3386,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.4402,  0.3020,  0.1914,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])}
+Test CustomData Files: 398
+Test Data Files: 10
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Loading pre-trained checkpoint...
+-------- Setting up Model --------
+GPUs Used :  3 GPUs!
+SUCCESS: Pre-trained checkpoint loaded.
+--> Defining Custom Trainer Class...
+
+------> STARTING TRAINING... ----------------------------------------- 
+
+Trainable Parameters : 264452
+Traceback (most recent call last):
+  File "run_xlsr_group2.py", line 744, in <module>
+    trainer.fit(trainDataLoader, testDataLoader, set_num_train_epochs)
+  File "run_xlsr_group2.py", line 548, in fit
+    train_loss, train_acc = self._train(train_loader, tr_itt, loss_sum_tr, acc_sum_tr)
+  File "run_xlsr_group2.py", line 568, in _train
+    loss, acc = self._compute_loss(model, inputs, labels)
+  File "run_xlsr_group2.py", line 634, in _compute_loss
+    loss = lossfct(grouped_pred, grouped_labels.reshape(
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/loss.py", line 1163, in forward
+    return F.cross_entropy(input, target, weight=self.weight,
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/functional.py", line 2996, in cross_entropy
+    return torch._C._nn.cross_entropy_loss(input, target, weight, _Reduction.get_enum(reduction), ignore_index, label_smoothing)
+IndexError: Dimension out of range (expected to be in range of [-1, 0], but got 1)
+Sat Nov 5 20:06:51 AEDT 2022
+2022-11-05 20:06:52.602546: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F AVX512_VNNI FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2022-11-05 20:06:52.824804: I tensorflow/core/util/util.cc:169] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2022-11-05 20:06:52.858812: E tensorflow/stream_executor/cuda/cuda_blas.cc:2981] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2022-11-05 20:06:54.151706: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer.so.7'; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /apps/sox/14.4.2/lib:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/daal/lib/intel64_lin:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/ipp/lib/intel64:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/tbb/lib/intel64_lin/gcc4.4:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/tbb/lib/intel64/gcc4.4:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/mkl/lib/intel64_lin:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/debugger/libipt/intel64/lib:/apps/intel/Composer/debugger_2019/libipt/intel64/lib:/apps/intel/Composer/debugger_2019/iga/lib:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/compiler/lib/intel64:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/compiler/lib/intel64_lin:/apps/python/3.8.3/lib:/apps/gcc/8.4.0/lib64:/apps/gcc/8.4.0/lib:/apps/cuda/11.1/lib64:/apps/cuda/11.1/extras/CUPTI/lib64
+2022-11-05 20:06:54.151791: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer_plugin.so.7'; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /apps/sox/14.4.2/lib:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/daal/lib/intel64_lin:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/ipp/lib/intel64:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/tbb/lib/intel64_lin/gcc4.4:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/tbb/lib/intel64/gcc4.4:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/mkl/lib/intel64_lin:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/debugger/libipt/intel64/lib:/apps/intel/Composer/debugger_2019/libipt/intel64/lib:/apps/intel/Composer/debugger_2019/iga/lib:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/compiler/lib/intel64:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/compiler/lib/intel64_lin:/apps/python/3.8.3/lib:/apps/gcc/8.4.0/lib64:/apps/gcc/8.4.0/lib:/apps/cuda/11.1/lib64:/apps/cuda/11.1/extras/CUPTI/lib64
+2022-11-05 20:06:54.151801: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
+------------------------------------------------------------------------
+                         run_xlsr.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_xlsr_group2.py
+Started: 05/11/2022 20:07:05
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: ADI17-xlsr-group-noshuffle
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+test data path: /srv/scratch/z5208494/dataset/train_segments/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: u_train_700f
+train_filename: u_train_700f
+validation_filename: dev_u_200f
+evaluation_filename: test_u_100f
+use_checkpoint: False
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+number_of_worker: 1
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.1
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: no
+batch_size: 40
+group_size: 4
+gradient_accumulation_steps: 2
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 100
+max_steps: -1
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 500
+save_total_limit: 40
+fp16: True
+eval_steps: 100
+load_best_model_at_end: False
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/u_train_700f.csv
+--> data_test_fp: data/dev_u_200f.csv
+--> data_test_fp: data/test_u_100f.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/u_train_700f_local/ADI17-xlsr-group-noshuffle
+--> finetuned_results_fp: /srv/scratch/z5208494/output/u_train_700f_local/ADI17-xlsr-group-noshuffle_finetuned_results.csv
+--> pretrained_mod: elgeish/wav2vec2-large-xlsr-53-arabic
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 10 s
+Sampling Rate: 16000
+Target Sampling Rate: 16000
+Create a custom dataset ---> 
+Check data has been processed correctly... 
+Train Data Sample
+{'input_values': tensor([[-1.0190e-01, -3.2528e-02, -2.5984e-02,  ...,  2.5224e-01,
+          1.4884e-01,  4.3572e-02],
+        [-2.7371e-03, -3.1377e-04, -8.3915e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-1.1684e+00, -1.1966e+00, -7.6227e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        ...,
+        [-1.1671e+00, -6.2004e-01,  1.1060e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-2.7674e+00, -2.6100e+00, -2.4223e+00,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [ 1.0468e-01,  1.0468e-01,  1.2572e-01,  ..., -1.3336e+00,
+         -1.4835e+00, -1.5133e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1]]), 'labels': tensor([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])}
+Training DataCustom Files: 10502
+Training Data Files: 263
+Val Data Sample
+{'input_values': tensor([[-0.4927, -0.4918, -0.4810,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.8563,  0.1170, -0.2756,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0396,  0.0817, -0.1430,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [ 0.0776,  0.3548, -0.0021,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0193,  0.0315,  0.0193,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.6061, -0.3279, -0.0192,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])}
+Test CustomData Files: 813
+Test Data Files: 21
+Test Data Sample
+Some weights of the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic were not used when initializing Wav2Vec2ForSequenceClassification: ['lm_head.bias', 'lm_head.weight']
+- This IS expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of Wav2Vec2ForSequenceClassification were not initialized from the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic and are newly initialized: ['projector.bias', 'classifier.weight', 'classifier.bias', 'projector.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Using cuda_amp half precision backend
+{'input_values': tensor([[ 0.0261,  0.0750,  0.1125,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [-0.2072, -0.2131, -0.2381,  ...,  0.0000,  0.0000,  0.0000],
+        [-1.4472, -1.3934, -1.3386,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.4402,  0.3020,  0.1914,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])}
+Test CustomData Files: 398
+Test Data Files: 10
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Loading pre-trained checkpoint...
+-------- Setting up Model --------
+GPUs Used :  3 GPUs!
+SUCCESS: Pre-trained checkpoint loaded.
+--> Defining Custom Trainer Class...
+
+------> STARTING TRAINING... ----------------------------------------- 
+
+Trainable Parameters : 264452
+Traceback (most recent call last):
+  File "run_xlsr_group2.py", line 743, in <module>
+    trainer.fit(trainDataLoader, testDataLoader, set_num_train_epochs)
+  File "run_xlsr_group2.py", line 548, in fit
+    train_loss, train_acc = self._train(train_loader, tr_itt, loss_sum_tr, acc_sum_tr)
+  File "run_xlsr_group2.py", line 568, in _train
+    loss, acc = self._compute_loss(model, inputs, labels)
+  File "run_xlsr_group2.py", line 634, in _compute_loss
+    loss = lossfct(grouped_pred, grouped_labels)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/loss.py", line 1163, in forward
+    return F.cross_entropy(input, target, weight=self.weight,
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/functional.py", line 2996, in cross_entropy
+    return torch._C._nn.cross_entropy_loss(input, target, weight, _Reduction.get_enum(reduction), ignore_index, label_smoothing)
+IndexError: Dimension out of range (expected to be in range of [-1, 0], but got 1)
+Sat Nov 5 20:18:03 AEDT 2022
+2022-11-05 20:18:04.663890: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F AVX512_VNNI FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2022-11-05 20:18:04.887449: I tensorflow/core/util/util.cc:169] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2022-11-05 20:18:04.921942: E tensorflow/stream_executor/cuda/cuda_blas.cc:2981] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2022-11-05 20:18:06.189326: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer.so.7'; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /apps/sox/14.4.2/lib:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/daal/lib/intel64_lin:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/ipp/lib/intel64:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/tbb/lib/intel64_lin/gcc4.4:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/tbb/lib/intel64/gcc4.4:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/mkl/lib/intel64_lin:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/debugger/libipt/intel64/lib:/apps/intel/Composer/debugger_2019/libipt/intel64/lib:/apps/intel/Composer/debugger_2019/iga/lib:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/compiler/lib/intel64:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/compiler/lib/intel64_lin:/apps/python/3.8.3/lib:/apps/gcc/8.4.0/lib64:/apps/gcc/8.4.0/lib:/apps/cuda/11.1/lib64:/apps/cuda/11.1/extras/CUPTI/lib64
+2022-11-05 20:18:06.189410: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer_plugin.so.7'; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /apps/sox/14.4.2/lib:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/daal/lib/intel64_lin:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/ipp/lib/intel64:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/tbb/lib/intel64_lin/gcc4.4:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/tbb/lib/intel64/gcc4.4:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/mkl/lib/intel64_lin:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/debugger/libipt/intel64/lib:/apps/intel/Composer/debugger_2019/libipt/intel64/lib:/apps/intel/Composer/debugger_2019/iga/lib:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/compiler/lib/intel64:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/compiler/lib/intel64_lin:/apps/python/3.8.3/lib:/apps/gcc/8.4.0/lib64:/apps/gcc/8.4.0/lib:/apps/cuda/11.1/lib64:/apps/cuda/11.1/extras/CUPTI/lib64
+2022-11-05 20:18:06.189419: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
+------------------------------------------------------------------------
+                         run_xlsr.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_xlsr_group2.py
+Started: 05/11/2022 20:18:17
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: ADI17-xlsr-group-noshuffle
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+test data path: /srv/scratch/z5208494/dataset/train_segments/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: u_train_700f
+train_filename: u_train_700f
+validation_filename: dev_u_200f
+evaluation_filename: test_u_100f
+use_checkpoint: False
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+number_of_worker: 1
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.1
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: no
+batch_size: 40
+group_size: 4
+gradient_accumulation_steps: 2
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 100
+max_steps: -1
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 500
+save_total_limit: 40
+fp16: True
+eval_steps: 100
+load_best_model_at_end: False
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/u_train_700f.csv
+--> data_test_fp: data/dev_u_200f.csv
+--> data_test_fp: data/test_u_100f.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/u_train_700f_local/ADI17-xlsr-group-noshuffle
+--> finetuned_results_fp: /srv/scratch/z5208494/output/u_train_700f_local/ADI17-xlsr-group-noshuffle_finetuned_results.csv
+--> pretrained_mod: elgeish/wav2vec2-large-xlsr-53-arabic
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 10 s
+Sampling Rate: 16000
+Target Sampling Rate: 16000
+Create a custom dataset ---> 
+Check data has been processed correctly... 
+Train Data Sample
+{'input_values': tensor([[-1.0190e-01, -3.2528e-02, -2.5984e-02,  ...,  2.5224e-01,
+          1.4884e-01,  4.3572e-02],
+        [-2.7371e-03, -3.1377e-04, -8.3915e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-1.1684e+00, -1.1966e+00, -7.6227e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        ...,
+        [-1.1671e+00, -6.2004e-01,  1.1060e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-2.7674e+00, -2.6100e+00, -2.4223e+00,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [ 1.0468e-01,  1.0468e-01,  1.2572e-01,  ..., -1.3336e+00,
+         -1.4835e+00, -1.5133e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1]]), 'labels': tensor([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])}
+Training DataCustom Files: 10502
+Training Data Files: 263
+Val Data Sample
+{'input_values': tensor([[-0.4927, -0.4918, -0.4810,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.8563,  0.1170, -0.2756,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0396,  0.0817, -0.1430,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [ 0.0776,  0.3548, -0.0021,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0193,  0.0315,  0.0193,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.6061, -0.3279, -0.0192,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])}
+Test CustomData Files: 813
+Test Data Files: 21
+Test Data Sample
+Some weights of the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic were not used when initializing Wav2Vec2ForSequenceClassification: ['lm_head.weight', 'lm_head.bias']
+- This IS expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of Wav2Vec2ForSequenceClassification were not initialized from the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic and are newly initialized: ['classifier.bias', 'projector.bias', 'classifier.weight', 'projector.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Using cuda_amp half precision backend
+{'input_values': tensor([[ 0.0261,  0.0750,  0.1125,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [-0.2072, -0.2131, -0.2381,  ...,  0.0000,  0.0000,  0.0000],
+        [-1.4472, -1.3934, -1.3386,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.4402,  0.3020,  0.1914,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])}
+Test CustomData Files: 398
+Test Data Files: 10
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Loading pre-trained checkpoint...
+-------- Setting up Model --------
+GPUs Used :  3 GPUs!
+SUCCESS: Pre-trained checkpoint loaded.
+--> Defining Custom Trainer Class...
+
+------> STARTING TRAINING... ----------------------------------------- 
+
+Trainable Parameters : 264452
+tensor([[-0.0811,  0.0801, -0.0499,  0.0901],
+        [-0.0586,  0.0748, -0.0431,  0.1291],
+        [-0.0362,  0.0461,  0.0349,  0.0780],
+        [-0.0411, -0.0282, -0.0232,  0.0862],
+        [-0.0010,  0.0302, -0.0017,  0.0349],
+        [-0.0626,  0.0704,  0.0215,  0.1212],
+        [-0.0020,  0.1376,  0.0127,  0.1411],
+        [-0.0400,  0.1015,  0.0107,  0.0875],
+        [-0.0674,  0.0882, -0.0671,  0.1077],
+        [-0.0682,  0.1003, -0.0492,  0.1051],
+        [-0.0524,  0.1006,  0.0132,  0.1047],
+        [-0.0449,  0.0284, -0.0123,  0.0878],
+        [-0.0178,  0.0318, -0.0204,  0.1083],
+        [-0.0776,  0.0413, -0.0568,  0.1515],
+        [ 0.0029,  0.0515,  0.0340,  0.0431],
+        [-0.0188,  0.0474,  0.0217,  0.0827],
+        [-0.0462,  0.0465, -0.0651,  0.1689],
+        [-0.0217,  0.0398, -0.0205,  0.1047],
+        [-0.0467,  0.0241, -0.0081,  0.0752],
+        [-0.0632,  0.0495, -0.0243,  0.0993],
+        [-0.0857,  0.0678, -0.0291,  0.1091],
+        [-0.0340,  0.0966, -0.0091,  0.1310],
+        [-0.0272,  0.0934, -0.0104,  0.1114],
+        [-0.0476,  0.0491, -0.0435,  0.1177],
+        [-0.0297,  0.0822, -0.0529,  0.0966],
+        [-0.0541,  0.0831, -0.0306,  0.1789],
+        [-0.0733,  0.0820, -0.0108,  0.0810],
+        [-0.0078,  0.0601, -0.0289,  0.0598],
+        [-0.0687,  0.0616, -0.0413,  0.1492],
+        [-0.0625,  0.0716, -0.0354,  0.0511],
+        [-0.0754,  0.0876,  0.0164,  0.1159],
+        [-0.0759,  0.0731, -0.0504,  0.1133],
+        [-0.0310,  0.0334,  0.0285,  0.1009],
+        [-0.0600,  0.0676, -0.0847,  0.1278],
+        [-0.0855,  0.0841, -0.0618,  0.0524],
+        [-0.0337,  0.0730, -0.0336,  0.0870],
+        [-0.0358,  0.0516, -0.0439,  0.0326],
+        [-0.0176,  0.0356,  0.0118,  0.0855],
+        [-0.0150,  0.0881, -0.0234,  0.1332],
+        [-0.0815,  0.0973, -0.0340,  0.0983]], device='cuda:0',
+       grad_fn=<GatherBackward>)
+tensor([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], device='cuda:0')
+tensor([3., 3., 3., 3., 3., 3., 3., 3., 3., 3.], requires_grad=True)
+tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.])
+Traceback (most recent call last):
+  File "run_xlsr_group2.py", line 749, in <module>
+    trainer.fit(trainDataLoader, testDataLoader, set_num_train_epochs)
+  File "run_xlsr_group2.py", line 548, in fit
+    train_loss, train_acc = self._train(train_loader, tr_itt, loss_sum_tr, acc_sum_tr)
+  File "run_xlsr_group2.py", line 568, in _train
+    loss, acc = self._compute_loss(model, inputs, labels)
+  File "run_xlsr_group2.py", line 640, in _compute_loss
+    loss = lossfct(grouped_pred, grouped_labels)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/loss.py", line 1163, in forward
+    return F.cross_entropy(input, target, weight=self.weight,
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/functional.py", line 2996, in cross_entropy
+    return torch._C._nn.cross_entropy_loss(input, target, weight, _Reduction.get_enum(reduction), ignore_index, label_smoothing)
+IndexError: Dimension out of range (expected to be in range of [-1, 0], but got 1)
+Sat Nov 5 20:26:45 AEDT 2022
+2022-11-05 20:26:46.859256: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F AVX512_VNNI FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2022-11-05 20:26:47.082432: I tensorflow/core/util/util.cc:169] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2022-11-05 20:26:47.116693: E tensorflow/stream_executor/cuda/cuda_blas.cc:2981] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2022-11-05 20:26:48.401979: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer.so.7'; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /apps/sox/14.4.2/lib:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/daal/lib/intel64_lin:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/ipp/lib/intel64:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/tbb/lib/intel64_lin/gcc4.4:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/tbb/lib/intel64/gcc4.4:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/mkl/lib/intel64_lin:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/debugger/libipt/intel64/lib:/apps/intel/Composer/debugger_2019/libipt/intel64/lib:/apps/intel/Composer/debugger_2019/iga/lib:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/compiler/lib/intel64:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/compiler/lib/intel64_lin:/apps/python/3.8.3/lib:/apps/gcc/8.4.0/lib64:/apps/gcc/8.4.0/lib:/apps/cuda/11.1/lib64:/apps/cuda/11.1/extras/CUPTI/lib64
+2022-11-05 20:26:48.402064: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer_plugin.so.7'; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /apps/sox/14.4.2/lib:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/daal/lib/intel64_lin:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/ipp/lib/intel64:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/tbb/lib/intel64_lin/gcc4.4:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/tbb/lib/intel64/gcc4.4:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/mkl/lib/intel64_lin:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/debugger/libipt/intel64/lib:/apps/intel/Composer/debugger_2019/libipt/intel64/lib:/apps/intel/Composer/debugger_2019/iga/lib:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/compiler/lib/intel64:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/compiler/lib/intel64_lin:/apps/python/3.8.3/lib:/apps/gcc/8.4.0/lib64:/apps/gcc/8.4.0/lib:/apps/cuda/11.1/lib64:/apps/cuda/11.1/extras/CUPTI/lib64
+2022-11-05 20:26:48.402073: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
+------------------------------------------------------------------------
+                         run_xlsr.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_xlsr_group2.py
+Started: 05/11/2022 20:26:59
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: ADI17-xlsr-group-noshuffle
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+test data path: /srv/scratch/z5208494/dataset/train_segments/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: u_train_700f
+train_filename: u_train_700f
+validation_filename: dev_u_200f
+evaluation_filename: test_u_100f
+use_checkpoint: False
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+number_of_worker: 1
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.1
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: no
+batch_size: 40
+group_size: 4
+gradient_accumulation_steps: 2
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 100
+max_steps: -1
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 500
+save_total_limit: 40
+fp16: True
+eval_steps: 100
+load_best_model_at_end: False
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/u_train_700f.csv
+--> data_test_fp: data/dev_u_200f.csv
+--> data_test_fp: data/test_u_100f.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/u_train_700f_local/ADI17-xlsr-group-noshuffle
+--> finetuned_results_fp: /srv/scratch/z5208494/output/u_train_700f_local/ADI17-xlsr-group-noshuffle_finetuned_results.csv
+--> pretrained_mod: elgeish/wav2vec2-large-xlsr-53-arabic
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 10 s
+Sampling Rate: 16000
+Target Sampling Rate: 16000
+Create a custom dataset ---> 
+Check data has been processed correctly... 
+Train Data Sample
+{'input_values': tensor([[-1.0190e-01, -3.2528e-02, -2.5984e-02,  ...,  2.5224e-01,
+          1.4884e-01,  4.3572e-02],
+        [-2.7371e-03, -3.1377e-04, -8.3915e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-1.1684e+00, -1.1966e+00, -7.6227e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        ...,
+        [-1.1671e+00, -6.2004e-01,  1.1060e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-2.7674e+00, -2.6100e+00, -2.4223e+00,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [ 1.0468e-01,  1.0468e-01,  1.2572e-01,  ..., -1.3336e+00,
+         -1.4835e+00, -1.5133e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1]]), 'labels': tensor([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])}
+Training DataCustom Files: 10502
+Training Data Files: 263
+Val Data Sample
+{'input_values': tensor([[-0.4927, -0.4918, -0.4810,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.8563,  0.1170, -0.2756,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0396,  0.0817, -0.1430,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [ 0.0776,  0.3548, -0.0021,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0193,  0.0315,  0.0193,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.6061, -0.3279, -0.0192,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])}
+Test CustomData Files: 813
+Test Data Files: 21
+Test Data Sample
+Some weights of the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic were not used when initializing Wav2Vec2ForSequenceClassification: ['lm_head.weight', 'lm_head.bias']
+- This IS expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of Wav2Vec2ForSequenceClassification were not initialized from the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic and are newly initialized: ['projector.bias', 'classifier.bias', 'projector.weight', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Using cuda_amp half precision backend
+{'input_values': tensor([[ 0.0261,  0.0750,  0.1125,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [-0.2072, -0.2131, -0.2381,  ...,  0.0000,  0.0000,  0.0000],
+        [-1.4472, -1.3934, -1.3386,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.4402,  0.3020,  0.1914,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])}
+Test CustomData Files: 398
+Test Data Files: 10
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Loading pre-trained checkpoint...
+-------- Setting up Model --------
+GPUs Used :  3 GPUs!
+SUCCESS: Pre-trained checkpoint loaded.
+--> Defining Custom Trainer Class...
+
+------> STARTING TRAINING... ----------------------------------------- 
+
+Trainable Parameters : 264452
+tensor([[ 0.0604,  0.0740,  0.3078,  0.0587],
+        [ 0.0525,  0.1052,  0.1745,  0.0211],
+        [ 0.0661,  0.0763,  0.0962,  0.0391],
+        [ 0.0652,  0.0831,  0.1930,  0.0274],
+        [ 0.0292,  0.1098,  0.1932,  0.0340],
+        [ 0.0328,  0.0782,  0.2528,  0.0225],
+        [ 0.0788,  0.0650,  0.2428,  0.0605],
+        [ 0.0564,  0.0908,  0.1514,  0.0592],
+        [-0.0116,  0.0924,  0.1834,  0.0421],
+        [ 0.0712,  0.1304,  0.1892,  0.0415],
+        [ 0.0382,  0.0388,  0.2374,  0.0663],
+        [ 0.0353,  0.1322,  0.2374, -0.0931],
+        [ 0.0526,  0.1119,  0.2955,  0.0285],
+        [ 0.0620,  0.0623,  0.2825,  0.0375],
+        [ 0.0530,  0.1265,  0.1634,  0.0466],
+        [ 0.0763,  0.0904,  0.1750,  0.0328],
+        [-0.0572,  0.0848,  0.2290, -0.0075],
+        [ 0.0744,  0.0935,  0.2390,  0.0231],
+        [ 0.0256,  0.0900,  0.1681,  0.0313],
+        [ 0.0447,  0.1324,  0.1709,  0.0450],
+        [ 0.0116,  0.1318,  0.2638,  0.0734],
+        [ 0.0498,  0.1267,  0.2405,  0.0726],
+        [-0.0288,  0.1068,  0.3230,  0.0807],
+        [ 0.0123,  0.1313,  0.1946,  0.0056],
+        [ 0.0088,  0.1691,  0.1933,  0.0158],
+        [ 0.0376,  0.1179,  0.2263,  0.0501],
+        [ 0.0129,  0.0944,  0.1687,  0.0612],
+        [ 0.0397,  0.1681,  0.1972,  0.0444],
+        [ 0.0421,  0.0887,  0.2907,  0.0114],
+        [ 0.0980,  0.1025,  0.1561,  0.0111],
+        [ 0.0612,  0.0795,  0.2353, -0.0057],
+        [ 0.0193,  0.0714,  0.2695,  0.0450],
+        [ 0.0602,  0.0712,  0.1776,  0.0953],
+        [ 0.0342,  0.0789,  0.2105,  0.0250],
+        [ 0.0301,  0.1184,  0.1815,  0.0241],
+        [ 0.0411,  0.0557,  0.2104,  0.0758],
+        [ 0.0588,  0.0669,  0.1834,  0.0176],
+        [-0.0078,  0.1316,  0.2327,  0.0787],
+        [ 0.0777,  0.0612,  0.2298,  0.0105],
+        [ 0.0397,  0.0962,  0.2501,  0.0088]], device='cuda:0',
+       grad_fn=<GatherBackward>)
+tensor([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], device='cuda:0')
+tensor([2., 2., 2., 2., 2., 2., 2., 2., 2., 2.], requires_grad=True)
+tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.])
+Traceback (most recent call last):
+  File "run_xlsr_group2.py", line 749, in <module>
+    trainer.fit(trainDataLoader, testDataLoader, set_num_train_epochs)
+  File "run_xlsr_group2.py", line 548, in fit
+    train_loss, train_acc = self._train(train_loader, tr_itt, loss_sum_tr, acc_sum_tr)
+  File "run_xlsr_group2.py", line 568, in _train
+    loss, acc = self._compute_loss(model, inputs, labels)
+  File "run_xlsr_group2.py", line 640, in _compute_loss
+    loss = lossfct(grouped_pred, grouped_labels)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/loss.py", line 1163, in forward
+    return F.cross_entropy(input, target, weight=self.weight,
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/functional.py", line 2996, in cross_entropy
+    return torch._C._nn.cross_entropy_loss(input, target, weight, _Reduction.get_enum(reduction), ignore_index, label_smoothing)
+IndexError: Dimension out of range (expected to be in range of [-1, 0], but got 1)
+Sat Nov 5 21:34:53 AEDT 2022
+2022-11-05 21:34:54.881832: I tensorflow/core/platform/cpu_feature_guard.cc:193] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F AVX512_VNNI FMA
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2022-11-05 21:34:55.281605: I tensorflow/core/util/util.cc:169] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2022-11-05 21:34:55.414007: E tensorflow/stream_executor/cuda/cuda_blas.cc:2981] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2022-11-05 21:34:56.909888: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer.so.7'; dlerror: libnvinfer.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /apps/sox/14.4.2/lib:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/daal/lib/intel64_lin:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/ipp/lib/intel64:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/tbb/lib/intel64_lin/gcc4.4:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/tbb/lib/intel64/gcc4.4:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/mkl/lib/intel64_lin:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/debugger/libipt/intel64/lib:/apps/intel/Composer/debugger_2019/libipt/intel64/lib:/apps/intel/Composer/debugger_2019/iga/lib:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/compiler/lib/intel64:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/compiler/lib/intel64_lin:/apps/python/3.8.3/lib:/apps/gcc/8.4.0/lib64:/apps/gcc/8.4.0/lib:/apps/cuda/11.1/lib64:/apps/cuda/11.1/extras/CUPTI/lib64
+2022-11-05 21:34:56.911589: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library 'libnvinfer_plugin.so.7'; dlerror: libnvinfer_plugin.so.7: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /apps/sox/14.4.2/lib:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/daal/lib/intel64_lin:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/ipp/lib/intel64:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/tbb/lib/intel64_lin/gcc4.4:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/tbb/lib/intel64/gcc4.4:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/mkl/lib/intel64_lin:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/debugger/libipt/intel64/lib:/apps/intel/Composer/debugger_2019/libipt/intel64/lib:/apps/intel/Composer/debugger_2019/iga/lib:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/compiler/lib/intel64:/apps/intel/Composer/compilers_and_libraries_2019.0.117/linux/compiler/lib/intel64_lin:/apps/python/3.8.3/lib:/apps/gcc/8.4.0/lib64:/apps/gcc/8.4.0/lib:/apps/cuda/11.1/lib64:/apps/cuda/11.1/extras/CUPTI/lib64
+2022-11-05 21:34:56.911599: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Cannot dlopen some TensorRT libraries. If you would like to use Nvidia GPU with TensorRT, please make sure the missing libraries mentioned above are installed properly.
+------------------------------------------------------------------------
+                         run_xlsr.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_xlsr_group2.py
+Started: 05/11/2022 21:35:08
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: ADI17-xlsr-group-noshuffle-vote
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+test data path: /srv/scratch/z5208494/dataset/train_segments/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: u_train_700f
+train_filename: u_train_700f
+validation_filename: dev_u_200f
+evaluation_filename: test_u_100f
+use_checkpoint: False
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+number_of_worker: 1
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.1
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: no
+batch_size: 40
+group_size: 4
+gradient_accumulation_steps: 2
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 100
+max_steps: -1
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 500
+save_total_limit: 40
+fp16: True
+eval_steps: 100
+load_best_model_at_end: False
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/u_train_700f.csv
+--> data_test_fp: data/dev_u_200f.csv
+--> data_test_fp: data/test_u_100f.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/u_train_700f_local/ADI17-xlsr-group-noshuffle-vote
+--> finetuned_results_fp: /srv/scratch/z5208494/output/u_train_700f_local/ADI17-xlsr-group-noshuffle-vote_finetuned_results.csv
+--> pretrained_mod: elgeish/wav2vec2-large-xlsr-53-arabic
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 10 s
+Sampling Rate: 16000
+Target Sampling Rate: 16000
+Create a custom dataset ---> 
+Check data has been processed correctly... 
+Train Data Sample
+{'input_values': tensor([[-1.0190e-01, -3.2528e-02, -2.5984e-02,  ...,  2.5224e-01,
+          1.4884e-01,  4.3572e-02],
+        [-2.7371e-03, -3.1377e-04, -8.3915e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-1.1684e+00, -1.1966e+00, -7.6227e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        ...,
+        [-1.1671e+00, -6.2004e-01,  1.1060e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-2.7674e+00, -2.6100e+00, -2.4223e+00,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [ 1.0468e-01,  1.0468e-01,  1.2572e-01,  ..., -1.3336e+00,
+         -1.4835e+00, -1.5133e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1]]), 'labels': tensor([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])}
+Training DataCustom Files: 10502
+Training Data Files: 263
+Val Data Sample
+{'input_values': tensor([[-0.4927, -0.4918, -0.4810,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.8563,  0.1170, -0.2756,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0396,  0.0817, -0.1430,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [ 0.0776,  0.3548, -0.0021,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0193,  0.0315,  0.0193,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.6061, -0.3279, -0.0192,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])}
+Test CustomData Files: 813
+Test Data Files: 21
+Test Data Sample
+Some weights of the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic were not used when initializing Wav2Vec2ForSequenceClassification: ['lm_head.bias', 'lm_head.weight']
+- This IS expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of Wav2Vec2ForSequenceClassification were not initialized from the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic and are newly initialized: ['classifier.weight', 'projector.weight', 'classifier.bias', 'projector.bias']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Using cuda_amp half precision backend
+{'input_values': tensor([[ 0.0261,  0.0750,  0.1125,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0621, -0.0449, -0.0356,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [-0.2072, -0.2131, -0.2381,  ...,  0.0000,  0.0000,  0.0000],
+        [-1.4472, -1.3934, -1.3386,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.4402,  0.3020,  0.1914,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])}
+Test CustomData Files: 398
+Test Data Files: 10
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Loading pre-trained checkpoint...
+-------- Setting up Model --------
+GPUs Used :  3 GPUs!
+SUCCESS: Pre-trained checkpoint loaded.
+--> Defining Custom Trainer Class...
+
+------> STARTING TRAINING... ----------------------------------------- 
+
+Trainable Parameters : 264452
+tensor([[ 4.2879e-02,  9.0672e-02, -5.5867e-02,  5.3568e-02],
+        [ 5.2817e-02,  5.5502e-02, -7.4323e-02, -8.5171e-02],
+        [ 6.9782e-02,  3.0518e-02, -3.4283e-02, -3.4965e-02],
+        [ 6.5215e-02,  6.9522e-02,  4.5520e-03, -7.5577e-03],
+        [ 6.0229e-03,  1.1390e-01, -8.1732e-02, -3.7452e-02],
+        [-1.4643e-02,  3.9506e-04, -2.6679e-02, -3.3270e-02],
+        [ 3.3611e-02,  4.8941e-02, -8.7342e-02,  8.4622e-03],
+        [ 5.8631e-02,  3.7508e-02, -8.5830e-02, -3.3212e-02],
+        [ 6.5572e-02,  1.2015e-01, -1.1507e-01, -1.3305e-02],
+        [ 7.7193e-03,  8.0476e-02, -4.9545e-02, -5.0994e-03],
+        [ 5.8501e-02,  4.5694e-02, -3.4574e-02, -3.0747e-03],
+        [-3.5195e-03,  1.6239e-01, -1.0726e-02, -4.7461e-02],
+        [ 2.0067e-02,  8.4907e-02, -1.4127e-02, -6.9209e-02],
+        [ 3.7294e-02,  3.7388e-02, -7.2634e-02, -3.3803e-02],
+        [-2.7305e-02,  4.8779e-02,  1.6674e-02, -2.1885e-02],
+        [-2.0842e-02,  3.5434e-02, -4.2688e-02, -9.8732e-03],
+        [ 4.3866e-02,  3.2064e-02, -9.1401e-03, -2.7455e-03],
+        [ 3.8877e-02,  3.3702e-02, -8.0922e-02, -5.3421e-02],
+        [-1.2186e-02,  8.2459e-02, -8.1524e-03, -1.3259e-02],
+        [ 4.2594e-02,  4.7329e-02, -1.0406e-01, -1.9308e-02],
+        [-6.6351e-04,  4.9673e-02, -3.0531e-02,  9.2589e-03],
+        [ 2.1938e-02,  6.8810e-02, -2.2608e-02, -4.7606e-02],
+        [ 1.1423e-02,  7.4055e-02, -5.6166e-02, -2.6952e-02],
+        [ 3.0017e-02,  5.1078e-02, -7.1822e-02, -3.7793e-02],
+        [-1.3619e-02,  2.8240e-02, -7.6170e-02, -4.8798e-02],
+        [-1.2145e-02,  4.8852e-02, -3.7026e-02, -1.1764e-02],
+        [ 2.9102e-02,  6.5012e-02, -3.4104e-02,  2.9051e-03],
+        [-9.1545e-03,  4.1388e-02, -2.3121e-02, -5.5054e-03],
+        [ 1.1854e-01,  5.8446e-02, -7.4519e-02,  1.0297e-02],
+        [ 7.0608e-02,  5.5019e-02, -1.4085e-01,  1.0708e-02],
+        [ 8.3370e-02,  5.9513e-02, -9.1008e-02,  8.2386e-03],
+        [ 8.2123e-02,  7.8786e-02, -4.4916e-02,  2.2582e-02],
+        [ 5.6223e-02,  6.7376e-02, -1.0489e-01, -2.5615e-02],
+        [ 7.0516e-02,  3.8337e-02, -7.9969e-02,  6.6230e-03],
+        [ 4.3178e-02,  7.2504e-02, -6.6362e-02,  3.2309e-02],
+        [ 7.4270e-02,  2.0678e-02, -1.1076e-01,  2.4075e-02],
+        [ 8.7921e-02,  9.2347e-02, -1.4035e-01, -1.6609e-02],
+        [ 5.5004e-02,  9.8026e-02, -8.9482e-02,  1.4397e-02],
+        [ 4.7492e-02,  5.8496e-02, -1.3540e-01, -8.6475e-05],
+        [ 9.5610e-02,  3.0211e-04, -9.5448e-02, -2.0734e-02]], device='cuda:0',
+       grad_fn=<GatherBackward>)
+tensor([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], device='cuda:0')
+tensor([0.0907, 0.0555, 0.0698, 0.0695, 0.1139, 0.0004, 0.0489, 0.0586, 0.1201,
+        0.0805], requires_grad=True)
+tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0.])
+Traceback (most recent call last):
+  File "run_xlsr_group2.py", line 749, in <module>
+    trainer.fit(trainDataLoader, testDataLoader, set_num_train_epochs)
+  File "run_xlsr_group2.py", line 548, in fit
+    train_loss, train_acc = self._train(train_loader, tr_itt, loss_sum_tr, acc_sum_tr)
+  File "run_xlsr_group2.py", line 568, in _train
+    loss, acc = self._compute_loss(model, inputs, labels)
+  File "run_xlsr_group2.py", line 640, in _compute_loss
+    loss = lossfct(grouped_pred, grouped_labels)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/loss.py", line 1163, in forward
+    return F.cross_entropy(input, target, weight=self.weight,
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/functional.py", line 2996, in cross_entropy
+    return torch._C._nn.cross_entropy_loss(input, target, weight, _Reduction.get_enum(reduction), ignore_index, label_smoothing)
+IndexError: Dimension out of range (expected to be in range of [-1, 0], but got 1)

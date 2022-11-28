@@ -1,0 +1,647 @@
+Wed Oct 12 14:40:16 AEDT 2022
+------------------------------------------------------------------------
+                         run_lan.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_lan.py
+Started: 12/10/2022 14:40:21
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: wav2vec-lan-4s
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+training data path: /srv/scratch/z5208494/dataset/VoxLingua107/
+test data path: /srv/scratch/z5208494/dataset/VoxLingua107/
+base_fp: /srv/scratch/z5208494/output/
+train_name: voxlan_100f
+train_filename: train_lan_100f
+evaluation_filename: test_lan_100f
+use_checkpoint: False
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+number_of_worker: 1
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.1
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: no
+batch_size: 12
+gradient_accumulation_steps: 2
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 100
+max_steps: -1
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 500
+save_total_limit: 40
+fp16: False
+eval_steps: 100
+load_best_model_at_end: False
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/train_lan_100f.csv
+--> data_test_fp: data/test_lan_100f.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/voxlan_100f_local/wav2vec-lan-4s
+--> finetuned_results_fp: /srv/scratch/z5208494/output/voxlan_100f_local/wav2vec-lan-4s_finetuned_results.csv
+--> pretrained_mod: facebook/wav2vec2-base
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+
+------> CREATING WAV2VEC2 FEATURE EXTRACTOR... -----------------------
+
+SUCCESS: Created feature extractor.
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 4 s
+Sampling Rate: 16000
+Target Sampling Rate: 16000
+Create a custom dataset ---> 
+Check data has been processed correctly... 
+Train Data Sample
+formats: can't open input file `/srv/scratch/z5208494/dataset/VoxLingua107/B85FmdmVHHI__U__S1---0016.520-0027.330.wav': No such file or directory
+formats: can't open input file `/srv/scratch/z5208494/dataset/VoxLingua107/aIipDS4OQ2c__U__S1---0032.350-0041.550.wav': No such file or directory
+formats: can't open input file `/srv/scratch/z5208494/dataset/VoxLingua107/1B20tWqxQY0__U__S12---0144.090-0158.370.wav': No such file or directory
+Traceback (most recent call last):
+  File "run_lan.py", line 404, in <module>
+    TrainData = next(iter(trainDataLoader))
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 530, in __next__
+    data = self._next_data()
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 1224, in _next_data
+    return self._process_data(data)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 1250, in _process_data
+    data.reraise()
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/_utils.py", line 457, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/utils/data/_utils/worker.py", line 287, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/utils/data/_utils/fetch.py", line 49, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/utils/data/_utils/fetch.py", line 49, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/z5208494/thesis/customData.py", line 47, in __getitem__
+    speech = speech_file_to_array_fn(audiopath, self.sampling_rate)
+  File "/home/z5208494/thesis/customData.py", line 16, in speech_file_to_array_fn
+    speech_array, sampling_rate = torchaudio.load(path)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torchaudio/backend/sox_io_backend.py", line 153, in load
+    return torch.ops.torchaudio.sox_io_load_audio_file(
+RuntimeError: Error loading audio file: failed to open file /srv/scratch/z5208494/dataset/VoxLingua107/B85FmdmVHHI__U__S1---0016.520-0027.330.wav
+
+Thu Oct 13 10:36:26 AEDT 2022
+------------------------------------------------------------------------
+                         run_lan.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_lan.py
+Started: 13/10/2022 10:36:32
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: wav2vec-lan-4s
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+training data path: /srv/scratch/z5208494/dataset/VoxLingua107/
+test data path: /srv/scratch/z5208494/dataset/VoxLingua107/
+base_fp: /srv/scratch/z5208494/output/
+train_name: voxlan_100f
+train_filename: train_lan_100f
+evaluation_filename: test_lan_100f
+use_checkpoint: False
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+number_of_worker: 1
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.1
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: no
+batch_size: 12
+gradient_accumulation_steps: 2
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 100
+max_steps: -1
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 500
+save_total_limit: 40
+fp16: True
+eval_steps: 100
+load_best_model_at_end: False
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/train_lan_100f.csv
+--> data_test_fp: data/test_lan_100f.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/voxlan_100f_local/wav2vec-lan-4s
+--> finetuned_results_fp: /srv/scratch/z5208494/output/voxlan_100f_local/wav2vec-lan-4s_finetuned_results.csv
+--> pretrained_mod: facebook/wav2vec2-base
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+
+------> CREATING WAV2VEC2 FEATURE EXTRACTOR... -----------------------
+
+SUCCESS: Created feature extractor.
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 4 s
+Sampling Rate: 16000
+Target Sampling Rate: 16000
+Create a custom dataset ---> 
+Check data has been processed correctly... 
+Train Data Sample
+formats: can't open input file `/srv/scratch/z5208494/dataset/VoxLingua107/ar"On5ioLQAGu4__U__S0---0457.230-0462.430.wav': No such file or directory
+formats: can't open input file `/srv/scratch/z5208494/dataset/VoxLingua107/en"YfGLooqYjNY__U__S123---2457.330-2471.090.wav': No such file or directory
+formats: can't open input file `/srv/scratch/z5208494/dataset/VoxLingua107/ar"PaUZflGvMxo__U__S56---0394.250-0404.300.wav': No such file or directory
+Traceback (most recent call last):
+  File "run_lan.py", line 404, in <module>
+    TrainData = next(iter(trainDataLoader))
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 530, in __next__
+    data = self._next_data()
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 1224, in _next_data
+    return self._process_data(data)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/utils/data/dataloader.py", line 1250, in _process_data
+    data.reraise()
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/_utils.py", line 457, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/utils/data/_utils/worker.py", line 287, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/utils/data/_utils/fetch.py", line 49, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/utils/data/_utils/fetch.py", line 49, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/z5208494/thesis/customDataLan.py", line 49, in __getitem__
+    speech = speech_file_to_array_fn(audiopath, self.sampling_rate)
+  File "/home/z5208494/thesis/customDataLan.py", line 16, in speech_file_to_array_fn
+    speech_array, sampling_rate = torchaudio.load(path)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torchaudio/backend/sox_io_backend.py", line 153, in load
+    return torch.ops.torchaudio.sox_io_load_audio_file(
+RuntimeError: Error loading audio file: failed to open file /srv/scratch/z5208494/dataset/VoxLingua107/ar"On5ioLQAGu4__U__S0---0457.230-0462.430.wav
+
+Thu Oct 13 10:44:00 AEDT 2022
+------------------------------------------------------------------------
+                         run_lan.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_lan.py
+Started: 13/10/2022 10:44:05
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: wav2vec-lan-4s
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+training data path: /srv/scratch/z5208494/dataset/VoxLingua107/
+test data path: /srv/scratch/z5208494/dataset/VoxLingua107/
+base_fp: /srv/scratch/z5208494/output/
+train_name: voxlan_100f
+train_filename: train_lan_100f
+evaluation_filename: test_lan_100f
+use_checkpoint: False
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+number_of_worker: 1
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.1
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: no
+batch_size: 12
+gradient_accumulation_steps: 2
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 100
+max_steps: -1
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 500
+save_total_limit: 40
+fp16: True
+eval_steps: 100
+load_best_model_at_end: False
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/train_lan_100f.csv
+--> data_test_fp: data/test_lan_100f.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/voxlan_100f_local/wav2vec-lan-4s
+--> finetuned_results_fp: /srv/scratch/z5208494/output/voxlan_100f_local/wav2vec-lan-4s_finetuned_results.csv
+--> pretrained_mod: facebook/wav2vec2-base
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+
+------> CREATING WAV2VEC2 FEATURE EXTRACTOR... -----------------------
+
+SUCCESS: Created feature extractor.
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 4 s
+Sampling Rate: 16000
+Target Sampling Rate: 16000
+Create a custom dataset ---> 
+Check data has been processed correctly... 
+Train Data Sample
+{'input_values': tensor([[ 0.0008,  0.0023,  0.0046,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0304,  0.0447,  0.0447,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0441,  0.0576,  0.0516,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [-0.0509, -0.0315, -0.0146,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0502, -0.0591, -0.0255,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0096,  0.0066, -0.0113,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0, 1, 3, 0, 1, 3, 1, 1, 1, 3, 2, 0])}
+Training DataCustom Files: 400
+Training Data Files: 34
+Test Data Sample
+/home/z5208494/.local/lib/python3.8/site-packages/transformers/configuration_utils.py:363: UserWarning: Passing `gradient_checkpointing` to a config initialization is deprecated and will be removed in v5 Transformers. Using `model.gradient_checkpointing_enable()` instead, or if you are using the `Trainer` API, pass `gradient_checkpointing=True` in your `TrainingArguments`.
+  warnings.warn(
+Some weights of the model checkpoint at facebook/wav2vec2-base were not used when initializing Wav2Vec2ForSequenceClassification: ['project_hid.weight', 'project_q.weight', 'quantizer.codevectors', 'project_q.bias', 'quantizer.weight_proj.weight', 'project_hid.bias', 'quantizer.weight_proj.bias']
+- This IS expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of Wav2Vec2ForSequenceClassification were not initialized from the model checkpoint at facebook/wav2vec2-base and are newly initialized: ['classifier.bias', 'projector.bias', 'classifier.weight', 'projector.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Using cuda_amp half precision backend
+{'input_values': tensor([[-0.0563,  0.0271,  0.0510,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0036, -0.0051, -0.0040,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0190, -0.0428, -0.0583,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [-0.1774, -0.1085, -0.1632,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0012,  0.0006,  0.0002,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0057, -0.0082, -0.0134,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([3, 0, 0, 2, 2, 2, 3, 2, 0, 0, 1, 0])}
+Test CustomData Files: 400
+Test Data Files: 34
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Loading pre-trained checkpoint...
+-------- Setting up Model --------
+GPUs Used :  2 GPUs!
+SUCCESS: Pre-trained checkpoint loaded.
+--> Defining Custom Trainer Class...
+
+------> STARTING TRAINING... ----------------------------------------- 
+
+Trainable Parameters : 198660
+Epoch 0 Train Acc 28.41176414489746% Val Acc 25.205883026123047% Train Loss 0.6929517388343811 Val Loss 1.3904725313186646
+Trainable Parameters : 198660
+Epoch 1 Train Acc 24.382352828979492% Val Acc 27.205883026123047% Train Loss 0.6943171620368958 Val Loss 1.3888955116271973
+Trainable Parameters : 198660
+Epoch 2 Train Acc 27.08823585510254% Val Acc 25.705883026123047% Train Loss 0.6929618120193481 Val Loss 1.389638900756836
+Trainable Parameters : 198660
+Epoch 3 Train Acc 26.97058868408203% Val Acc 27.735294342041016% Train Loss 0.6932304501533508 Val Loss 1.3878779411315918
+Trainable Parameters : 198660
+Epoch 4 Train Acc 26.0% Val Acc 27.235294342041016% Train Loss 0.6930102705955505 Val Loss 1.3874725103378296
+Trainable Parameters : 198660
+Epoch 5 Train Acc 24.676469802856445% Val Acc 28.205883026123047% Train Loss 0.6939356327056885 Val Loss 1.3868439197540283
+Trainable Parameters : 198660
+Epoch 6 Train Acc 27.205883026123047% Val Acc 26.735294342041016% Train Loss 0.6920397877693176 Val Loss 1.3871232271194458
+Trainable Parameters : 198660
+Epoch 7 Train Acc 26.794116973876953% Val Acc 24.823530197143555% Train Loss 0.6928470730781555 Val Loss 1.3863840103149414
+Trainable Parameters : 198660
+Epoch 8 Train Acc 26.97058868408203% Val Acc 25.147058486938477% Train Loss 0.6916815042495728 Val Loss 1.3862427473068237
+Trainable Parameters : 198660
+Epoch 9 Train Acc 27.941177368164062% Val Acc 27.0% Train Loss 0.6904245615005493 Val Loss 1.3843320608139038
+Trainable Parameters : 198660
+Epoch 10 Train Acc 28.705883026123047% Val Acc 28.55882453918457% Train Loss 0.6908984780311584 Val Loss 1.3841077089309692
+Trainable Parameters : 198660
+Epoch 11 Train Acc 31.676469802856445% Val Acc 26.41176414489746% Train Loss 0.6911715865135193 Val Loss 1.3824735879898071
+Trainable Parameters : 198660
+Epoch 12 Train Acc 28.147058486938477% Val Acc 29.0% Train Loss 0.689719557762146 Val Loss 1.3817418813705444
+Trainable Parameters : 198660
+Epoch 13 Train Acc 32.32352828979492% Val Acc 27.97058868408203% Train Loss 0.6899815201759338 Val Loss 1.3821582794189453
+Trainable Parameters : 198660
+Epoch 14 Train Acc 31.852941513061523% Val Acc 28.382352828979492% Train Loss 0.688869059085846 Val Loss 1.3823317289352417
+Trainable Parameters : 198660
+Epoch 15 Train Acc 31.617647171020508% Val Acc 30.117647171020508% Train Loss 0.6879640221595764 Val Loss 1.381141185760498
+Trainable Parameters : 198660
+Epoch 16 Train Acc 34.55882263183594% Val Acc 27.91176414489746% Train Loss 0.6882320642471313 Val Loss 1.3815938234329224
+Trainable Parameters : 198660
+Epoch 17 Train Acc 36.52941131591797% Val Acc 31.264705657958984% Train Loss 0.6866629719734192 Val Loss 1.3797091245651245
+Trainable Parameters : 198660
+Epoch 18 Train Acc 33.55882263183594% Val Acc 30.617647171020508% Train Loss 0.6862462162971497 Val Loss 1.3793867826461792
+Trainable Parameters : 198660
+Epoch 19 Train Acc 35.44117736816406% Val Acc 31.08823585510254% Train Loss 0.6866236329078674 Val Loss 1.377924919128418
+Trainable Parameters : 198660
+Epoch 20 Train Acc 36.05882263183594% Val Acc 29.117647171020508% Train Loss 0.6845083832740784 Val Loss 1.3783899545669556
+Trainable Parameters : 198660
+Epoch 21 Train Acc 36.97058868408203% Val Acc 28.41176414489746% Train Loss 0.684529185295105 Val Loss 1.37795090675354
+Trainable Parameters : 198660
+Epoch 22 Train Acc 33.55882263183594% Val Acc 27.41176414489746% Train Loss 0.6832895874977112 Val Loss 1.376120686531067
+Trainable Parameters : 198660
+Epoch 23 Train Acc 37.735294342041016% Val Acc 28.617647171020508% Train Loss 0.682840883731842 Val Loss 1.3749158382415771
+Trainable Parameters : 198660
+Epoch 24 Train Acc 36.264705657958984% Val Acc 29.41176414489746% Train Loss 0.6817068457603455 Val Loss 1.3751765489578247
+Trainable Parameters : 198660
+Epoch 25 Train Acc 39.02941131591797% Val Acc 29.705883026123047% Train Loss 0.6813855767250061 Val Loss 1.3750966787338257
+Trainable Parameters : 198660
+Epoch 26 Train Acc 38.411766052246094% Val Acc 31.176469802856445% Train Loss 0.6801982522010803 Val Loss 1.3734287023544312
+Trainable Parameters : 198660
+Epoch 27 Train Acc 37.5% Val Acc 31.352941513061523% Train Loss 0.6779112219810486 Val Loss 1.3733826875686646
+Trainable Parameters : 198660
+Epoch 28 Train Acc 36.35293960571289% Val Acc 30.147058486938477% Train Loss 0.6800192594528198 Val Loss 1.3718737363815308
+Trainable Parameters : 198660
+Epoch 29 Train Acc 38.97058868408203% Val Acc 30.617647171020508% Train Loss 0.6769798994064331 Val Loss 1.3709981441497803
+Trainable Parameters : 198660
+Epoch 30 Train Acc 38.94117736816406% Val Acc 29.441177368164062% Train Loss 0.6761500239372253 Val Loss 1.3712669610977173
+Trainable Parameters : 198660
+Epoch 31 Train Acc 39.47058868408203% Val Acc 30.41176414489746% Train Loss 0.6748948097229004 Val Loss 1.3697618246078491
+Trainable Parameters : 198660
+Epoch 32 Train Acc 38.14706039428711% Val Acc 30.882352828979492% Train Loss 0.6741007566452026 Val Loss 1.370615839958191
+Trainable Parameters : 198660
+Epoch 33 Train Acc 41.47058868408203% Val Acc 32.35293960571289% Train Loss 0.6709374785423279 Val Loss 1.3641446828842163
+Trainable Parameters : 198660
+Epoch 34 Train Acc 37.64706039428711% Val Acc 30.117647171020508% Train Loss 0.6725396513938904 Val Loss 1.3667865991592407
+Trainable Parameters : 198660
+Epoch 35 Train Acc 38.44117736816406% Val Acc 32.55882263183594% Train Loss 0.6693084239959717 Val Loss 1.364642858505249
+Trainable Parameters : 198660
+Epoch 36 Train Acc 39.411766052246094% Val Acc 33.17647171020508% Train Loss 0.6685712337493896 Val Loss 1.3617229461669922
+Trainable Parameters : 198660
+Epoch 37 Train Acc 39.70588302612305% Val Acc 31.382352828979492% Train Loss 0.6691980957984924 Val Loss 1.3641929626464844
+Trainable Parameters : 198660
+Epoch 38 Train Acc 42.14706039428711% Val Acc 32.14706039428711% Train Loss 0.667010486125946 Val Loss 1.3607529401779175
+Trainable Parameters : 198660
+Epoch 39 Train Acc 41.94117736816406% Val Acc 31.5% Train Loss 0.6626224517822266 Val Loss 1.35962975025177
+Trainable Parameters : 198660
+Epoch 40 Train Acc 43.61764907836914% Val Acc 30.294116973876953% Train Loss 0.6630443334579468 Val Loss 1.3647592067718506
+Trainable Parameters : 198660
+Epoch 41 Train Acc 39.47058868408203% Val Acc 31.323530197143555% Train Loss 0.6618487238883972 Val Loss 1.3611549139022827
+Trainable Parameters : 198660
+Epoch 42 Train Acc 40.47058868408203% Val Acc 33.55882263183594% Train Loss 0.6617934107780457 Val Loss 1.3612427711486816
+Trainable Parameters : 198660
+Epoch 43 Train Acc 41.0% Val Acc 33.11764907836914% Train Loss 0.6609441041946411 Val Loss 1.36293363571167
+Trainable Parameters : 198660
+Epoch 44 Train Acc 41.20588302612305% Val Acc 33.588233947753906% Train Loss 0.6572911739349365 Val Loss 1.3574590682983398
+Trainable Parameters : 198660
+Epoch 45 Train Acc 42.64706039428711% Val Acc 31.41176414489746% Train Loss 0.6564511656761169 Val Loss 1.3571696281433105
+Trainable Parameters : 198660
+Epoch 46 Train Acc 39.882354736328125% Val Acc 32.35293960571289% Train Loss 0.6582094430923462 Val Loss 1.3509470224380493
+Trainable Parameters : 198660
+Epoch 47 Train Acc 41.47058868408203% Val Acc 34.79411697387695% Train Loss 0.6548724174499512 Val Loss 1.350078821182251
+Trainable Parameters : 198660
+Epoch 48 Train Acc 40.94117736816406% Val Acc 36.02941131591797% Train Loss 0.653645396232605 Val Loss 1.3491439819335938
+Trainable Parameters : 198660
+Epoch 49 Train Acc 43.67647171020508% Val Acc 35.088233947753906% Train Loss 0.6523118615150452 Val Loss 1.3505473136901855
+Trainable Parameters : 198660
+Epoch 50 Train Acc 39.82352828979492% Val Acc 34.588233947753906% Train Loss 0.6482954621315002 Val Loss 1.3576922416687012
+Trainable Parameters : 198660
+Epoch 51 Train Acc 43.05882263183594% Val Acc 36.764705657958984% Train Loss 0.6481935977935791 Val Loss 1.3506805896759033
+Trainable Parameters : 198660
+Epoch 52 Train Acc 44.47058868408203% Val Acc 35.52941131591797% Train Loss 0.6519520878791809 Val Loss 1.3555399179458618
+Trainable Parameters : 198660
+Epoch 53 Train Acc 45.05882263183594% Val Acc 36.0% Train Loss 0.6419690251350403 Val Loss 1.353326439857483
+Trainable Parameters : 198660
+Epoch 54 Train Acc 45.02941131591797% Val Acc 37.235294342041016% Train Loss 0.6394149661064148 Val Loss 1.349894642829895
+Trainable Parameters : 198660
+Epoch 55 Train Acc 43.85293960571289% Val Acc 36.764705657958984% Train Loss 0.6492874026298523 Val Loss 1.3562453985214233
+Trainable Parameters : 198660
+Epoch 56 Train Acc 44.61764907836914% Val Acc 37.70588302612305% Train Loss 0.6372261047363281 Val Loss 1.3409979343414307
+Trainable Parameters : 198660
+Epoch 57 Train Acc 45.85293960571289% Val Acc 36.52941131591797% Train Loss 0.6358071565628052 Val Loss 1.3482028245925903
+Trainable Parameters : 198660
+Epoch 58 Train Acc 45.17647171020508% Val Acc 36.264705657958984% Train Loss 0.633625328540802 Val Loss 1.352481722831726
+Trainable Parameters : 198660
+Epoch 59 Train Acc 42.64706039428711% Val Acc 38.02941131591797% Train Loss 0.6353102922439575 Val Loss 1.3519243001937866
+Trainable Parameters : 198660
+Epoch 60 Train Acc 44.82352828979492% Val Acc 38.5% Train Loss 0.6314015984535217 Val Loss 1.3329797983169556
+Trainable Parameters : 198660
+Epoch 61 Train Acc 46.764705657958984% Val Acc 37.82352828979492% Train Loss 0.6297339200973511 Val Loss 1.3427293300628662
+Trainable Parameters : 198660
+Epoch 62 Train Acc 46.64706039428711% Val Acc 34.32352828979492% Train Loss 0.628850519657135 Val Loss 1.3784053325653076
+Trainable Parameters : 198660
+Epoch 63 Train Acc 45.05882263183594% Val Acc 36.44117736816406% Train Loss 0.6329841613769531 Val Loss 1.370849609375
+Trainable Parameters : 198660
+Epoch 64 Train Acc 47.79411697387695% Val Acc 38.5% Train Loss 0.6244117021560669 Val Loss 1.3503299951553345
+Trainable Parameters : 198660
+Epoch 65 Train Acc 49.764705657958984% Val Acc 39.235294342041016% Train Loss 0.6206468939781189 Val Loss 1.334803581237793
+Trainable Parameters : 198660
+Epoch 66 Train Acc 43.64706039428711% Val Acc 38.5% Train Loss 0.6265937089920044 Val Loss 1.340445637702942
+Trainable Parameters : 198660
+Epoch 67 Train Acc 42.882354736328125% Val Acc 36.02941131591797% Train Loss 0.6221306324005127 Val Loss 1.3646485805511475
+Trainable Parameters : 198660
+Epoch 68 Train Acc 48.97058868408203% Val Acc 35.61764907836914% Train Loss 0.6170859932899475 Val Loss 1.3793741464614868
+Trainable Parameters : 198660
+Epoch 69 Train Acc 48.82352828979492% Val Acc 35.588233947753906% Train Loss 0.6130645275115967 Val Loss 1.3453854322433472
+Trainable Parameters : 198660
+Epoch 70 Train Acc 46.35293960571289% Val Acc 36.97058868408203% Train Loss 0.6100172400474548 Val Loss 1.367161512374878
+Trainable Parameters : 198660
+Epoch 71 Train Acc 46.67647171020508% Val Acc 35.55882263183594% Train Loss 0.6105031967163086 Val Loss 1.386832594871521
+Trainable Parameters : 198660
+Epoch 72 Train Acc 49.0% Val Acc 38.47058868408203% Train Loss 0.6129273176193237 Val Loss 1.345352292060852
+Trainable Parameters : 198660
+Epoch 73 Train Acc 49.735294342041016% Val Acc 38.70588302612305% Train Loss 0.6052945256233215 Val Loss 1.3429582118988037
+Trainable Parameters : 198660
+Epoch 74 Train Acc 49.02941131591797% Val Acc 37.735294342041016% Train Loss 0.5988627076148987 Val Loss 1.3686162233352661
+Trainable Parameters : 198660
+Epoch 75 Train Acc 51.0% Val Acc 35.735294342041016% Train Loss 0.6003509759902954 Val Loss 1.379758358001709
+Trainable Parameters : 198660
+Epoch 76 Train Acc 47.29411697387695% Val Acc 38.29411697387695% Train Loss 0.5988249778747559 Val Loss 1.3538151979446411
+Trainable Parameters : 198660
+Epoch 77 Train Acc 49.5% Val Acc 38.70588302612305% Train Loss 0.5957825183868408 Val Loss 1.3437275886535645
+Trainable Parameters : 198660
+Epoch 78 Train Acc 49.735294342041016% Val Acc 37.20588302612305% Train Loss 0.5885249972343445 Val Loss 1.3612176179885864
+Trainable Parameters : 198660
+Epoch 79 Train Acc 50.764705657958984% Val Acc 39.0% Train Loss 0.5877009630203247 Val Loss 1.3189314603805542
+Trainable Parameters : 198660
+Epoch 80 Train Acc 52.235294342041016% Val Acc 39.5% Train Loss 0.5830073356628418 Val Loss 1.3607133626937866
+Trainable Parameters : 198660
+Epoch 81 Train Acc 51.0% Val Acc 40.17647171020508% Train Loss 0.5774831175804138 Val Loss 1.3583835363388062
+Trainable Parameters : 198660
+Epoch 82 Train Acc 51.411766052246094% Val Acc 39.44117736816406% Train Loss 0.5752303600311279 Val Loss 1.3610503673553467
+Trainable Parameters : 198660
+Epoch 83 Train Acc 50.764705657958984% Val Acc 39.94117736816406% Train Loss 0.5826294422149658 Val Loss 1.3524562120437622
+Trainable Parameters : 198660
+Epoch 84 Train Acc 49.20588302612305% Val Acc 40.20588302612305% Train Loss 0.5829032063484192 Val Loss 1.3593875169754028
+Trainable Parameters : 198660
+Epoch 85 Train Acc 52.67647171020508% Val Acc 39.235294342041016% Train Loss 0.5675945281982422 Val Loss 1.3502527475357056
+Trainable Parameters : 198660
+Epoch 86 Train Acc 53.411766052246094% Val Acc 40.235294342041016% Train Loss 0.5653625130653381 Val Loss 1.3460866212844849
+Trainable Parameters : 198660
+Epoch 87 Train Acc 55.11764907836914% Val Acc 42.14706039428711% Train Loss 0.5686756372451782 Val Loss 1.3667696714401245
+Trainable Parameters : 198660
+Epoch 88 Train Acc 50.264705657958984% Val Acc 41.94117736816406% Train Loss 0.5747552514076233 Val Loss 1.3528556823730469
+Trainable Parameters : 198660
+Epoch 89 Train Acc 51.20588302612305% Val Acc 40.44117736816406% Train Loss 0.5626020431518555 Val Loss 1.3520095348358154
+Trainable Parameters : 198660
+Epoch 90 Train Acc 52.911766052246094% Val Acc 41.5% Train Loss 0.5547434091567993 Val Loss 1.3368492126464844
+Trainable Parameters : 198660
+Epoch 91 Train Acc 55.14706039428711% Val Acc 44.85293960571289% Train Loss 0.5504094362258911 Val Loss 1.306147575378418
+Trainable Parameters : 198660
+Epoch 92 Train Acc 54.35293960571289% Val Acc 43.85293960571289% Train Loss 0.5552189946174622 Val Loss 1.2809784412384033
+Trainable Parameters : 198660
+Epoch 93 Train Acc 54.0% Val Acc 42.882354736328125% Train Loss 0.5513530373573303 Val Loss 1.3373692035675049
+Trainable Parameters : 198660
+Epoch 94 Train Acc 55.14706039428711% Val Acc 45.02941131591797% Train Loss 0.5435769557952881 Val Loss 1.3163981437683105
+Trainable Parameters : 198660
+Epoch 95 Train Acc 55.64706039428711% Val Acc 41.382354736328125% Train Loss 0.5402419567108154 Val Loss 1.4071075916290283
+Trainable Parameters : 198660
+Epoch 96 Train Acc 54.61764907836914% Val Acc 43.411766052246094% Train Loss 0.5391166806221008 Val Loss 1.3646050691604614
+Trainable Parameters : 198660
+Epoch 97 Train Acc 56.44117736816406% Val Acc 43.411766052246094% Train Loss 0.536383867263794 Val Loss 1.3547083139419556
+Trainable Parameters : 198660
+Epoch 98 Train Acc 59.088233947753906% Val Acc 43.382354736328125% Train Loss 0.5317020416259766 Val Loss 1.2784194946289062
+Trainable Parameters : 198660
+Configuration saved in ../output/voxlan_100f_local/wav2vec-lan-4s/config.json
+Model weights saved in ../output/voxlan_100f_local/wav2vec-lan-4s/pytorch_model.bin
+Epoch 99 Train Acc 58.55882263183594% Val Acc 42.17647171020508% Train Loss 0.5270858407020569 Val Loss 1.369905710220337
+
+------> EVALUATING MODEL... ------------------------------------------ 
+
+/apps/python/3.8.3/lib/python3.8/site-packages/sklearn/metrics/_classification.py:1221: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+CONFUSION MATRIX
+[[0.25 0.   0.   0.  ]
+ [0.25 0.   0.   0.  ]
+ [0.25 0.   0.   0.  ]
+ [0.25 0.   0.   0.  ]]
+CLASSIFICATION REPORT
+              precision    recall  f1-score   support
+
+           0       0.25      1.00      0.40       100
+           1       0.00      0.00      0.00       100
+           2       0.00      0.00      0.00       100
+           3       0.00      0.00      0.00       100
+
+    accuracy                           0.25       400
+   macro avg       0.06      0.25      0.10       400
+weighted avg       0.06      0.25      0.10       400
+
+
+------> SUCCESSFULLY FINISHED ---------------------------------------- 
+
+Finished: 13/10/2022 15:41:54

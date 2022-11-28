@@ -1,0 +1,1320 @@
+Thu Oct 13 14:53:08 AEDT 2022
+------------------------------------------------------------------------
+                         run_w2v.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_hubert.py
+Started: 13/10/2022 14:53:14
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: wav2vec-ADI17-hubert
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: umbrella_500f_devdata
+train_filename: dev_u_500f
+evaluation_filename: test_u_100f
+use_checkpoint: False
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+number_of_worker: 1
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.1
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: no
+batch_size: 12
+gradient_accumulation_steps: 2
+learning_rate: 0.0001
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 100
+max_steps: -1
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 500
+save_total_limit: 40
+fp16: False
+eval_steps: 100
+load_best_model_at_end: False
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/dev_u_500f.csv
+--> data_test_fp: data/test_u_100f.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/umbrella_500f_devdata_local/wav2vec-ADI17-hubert
+--> finetuned_results_fp: /srv/scratch/z5208494/output/umbrella_500f_devdata_local/wav2vec-ADI17-hubert_finetuned_results.csv
+--> pretrained_mod: facebook/hubert-base-ls960
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+
+------> CREATING WAV2VEC2 FEATURE EXTRACTOR... -----------------------
+
+SUCCESS: Created feature extractor.
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 5 s
+Sampling Rate: 16000
+Target Sampling Rate: 16000
+Create a custom dataset ---> 
+Downloading:   0%|          | 0.00/213 [00:00<?, ?B/s]Downloading: 100%|██████████| 213/213 [00:00<00:00, 141kB/s]Check data has been processed correctly... 
+Train Data Sample
+
+{'input_values': tensor([[-0.2808, -0.3015, -0.3137,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0080, -0.0248, -0.0314,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.1560, -0.1550, -0.1519,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [-0.1528, -0.2563, -0.3637,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0621,  0.0394, -0.0114,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.6141, -0.4792, -0.5620,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([3, 0, 3, 2, 1, 0, 0, 1, 1, 2, 2, 2])}
+Training DataCustom Files: 1963
+Training Data Files: 164
+Test Data Sample
+{'input_values': tensor([[ 4.5441e-02,  4.3978e-02,  3.5932e-02,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-1.5994e+00, -1.4733e+00, -1.3183e+00,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-5.3292e-01, -5.2197e-01, -4.7352e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        ...,
+        [-8.4140e-01, -1.3162e+00, -1.0439e+00,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [ 3.4322e-03, -9.8422e-04,  7.1692e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-1.5145e-01, -6.4393e-01,  2.9328e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0, 1, 1, 3, 1, 1, 1, 0, 3, 1, 0, 1])}
+Test CustomData Files: 398
+Test Data Files: 34
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+Downloading:   0%|          | 0.00/1.35k [00:00<?, ?B/s]Downloading: 100%|██████████| 1.35k/1.35k [00:00<00:00, 665kB/s]
+--> Loading pre-trained checkpoint...
+Downloading:   0%|          | 0.00/360M [00:00<?, ?B/s]Downloading:   0%|          | 49.0k/360M [00:00<13:29, 466kB/s]Downloading:   0%|          | 128k/360M [00:00<09:30, 661kB/s] Downloading:   0%|          | 309k/360M [00:00<05:17, 1.19MB/s]Downloading:   0%|          | 656k/360M [00:00<02:59, 2.10MB/s]Downloading:   0%|          | 1.37M/360M [00:00<01:32, 4.07MB/s]Downloading:   1%|          | 2.91M/360M [00:00<00:46, 8.14MB/s]Downloading:   1%|▏         | 4.54M/360M [00:00<00:33, 11.1MB/s]Downloading:   2%|▏         | 6.12M/360M [00:00<00:29, 12.8MB/s]Downloading:   2%|▏         | 7.74M/360M [00:00<00:26, 14.1MB/s]Downloading:   3%|▎         | 9.30M/360M [00:01<00:24, 14.8MB/s]Downloading:   3%|▎         | 10.9M/360M [00:01<00:23, 15.5MB/s]Downloading:   3%|▎         | 12.5M/360M [00:01<00:22, 15.9MB/s]Downloading:   4%|▍         | 14.2M/360M [00:01<00:22, 16.3MB/s]Downloading:   4%|▍         | 15.8M/360M [00:01<00:22, 16.4MB/s]Downloading:   5%|▍         | 17.4M/360M [00:01<00:21, 16.7MB/s]Downloading:   5%|▌         | 19.1M/360M [00:01<00:21, 16.8MB/s]Downloading:   6%|▌         | 20.7M/360M [00:01<00:21, 16.9MB/s]Downloading:   6%|▌         | 22.3M/360M [00:01<00:20, 17.0MB/s]Downloading:   7%|▋         | 24.0M/360M [00:01<00:20, 17.1MB/s]Downloading:   7%|▋         | 25.7M/360M [00:02<00:20, 17.1MB/s]Downloading:   8%|▊         | 27.3M/360M [00:02<00:20, 16.9MB/s]Downloading:   8%|▊         | 28.9M/360M [00:02<00:20, 17.0MB/s]Downloading:   8%|▊         | 30.5M/360M [00:02<00:20, 16.9MB/s]Downloading:   9%|▉         | 32.2M/360M [00:02<00:20, 17.0MB/s]Downloading:   9%|▉         | 33.8M/360M [00:02<00:20, 16.9MB/s]Downloading:  10%|▉         | 35.5M/360M [00:02<00:19, 17.0MB/s]Downloading:  10%|█         | 37.1M/360M [00:02<00:19, 17.0MB/s]Downloading:  11%|█         | 38.8M/360M [00:02<00:19, 17.1MB/s]Downloading:  11%|█         | 40.4M/360M [00:02<00:19, 17.1MB/s]Downloading:  12%|█▏        | 42.1M/360M [00:03<00:19, 17.2MB/s]Downloading:  12%|█▏        | 43.7M/360M [00:03<00:19, 16.9MB/s]Downloading:  13%|█▎        | 45.3M/360M [00:03<00:19, 16.9MB/s]Downloading:  13%|█▎        | 47.0M/360M [00:03<00:19, 17.1MB/s]Downloading:  14%|█▎        | 48.6M/360M [00:03<00:19, 17.0MB/s]Downloading:  14%|█▍        | 50.2M/360M [00:03<00:19, 17.0MB/s]Downloading:  14%|█▍        | 51.9M/360M [00:03<00:19, 16.9MB/s]Downloading:  15%|█▍        | 53.5M/360M [00:03<00:18, 17.0MB/s]Downloading:  15%|█▌        | 55.1M/360M [00:03<00:18, 17.0MB/s]Downloading:  16%|█▌        | 56.8M/360M [00:03<00:18, 17.1MB/s]Downloading:  16%|█▌        | 58.5M/360M [00:04<00:18, 17.2MB/s]Downloading:  17%|█▋        | 60.1M/360M [00:04<00:18, 17.2MB/s]Downloading:  17%|█▋        | 61.8M/360M [00:04<00:18, 16.8MB/s]Downloading:  18%|█▊        | 63.4M/360M [00:04<00:18, 17.0MB/s]Downloading:  18%|█▊        | 65.0M/360M [00:04<00:18, 16.9MB/s]Downloading:  19%|█▊        | 66.7M/360M [00:04<00:18, 16.8MB/s]Downloading:  19%|█▉        | 68.3M/360M [00:04<00:18, 16.9MB/s]Downloading:  19%|█▉        | 69.9M/360M [00:04<00:17, 17.0MB/s]Downloading:  20%|█▉        | 71.6M/360M [00:04<00:17, 17.0MB/s]Downloading:  20%|██        | 73.2M/360M [00:04<00:17, 17.1MB/s]Downloading:  21%|██        | 74.9M/360M [00:05<00:17, 17.2MB/s]Downloading:  21%|██▏       | 76.6M/360M [00:05<00:17, 17.3MB/s]Downloading:  22%|██▏       | 78.2M/360M [00:05<00:17, 17.1MB/s]Downloading:  22%|██▏       | 79.8M/360M [00:05<00:17, 17.0MB/s]Downloading:  23%|██▎       | 81.5M/360M [00:05<00:17, 17.1MB/s]Downloading:  23%|██▎       | 83.1M/360M [00:05<00:17, 16.9MB/s]Downloading:  24%|██▎       | 84.7M/360M [00:05<00:17, 16.9MB/s]Downloading:  24%|██▍       | 86.3M/360M [00:05<00:16, 16.9MB/s]Downloading:  24%|██▍       | 88.0M/360M [00:05<00:16, 17.0MB/s]Downloading:  25%|██▍       | 89.6M/360M [00:05<00:16, 17.0MB/s]Downloading:  25%|██▌       | 91.2M/360M [00:06<00:16, 17.0MB/s]Downloading:  26%|██▌       | 92.9M/360M [00:06<00:16, 17.0MB/s]Downloading:  26%|██▌       | 94.5M/360M [00:06<00:16, 17.1MB/s]Downloading:  27%|██▋       | 96.2M/360M [00:06<00:16, 17.1MB/s]Downloading:  27%|██▋       | 97.8M/360M [00:06<00:16, 17.1MB/s]Downloading:  28%|██▊       | 99.4M/360M [00:06<00:15, 17.1MB/s]Downloading:  28%|██▊       | 101M/360M [00:06<00:15, 17.0MB/s] Downloading:  29%|██▊       | 103M/360M [00:06<00:15, 16.9MB/s]Downloading:  29%|██▉       | 104M/360M [00:06<00:15, 16.9MB/s]Downloading:  29%|██▉       | 106M/360M [00:06<00:15, 17.1MB/s]Downloading:  30%|██▉       | 108M/360M [00:07<00:15, 17.0MB/s]Downloading:  30%|███       | 109M/360M [00:07<00:15, 17.0MB/s]Downloading:  31%|███       | 111M/360M [00:07<00:15, 16.9MB/s]Downloading:  31%|███       | 112M/360M [00:07<00:15, 16.9MB/s]Downloading:  32%|███▏      | 114M/360M [00:07<00:15, 17.0MB/s]Downloading:  32%|███▏      | 116M/360M [00:07<00:14, 17.1MB/s]Downloading:  33%|███▎      | 117M/360M [00:07<00:14, 17.1MB/s]Downloading:  33%|███▎      | 119M/360M [00:07<00:14, 17.1MB/s]Downloading:  34%|███▎      | 121M/360M [00:07<00:14, 17.0MB/s]Downloading:  34%|███▍      | 122M/360M [00:07<00:14, 17.0MB/s]Downloading:  34%|███▍      | 124M/360M [00:08<00:14, 17.1MB/s]Downloading:  35%|███▍      | 126M/360M [00:08<00:14, 17.0MB/s]Downloading:  35%|███▌      | 127M/360M [00:08<00:14, 17.0MB/s]Downloading:  36%|███▌      | 129M/360M [00:08<00:14, 16.9MB/s]Downloading:  36%|███▌      | 130M/360M [00:08<00:14, 17.0MB/s]Downloading:  37%|███▋      | 132M/360M [00:08<00:13, 17.1MB/s]Downloading:  37%|███▋      | 134M/360M [00:08<00:13, 17.2MB/s]Downloading:  38%|███▊      | 135M/360M [00:08<00:13, 17.1MB/s]Downloading:  38%|███▊      | 137M/360M [00:08<00:13, 17.0MB/s]Downloading:  39%|███▊      | 139M/360M [00:08<00:13, 17.0MB/s]Downloading:  39%|███▉      | 140M/360M [00:09<00:13, 17.0MB/s]Downloading:  39%|███▉      | 142M/360M [00:09<00:13, 17.2MB/s]Downloading:  40%|███▉      | 144M/360M [00:09<00:13, 17.0MB/s]Downloading:  40%|████      | 145M/360M [00:09<00:13, 16.4MB/s]Downloading:  41%|████      | 147M/360M [00:09<00:13, 16.2MB/s]Downloading:  41%|████      | 148M/360M [00:09<00:14, 15.5MB/s]Downloading:  42%|████▏     | 150M/360M [00:09<00:14, 15.7MB/s]Downloading:  42%|████▏     | 152M/360M [00:09<00:13, 16.2MB/s]Downloading:  43%|████▎     | 153M/360M [00:09<00:13, 16.5MB/s]Downloading:  43%|████▎     | 155M/360M [00:10<00:12, 16.8MB/s]Downloading:  43%|████▎     | 157M/360M [00:10<00:12, 16.9MB/s]Downloading:  44%|████▍     | 158M/360M [00:10<00:12, 17.0MB/s]Downloading:  44%|████▍     | 160M/360M [00:10<00:12, 17.1MB/s]Downloading:  45%|████▍     | 162M/360M [00:10<00:12, 17.2MB/s]Downloading:  45%|████▌     | 163M/360M [00:10<00:12, 17.0MB/s]Downloading:  46%|████▌     | 165M/360M [00:10<00:12, 17.0MB/s]Downloading:  46%|████▌     | 166M/360M [00:10<00:12, 16.6MB/s]Downloading:  47%|████▋     | 168M/360M [00:10<00:12, 16.8MB/s]Downloading:  47%|████▋     | 170M/360M [00:10<00:11, 16.9MB/s]Downloading:  48%|████▊     | 171M/360M [00:11<00:11, 17.1MB/s]Downloading:  48%|████▊     | 173M/360M [00:11<00:11, 17.2MB/s]Downloading:  49%|████▊     | 175M/360M [00:11<00:11, 17.2MB/s]Downloading:  49%|████▉     | 176M/360M [00:11<00:11, 17.2MB/s]Downloading:  49%|████▉     | 178M/360M [00:11<00:11, 17.2MB/s]Downloading:  50%|████▉     | 180M/360M [00:11<00:11, 16.9MB/s]Downloading:  50%|█████     | 181M/360M [00:11<00:11, 17.0MB/s]Downloading:  51%|█████     | 183M/360M [00:11<00:11, 16.6MB/s]Downloading:  51%|█████▏    | 185M/360M [00:11<00:10, 16.8MB/s]Downloading:  52%|█████▏    | 186M/360M [00:11<00:10, 16.9MB/s]Downloading:  52%|█████▏    | 188M/360M [00:12<00:10, 17.1MB/s]Downloading:  53%|█████▎    | 190M/360M [00:12<00:10, 17.2MB/s]Downloading:  53%|█████▎    | 191M/360M [00:12<00:10, 16.5MB/s]Downloading:  54%|█████▎    | 193M/360M [00:12<00:10, 16.8MB/s]Downloading:  54%|█████▍    | 195M/360M [00:12<00:10, 16.9MB/s]Downloading:  55%|█████▍    | 196M/360M [00:12<00:10, 17.1MB/s]Downloading:  55%|█████▍    | 198M/360M [00:12<00:10, 16.9MB/s]Downloading:  55%|█████▌    | 200M/360M [00:12<00:09, 17.1MB/s]Downloading:  56%|█████▌    | 201M/360M [00:12<00:09, 17.1MB/s]Downloading:  56%|█████▋    | 203M/360M [00:12<00:09, 17.2MB/s]Downloading:  57%|█████▋    | 205M/360M [00:13<00:09, 16.7MB/s]Downloading:  57%|█████▋    | 206M/360M [00:13<00:09, 16.8MB/s]Downloading:  58%|█████▊    | 208M/360M [00:13<00:09, 16.9MB/s]Downloading:  58%|█████▊    | 209M/360M [00:13<00:09, 17.1MB/s]Downloading:  59%|█████▊    | 211M/360M [00:13<00:09, 17.2MB/s]Downloading:  59%|█████▉    | 213M/360M [00:13<00:08, 17.2MB/s]Downloading:  60%|█████▉    | 214M/360M [00:13<00:08, 17.1MB/s]Downloading:  60%|██████    | 216M/360M [00:13<00:08, 17.1MB/s]Downloading:  60%|██████    | 218M/360M [00:13<00:08, 17.2MB/s]Downloading:  61%|██████    | 219M/360M [00:13<00:08, 17.2MB/s]Downloading:  61%|██████▏   | 221M/360M [00:14<00:08, 16.6MB/s]Downloading:  62%|██████▏   | 223M/360M [00:14<00:08, 16.7MB/s]Downloading:  62%|██████▏   | 224M/360M [00:14<00:08, 16.9MB/s]Downloading:  63%|██████▎   | 226M/360M [00:14<00:08, 17.0MB/s]Downloading:  63%|██████▎   | 228M/360M [00:14<00:08, 17.1MB/s]Downloading:  64%|██████▎   | 229M/360M [00:14<00:07, 17.2MB/s]Downloading:  64%|██████▍   | 231M/360M [00:14<00:07, 17.2MB/s]Downloading:  65%|██████▍   | 233M/360M [00:15<00:16, 8.19MB/s]Downloading:  65%|██████▌   | 234M/360M [00:15<00:13, 9.66MB/s]Downloading:  66%|██████▌   | 236M/360M [00:15<00:11, 11.1MB/s]Downloading:  66%|██████▌   | 237M/360M [00:15<00:10, 12.4MB/s]Downloading:  66%|██████▋   | 239M/360M [00:15<00:09, 13.5MB/s]Downloading:  67%|██████▋   | 241M/360M [00:15<00:08, 14.3MB/s]Downloading:  67%|██████▋   | 242M/360M [00:15<00:08, 15.1MB/s]Downloading:  68%|██████▊   | 244M/360M [00:15<00:07, 15.5MB/s]Downloading:  68%|██████▊   | 246M/360M [00:15<00:07, 16.0MB/s]Downloading:  69%|██████▊   | 247M/360M [00:16<00:07, 16.2MB/s]Downloading:  69%|██████▉   | 249M/360M [00:16<00:07, 16.5MB/s]Downloading:  70%|██████▉   | 250M/360M [00:16<00:06, 16.7MB/s]Downloading:  70%|███████   | 252M/360M [00:16<00:06, 16.8MB/s]Downloading:  70%|███████   | 254M/360M [00:16<00:06, 16.9MB/s]Downloading:  71%|███████   | 255M/360M [00:16<00:06, 16.9MB/s]Downloading:  71%|███████▏  | 257M/360M [00:16<00:06, 17.0MB/s]Downloading:  72%|███████▏  | 259M/360M [00:16<00:06, 17.0MB/s]Downloading:  72%|███████▏  | 260M/360M [00:16<00:06, 17.0MB/s]Downloading:  73%|███████▎  | 262M/360M [00:16<00:06, 17.0MB/s]Downloading:  73%|███████▎  | 264M/360M [00:17<00:05, 16.9MB/s]Downloading:  74%|███████▎  | 265M/360M [00:17<00:05, 16.9MB/s]Downloading:  74%|███████▍  | 267M/360M [00:17<00:05, 16.9MB/s]Downloading:  75%|███████▍  | 268M/360M [00:17<00:05, 16.8MB/s]Downloading:  75%|███████▍  | 270M/360M [00:17<00:05, 16.9MB/s]Downloading:  75%|███████▌  | 272M/360M [00:17<00:05, 17.0MB/s]Downloading:  76%|███████▌  | 273M/360M [00:17<00:05, 17.2MB/s]Downloading:  76%|███████▋  | 275M/360M [00:17<00:05, 17.2MB/s]Downloading:  77%|███████▋  | 277M/360M [00:17<00:05, 17.3MB/s]Downloading:  77%|███████▋  | 278M/360M [00:17<00:05, 17.1MB/s]Downloading:  78%|███████▊  | 280M/360M [00:18<00:04, 17.1MB/s]Downloading:  78%|███████▊  | 282M/360M [00:18<00:04, 16.9MB/s]Downloading:  79%|███████▊  | 283M/360M [00:18<00:04, 16.8MB/s]Downloading:  79%|███████▉  | 285M/360M [00:18<00:04, 16.8MB/s]Downloading:  80%|███████▉  | 286M/360M [00:18<00:04, 16.9MB/s]Downloading:  80%|███████▉  | 288M/360M [00:18<00:04, 17.0MB/s]Downloading:  80%|████████  | 290M/360M [00:18<00:04, 17.1MB/s]Downloading:  81%|████████  | 291M/360M [00:18<00:04, 16.7MB/s]Downloading:  81%|████████▏ | 293M/360M [00:18<00:04, 16.9MB/s]Downloading:  82%|████████▏ | 295M/360M [00:19<00:04, 17.0MB/s]Downloading:  82%|████████▏ | 296M/360M [00:19<00:03, 17.1MB/s]Downloading:  83%|████████▎ | 298M/360M [00:19<00:03, 17.2MB/s]Downloading:  83%|████████▎ | 300M/360M [00:19<00:03, 17.3MB/s]Downloading:  84%|████████▎ | 301M/360M [00:19<00:03, 16.9MB/s]Downloading:  84%|████████▍ | 303M/360M [00:19<00:03, 17.0MB/s]Downloading:  85%|████████▍ | 305M/360M [00:19<00:03, 17.0MB/s]Downloading:  85%|████████▌ | 306M/360M [00:19<00:03, 17.1MB/s]Downloading:  85%|████████▌ | 308M/360M [00:19<00:03, 16.7MB/s]Downloading:  86%|████████▌ | 310M/360M [00:19<00:03, 16.8MB/s]Downloading:  86%|████████▋ | 311M/360M [00:20<00:03, 17.0MB/s]Downloading:  87%|████████▋ | 313M/360M [00:20<00:02, 17.1MB/s]Downloading:  87%|████████▋ | 314M/360M [00:20<00:02, 17.2MB/s]Downloading:  88%|████████▊ | 316M/360M [00:20<00:02, 17.3MB/s]Downloading:  88%|████████▊ | 318M/360M [00:20<00:02, 17.1MB/s]Downloading:  89%|████████▊ | 319M/360M [00:20<00:02, 17.0MB/s]Downloading:  89%|████████▉ | 321M/360M [00:20<00:02, 17.0MB/s]Downloading:  90%|████████▉ | 323M/360M [00:20<00:02, 17.1MB/s]Downloading:  90%|█████████ | 324M/360M [00:20<00:02, 16.7MB/s]Downloading:  91%|█████████ | 326M/360M [00:20<00:02, 16.9MB/s]Downloading:  91%|█████████ | 328M/360M [00:21<00:01, 17.1MB/s]Downloading:  91%|█████████▏| 329M/360M [00:21<00:01, 17.1MB/s]Downloading:  92%|█████████▏| 331M/360M [00:21<00:01, 17.2MB/s]Downloading:  92%|█████████▏| 333M/360M [00:21<00:01, 17.3MB/s]Downloading:  93%|█████████▎| 334M/360M [00:21<00:01, 17.1MB/s]Downloading:  93%|█████████▎| 336M/360M [00:21<00:01, 16.8MB/s]Downloading:  94%|█████████▍| 338M/360M [00:21<00:01, 17.0MB/s]Downloading:  94%|█████████▍| 339M/360M [00:21<00:01, 17.0MB/s]Downloading:  95%|█████████▍| 341M/360M [00:21<00:01, 16.7MB/s]Downloading:  95%|█████████▌| 342M/360M [00:21<00:01, 16.8MB/s]Downloading:  96%|█████████▌| 344M/360M [00:22<00:00, 16.8MB/s]Downloading:  96%|█████████▌| 346M/360M [00:22<00:00, 17.0MB/s]Downloading:  96%|█████████▋| 347M/360M [00:22<00:00, 17.1MB/s]Downloading:  97%|█████████▋| 349M/360M [00:22<00:00, 17.2MB/s]Downloading:  97%|█████████▋| 351M/360M [00:22<00:00, 16.9MB/s]Downloading:  98%|█████████▊| 352M/360M [00:22<00:00, 16.8MB/s]Downloading:  98%|█████████▊| 354M/360M [00:22<00:00, 16.6MB/s]Downloading:  99%|█████████▊| 356M/360M [00:22<00:00, 16.8MB/s]Downloading:  99%|█████████▉| 357M/360M [00:22<00:00, 17.0MB/s]Downloading: 100%|█████████▉| 359M/360M [00:22<00:00, 17.1MB/s]Downloading: 100%|██████████| 360M/360M [00:23<00:00, 16.4MB/s]
+Some weights of HubertForSequenceClassification were not initialized from the model checkpoint at facebook/hubert-base-ls960 and are newly initialized: ['classifier.bias', 'projector.bias', 'projector.weight', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+-------- Setting up Model --------
+GPUs Used :  2 GPUs!
+SUCCESS: Pre-trained checkpoint loaded.
+--> Defining Custom Trainer Class...
+
+------> STARTING TRAINING... ----------------------------------------- 
+
+Trainable Parameters : 198660
+Traceback (most recent call last):
+  File "run_hubert.py", line 703, in <module>
+    trainer.fit(trainDataLoader, testDataLoader, set_num_train_epochs)
+  File "run_hubert.py", line 542, in fit
+    train_loss, train_acc = self._train(train_loader, tr_itt, loss_sum_tr, acc_sum_tr)
+  File "run_hubert.py", line 562, in _train
+    loss, acc = self._compute_loss(model, inputs, labels)
+  File "run_hubert.py", line 604, in _compute_loss
+    prediction = model(**inputs).logits
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/data_parallel.py", line 168, in forward
+    outputs = self.parallel_apply(replicas, inputs, kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/data_parallel.py", line 178, in parallel_apply
+    return parallel_apply(replicas, inputs, kwargs, self.device_ids[:len(replicas)])
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/parallel_apply.py", line 86, in parallel_apply
+    output.reraise()
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/_utils.py", line 457, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in replica 0 on device 0.
+Original Traceback (most recent call last):
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/parallel_apply.py", line 61, in _worker
+    output = module(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/transformers/models/hubert/modeling_hubert.py", line 1296, in forward
+    outputs = self.hubert(
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/transformers/models/hubert/modeling_hubert.py", line 1066, in forward
+    encoder_outputs = self.encoder(
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/transformers/models/hubert/modeling_hubert.py", line 703, in forward
+    layer_outputs = layer(
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/transformers/models/hubert/modeling_hubert.py", line 588, in forward
+    hidden_states, attn_weights, _ = self.attention(
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/transformers/models/hubert/modeling_hubert.py", line 487, in forward
+    attn_weights = torch.bmm(query_states, key_states.transpose(1, 2))
+RuntimeError: CUDA out of memory. Tried to allocate 4.29 GiB (GPU 0; 31.75 GiB total capacity; 26.09 GiB already allocated; 1.58 GiB free; 28.76 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+
+Thu Oct 13 15:03:03 AEDT 2022
+------------------------------------------------------------------------
+                         run_w2v.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_hubert.py
+Started: 13/10/2022 15:03:08
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: wav2vec-ADI17-hubert
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: umbrella_500f_devdata
+train_filename: dev_u_500f
+evaluation_filename: test_u_100f
+use_checkpoint: False
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+number_of_worker: 1
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.1
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: no
+batch_size: 4
+gradient_accumulation_steps: 2
+learning_rate: 0.0001
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 100
+max_steps: -1
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 500
+save_total_limit: 40
+fp16: False
+eval_steps: 100
+load_best_model_at_end: False
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/dev_u_500f.csv
+--> data_test_fp: data/test_u_100f.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/umbrella_500f_devdata_local/wav2vec-ADI17-hubert
+--> finetuned_results_fp: /srv/scratch/z5208494/output/umbrella_500f_devdata_local/wav2vec-ADI17-hubert_finetuned_results.csv
+--> pretrained_mod: facebook/hubert-base-ls960
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+
+------> CREATING WAV2VEC2 FEATURE EXTRACTOR... -----------------------
+
+SUCCESS: Created feature extractor.
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 5 s
+Sampling Rate: 16000
+Target Sampling Rate: 16000
+Create a custom dataset ---> 
+Check data has been processed correctly... 
+Train Data Sample
+{'input_values': tensor([[-1.1348,  0.0533,  1.2488,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.1292,  1.2659, -0.5414,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0986,  0.0808,  0.2585,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.4097, -0.4077, -0.3908,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0, 0, 0, 1])}
+Training DataCustom Files: 1963
+Training Data Files: 491
+Test Data Sample
+Some weights of HubertForSequenceClassification were not initialized from the model checkpoint at facebook/hubert-base-ls960 and are newly initialized: ['classifier.bias', 'projector.weight', 'projector.bias', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+{'input_values': tensor([[ 0.3711,  0.1469, -0.1017,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.8803, -1.0686, -1.0899,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.3840,  0.7066,  0.6147,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.2487,  0.8484,  0.8936,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1, 0, 0, 0])}
+Test CustomData Files: 398
+Test Data Files: 100
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Loading pre-trained checkpoint...
+-------- Setting up Model --------
+GPUs Used :  3 GPUs!
+SUCCESS: Pre-trained checkpoint loaded.
+--> Defining Custom Trainer Class...
+
+------> STARTING TRAINING... ----------------------------------------- 
+
+Trainable Parameters : 198660
+Traceback (most recent call last):
+  File "run_hubert.py", line 703, in <module>
+    trainer.fit(trainDataLoader, testDataLoader, set_num_train_epochs)
+  File "run_hubert.py", line 542, in fit
+    train_loss, train_acc = self._train(train_loader, tr_itt, loss_sum_tr, acc_sum_tr)
+  File "run_hubert.py", line 562, in _train
+    loss, acc = self._compute_loss(model, inputs, labels)
+  File "run_hubert.py", line 604, in _compute_loss
+    prediction = model(**inputs).logits
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/data_parallel.py", line 168, in forward
+    outputs = self.parallel_apply(replicas, inputs, kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/data_parallel.py", line 178, in parallel_apply
+    return parallel_apply(replicas, inputs, kwargs, self.device_ids[:len(replicas)])
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/parallel_apply.py", line 86, in parallel_apply
+    output.reraise()
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/_utils.py", line 457, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in replica 0 on device 0.
+Original Traceback (most recent call last):
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/parallel_apply.py", line 61, in _worker
+    output = module(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/transformers/models/hubert/modeling_hubert.py", line 1296, in forward
+    outputs = self.hubert(
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/transformers/models/hubert/modeling_hubert.py", line 1066, in forward
+    encoder_outputs = self.encoder(
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/transformers/models/hubert/modeling_hubert.py", line 703, in forward
+    layer_outputs = layer(
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/transformers/models/hubert/modeling_hubert.py", line 588, in forward
+    hidden_states, attn_weights, _ = self.attention(
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/transformers/models/hubert/modeling_hubert.py", line 487, in forward
+    attn_weights = torch.bmm(query_states, key_states.transpose(1, 2))
+RuntimeError: CUDA out of memory. Tried to allocate 1.43 GiB (GPU 0; 31.75 GiB total capacity; 29.70 GiB already allocated; 204.00 MiB free; 30.14 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+
+Thu Oct 13 15:06:42 AEDT 2022
+------------------------------------------------------------------------
+                         run_w2v.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_hubert.py
+Started: 13/10/2022 15:06:47
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: wav2vec-ADI17-hubert
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: umbrella_500f_devdata
+train_filename: dev_u_500f
+evaluation_filename: test_u_100f
+use_checkpoint: False
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+number_of_worker: 1
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.1
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: no
+batch_size: 4
+gradient_accumulation_steps: 2
+learning_rate: 0.0001
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 100
+max_steps: -1
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 500
+save_total_limit: 40
+fp16: False
+eval_steps: 100
+load_best_model_at_end: False
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/dev_u_500f.csv
+--> data_test_fp: data/test_u_100f.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/umbrella_500f_devdata_local/wav2vec-ADI17-hubert
+--> finetuned_results_fp: /srv/scratch/z5208494/output/umbrella_500f_devdata_local/wav2vec-ADI17-hubert_finetuned_results.csv
+--> pretrained_mod: facebook/hubert-base-ls960
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+
+------> CREATING WAV2VEC2 FEATURE EXTRACTOR... -----------------------
+
+SUCCESS: Created feature extractor.
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 5 s
+Sampling Rate: 16000
+Target Sampling Rate: 16000
+Create a custom dataset ---> 
+Check data has been processed correctly... 
+Train Data Sample
+{'input_values': tensor([[-0.0172, -0.0025,  0.0298,  ...,  0.0000,  0.0000,  0.0000],
+        [-1.2622, -1.2192, -1.1686,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0729, -0.0972, -0.0927,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.3946,  0.3241,  0.1457,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([3, 2, 0, 0])}
+Training DataCustom Files: 1963
+Training Data Files: 491
+Test Data Sample
+Some weights of HubertForSequenceClassification were not initialized from the model checkpoint at facebook/hubert-base-ls960 and are newly initialized: ['classifier.bias', 'projector.bias', 'projector.weight', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+{'input_values': tensor([[-0.0986, -0.0721,  0.1168,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0572, -0.0516, -0.0418,  ...,  0.0025,  0.0582,  0.1173],
+        [-0.0766, -0.0872, -0.0994,  ...,  0.0000,  0.0000,  0.0000],
+        [ 1.7907,  1.8049,  1.7620,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1, 1, 0, 1])}
+Test CustomData Files: 398
+Test Data Files: 100
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Loading pre-trained checkpoint...
+-------- Setting up Model --------
+GPUs Used :  3 GPUs!
+SUCCESS: Pre-trained checkpoint loaded.
+--> Defining Custom Trainer Class...
+
+------> STARTING TRAINING... ----------------------------------------- 
+
+Trainable Parameters : 198660
+Traceback (most recent call last):
+  File "run_hubert.py", line 703, in <module>
+    trainer.fit(trainDataLoader, testDataLoader, set_num_train_epochs)
+  File "run_hubert.py", line 542, in fit
+    train_loss, train_acc = self._train(train_loader, tr_itt, loss_sum_tr, acc_sum_tr)
+  File "run_hubert.py", line 562, in _train
+    loss, acc = self._compute_loss(model, inputs, labels)
+  File "run_hubert.py", line 604, in _compute_loss
+    prediction = model(**inputs).logits
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/data_parallel.py", line 168, in forward
+    outputs = self.parallel_apply(replicas, inputs, kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/data_parallel.py", line 178, in parallel_apply
+    return parallel_apply(replicas, inputs, kwargs, self.device_ids[:len(replicas)])
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/parallel_apply.py", line 86, in parallel_apply
+    output.reraise()
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/_utils.py", line 457, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in replica 0 on device 0.
+Original Traceback (most recent call last):
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/parallel_apply.py", line 61, in _worker
+    output = module(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/transformers/models/hubert/modeling_hubert.py", line 1296, in forward
+    outputs = self.hubert(
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/transformers/models/hubert/modeling_hubert.py", line 1066, in forward
+    encoder_outputs = self.encoder(
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/transformers/models/hubert/modeling_hubert.py", line 703, in forward
+    layer_outputs = layer(
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/transformers/models/hubert/modeling_hubert.py", line 588, in forward
+    hidden_states, attn_weights, _ = self.attention(
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/transformers/models/hubert/modeling_hubert.py", line 487, in forward
+    attn_weights = torch.bmm(query_states, key_states.transpose(1, 2))
+RuntimeError: CUDA out of memory. Tried to allocate 1.43 GiB (GPU 0; 31.75 GiB total capacity; 29.70 GiB already allocated; 204.00 MiB free; 30.14 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+
+Thu Oct 13 15:12:25 AEDT 2022
+------------------------------------------------------------------------
+                         run_w2v.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_hubert.py
+Started: 13/10/2022 15:12:30
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: wav2vec-ADI17-hubert
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: umbrella_500f_devdata
+train_filename: dev_u_500f
+evaluation_filename: test_u_100f
+use_checkpoint: False
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+number_of_worker: 1
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.1
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: no
+batch_size: 4
+gradient_accumulation_steps: 2
+learning_rate: 0.0001
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 100
+max_steps: -1
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 500
+save_total_limit: 40
+fp16: False
+eval_steps: 100
+load_best_model_at_end: False
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/dev_u_500f.csv
+--> data_test_fp: data/test_u_100f.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/umbrella_500f_devdata_local/wav2vec-ADI17-hubert
+--> finetuned_results_fp: /srv/scratch/z5208494/output/umbrella_500f_devdata_local/wav2vec-ADI17-hubert_finetuned_results.csv
+--> pretrained_mod: facebook/hubert-base-ls960
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+
+------> CREATING WAV2VEC2 FEATURE EXTRACTOR... -----------------------
+
+SUCCESS: Created feature extractor.
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 3 s
+Sampling Rate: 16000
+Target Sampling Rate: 16000
+Create a custom dataset ---> 
+Check data has been processed correctly... 
+Train Data Sample
+{'input_values': tensor([[-0.6357, -0.6994, -0.5588,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.1975,  0.1722,  0.2030,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.8801, -0.9374, -0.9045,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0740, -0.0574, -0.0449,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([3, 0, 0, 1])}
+Training DataCustom Files: 1963
+Training Data Files: 491
+Test Data Sample
+Some weights of HubertForSequenceClassification were not initialized from the model checkpoint at facebook/hubert-base-ls960 and are newly initialized: ['projector.bias', 'classifier.bias', 'classifier.weight', 'projector.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+{'input_values': tensor([[ 3.3494,  3.9602,  4.3515,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.1413, -0.1330, -0.1437,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.4269,  2.2177,  2.2136,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0784, -0.0794, -0.0825,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1, 1, 3, 1])}
+Test CustomData Files: 398
+Test Data Files: 100
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Loading pre-trained checkpoint...
+-------- Setting up Model --------
+GPUs Used :  3 GPUs!
+SUCCESS: Pre-trained checkpoint loaded.
+--> Defining Custom Trainer Class...
+
+------> STARTING TRAINING... ----------------------------------------- 
+
+Trainable Parameters : 198660
+Epoch 0 Train Acc 25.54378890991211% Val Acc 25.0% Train Loss 0.6938589215278625 Val Loss 1.3821114301681519
+Trainable Parameters : 198660
+Epoch 1 Train Acc 30.39715003967285% Val Acc 26.0% Train Loss 0.6878376603126526 Val Loss 1.3795465230941772
+Trainable Parameters : 198660
+Epoch 2 Train Acc 37.96741485595703% Val Acc 24.75% Train Loss 0.677578330039978 Val Loss 1.3791401386260986
+Trainable Parameters : 198660
+Epoch 3 Train Acc 41.08961486816406% Val Acc 23.75% Train Loss 0.6642847657203674 Val Loss 1.3867336511611938
+Trainable Parameters : 198660
+Epoch 4 Train Acc 42.83707046508789% Val Acc 24.5% Train Loss 0.6472121477127075 Val Loss 1.3972480297088623
+Trainable Parameters : 198660
+Epoch 5 Train Acc 45.14664077758789% Val Acc 29.75% Train Loss 0.6312559247016907 Val Loss 1.3959819078445435
+Trainable Parameters : 198660
+Epoch 6 Train Acc 48.13238525390625% Val Acc 28.25% Train Loss 0.6082714796066284 Val Loss 1.413453221321106
+Trainable Parameters : 198660
+Epoch 7 Train Acc 51.018333435058594% Val Acc 30.75% Train Loss 0.5844169855117798 Val Loss 1.4108457565307617
+Trainable Parameters : 198660
+Epoch 8 Train Acc 53.309574127197266% Val Acc 29.25% Train Loss 0.5615512728691101 Val Loss 1.4546177387237549
+Trainable Parameters : 198660
+Epoch 9 Train Acc 57.01018524169922% Val Acc 32.75% Train Loss 0.5395099520683289 Val Loss 1.4667729139328003
+Trainable Parameters : 198660
+Epoch 10 Train Acc 60.13238525390625% Val Acc 31.75% Train Loss 0.5142212510108948 Val Loss 1.5247559547424316
+Trainable Parameters : 198660
+Epoch 11 Train Acc 59.18126678466797% Val Acc 35.5% Train Loss 0.5034420490264893 Val Loss 1.526473045349121
+Trainable Parameters : 198660
+Epoch 12 Train Acc 63.17108154296875% Val Acc 33.5% Train Loss 0.4799312949180603 Val Loss 1.5588483810424805
+Trainable Parameters : 198660
+Epoch 13 Train Acc 62.270877838134766% Val Acc 35.0% Train Loss 0.47805100679397583 Val Loss 1.5691776275634766
+Trainable Parameters : 198660
+Epoch 14 Train Acc 62.101837158203125% Val Acc 34.75% Train Loss 0.4683481454849243 Val Loss 1.641420841217041
+Trainable Parameters : 198660
+Epoch 15 Train Acc 64.17108154296875% Val Acc 39.5% Train Loss 0.4609088897705078 Val Loss 1.507597804069519
+Trainable Parameters : 198660
+Epoch 16 Train Acc 63.12016677856445% Val Acc 37.25% Train Loss 0.453345388174057 Val Loss 1.7274104356765747
+Trainable Parameters : 198660
+Epoch 17 Train Acc 65.13849639892578% Val Acc 36.25% Train Loss 0.4552697241306305 Val Loss 1.656978726387024
+Trainable Parameters : 198660
+Epoch 18 Train Acc 67.04073333740234% Val Acc 37.5% Train Loss 0.442692369222641 Val Loss 1.6529936790466309
+Trainable Parameters : 198660
+Epoch 19 Train Acc 65.78411865234375% Val Acc 35.75% Train Loss 0.4368325173854828 Val Loss 1.736601710319519
+Trainable Parameters : 198660
+Epoch 20 Train Acc 66.90428161621094% Val Acc 38.25% Train Loss 0.4389861822128296 Val Loss 1.695662021636963
+Trainable Parameters : 198660
+Epoch 21 Train Acc 67.14257049560547% Val Acc 39.0% Train Loss 0.4291861057281494 Val Loss 1.6767603158950806
+Trainable Parameters : 198660
+Epoch 22 Train Acc 67.73523712158203% Val Acc 36.5% Train Loss 0.42047974467277527 Val Loss 1.9349308013916016
+Trainable Parameters : 198660
+Epoch 23 Train Acc 68.12627410888672% Val Acc 40.25% Train Loss 0.4220202565193176 Val Loss 1.698190450668335
+Trainable Parameters : 198660
+Epoch 24 Train Acc 68.90631866455078% Val Acc 37.25% Train Loss 0.4179723262786865 Val Loss 1.7184858322143555
+Trainable Parameters : 198660
+Epoch 25 Train Acc 69.09368896484375% Val Acc 39.5% Train Loss 0.4170519709587097 Val Loss 1.6470413208007812
+Trainable Parameters : 198660
+Epoch 26 Train Acc 69.09368896484375% Val Acc 39.75% Train Loss 0.40411534905433655 Val Loss 1.7970815896987915
+Trainable Parameters : 198660
+Epoch 27 Train Acc 70.01018524169922% Val Acc 36.25% Train Loss 0.40050122141838074 Val Loss 1.7698358297348022
+Trainable Parameters : 198660
+Epoch 28 Train Acc 70.60488891601562% Val Acc 38.0% Train Loss 0.39939767122268677 Val Loss 1.6832215785980225
+Trainable Parameters : 198660
+Epoch 29 Train Acc 71.01222229003906% Val Acc 39.5% Train Loss 0.395061731338501 Val Loss 1.720184326171875
+Trainable Parameters : 198660
+Epoch 30 Train Acc 69.56822967529297% Val Acc 40.0% Train Loss 0.4044092297554016 Val Loss 1.7103164196014404
+Trainable Parameters : 198660
+Epoch 31 Train Acc 70.57026672363281% Val Acc 36.5% Train Loss 0.388632595539093 Val Loss 1.8082281351089478
+Trainable Parameters : 198660
+Epoch 32 Train Acc 70.5539779663086% Val Acc 39.5% Train Loss 0.386597603559494 Val Loss 1.6962559223175049
+Trainable Parameters : 198660
+Epoch 33 Train Acc 70.3666000366211% Val Acc 39.5% Train Loss 0.39571183919906616 Val Loss 1.6458767652511597
+Trainable Parameters : 198660
+Epoch 34 Train Acc 72.2851333618164% Val Acc 41.5% Train Loss 0.3713403344154358 Val Loss 1.817690372467041
+Trainable Parameters : 198660
+Epoch 35 Train Acc 72.13238525390625% Val Acc 39.75% Train Loss 0.37716007232666016 Val Loss 1.8163793087005615
+Trainable Parameters : 198660
+Epoch 36 Train Acc 71.3177261352539% Val Acc 35.75% Train Loss 0.3763531446456909 Val Loss 1.8218352794647217
+Trainable Parameters : 198660
+Epoch 37 Train Acc 72.84521484375% Val Acc 37.5% Train Loss 0.38776418566703796 Val Loss 1.7580610513687134
+Trainable Parameters : 198660
+Epoch 38 Train Acc 72.03055572509766% Val Acc 39.25% Train Loss 0.3697153925895691 Val Loss 1.7801399230957031
+Trainable Parameters : 198660
+Epoch 39 Train Acc 71.53768157958984% Val Acc 36.5% Train Loss 0.36984768509864807 Val Loss 1.8990062475204468
+Trainable Parameters : 198660
+Epoch 40 Train Acc 72.75967407226562% Val Acc 39.5% Train Loss 0.36955466866493225 Val Loss 1.7934283018112183
+Trainable Parameters : 198660
+Epoch 41 Train Acc 71.9796371459961% Val Acc 36.5% Train Loss 0.3747178018093109 Val Loss 1.8592779636383057
+Trainable Parameters : 198660
+Epoch 42 Train Acc 71.5539779663086% Val Acc 41.5% Train Loss 0.3797326982021332 Val Loss 1.7267922163009644
+Trainable Parameters : 198660
+Epoch 43 Train Acc 72.38697052001953% Val Acc 40.0% Train Loss 0.36404934525489807 Val Loss 1.7773902416229248
+Trainable Parameters : 198660
+Epoch 44 Train Acc 72.03055572509766% Val Acc 40.75% Train Loss 0.37285250425338745 Val Loss 1.8273334503173828
+Trainable Parameters : 198660
+Epoch 45 Train Acc 73.42159271240234% Val Acc 38.25% Train Loss 0.3607006072998047 Val Loss 1.8295594453811646
+Trainable Parameters : 198660
+Epoch 46 Train Acc 73.53971862792969% Val Acc 39.25% Train Loss 0.36209335923194885 Val Loss 1.8052926063537598
+Trainable Parameters : 198660
+Epoch 47 Train Acc 72.50509643554688% Val Acc 38.5% Train Loss 0.368163526058197 Val Loss 1.7816219329833984
+Trainable Parameters : 198660
+Epoch 48 Train Acc 73.04888153076172% Val Acc 38.5% Train Loss 0.3694746494293213 Val Loss 1.8054733276367188
+Trainable Parameters : 198660
+Epoch 49 Train Acc 72.55601501464844% Val Acc 42.25% Train Loss 0.36424875259399414 Val Loss 1.7007558345794678
+Trainable Parameters : 198660
+Epoch 50 Train Acc 72.60692596435547% Val Acc 41.25% Train Loss 0.36203327775001526 Val Loss 1.9194058179855347
+Trainable Parameters : 198660
+Epoch 51 Train Acc 73.55805206298828% Val Acc 40.0% Train Loss 0.35577598214149475 Val Loss 1.7482852935791016
+Trainable Parameters : 198660
+Epoch 52 Train Acc 73.04888153076172% Val Acc 38.75% Train Loss 0.35362887382507324 Val Loss 1.8198065757751465
+Trainable Parameters : 198660
+Epoch 53 Train Acc 73.09980010986328% Val Acc 39.5% Train Loss 0.3636082708835602 Val Loss 1.7802571058273315
+Trainable Parameters : 198660
+Epoch 54 Train Acc 73.98167419433594% Val Acc 39.25% Train Loss 0.3590146005153656 Val Loss 1.7271114587783813
+Trainable Parameters : 198660
+Epoch 55 Train Acc 74.20162963867188% Val Acc 40.5% Train Loss 0.3490478992462158 Val Loss 1.688806414604187
+Trainable Parameters : 198660
+Epoch 56 Train Acc 72.50509643554688% Val Acc 37.5% Train Loss 0.35835519433021545 Val Loss 1.7034895420074463
+Trainable Parameters : 198660
+Epoch 57 Train Acc 72.36863708496094% Val Acc 41.5% Train Loss 0.3543917238712311 Val Loss 1.7710745334625244
+Trainable Parameters : 198660
+Epoch 58 Train Acc 73.5743408203125% Val Acc 39.25% Train Loss 0.3630044460296631 Val Loss 1.7466692924499512
+Trainable Parameters : 198660
+Epoch 59 Train Acc 74.64358520507812% Val Acc 38.0% Train Loss 0.3503389358520508 Val Loss 1.864682674407959
+Trainable Parameters : 198660
+Epoch 60 Train Acc 73.38697052001953% Val Acc 39.75% Train Loss 0.35854604840278625 Val Loss 1.885192632675171
+Trainable Parameters : 198660
+Epoch 61 Train Acc 73.35438537597656% Val Acc 37.25% Train Loss 0.36358436942100525 Val Loss 1.865408182144165
+Trainable Parameters : 198660
+Epoch 62 Train Acc 75.3564224243164% Val Acc 40.75% Train Loss 0.3341986835002899 Val Loss 1.7608669996261597
+Trainable Parameters : 198660
+Epoch 63 Train Acc 73.15071868896484% Val Acc 37.5% Train Loss 0.3462178409099579 Val Loss 1.9273940324783325
+Trainable Parameters : 198660
+Epoch 64 Train Acc 72.96334075927734% Val Acc 35.25% Train Loss 0.3593023121356964 Val Loss 1.9477986097335815
+Trainable Parameters : 198660
+Epoch 65 Train Acc 74.83096313476562% Val Acc 38.75% Train Loss 0.3494979739189148 Val Loss 1.766524314880371
+Trainable Parameters : 198660
+Epoch 66 Train Acc 73.42159271240234% Val Acc 40.25% Train Loss 0.3590192496776581 Val Loss 1.7979077100753784
+Trainable Parameters : 198660
+Epoch 67 Train Acc 73.20162963867188% Val Acc 38.5% Train Loss 0.3514079749584198 Val Loss 1.77433443069458
+Trainable Parameters : 198660
+Epoch 68 Train Acc 74.69450378417969% Val Acc 39.75% Train Loss 0.33733123540878296 Val Loss 1.7478853464126587
+Trainable Parameters : 198660
+Epoch 69 Train Acc 74.37271118164062% Val Acc 40.5% Train Loss 0.3511064946651459 Val Loss 1.8271474838256836
+Trainable Parameters : 198660
+Epoch 70 Train Acc 74.18534088134766% Val Acc 39.5% Train Loss 0.34375154972076416 Val Loss 1.8275059461593628
+Trainable Parameters : 198660
+Epoch 71 Train Acc 74.74542236328125% Val Acc 41.0% Train Loss 0.33926624059677124 Val Loss 1.7844586372375488
+Trainable Parameters : 198660
+Epoch 72 Train Acc 74.64358520507812% Val Acc 39.5% Train Loss 0.3352649509906769 Val Loss 1.7719522714614868
+Trainable Parameters : 198660
+Epoch 73 Train Acc 75.54379272460938% Val Acc 41.0% Train Loss 0.3459746241569519 Val Loss 1.698528528213501
+Trainable Parameters : 198660
+Epoch 74 Train Acc 74.06721496582031% Val Acc 38.0% Train Loss 0.3496088683605194 Val Loss 1.749926209449768
+Trainable Parameters : 198660
+Epoch 75 Train Acc 73.50713348388672% Val Acc 39.25% Train Loss 0.3464243710041046 Val Loss 1.8683921098709106
+Trainable Parameters : 198660
+Epoch 76 Train Acc 74.27088165283203% Val Acc 39.0% Train Loss 0.34991374611854553 Val Loss 1.8549567461013794
+Trainable Parameters : 198660
+Epoch 77 Train Acc 74.20162963867188% Val Acc 39.75% Train Loss 0.33925196528434753 Val Loss 1.9471514225006104
+Trainable Parameters : 198660
+Epoch 78 Train Acc 75.23829650878906% Val Acc 39.0% Train Loss 0.33631762862205505 Val Loss 1.803902506828308
+Trainable Parameters : 198660
+Epoch 79 Train Acc 74.08350372314453% Val Acc 38.25% Train Loss 0.32955899834632874 Val Loss 1.7895808219909668
+Trainable Parameters : 198660
+Epoch 80 Train Acc 74.49083709716797% Val Acc 38.5% Train Loss 0.3437090814113617 Val Loss 1.8563871383666992
+Trainable Parameters : 198660
+Epoch 81 Train Acc 75.13645935058594% Val Acc 40.0% Train Loss 0.3407653868198395 Val Loss 1.8535772562026978
+Trainable Parameters : 198660
+Epoch 82 Train Acc 74.8635482788086% Val Acc 39.25% Train Loss 0.34386441111564636 Val Loss 1.796255111694336
+Trainable Parameters : 198660
+Epoch 83 Train Acc 75.78004455566406% Val Acc 40.0% Train Loss 0.3313669264316559 Val Loss 1.8088778257369995
+Trainable Parameters : 198660
+Epoch 84 Train Acc 74.57637786865234% Val Acc 38.0% Train Loss 0.3314986824989319 Val Loss 1.8338428735733032
+Trainable Parameters : 198660
+Epoch 85 Train Acc 74.38900756835938% Val Acc 39.25% Train Loss 0.34562283754348755 Val Loss 1.9033738374710083
+Trainable Parameters : 198660
+Epoch 86 Train Acc 75.3564224243164% Val Acc 37.5% Train Loss 0.33213692903518677 Val Loss 1.7405015230178833
+Trainable Parameters : 198660
+Epoch 87 Train Acc 74.50713348388672% Val Acc 37.0% Train Loss 0.3298133313655853 Val Loss 1.8510662317276
+Trainable Parameters : 198660
+Epoch 88 Train Acc 74.94908905029297% Val Acc 40.0% Train Loss 0.3475574254989624 Val Loss 1.7539336681365967
+Trainable Parameters : 198660
+Epoch 89 Train Acc 74.88187408447266% Val Acc 38.5% Train Loss 0.33345428109169006 Val Loss 1.8131203651428223
+Trainable Parameters : 198660
+Epoch 90 Train Acc 75.44195556640625% Val Acc 38.75% Train Loss 0.32830438017845154 Val Loss 1.9029399156570435
+Trainable Parameters : 198660
+Epoch 91 Train Acc 76.27291870117188% Val Acc 39.0% Train Loss 0.3201063871383667 Val Loss 1.8340426683425903
+Trainable Parameters : 198660
+Epoch 92 Train Acc 74.37271118164062% Val Acc 40.25% Train Loss 0.3339128792285919 Val Loss 1.780901312828064
+Trainable Parameters : 198660
+Epoch 93 Train Acc 74.49083709716797% Val Acc 38.0% Train Loss 0.33894506096839905 Val Loss 1.8842086791992188
+Trainable Parameters : 198660
+Epoch 94 Train Acc 75.3564224243164% Val Acc 37.0% Train Loss 0.3327379524707794 Val Loss 1.870423674583435
+Trainable Parameters : 198660
+Epoch 95 Train Acc 73.99797058105469% Val Acc 37.0% Train Loss 0.3365453779697418 Val Loss 1.9073816537857056
+Trainable Parameters : 198660
+Epoch 96 Train Acc 76.81670379638672% Val Acc 40.0% Train Loss 0.31651771068573 Val Loss 1.7875791788101196
+Trainable Parameters : 198660
+Epoch 97 Train Acc 75.3564224243164% Val Acc 39.5% Train Loss 0.32783806324005127 Val Loss 1.816953420639038
+Trainable Parameters : 198660
+Epoch 98 Train Acc 75.7291259765625% Val Acc 38.0% Train Loss 0.3266013264656067 Val Loss 1.838977575302124
+Trainable Parameters : 198660
+Configuration saved in ../output/umbrella_500f_devdata_local/wav2vec-ADI17-hubert/config.json
+Model weights saved in ../output/umbrella_500f_devdata_local/wav2vec-ADI17-hubert/pytorch_model.bin
+Epoch 99 Train Acc 75.21996307373047% Val Acc 42.5% Train Loss 0.3269212245941162 Val Loss 1.7590700387954712
+
+------> EVALUATING MODEL... ------------------------------------------ 
+
+/apps/python/3.8.3/lib/python3.8/site-packages/sklearn/metrics/_classification.py:1221: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+CONFUSION MATRIX
+[[0.25125628 0.         0.         0.        ]
+ [0.25125628 0.         0.         0.        ]
+ [0.24623116 0.         0.         0.        ]
+ [0.25125628 0.         0.         0.        ]]
+CLASSIFICATION REPORT
+              precision    recall  f1-score   support
+
+           0       0.25      1.00      0.40       100
+           1       0.00      0.00      0.00       100
+           2       0.00      0.00      0.00        98
+           3       0.00      0.00      0.00       100
+
+    accuracy                           0.25       398
+   macro avg       0.06      0.25      0.10       398
+weighted avg       0.06      0.25      0.10       398
+
+
+------> SUCCESSFULLY FINISHED ---------------------------------------- 
+
+Finished: 14/10/2022 00:07:40
+Fri Oct 14 00:48:04 AEDT 2022
+------------------------------------------------------------------------
+                         run_w2v.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_hubert.py
+Started: 14/10/2022 00:48:07
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: wav2vec-ADI17-hubert
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: umbrella_500f_devdata
+train_filename: dev_u_500f
+evaluation_filename: test_u_100f
+use_checkpoint: False
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+number_of_worker: 1
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.1
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: no
+batch_size: 20
+gradient_accumulation_steps: 2
+learning_rate: 0.0001
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 100
+max_steps: -1
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 500
+save_total_limit: 40
+fp16: False
+eval_steps: 100
+load_best_model_at_end: False
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/dev_u_500f.csv
+--> data_test_fp: data/test_u_100f.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/umbrella_500f_devdata_local/wav2vec-ADI17-hubert
+--> finetuned_results_fp: /srv/scratch/z5208494/output/umbrella_500f_devdata_local/wav2vec-ADI17-hubert_finetuned_results.csv
+--> pretrained_mod: facebook/hubert-base-ls960
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+
+------> CREATING WAV2VEC2 FEATURE EXTRACTOR... -----------------------
+
+SUCCESS: Created feature extractor.
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 3 s
+Sampling Rate: 16000
+Target Sampling Rate: 16000
+Create a custom dataset ---> 
+Check data has been processed correctly... 
+Train Data Sample
+{'input_values': tensor([[-0.3036, -0.4810, -0.6867,  ..., -0.2215, -0.2296, -0.2257],
+        [ 0.7604, -0.7311,  1.7172,  ...,  0.7033,  0.7470,  0.7559],
+        [-0.5937, -0.6341, -0.6471,  ...,  0.2717,  0.2474,  0.2458],
+        ...,
+        [-0.6933, -0.5213, -0.4980,  ..., -0.0593, -0.0341,  0.0181],
+        [-0.4320, -0.4955, -0.6179,  ...,  0.5794,  0.7307,  0.7536],
+        [-0.5607, -0.4849, -0.3741,  ..., -1.9989, -2.1682, -2.3187]]), 'attention_mask': tensor([[1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 1, 1, 1],
+        ...,
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 1, 1, 1]]), 'labels': tensor([1, 0, 0, 3, 0, 2, 2, 1, 0, 3, 0, 2, 3, 3, 3, 0, 0, 2, 0, 3])}
+Training DataCustom Files: 1963
+Training Data Files: 99
+Test Data Sample
+Some weights of HubertForSequenceClassification were not initialized from the model checkpoint at facebook/hubert-base-ls960 and are newly initialized: ['classifier.bias', 'classifier.weight', 'projector.bias', 'projector.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+{'input_values': tensor([[ 1.4102e-01,  7.8581e-02,  2.3299e-02,  ..., -9.9946e-02,
+         -7.4906e-02, -5.6046e-02],
+        [ 2.9401e+00,  2.5710e+00,  7.1457e-01,  ..., -3.5827e-01,
+         -4.0734e-01, -4.3605e-01],
+        [ 8.8455e-02,  4.6454e-02,  7.5301e-02,  ..., -1.0017e+00,
+          2.7664e+00,  1.1269e-01],
+        ...,
+        [ 7.8451e-02,  1.2006e-01,  1.3343e-01,  ..., -1.6388e+00,
+         -1.4171e+00, -6.9934e-01],
+        [ 6.1865e-03,  6.1865e-03,  5.8989e-04,  ..., -1.9762e+00,
+         -2.1116e+00, -2.2351e+00],
+        [-7.8292e-01, -7.7079e-01, -7.7803e-01,  ..., -1.0180e+00,
+         -1.2278e+00, -1.3650e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 1, 1, 1],
+        ...,
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 1, 1, 1]]), 'labels': tensor([0, 3, 3, 0, 3, 1, 3, 3, 2, 0, 1, 3, 0, 3, 1, 2, 2, 2, 0, 3])}
+Test CustomData Files: 398
+Test Data Files: 20
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Loading pre-trained checkpoint...
+-------- Setting up Model --------
+GPUs Used :  3 GPUs!
+SUCCESS: Pre-trained checkpoint loaded.
+--> Defining Custom Trainer Class...
+
+------> STARTING TRAINING... ----------------------------------------- 
+
+Trainable Parameters : 198660
+Epoch 0 Train Acc 21.747474670410156% Val Acc 25.850000381469727% Train Loss 0.6939786672592163 Val Loss 1.3887184858322144
+Trainable Parameters : 198660
+Epoch 1 Train Acc 24.24242401123047% Val Acc 25.30000114440918% Train Loss 0.6930102705955505 Val Loss 1.3885060548782349
+Trainable Parameters : 198660
+Epoch 2 Train Acc 26.31313133239746% Val Acc 27.30000114440918% Train Loss 0.6912270784378052 Val Loss 1.3887044191360474
+Trainable Parameters : 198660
+Epoch 3 Train Acc 31.090909957885742% Val Acc 27.700000762939453% Train Loss 0.6891756653785706 Val Loss 1.3889758586883545
+Trainable Parameters : 198660
+Epoch 4 Train Acc 36.54545593261719% Val Acc 26.450000762939453% Train Loss 0.6862382292747498 Val Loss 1.3897755146026611
+Trainable Parameters : 198660
+Epoch 5 Train Acc 37.30303192138672% Val Acc 24.399999618530273% Train Loss 0.6832256317138672 Val Loss 1.391631007194519
+Trainable Parameters : 198660
+Epoch 6 Train Acc 39.84848403930664% Val Acc 24.899999618530273% Train Loss 0.6792413592338562 Val Loss 1.393893837928772
+Trainable Parameters : 198660
+Epoch 7 Train Acc 38.31312942504883% Val Acc 22.30000114440918% Train Loss 0.6740463972091675 Val Loss 1.3973764181137085
+Trainable Parameters : 198660
+Epoch 8 Train Acc 39.97979736328125% Val Acc 22.350000381469727% Train Loss 0.670901358127594 Val Loss 1.4011621475219727
+Trainable Parameters : 198660
+Epoch 9 Train Acc 40.13131332397461% Val Acc 22.30000114440918% Train Loss 0.6660522222518921 Val Loss 1.405620813369751
+Trainable Parameters : 198660
+Epoch 10 Train Acc 40.080806732177734% Val Acc 22.149999618530273% Train Loss 0.6610029339790344 Val Loss 1.4100618362426758
+Trainable Parameters : 198660
+Epoch 11 Train Acc 40.47474670410156% Val Acc 23.899999618530273% Train Loss 0.6551234126091003 Val Loss 1.415846824645996
+Trainable Parameters : 198660
+Epoch 12 Train Acc 43.050506591796875% Val Acc 23.700000762939453% Train Loss 0.649899959564209 Val Loss 1.4213272333145142
+Trainable Parameters : 198660
+Epoch 13 Train Acc 42.37373733520508% Val Acc 24.399999618530273% Train Loss 0.6468966007232666 Val Loss 1.4264520406723022
+Trainable Parameters : 198660
+Epoch 14 Train Acc 43.38383865356445% Val Acc 24.350000381469727% Train Loss 0.6424369215965271 Val Loss 1.4304996728897095
+Trainable Parameters : 198660
+Epoch 15 Train Acc 43.41414260864258% Val Acc 24.899999618530273% Train Loss 0.6371649503707886 Val Loss 1.4292973279953003
+Trainable Parameters : 198660
+Epoch 16 Train Acc 44.3636360168457% Val Acc 25.100000381469727% Train Loss 0.6292107701301575 Val Loss 1.4314907789230347
+Trainable Parameters : 198660
+Epoch 17 Train Acc 47.60606002807617% Val Acc 24.899999618530273% Train Loss 0.623249351978302 Val Loss 1.4381401538848877
+Trainable Parameters : 198660
+Epoch 18 Train Acc 46.0404052734375% Val Acc 26.850000381469727% Train Loss 0.6159419417381287 Val Loss 1.435168981552124
+Trainable Parameters : 198660
+Epoch 19 Train Acc 48.50505065917969% Val Acc 25.850000381469727% Train Loss 0.6095911860466003 Val Loss 1.4442535638809204
+Trainable Parameters : 198660
+Epoch 20 Train Acc 50.15151596069336% Val Acc 26.399999618530273% Train Loss 0.599845826625824 Val Loss 1.4450592994689941
+Trainable Parameters : 198660
+Epoch 21 Train Acc 48.919193267822266% Val Acc 28.600000381469727% Train Loss 0.5952308177947998 Val Loss 1.4377182722091675
+Trainable Parameters : 198660
+Epoch 22 Train Acc 50.787879943847656% Val Acc 29.899999618530273% Train Loss 0.5852932929992676 Val Loss 1.4395312070846558
+Trainable Parameters : 198660
+Epoch 23 Train Acc 53.4040412902832% Val Acc 30.350000381469727% Train Loss 0.5812560319900513 Val Loss 1.4339388608932495
+Trainable Parameters : 198660
+Epoch 24 Train Acc 53.31312942504883% Val Acc 30.899999618530273% Train Loss 0.5739590525627136 Val Loss 1.4320895671844482
+Trainable Parameters : 198660
+Epoch 25 Train Acc 54.767677307128906% Val Acc 34.10000228881836% Train Loss 0.5595489144325256 Val Loss 1.4240797758102417
+Trainable Parameters : 198660
+Epoch 26 Train Acc 55.35353469848633% Val Acc 33.150001525878906% Train Loss 0.5562658309936523 Val Loss 1.430728793144226
+Trainable Parameters : 198660
+Epoch 27 Train Acc 55.93939208984375% Val Acc 34.650001525878906% Train Loss 0.5461077094078064 Val Loss 1.4290159940719604
+Trainable Parameters : 198660
+Epoch 28 Train Acc 58.61616134643555% Val Acc 34.650001525878906% Train Loss 0.5328192710876465 Val Loss 1.4314016103744507
+Trainable Parameters : 198660
+Epoch 29 Train Acc 56.191917419433594% Val Acc 36.45000076293945% Train Loss 0.5285669565200806 Val Loss 1.4240626096725464
+Trainable Parameters : 198660
+Epoch 30 Train Acc 59.57575607299805% Val Acc 37.10000228881836% Train Loss 0.5199644565582275 Val Loss 1.416960597038269
+Trainable Parameters : 198660
+Epoch 31 Train Acc 60.57575607299805% Val Acc 35.150001525878906% Train Loss 0.5085740685462952 Val Loss 1.4501184225082397
+Trainable Parameters : 198660
+Epoch 32 Train Acc 61.919193267822266% Val Acc 37.45000076293945% Train Loss 0.4963590204715729 Val Loss 1.4254816770553589
+Trainable Parameters : 198660
+Epoch 33 Train Acc 61.818180084228516% Val Acc 36.95000076293945% Train Loss 0.4908750057220459 Val Loss 1.4455622434616089
+Trainable Parameters : 198660
+Epoch 34 Train Acc 62.37373733520508% Val Acc 39.54999923706055% Train Loss 0.48144403100013733 Val Loss 1.4362707138061523
+Trainable Parameters : 198660
+Epoch 35 Train Acc 63.252525329589844% Val Acc 39.29999923706055% Train Loss 0.4756101369857788 Val Loss 1.446668028831482
+Trainable Parameters : 198660
+Epoch 36 Train Acc 62.39393997192383% Val Acc 36.10000228881836% Train Loss 0.47174492478370667 Val Loss 1.4850999116897583
+Trainable Parameters : 198660
+Epoch 37 Train Acc 64.16161346435547% Val Acc 38.35000228881836% Train Loss 0.472614586353302 Val Loss 1.4682438373565674
+Trainable Parameters : 198660
+Epoch 38 Train Acc 63.4040412902832% Val Acc 37.95000076293945% Train Loss 0.4564000070095062 Val Loss 1.4767529964447021
+Trainable Parameters : 198660
+Epoch 39 Train Acc 63.3636360168457% Val Acc 41.20000076293945% Train Loss 0.45639434456825256 Val Loss 1.463710069656372
+Trainable Parameters : 198660
+Epoch 40 Train Acc 64.51515197753906% Val Acc 39.5% Train Loss 0.4505458474159241 Val Loss 1.4666059017181396
+Trainable Parameters : 198660
+Epoch 41 Train Acc 64.56565856933594% Val Acc 40.79999923706055% Train Loss 0.443437784910202 Val Loss 1.48335862159729
+Trainable Parameters : 198660
+Epoch 42 Train Acc 65.78787994384766% Val Acc 38.60000228881836% Train Loss 0.4383828639984131 Val Loss 1.5173672437667847
+Trainable Parameters : 198660
+Epoch 43 Train Acc 66.13130950927734% Val Acc 40.650001525878906% Train Loss 0.4348940849304199 Val Loss 1.514447569847107
+Trainable Parameters : 198660
+Epoch 44 Train Acc 68.45454406738281% Val Acc 39.900001525878906% Train Loss 0.4189300835132599 Val Loss 1.5104254484176636
+Trainable Parameters : 198660
+Epoch 45 Train Acc 68.0% Val Acc 40.04999923706055% Train Loss 0.4243570566177368 Val Loss 1.5249460935592651
+Trainable Parameters : 198660
+Epoch 46 Train Acc 68.51515197753906% Val Acc 41.04999923706055% Train Loss 0.4149850308895111 Val Loss 1.523683786392212
+Trainable Parameters : 198660
+Epoch 47 Train Acc 66.98989868164062% Val Acc 39.10000228881836% Train Loss 0.41879868507385254 Val Loss 1.5487593412399292
+Trainable Parameters : 198660
+Epoch 48 Train Acc 67.94949340820312% Val Acc 40.150001525878906% Train Loss 0.4172511100769043 Val Loss 1.5329742431640625
+Trainable Parameters : 198660
+Epoch 49 Train Acc 67.14141082763672% Val Acc 38.650001525878906% Train Loss 0.4123986065387726 Val Loss 1.5762568712234497
+Trainable Parameters : 198660
+Epoch 50 Train Acc 69.06060791015625% Val Acc 40.79999923706055% Train Loss 0.40029385685920715 Val Loss 1.5752384662628174
+Trainable Parameters : 198660
+Epoch 51 Train Acc 67.49494934082031% Val Acc 40.75% Train Loss 0.4047900140285492 Val Loss 1.5809460878372192
+Trainable Parameters : 198660
+Epoch 52 Train Acc 67.8787841796875% Val Acc 40.95000076293945% Train Loss 0.39822348952293396 Val Loss 1.6138994693756104
+Trainable Parameters : 198660
+Epoch 53 Train Acc 70.2727279663086% Val Acc 40.25% Train Loss 0.3886430561542511 Val Loss 1.6089814901351929
+Trainable Parameters : 198660
+Epoch 54 Train Acc 68.50505065917969% Val Acc 37.400001525878906% Train Loss 0.3922443091869354 Val Loss 1.6403220891952515
+Trainable Parameters : 198660
+Epoch 55 Train Acc 68.01010131835938% Val Acc 40.45000076293945% Train Loss 0.39975032210350037 Val Loss 1.6112571954727173
+Trainable Parameters : 198660
+Epoch 56 Train Acc 69.17171478271484% Val Acc 38.85000228881836% Train Loss 0.38865843415260315 Val Loss 1.6226285696029663
+Trainable Parameters : 198660
+Epoch 57 Train Acc 70.47474670410156% Val Acc 37.0% Train Loss 0.38408511877059937 Val Loss 1.6522778272628784
+Trainable Parameters : 198660
+Epoch 58 Train Acc 68.71717071533203% Val Acc 37.20000076293945% Train Loss 0.4004741311073303 Val Loss 1.6764005422592163
+Trainable Parameters : 198660
+Epoch 59 Train Acc 69.89898681640625% Val Acc 39.35000228881836% Train Loss 0.3888043761253357 Val Loss 1.7036218643188477
+Trainable Parameters : 198660
+Epoch 60 Train Acc 70.02020263671875% Val Acc 40.150001525878906% Train Loss 0.3770671784877777 Val Loss 1.6742753982543945
+Trainable Parameters : 198660
+Epoch 61 Train Acc 69.47474670410156% Val Acc 36.150001525878906% Train Loss 0.39062899351119995 Val Loss 1.7407912015914917
+Trainable Parameters : 198660
+Epoch 62 Train Acc 70.93939208984375% Val Acc 40.60000228881836% Train Loss 0.3749202489852905 Val Loss 1.679773211479187
+Trainable Parameters : 198660
+Epoch 63 Train Acc 71.03030395507812% Val Acc 39.79999923706055% Train Loss 0.3837631940841675 Val Loss 1.7109615802764893
+Trainable Parameters : 198660
+Epoch 64 Train Acc 70.32323455810547% Val Acc 37.70000076293945% Train Loss 0.3737931549549103 Val Loss 1.7696069478988647
+Trainable Parameters : 198660
+Epoch 65 Train Acc 70.40403747558594% Val Acc 35.85000228881836% Train Loss 0.385501891374588 Val Loss 1.7347058057785034
+Trainable Parameters : 198660
+Epoch 66 Train Acc 72.42424011230469% Val Acc 37.0% Train Loss 0.37048816680908203 Val Loss 1.7519981861114502
+Trainable Parameters : 198660
+Epoch 67 Train Acc 70.25252532958984% Val Acc 34.400001525878906% Train Loss 0.38017651438713074 Val Loss 1.8179857730865479
+Trainable Parameters : 198660
+Epoch 68 Train Acc 70.0% Val Acc 35.70000076293945% Train Loss 0.37358182668685913 Val Loss 1.7603756189346313
+Trainable Parameters : 198660
+Epoch 69 Train Acc 70.90908813476562% Val Acc 36.45000076293945% Train Loss 0.3658936321735382 Val Loss 1.7774181365966797
+Trainable Parameters : 198660
+Epoch 70 Train Acc 70.22222137451172% Val Acc 34.75% Train Loss 0.37183621525764465 Val Loss 1.8049471378326416
+Trainable Parameters : 198660
+Epoch 71 Train Acc 71.51515197753906% Val Acc 38.0% Train Loss 0.36754199862480164 Val Loss 1.7816200256347656
+Trainable Parameters : 198660
+Epoch 72 Train Acc 70.67676544189453% Val Acc 36.75% Train Loss 0.3771628141403198 Val Loss 1.7646414041519165
+Trainable Parameters : 198660
+Epoch 73 Train Acc 70.97979736328125% Val Acc 35.900001525878906% Train Loss 0.3604154884815216 Val Loss 1.7397211790084839
+Trainable Parameters : 198660
+Epoch 74 Train Acc 71.26262664794922% Val Acc 37.150001525878906% Train Loss 0.3670966327190399 Val Loss 1.7346763610839844
+Trainable Parameters : 198660
+Epoch 75 Train Acc 70.92929077148438% Val Acc 37.04999923706055% Train Loss 0.36691322922706604 Val Loss 1.7464516162872314
+Trainable Parameters : 198660
+Epoch 76 Train Acc 71.58586120605469% Val Acc 36.10000228881836% Train Loss 0.3652903735637665 Val Loss 1.8246955871582031
+Trainable Parameters : 198660
+Epoch 77 Train Acc 72.17171478271484% Val Acc 35.54999923706055% Train Loss 0.36204445362091064 Val Loss 1.8537052869796753
+Trainable Parameters : 198660
+Epoch 78 Train Acc 71.48484802246094% Val Acc 37.650001525878906% Train Loss 0.36708319187164307 Val Loss 1.7506134510040283
+Trainable Parameters : 198660
+Epoch 79 Train Acc 72.22222137451172% Val Acc 36.95000076293945% Train Loss 0.3588094115257263 Val Loss 1.7752056121826172
+Trainable Parameters : 198660
+Epoch 80 Train Acc 72.24242401123047% Val Acc 38.95000076293945% Train Loss 0.3597746193408966 Val Loss 1.734575629234314
+Trainable Parameters : 198660
+Epoch 81 Train Acc 70.77777862548828% Val Acc 40.70000076293945% Train Loss 0.3656255900859833 Val Loss 1.7022154331207275
+Trainable Parameters : 198660
+Epoch 82 Train Acc 71.21212005615234% Val Acc 36.45000076293945% Train Loss 0.36722323298454285 Val Loss 1.7811154127120972
+Trainable Parameters : 198660
+Epoch 83 Train Acc 73.11111450195312% Val Acc 38.95000076293945% Train Loss 0.3599493205547333 Val Loss 1.7944176197052002
+Trainable Parameters : 198660
+Epoch 84 Train Acc 71.34343719482422% Val Acc 38.400001525878906% Train Loss 0.3653664290904999 Val Loss 1.8403942584991455
+Trainable Parameters : 198660
+Epoch 85 Train Acc 70.90908813476562% Val Acc 41.400001525878906% Train Loss 0.3615129888057709 Val Loss 1.7135238647460938
+Trainable Parameters : 198660
+Epoch 86 Train Acc 72.2727279663086% Val Acc 37.150001525878906% Train Loss 0.36718299984931946 Val Loss 1.7520946264266968
+Trainable Parameters : 198660
+Epoch 87 Train Acc 71.6868667602539% Val Acc 38.150001525878906% Train Loss 0.36871960759162903 Val Loss 1.7346514463424683
+Trainable Parameters : 198660
+Epoch 88 Train Acc 73.88888549804688% Val Acc 36.70000076293945% Train Loss 0.34500375390052795 Val Loss 1.7784818410873413
+Trainable Parameters : 198660
+Epoch 89 Train Acc 71.26262664794922% Val Acc 38.60000228881836% Train Loss 0.3601444959640503 Val Loss 1.8055709600448608
+Trainable Parameters : 198660
+Epoch 90 Train Acc 71.69696807861328% Val Acc 38.45000076293945% Train Loss 0.36310499906539917 Val Loss 1.820309042930603
+Trainable Parameters : 198660
+Epoch 91 Train Acc 71.33333587646484% Val Acc 35.150001525878906% Train Loss 0.3727489411830902 Val Loss 1.8158206939697266
+Trainable Parameters : 198660
+Epoch 92 Train Acc 71.1919174194336% Val Acc 39.79999923706055% Train Loss 0.3696320950984955 Val Loss 1.704946756362915
+Trainable Parameters : 198660
+Epoch 93 Train Acc 71.61616516113281% Val Acc 34.400001525878906% Train Loss 0.35035285353660583 Val Loss 2.0799055099487305
+Trainable Parameters : 198660
+Epoch 94 Train Acc 72.69696807861328% Val Acc 35.95000076293945% Train Loss 0.3549105226993561 Val Loss 1.910546898841858
+Trainable Parameters : 198660
+Epoch 95 Train Acc 73.16161346435547% Val Acc 34.95000076293945% Train Loss 0.3541950285434723 Val Loss 1.8969452381134033
+Trainable Parameters : 198660
+Epoch 96 Train Acc 71.66666412353516% Val Acc 37.54999923706055% Train Loss 0.35538429021835327 Val Loss 1.7964239120483398
+Trainable Parameters : 198660
+Epoch 97 Train Acc 71.6464614868164% Val Acc 37.20000076293945% Train Loss 0.36651962995529175 Val Loss 1.8290656805038452
+Trainable Parameters : 198660
+Epoch 98 Train Acc 72.60606384277344% Val Acc 36.650001525878906% Train Loss 0.35184013843536377 Val Loss 1.8142328262329102
+Trainable Parameters : 198660
+Configuration saved in ../output/umbrella_500f_devdata_local/wav2vec-ADI17-hubert/config.json
+Model weights saved in ../output/umbrella_500f_devdata_local/wav2vec-ADI17-hubert/pytorch_model.bin
+Epoch 99 Train Acc 72.0404052734375% Val Acc 36.650001525878906% Train Loss 0.3579011857509613 Val Loss 1.8272186517715454
+
+------> EVALUATING MODEL... ------------------------------------------ 
+
+/apps/python/3.8.3/lib/python3.8/site-packages/sklearn/metrics/_classification.py:1221: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/apps/python/3.8.3/lib/python3.8/site-packages/sklearn/metrics/_classification.py:1221: UndefinedMetricWarning: Recall and F-score are ill-defined and being set to 0.0 in labels with no true samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+CONFUSION MATRIX
+[[0.   0.   0.   0.  ]
+ [0.25 0.   0.   0.  ]
+ [0.5  0.   0.   0.25]
+ [0.   0.   0.   0.  ]]
+CLASSIFICATION REPORT
+              precision    recall  f1-score   support
+
+           0       0.00      0.00      0.00       0.0
+          98       0.00      0.00      0.00       1.0
+         100       0.00      0.00      0.00       3.0
+         398       0.00      0.00      0.00       0.0
+
+    accuracy                           0.00       4.0
+   macro avg       0.00      0.00      0.00       4.0
+weighted avg       0.00      0.00      0.00       4.0
+
+
+------> SUCCESSFULLY FINISHED ---------------------------------------- 
+
+Finished: 14/10/2022 01:09:58

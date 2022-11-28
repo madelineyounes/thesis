@@ -1,0 +1,188 @@
+Mon Oct 10 02:56:15 AEDT 2022
+------------------------------------------------------------------------
+                         run_umbrellaDID.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_basic.py
+Started: 10/10/2022 02:56:18
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: wav2vec-ADI17-initialtest
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: umbrella_100f_devdata
+train_filename: test_u_100f
+evaluation_filename: train_u_50f
+use_checkpoint: False
+eval_pretrained: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+number_of_worker: 1
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.1
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: no
+batch_size: 12
+gradient_accumulation_steps: 2
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 3
+max_steps: -1
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 500
+save_total_limit: 40
+fp16: False
+eval_steps: 100
+load_best_model_at_end: False
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/test_u_100f.csv
+--> data_test_fp: data/train_u_50f.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/umbrella_100f_devdata_local/wav2vec-ADI17-initialtest
+--> finetuned_results_fp: /srv/scratch/z5208494/output/umbrella_100f_devdata_local/wav2vec-ADI17-initialtest_finetuned_results.csv
+--> pretrained_mod: facebook/wav2vec2-base
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+
+------> CREATING WAV2VEC2 FEATURE EXTRACTOR... -----------------------
+
+SUCCESS: Created feature extractor.
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 5 s
+Sampling Rate: 16000
+Target Sampling Rate: 16000
+Create a custom dataset ---> 
+Check data has been processed correctly... 
+Train Data Sample
+{'input_values': tensor([[ 0.1142,  0.1896,  0.2360,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.1244, -0.1442, -0.1861,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.4328, -0.7499, -1.0902,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [ 0.0116, -0.0299,  0.4184,  ...,  0.0000,  0.0000,  0.0000],
+        [ 5.1117,  4.0753,  2.9180,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.7431, -1.0139, -1.2469,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([3, 3, 3, 3, 2, 0, 2, 0, 2, 0, 3, 0])}
+Training DataCustom Files: 398
+Training Data Files: 34
+Test Data Sample
+/home/z5208494/.local/lib/python3.8/site-packages/transformers/configuration_utils.py:363: UserWarning: Passing `gradient_checkpointing` to a config initialization is deprecated and will be removed in v5 Transformers. Using `model.gradient_checkpointing_enable()` instead, or if you are using the `Trainer` API, pass `gradient_checkpointing=True` in your `TrainingArguments`.
+  warnings.warn(
+Some weights of the model checkpoint at facebook/wav2vec2-base were not used when initializing Wav2Vec2ForSequenceClassification: ['project_hid.bias', 'project_q.bias', 'quantizer.weight_proj.weight', 'project_hid.weight', 'project_q.weight', 'quantizer.codevectors', 'quantizer.weight_proj.bias']
+- This IS expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of Wav2Vec2ForSequenceClassification were not initialized from the model checkpoint at facebook/wav2vec2-base and are newly initialized: ['projector.weight', 'classifier.weight', 'classifier.bias', 'projector.bias']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+{'input_values': tensor([[-0.8183, -0.7481, -0.5842,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.2837,  0.2537, -0.1200,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.6596, -0.5478, -0.9002,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [-0.5329, -0.5220, -0.4735,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.7998,  0.9084,  0.9134,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0020,  0.0202,  0.0513,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0, 1, 1, 0, 1, 2, 2, 3, 1, 1, 0, 0])}
+Test CustomData Files: 195
+Test Data Files: 17
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Loading pre-trained checkpoint...
+-------- Setting up Model --------
+GPUs Used :  2 GPUs!
+SUCCESS: Pre-trained checkpoint loaded.
+--> Defining Custom Trainer Class...
+
+------> STARTING TRAINING... ----------------------------------------- 
+
+Trainable Parameters : 198660
+Epoch 0 Train Acc 30.08823585510254% Val Acc 24.117647171020508% Train Loss 0.691323459148407 Val Loss 1.3846336603164673
+Trainable Parameters : 198660
+Epoch 1 Train Acc 28.205883026123047% Val Acc 26.941177368164062% Train Loss 0.692637026309967 Val Loss 1.3819080591201782
+Trainable Parameters : 198660
+Configuration saved in ../output/umbrella_100f_devdata_local/wav2vec-ADI17-initialtest/config.json
+Model weights saved in ../output/umbrella_100f_devdata_local/wav2vec-ADI17-initialtest/pytorch_model.bin
+Epoch 2 Train Acc 27.52941131591797% Val Acc 24.47058868408203% Train Loss 0.6940827965736389 Val Loss 1.3872065544128418
+
+------> EVALUATING MODEL... ------------------------------------------ 
+
+/apps/python/3.8.3/lib/python3.8/site-packages/sklearn/metrics/_classification.py:1221: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+CONFUSION MATRIX
+[[0.24615385 0.         0.         0.        ]
+ [0.25641026 0.         0.         0.        ]
+ [0.25128205 0.         0.         0.        ]
+ [0.24615385 0.         0.         0.        ]]
+CLASSIFICATION REPORT
+              precision    recall  f1-score   support
+
+           0       0.25      1.00      0.40        48
+           1       0.00      0.00      0.00        50
+           2       0.00      0.00      0.00        49
+           3       0.00      0.00      0.00        48
+
+    accuracy                           0.25       195
+   macro avg       0.06      0.25      0.10       195
+weighted avg       0.06      0.25      0.10       195
+
+
+------> SUCCESSFULLY FINISHED ---------------------------------------- 
+
+Finished: 10/10/2022 03:07:38

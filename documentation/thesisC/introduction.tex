@@ -1,0 +1,49 @@
+\chapter{Introduction}\label{ch:intro}
+\section{Problem Statement}\label{sec:problem}
+Although voice enabled technology is used globally advancements have not benefited 
+all languages equally. With languages other than English that have a diverse range of dialects limited in 
+advancements due to data scarcity and the complexity that comes from shared 
+features between the dialects. One language that this problem has  become apparent is
+Arabic. In multicultural societies such as that in Sydney, NSW it is common to have speakers of different dialects interact. 
+There are around 200 thousand Arabic speakers within NSW, majority speaking Levantine dialect of Arabic with then a spread among Egyptian and Gulf Arabic.
+It would be a common scenario where perhaps for a telehealth consultation
+the only Arabic speaker available doesn't speak the same dialect as a patient.
+The speaker may then code switch with the words, phrases etc. they know from one dialect to their main dialect to hold a conversation. 
+Having a system that is able to accurately identify the dialects spoken in certain segments to then produce an accurate transcription would certainly be helpful in that scenario. 
+Dialectal Arabic generally has very limited available datasets, with no commercially available datasets and therefore is considered low resource. Current methods use phoneme recognition or 
+traditional machine learning but both these methods have flaws that limit their ability to reliably recognise Arabic dialects. 
+As phoneme identifiers rely on phonemic differences between the dialects, where there are shared phonemes distinguishing the dialects become a difficult task.
+While traditional machine learning requires large amounts of labelled training data which is currently unavailable for Arabic dialects.  
+In most voice enabled technology the first step in selecting an automated speech recognition model (ASR) is to first 
+identify its language or dialect. Dialectal Identifiers enable more accurate systems in speech recognition and transcription by allowing 
+a speech models tuned for a particular dialect to be selected at the start of this process. In order to build a high performance 
+Arabic dialectal identifier (DID) desirable methods should require low amounts of data and leverage existing speech models. 
+However, no work has been done using this modern method of transfer learning and so there is a need to apply contemporary techniques to Arabic dialectical identifiers (DID). 
+This thesis will investigate transfer learning as an approach in designing more accurate and reliable Arabic DIDs. 
+The dialectal identifier should accurately distinguish the four umbrella Arabic 
+dialects, and then it's robustness tested by extending it to a finer grain downstream task of distinguishing seventeen regional dialects. 
+
+
+\section{Thesis Aims}
+The goal of this thesis is to answer the overarching question:\emph{
+Can transfer learning be leveraged to be used to improve the performance of the low resource task of Arabic Dialectal Identification?}\\
+\\The key aims of this thesis are: 
+
+\begin{itemize}
+    \item To assess the viability of using transfer learning to improve the accuracy of Arabic \\Dialectal Identification. 
+    \item To investigate the performance of a transfer learning based DID on low resource dialects. Through assessing the minimum amount of data needed to accurately fine tune a DID system. This is in terms of utterance length of the audio files and the amount of files provided. 
+    \item To critically analyse which pretrained model and downstream model architecture is able to produce the most accurate DID system. 
+    \item To assess the effect of unfreezing and fine-tuning the encoder layers within the pretrained model on the performance of the DID system. 
+    \item To explore whether a transfer learning based DID system can be adapted to be accurately applied to a finer set of dialectal groups. 
+\end{itemize}
+
+\section{Chapter Outline}
+This report is organised as described. 
+\begin{itemize}
+\item Chapter~\ref{ch:background} details some background information surrounding the impacts of this thesis and describes the unique features of Arabic Dialects. 
+\item Chapter~\ref{ch:litreview} provides a detailed analysis of current LID and DID methodologies. As well as 
+details the literature which supports the use of transfer learning for the application of LID and DID. 
+\item Chapter~\ref{ch:methodologies} proposes a methodology for this thesis. 
+\item Chapter~\ref{ch:experiment} explores the experimentation conducted throughout this thesis and analyses the results. 
+\item Chapter~\ref{ch:conclusion} draws up conclusions and summarises the key takeaways of the report. As well as providing suggestions for future work and the implications of this thesis on similar research. 
+\end{itemize}

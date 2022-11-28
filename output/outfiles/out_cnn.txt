@@ -1,0 +1,2296 @@
+Sat Oct 29 00:46:31 AEDT 2022
+------------------------------------------------------------------------
+                         run_cnn_downstream.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_cnn_downstream.py
+Started: 29/10/2022 00:46:45
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: ADI17-xlsr-cnn
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+test data path: /srv/scratch/z5208494/dataset/train_segments/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: u_train_700f
+train_filename: u_train_700f
+validation_filename: dev_u_200f
+evaluation_filename: test_u_100f
+use_checkpoint: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+number_of_worker: 1
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.1
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: no
+batch_size: 40
+gradient_accumulation_steps: 2
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 100
+max_steps: -1
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 500
+save_total_limit: 40
+fp16: True
+eval_steps: 100
+load_best_model_at_end: False
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/u_train_700f.csv
+--> data_test_fp: data/dev_u_200f.csv
+--> data_test_fp: data/test_u_100f.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/u_train_700f_local/ADI17-xlsr-cnn
+--> finetuned_results_fp: /srv/scratch/z5208494/output/u_train_700f_local/ADI17-xlsr-cnn_finetuned_results.csv
+--> pretrained_mod: elgeish/wav2vec2-large-xlsr-53-arabic
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 10 s
+Sampling Rate: 16000
+Target Sampling Rate: 16000
+Create a custom dataset ---> 
+Check data has been processed correctly... 
+Train Data Sample
+{'input_values': tensor([[ 7.6518e+00,  8.0269e+00,  7.4724e+00,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [ 7.3078e-01,  1.1693e+00,  1.4640e+00,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [ 1.2043e-01, -2.4974e-01, -2.4723e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        ...,
+        [-1.0988e+00, -7.9669e-01, -5.0710e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-8.5236e-03, -1.1827e-03, -6.3580e-02,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-4.1250e-01, -2.3703e-01, -1.6229e-02,  ..., -8.9846e-01,
+         -1.0413e+00, -4.0860e-01]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1]]), 'labels': tensor([2, 3, 1, 0, 1, 2, 3, 1, 2, 0, 2, 3, 2, 2, 0, 2, 1, 1, 2, 0, 2, 1, 0, 2,
+        1, 0, 2, 2, 0, 3, 3, 3, 0, 1, 2, 0, 0, 3, 2, 2])}
+Training DataCustom Files: 10502
+Training Data Files: 263
+Val Data Sample
+{'input_values': tensor([[-0.5463, -0.5295, -0.5131,  ..., -0.6032, -0.5712, -0.5153],
+        [-0.2127, -0.3280, -0.5188,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0126,  0.0071, -0.0079,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [-1.1563, -1.0362, -1.2096,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0513,  0.0510,  0.0534,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.5045, -0.3737, -0.2276,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1, 1, 1, 2, 1, 3, 3, 0, 3, 1, 3, 3, 2, 0, 3, 2, 3, 3, 1, 1, 0, 3, 0, 2,
+        0, 3, 2, 1, 1, 3, 0, 1, 1, 2, 0, 0, 3, 0, 1, 3])}
+Test CustomData Files: 813
+Test Data Files: 21
+Test Data Sample
+Some weights of the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic were not used when initializing Wav2Vec2ForSequenceClassification: ['lm_head.bias', 'lm_head.weight']
+- This IS expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of Wav2Vec2ForSequenceClassification were not initialized from the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic and are newly initialized: ['classifier.bias', 'projector.weight', 'classifier.weight', 'projector.bias']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Using cuda_amp half precision backend
+{'input_values': tensor([[-0.1481, -0.1844, -0.1239,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.3273,  0.6732,  1.0873,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.3106, -0.0227, -0.0227,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [-0.6175, -0.7628, -0.7986,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.1610, -0.0656, -0.0824,  ...,  0.0221,  0.0259,  0.0252],
+        [ 0.4402,  0.3020,  0.1914,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([2, 0, 1, 1, 2, 1, 1, 2, 3, 3, 1, 3, 3, 0, 1, 2, 0, 0, 1, 1, 1, 1, 0, 0,
+        2, 0, 1, 0, 0, 0, 1, 0, 2, 1, 1, 0, 2, 3, 0, 0])}
+Test CustomData Files: 398
+Test Data Files: 10
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Loading pre-trained checkpoint...
+-------- Setting up Model --------
+GPUs Used :  3 GPUs!
+SUCCESS: Pre-trained checkpoint loaded.
+--> Defining Custom Trainer Class...
+
+------> STARTING TRAINING... ----------------------------------------- 
+
+Trainable Parameters : 324664
+Traceback (most recent call last):
+  File "run_cnn_downstream.py", line 745, in <module>
+    trainer.fit(trainDataLoader, testDataLoader, set_num_train_epochs)
+  File "run_cnn_downstream.py", line 562, in fit
+    train_loss, train_acc = self._train(
+  File "run_cnn_downstream.py", line 588, in _train
+    loss, acc = self._compute_loss(model, inputs, labels)
+  File "run_cnn_downstream.py", line 630, in _compute_loss
+    prediction = model(**inputs).logits
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/data_parallel.py", line 168, in forward
+    outputs = self.parallel_apply(replicas, inputs, kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/data_parallel.py", line 178, in parallel_apply
+    return parallel_apply(replicas, inputs, kwargs, self.device_ids[:len(replicas)])
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/parallel_apply.py", line 86, in parallel_apply
+    output.reraise()
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/_utils.py", line 457, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in replica 0 on device 0.
+Original Traceback (most recent call last):
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/parallel_apply.py", line 61, in _worker
+    output = module(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 1817, in forward
+    logits = self.classifier(pooled_output)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/container.py", line 141, in forward
+    input = module(input)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/conv.py", line 447, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/conv.py", line 443, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+RuntimeError: Expected 3D (unbatched) or 4D (batched) input to conv2d, but got input of size: [14, 256]
+
+Sat Oct 29 01:22:52 AEDT 2022
+------------------------------------------------------------------------
+                         run_cnn_downstream.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_cnn_downstream.py
+Started: 29/10/2022 01:23:07
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: ADI17-xlsr-cnn
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+test data path: /srv/scratch/z5208494/dataset/train_segments/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: u_train_700f
+train_filename: u_train_700f
+validation_filename: dev_u_200f
+evaluation_filename: test_u_100f
+use_checkpoint: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+number_of_worker: 1
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.1
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: no
+batch_size: 40
+gradient_accumulation_steps: 2
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 100
+max_steps: -1
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 500
+save_total_limit: 40
+fp16: True
+eval_steps: 100
+load_best_model_at_end: False
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/u_train_700f.csv
+--> data_test_fp: data/dev_u_200f.csv
+--> data_test_fp: data/test_u_100f.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/u_train_700f_local/ADI17-xlsr-cnn
+--> finetuned_results_fp: /srv/scratch/z5208494/output/u_train_700f_local/ADI17-xlsr-cnn_finetuned_results.csv
+--> pretrained_mod: elgeish/wav2vec2-large-xlsr-53-arabic
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 10 s
+Sampling Rate: 16000
+Target Sampling Rate: 16000
+Create a custom dataset ---> 
+Check data has been processed correctly... 
+Train Data Sample
+{'input_values': tensor([[-5.2934e-03, -2.5906e-02, -2.8851e-02,  ..., -1.9081e-01,
+         -2.1437e-01, -1.9376e-01],
+        [ 8.3502e-04, -1.3292e-03, -4.0167e-04,  ..., -3.4822e-01,
+         -1.1139e-01,  2.2097e-01],
+        [ 1.4543e+00,  1.2476e+00,  5.2201e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        ...,
+        [-2.6895e-04,  2.3433e-02,  7.1283e-02,  ..., -1.3085e-01,
+          7.0384e-01,  1.5390e+00],
+        [-2.9725e-02,  2.8497e-01,  7.3498e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-1.6160e+00, -1.3993e+00, -1.1144e+00,  ..., -4.8425e-01,
+         -4.0460e-01, -4.7111e-01]]), 'attention_mask': tensor([[1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1]]), 'labels': tensor([3, 0, 2, 3, 3, 0, 2, 0, 0, 3, 3, 1, 3, 2, 3, 0, 2, 0, 2, 2, 1, 0, 3, 2,
+        3, 2, 0, 3, 1, 1, 3, 1, 2, 0, 2, 2, 2, 0, 3, 1])}
+Training DataCustom Files: 10502
+Training Data Files: 263
+Val Data Sample
+{'input_values': tensor([[-2.3461, -2.5742, -2.6266,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0977, -0.1161, -0.1240,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.3768, -0.6922, -0.8913,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [-0.5643, -0.7131, -1.3428,  ..., -0.2922, -0.2799,  0.9610],
+        [ 0.4436,  0.3455,  0.1691,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0543,  0.0082,  0.0650,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0, 3, 1, 1, 0, 3, 0, 2, 2, 0, 3, 2, 0, 0, 3, 3, 0, 3, 3, 3, 2, 2, 0, 2,
+        2, 2, 3, 1, 2, 1, 1, 1, 2, 0, 3, 2, 2, 0, 3, 1])}
+Test CustomData Files: 813
+Test Data Files: 21
+Test Data Sample
+Some weights of the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic were not used when initializing Wav2Vec2ForSequenceClassification: ['lm_head.weight', 'lm_head.bias']
+- This IS expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of Wav2Vec2ForSequenceClassification were not initialized from the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic and are newly initialized: ['classifier.weight', 'projector.weight', 'projector.bias', 'classifier.bias']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+{'input_values': tensor([[-0.3461, -0.3701, -0.4085,  ...,  0.1022,  0.1677,  0.1326],
+        [ 0.7674,  0.3624,  0.1466,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.3681, -0.1342,  0.3953,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [ 0.3832,  0.7052,  0.6135,  ..., -0.1732, -0.2441, -0.2638],
+        [-0.0691, -0.2292, -0.2976,  ...,  0.0627,  0.2448,  0.3760],
+        [ 0.3278,  0.4798,  0.6488,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([3, 1, 2, 3, 2, 2, 0, 3, 0, 0, 0, 2, 1, 2, 0, 1, 0, 3, 3, 3, 0, 0, 2, 3,
+        0, 0, 0, 3, 2, 2, 0, 2, 3, 2, 2, 0, 2, 0, 3, 2])}
+Test CustomData Files: 398
+Test Data Files: 10
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Loading pre-trained checkpoint...
+Traceback (most recent call last):
+  File "run_cnn_downstream.py", line 498, in <module>
+    bound_method = new_forward.__get__(resent, resent.__class__)
+NameError: name 'resent' is not defined
+Sat Oct 29 01:29:31 AEDT 2022
+------------------------------------------------------------------------
+                         run_cnn_downstream.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_cnn_downstream.py
+Started: 29/10/2022 01:29:45
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: ADI17-xlsr-cnn
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+test data path: /srv/scratch/z5208494/dataset/train_segments/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: u_train_700f
+train_filename: u_train_700f
+validation_filename: dev_u_200f
+evaluation_filename: test_u_100f
+use_checkpoint: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+number_of_worker: 1
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.1
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: no
+batch_size: 40
+gradient_accumulation_steps: 2
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 100
+max_steps: -1
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 500
+save_total_limit: 40
+fp16: True
+eval_steps: 100
+load_best_model_at_end: False
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/u_train_700f.csv
+--> data_test_fp: data/dev_u_200f.csv
+--> data_test_fp: data/test_u_100f.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/u_train_700f_local/ADI17-xlsr-cnn
+--> finetuned_results_fp: /srv/scratch/z5208494/output/u_train_700f_local/ADI17-xlsr-cnn_finetuned_results.csv
+--> pretrained_mod: elgeish/wav2vec2-large-xlsr-53-arabic
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 10 s
+Sampling Rate: 16000
+Target Sampling Rate: 16000
+Create a custom dataset ---> 
+Check data has been processed correctly... 
+Train Data Sample
+{'input_values': tensor([[ 1.8338,  1.8072,  1.6628,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.1800, -0.3838, -0.4597,  ...,  0.0000,  0.0000,  0.0000],
+        [-1.9430, -2.2541, -1.2450,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [-0.0529, -0.0458, -0.0317,  ...,  0.0866,  0.0929,  0.0625],
+        [ 3.8188,  4.1597,  4.2453,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.4565, -0.0536,  0.6989,  ...,  0.1270,  0.1146,  0.0674]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1]]), 'labels': tensor([0, 1, 3, 2, 3, 0, 0, 3, 2, 0, 2, 2, 1, 2, 3, 0, 1, 0, 0, 2, 2, 2, 2, 1,
+        3, 1, 1, 3, 1, 3, 3, 2, 3, 0, 3, 2, 2, 3, 3, 2])}
+Training DataCustom Files: 10502
+Training Data Files: 263
+Val Data Sample
+{'input_values': tensor([[ 0.0181,  0.0232,  0.0181,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.1383,  0.0776,  0.0553,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0067,  0.3812,  0.4503,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [ 0.0780,  0.0012, -0.0143,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.2338,  0.3547,  0.3915,  ..., -0.7189, -0.3068,  0.0253],
+        [-0.0067, -0.0098,  0.0009,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1, 2, 2, 3, 0, 3, 3, 1, 2, 0, 2, 3, 0, 3, 2, 3, 0, 0, 2, 3, 1, 2, 1, 2,
+        3, 1, 1, 2, 0, 3, 3, 3, 0, 0, 3, 1, 0, 2, 1, 2])}
+Test CustomData Files: 813
+Test Data Files: 21
+Test Data Sample
+Some weights of the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic were not used when initializing Wav2Vec2ForSequenceClassification: ['lm_head.bias', 'lm_head.weight']
+- This IS expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of Wav2Vec2ForSequenceClassification were not initialized from the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic and are newly initialized: ['classifier.weight', 'projector.weight', 'classifier.bias', 'projector.bias']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Using cuda_amp half precision backend
+{'input_values': tensor([[ 0.0612,  0.0535,  0.0547,  ..., -0.2541, -0.1216,  0.4730],
+        [-0.3461, -0.3701, -0.4085,  ...,  0.1022,  0.1677,  0.1326],
+        [-0.1009, -0.3907, -0.1496,  ...,  0.1912,  0.0434, -0.0102],
+        ...,
+        [-0.0750, -0.0271,  0.1032,  ..., -1.0620, -0.9375, -0.7213],
+        [ 1.3782,  1.3465,  1.2551,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.1287,  0.0911,  0.1749,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 1, 1, 1],
+        ...,
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([3, 3, 2, 0, 1, 3, 3, 1, 3, 1, 1, 0, 2, 1, 3, 2, 0, 1, 3, 0, 1, 3, 2, 0,
+        2, 2, 3, 0, 1, 3, 2, 0, 2, 2, 1, 3, 0, 2, 2, 3])}
+Test CustomData Files: 398
+Test Data Files: 10
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Loading pre-trained checkpoint...
+-------- Setting up Model --------
+GPUs Used :  3 GPUs!
+SUCCESS: Pre-trained checkpoint loaded.
+--> Defining Custom Trainer Class...
+
+------> STARTING TRAINING... ----------------------------------------- 
+
+Trainable Parameters : 324664
+Traceback (most recent call last):
+  File "run_cnn_downstream.py", line 772, in <module>
+    trainer.fit(trainDataLoader, testDataLoader, set_num_train_epochs)
+  File "run_cnn_downstream.py", line 589, in fit
+    train_loss, train_acc = self._train(
+  File "run_cnn_downstream.py", line 615, in _train
+    loss, acc = self._compute_loss(model, inputs, labels)
+  File "run_cnn_downstream.py", line 657, in _compute_loss
+    prediction = model(**inputs).logits
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/data_parallel.py", line 168, in forward
+    outputs = self.parallel_apply(replicas, inputs, kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/data_parallel.py", line 178, in parallel_apply
+    return parallel_apply(replicas, inputs, kwargs, self.device_ids[:len(replicas)])
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/parallel_apply.py", line 86, in parallel_apply
+    output.reraise()
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/_utils.py", line 457, in reraise
+    raise exception
+TypeError: Caught TypeError in replica 0 on device 0.
+Original Traceback (most recent call last):
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/parallel_apply.py", line 61, in _worker
+    output = module(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+TypeError: new_forward() got an unexpected keyword argument 'input_values'
+
+Sat Oct 29 01:50:46 AEDT 2022
+------------------------------------------------------------------------
+                         run_cnn_downstream.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_cnn_downstream.py
+Started: 29/10/2022 01:51:00
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: ADI17-xlsr-cnn
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+test data path: /srv/scratch/z5208494/dataset/train_segments/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: u_train_700f
+train_filename: u_train_700f
+validation_filename: dev_u_200f
+evaluation_filename: test_u_100f
+use_checkpoint: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+number_of_worker: 1
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.1
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: no
+batch_size: 40
+gradient_accumulation_steps: 2
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 100
+max_steps: -1
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 500
+save_total_limit: 40
+fp16: True
+eval_steps: 100
+load_best_model_at_end: False
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/u_train_700f.csv
+--> data_test_fp: data/dev_u_200f.csv
+--> data_test_fp: data/test_u_100f.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/u_train_700f_local/ADI17-xlsr-cnn
+--> finetuned_results_fp: /srv/scratch/z5208494/output/u_train_700f_local/ADI17-xlsr-cnn_finetuned_results.csv
+--> pretrained_mod: elgeish/wav2vec2-large-xlsr-53-arabic
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 10 s
+Sampling Rate: 16000
+Target Sampling Rate: 16000
+Create a custom dataset ---> 
+Check data has been processed correctly... 
+Train Data Sample
+{'input_values': tensor([[ 0.0814,  0.0386, -0.0415,  ..., -0.2894, -0.1817, -0.2900],
+        [-0.0283, -0.0302, -0.0220,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.4717, -0.4868, -0.5319,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [ 1.8937,  1.1774,  0.3813,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.8132, -1.0025, -1.2954,  ..., -0.0587, -0.0088,  0.0297],
+        [ 0.2113,  0.1861,  0.0030,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([2, 3, 2, 2, 2, 2, 0, 2, 0, 3, 2, 2, 2, 0, 3, 2, 2, 2, 1, 3, 0, 3, 2, 1,
+        2, 2, 3, 1, 2, 2, 0, 0, 2, 2, 3, 0, 2, 1, 0, 0])}
+Training DataCustom Files: 10502
+Training Data Files: 263
+Val Data Sample
+{'input_values': tensor([[-1.3615e-02,  8.1402e-02,  1.9561e-01,  ...,  5.0624e-01,
+          5.3913e-01,  5.4461e-01],
+        [-2.2750e-01, -8.3070e-01, -1.0909e+00,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-5.0687e-01, -1.8108e-01,  2.7595e-02,  ...,  8.7952e-01,
+          7.6098e-01,  5.8560e-01],
+        ...,
+        [ 1.7344e-01,  1.8378e-01,  1.8637e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-3.2926e-04, -8.7291e-03, -3.5154e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-5.6626e-01, -2.1620e-01, -9.3471e-02,  ..., -1.9502e-01,
+         -2.6787e-01, -2.2130e-01]]), 'attention_mask': tensor([[1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1]]), 'labels': tensor([2, 3, 0, 3, 3, 0, 1, 0, 0, 0, 0, 1, 1, 2, 3, 1, 1, 2, 1, 2, 0, 3, 3, 0,
+        2, 1, 1, 3, 3, 3, 1, 3, 1, 3, 3, 0, 3, 3, 1, 1])}
+Test CustomData Files: 813
+Test Data Files: 21
+Test Data Sample
+Some weights of the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic were not used when initializing Wav2Vec2ForSequenceClassification: ['lm_head.weight', 'lm_head.bias']
+- This IS expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of Wav2Vec2ForSequenceClassification were not initialized from the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic and are newly initialized: ['classifier.bias', 'classifier.weight', 'projector.weight', 'projector.bias']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Using cuda_amp half precision backend
+{'input_values': tensor([[-0.8756, -0.6645, -0.7028,  ..., -0.4409,  0.0612,  0.4468],
+        [ 0.0037,  0.0027,  0.0056,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0480,  0.0305, -0.1928,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [-0.0986, -0.0721,  0.1168,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.8219,  0.5581, -0.2596,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0412, -0.0685, -0.0758,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([2, 0, 3, 2, 2, 2, 1, 3, 3, 1, 3, 1, 2, 2, 2, 1, 2, 3, 1, 0, 3, 3, 0, 3,
+        1, 3, 0, 0, 3, 1, 1, 3, 2, 1, 1, 3, 1, 1, 1, 1])}
+Test CustomData Files: 398
+Test Data Files: 10
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Loading pre-trained checkpoint...
+-------- Setting up Model --------
+GPUs Used :  3 GPUs!
+SUCCESS: Pre-trained checkpoint loaded.
+--> Defining Custom Trainer Class...
+
+------> STARTING TRAINING... ----------------------------------------- 
+
+Trainable Parameters : 324664
+Traceback (most recent call last):
+  File "run_cnn_downstream.py", line 746, in <module>
+    trainer.fit(trainDataLoader, testDataLoader, set_num_train_epochs)
+  File "run_cnn_downstream.py", line 563, in fit
+    train_loss, train_acc = self._train(
+  File "run_cnn_downstream.py", line 589, in _train
+    loss, acc = self._compute_loss(model, inputs, labels)
+  File "run_cnn_downstream.py", line 631, in _compute_loss
+    prediction = model(**inputs).logits
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/data_parallel.py", line 168, in forward
+    outputs = self.parallel_apply(replicas, inputs, kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/data_parallel.py", line 178, in parallel_apply
+    return parallel_apply(replicas, inputs, kwargs, self.device_ids[:len(replicas)])
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/parallel_apply.py", line 86, in parallel_apply
+    output.reraise()
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/_utils.py", line 457, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in replica 0 on device 0.
+Original Traceback (most recent call last):
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/parallel_apply.py", line 61, in _worker
+    output = module(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 1817, in forward
+    logits = self.classifier(pooled_output)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/container.py", line 141, in forward
+    input = module(input)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/conv.py", line 447, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/conv.py", line 443, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+RuntimeError: Expected 3D (unbatched) or 4D (batched) input to conv2d, but got input of size: [14, 256]
+
+Sat Oct 29 01:56:05 AEDT 2022
+------------------------------------------------------------------------
+                         run_cnn_downstream.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_cnn_downstream.py
+Started: 29/10/2022 01:56:19
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: ADI17-xlsr-cnn
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+test data path: /srv/scratch/z5208494/dataset/train_segments/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: u_train_700f
+train_filename: u_train_700f
+validation_filename: dev_u_200f
+evaluation_filename: test_u_100f
+use_checkpoint: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+number_of_worker: 1
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.1
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: no
+batch_size: 40
+gradient_accumulation_steps: 2
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 100
+max_steps: -1
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 500
+save_total_limit: 40
+fp16: True
+eval_steps: 100
+load_best_model_at_end: False
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/u_train_700f.csv
+--> data_test_fp: data/dev_u_200f.csv
+--> data_test_fp: data/test_u_100f.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/u_train_700f_local/ADI17-xlsr-cnn
+--> finetuned_results_fp: /srv/scratch/z5208494/output/u_train_700f_local/ADI17-xlsr-cnn_finetuned_results.csv
+--> pretrained_mod: elgeish/wav2vec2-large-xlsr-53-arabic
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 10 s
+Sampling Rate: 16000
+Target Sampling Rate: 16000
+Create a custom dataset ---> 
+Check data has been processed correctly... 
+Train Data Sample
+{'input_values': tensor([[ 2.7184,  2.1752,  1.6710,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.3452,  0.1207,  0.0631,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0569,  0.0394,  0.0370,  ..., -0.3219, -0.2487, -0.1921],
+        ...,
+        [ 0.0106,  0.0445,  0.0871,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.1092,  0.2595,  0.1634,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.1302, -0.1637, -0.1906,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([3, 0, 2, 2, 0, 3, 2, 1, 2, 2, 2, 2, 2, 0, 3, 3, 0, 2, 2, 3, 2, 2, 2, 3,
+        2, 0, 3, 0, 2, 2, 2, 3, 2, 2, 2, 2, 0, 2, 2, 1])}
+Training DataCustom Files: 10502
+Training Data Files: 263
+Val Data Sample
+{'input_values': tensor([[ 8.6688e-02,  5.9799e-02,  2.8534e-02,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-1.4819e-01, -1.7986e-01, -2.2397e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-1.1085e+00, -8.7144e-01, -7.5999e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        ...,
+        [ 2.3699e-01,  2.9146e-01,  3.3671e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [ 1.5797e+00,  1.6972e+00,  2.0435e+00,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-2.5358e-02, -3.3438e-02, -4.5750e-02,  ...,  6.5060e-02,
+          3.2740e-02,  1.1905e-03]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1]]), 'labels': tensor([0, 2, 3, 3, 3, 0, 1, 0, 2, 0, 2, 0, 0, 0, 3, 0, 0, 1, 2, 2, 1, 3, 2, 3,
+        1, 2, 0, 0, 2, 3, 1, 1, 0, 1, 2, 2, 1, 1, 3, 1])}
+Test CustomData Files: 813
+Test Data Files: 21
+Test Data Sample
+Some weights of the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic were not used when initializing Wav2Vec2ForSequenceClassification: ['lm_head.weight', 'lm_head.bias']
+- This IS expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of Wav2Vec2ForSequenceClassification were not initialized from the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic and are newly initialized: ['classifier.bias', 'projector.weight', 'classifier.weight', 'projector.bias']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Using cuda_amp half precision backend
+{'input_values': tensor([[ 1.3782,  1.3465,  1.2551,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.2081,  0.3479,  0.3962,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.5813, -0.3739,  0.1007,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [ 0.7782,  0.7331,  0.6194,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.2260,  0.1845,  0.0969,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0073, -0.0065,  0.0042,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([2, 2, 3, 1, 1, 2, 0, 1, 0, 3, 1, 0, 3, 1, 0, 1, 2, 0, 0, 3, 3, 3, 2, 3,
+        2, 1, 0, 1, 3, 0, 3, 2, 3, 0, 2, 2, 1, 0, 3, 2])}
+Test CustomData Files: 398
+Test Data Files: 10
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Loading pre-trained checkpoint...
+-------- Setting up Model --------
+GPUs Used :  3 GPUs!
+SUCCESS: Pre-trained checkpoint loaded.
+--> Defining Custom Trainer Class...
+
+------> STARTING TRAINING... ----------------------------------------- 
+
+Trainable Parameters : 324664
+Traceback (most recent call last):
+  File "run_cnn_downstream.py", line 746, in <module>
+    trainer.fit(trainDataLoader, testDataLoader, set_num_train_epochs)
+  File "run_cnn_downstream.py", line 563, in fit
+    train_loss, train_acc = self._train(
+  File "run_cnn_downstream.py", line 589, in _train
+    loss, acc = self._compute_loss(model, inputs, labels)
+  File "run_cnn_downstream.py", line 631, in _compute_loss
+    prediction = model(**inputs).logits
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/data_parallel.py", line 168, in forward
+    outputs = self.parallel_apply(replicas, inputs, kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/data_parallel.py", line 178, in parallel_apply
+    return parallel_apply(replicas, inputs, kwargs, self.device_ids[:len(replicas)])
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/parallel_apply.py", line 86, in parallel_apply
+    output.reraise()
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/_utils.py", line 457, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in replica 0 on device 0.
+Original Traceback (most recent call last):
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/parallel_apply.py", line 61, in _worker
+    output = module(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 1817, in forward
+    logits = self.classifier(pooled_output)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/container.py", line 141, in forward
+    input = module(input)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/conv.py", line 447, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/conv.py", line 443, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+RuntimeError: Expected 3D (unbatched) or 4D (batched) input to conv2d, but got input of size: [14, 256]
+
+Sat Oct 29 02:02:48 AEDT 2022
+------------------------------------------------------------------------
+                         run_cnn_downstream.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_cnn_downstream.py
+Started: 29/10/2022 02:03:04
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: ADI17-xlsr-cnn
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+test data path: /srv/scratch/z5208494/dataset/train_segments/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: u_train_700f
+train_filename: u_train_700f
+validation_filename: dev_u_200f
+evaluation_filename: test_u_100f
+use_checkpoint: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+number_of_worker: 1
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.1
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: no
+batch_size: 40
+gradient_accumulation_steps: 2
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 100
+max_steps: -1
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 500
+save_total_limit: 40
+fp16: True
+eval_steps: 100
+load_best_model_at_end: False
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/u_train_700f.csv
+--> data_test_fp: data/dev_u_200f.csv
+--> data_test_fp: data/test_u_100f.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/u_train_700f_local/ADI17-xlsr-cnn
+--> finetuned_results_fp: /srv/scratch/z5208494/output/u_train_700f_local/ADI17-xlsr-cnn_finetuned_results.csv
+--> pretrained_mod: elgeish/wav2vec2-large-xlsr-53-arabic
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 10 s
+Sampling Rate: 16000
+Target Sampling Rate: 16000
+Create a custom dataset ---> 
+Check data has been processed correctly... 
+Train Data Sample
+{'input_values': tensor([[-0.2611, -0.4318, -0.4629,  ...,  2.3072,  2.8599,  3.2248],
+        [-0.0080, -0.0176, -0.0285,  ...,  0.6524,  0.1018, -0.2573],
+        [-0.6742, -0.6028, -0.6243,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [ 2.4946,  2.6221,  2.0434,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.1754, -0.1650, -0.1562,  ...,  0.0000,  0.0000,  0.0000],
+        [-2.0298, -2.1692, -2.3135,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([2, 1, 3, 1, 3, 2, 2, 2, 0, 1, 3, 3, 0, 1, 3, 3, 1, 2, 2, 1, 3, 3, 3, 3,
+        0, 2, 2, 2, 3, 3, 0, 2, 2, 3, 1, 3, 0, 2, 3, 0])}
+Training DataCustom Files: 10502
+Training Data Files: 263
+Val Data Sample
+{'input_values': tensor([[-0.0505, -0.0456, -0.0566,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0520, -0.0303, -0.0440,  ..., -1.9681, -2.1637, -2.3795],
+        [-0.0982, -0.1167, -0.0333,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [ 0.4901,  0.3973,  0.1660,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0100,  0.0235,  0.0097,  ...,  0.7091,  0.2802, -0.1394],
+        [-2.0820, -3.6827, -2.3417,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([3, 1, 0, 1, 2, 2, 3, 2, 1, 0, 3, 1, 0, 2, 2, 0, 0, 1, 0, 3, 2, 3, 0, 1,
+        1, 0, 3, 1, 3, 1, 1, 3, 0, 0, 2, 1, 1, 0, 1, 1])}
+Test CustomData Files: 813
+Test Data Files: 21
+Test Data Sample
+Some weights of the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic were not used when initializing Wav2Vec2ForSequenceClassification: ['lm_head.bias', 'lm_head.weight']
+- This IS expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of Wav2Vec2ForSequenceClassification were not initialized from the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic and are newly initialized: ['projector.weight', 'projector.bias', 'classifier.bias', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Using cuda_amp half precision backend
+{'input_values': tensor([[-1.8997e-01,  9.9771e-02, -2.6545e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-8.6916e-01, -7.5203e-01, -6.2300e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-2.2254e-02, -1.4206e-02, -2.1287e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        ...,
+        [-2.4491e-01,  9.3225e-02, -3.2212e-01,  ...,  2.9634e-01,
+         -7.5964e-01, -7.1092e-02],
+        [ 4.3464e-02,  4.1152e-02,  6.4450e-02,  ..., -1.9810e+00,
+         -2.0289e+00, -1.9405e+00],
+        [ 3.1107e-03, -1.0532e-03,  6.6340e-03,  ...,  2.8273e-01,
+          1.0048e-01,  1.8408e-01]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 1, 1, 1]]), 'labels': tensor([3, 0, 3, 2, 3, 3, 3, 3, 0, 2, 0, 2, 1, 2, 0, 0, 2, 0, 2, 1, 2, 2, 2, 3,
+        0, 1, 2, 0, 0, 0, 3, 2, 3, 2, 0, 3, 0, 2, 2, 0])}
+Test CustomData Files: 398
+Test Data Files: 10
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Loading pre-trained checkpoint...
+-------- Setting up Model --------
+GPUs Used :  3 GPUs!
+SUCCESS: Pre-trained checkpoint loaded.
+--> Defining Custom Trainer Class...
+
+------> STARTING TRAINING... ----------------------------------------- 
+
+Trainable Parameters : 324664
+Traceback (most recent call last):
+  File "run_cnn_downstream.py", line 747, in <module>
+    trainer.fit(trainDataLoader, testDataLoader, set_num_train_epochs)
+  File "run_cnn_downstream.py", line 564, in fit
+    train_loss, train_acc = self._train(
+  File "run_cnn_downstream.py", line 590, in _train
+    loss, acc = self._compute_loss(model, inputs, labels)
+  File "run_cnn_downstream.py", line 632, in _compute_loss
+    prediction = model(**inputs).logits
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/data_parallel.py", line 168, in forward
+    outputs = self.parallel_apply(replicas, inputs, kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/data_parallel.py", line 178, in parallel_apply
+    return parallel_apply(replicas, inputs, kwargs, self.device_ids[:len(replicas)])
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/parallel_apply.py", line 86, in parallel_apply
+    output.reraise()
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/_utils.py", line 457, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in replica 0 on device 0.
+Original Traceback (most recent call last):
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/parallel_apply.py", line 61, in _worker
+    output = module(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 1817, in forward
+    logits = self.classifier(pooled_output)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/container.py", line 141, in forward
+    input = module(input)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/conv.py", line 447, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/conv.py", line 443, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+RuntimeError: Expected 3D (unbatched) or 4D (batched) input to conv2d, but got input of size: [14, 256]
+
+Sat Oct 29 10:11:14 AEDT 2022
+------------------------------------------------------------------------
+                         run_cnn_downstream.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_cnn_downstream.py
+Started: 29/10/2022 10:11:31
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: ADI17-xlsr-cnn
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+test data path: /srv/scratch/z5208494/dataset/train_segments/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: u_train_700f
+train_filename: u_train_700f
+validation_filename: dev_u_200f
+evaluation_filename: test_u_100f
+use_checkpoint: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+number_of_worker: 1
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.1
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: no
+batch_size: 40
+gradient_accumulation_steps: 2
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 100
+max_steps: -1
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 500
+save_total_limit: 40
+fp16: True
+eval_steps: 100
+load_best_model_at_end: False
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/u_train_700f.csv
+--> data_test_fp: data/dev_u_200f.csv
+--> data_test_fp: data/test_u_100f.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/u_train_700f_local/ADI17-xlsr-cnn
+--> finetuned_results_fp: /srv/scratch/z5208494/output/u_train_700f_local/ADI17-xlsr-cnn_finetuned_results.csv
+--> pretrained_mod: elgeish/wav2vec2-large-xlsr-53-arabic
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 10 s
+Sampling Rate: 16000
+Target Sampling Rate: 16000
+Create a custom dataset ---> 
+Check data has been processed correctly... 
+Train Data Sample
+{'input_values': tensor([[-0.1001, -0.2306, -0.1930,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0416, -0.0331, -0.0306,  ...,  0.0120, -0.0171,  0.0007],
+        [-0.1491, -0.2897, -0.2171,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [ 0.1580,  0.1548,  0.1774,  ..., -0.0205,  0.0848,  0.0368],
+        [-0.4453, -0.3868, -0.3281,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0022,  0.0050, -0.0014,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([2, 0, 2, 3, 0, 3, 1, 3, 2, 0, 0, 3, 3, 3, 2, 1, 2, 2, 3, 2, 0, 3, 0, 1,
+        3, 2, 2, 2, 3, 2, 0, 0, 2, 2, 1, 3, 2, 1, 2, 3])}
+Training DataCustom Files: 10502
+Training Data Files: 263
+Val Data Sample
+{'input_values': tensor([[-0.0377, -0.0106,  0.0270,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0023,  0.0030,  0.0037,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.6839, -0.6540, -0.5600,  ..., -2.0716, -1.8531, -1.6046],
+        ...,
+        [-0.0888, -0.0698, -0.0629,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.9666, -0.8888, -0.8663,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0214,  0.0059, -0.0209,  ...,  0.6771,  0.7191,  0.7214]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1]]), 'labels': tensor([3, 1, 2, 2, 1, 2, 0, 2, 3, 0, 0, 1, 1, 0, 2, 2, 0, 2, 1, 1, 3, 2, 3, 1,
+        2, 2, 0, 3, 1, 2, 3, 0, 0, 3, 3, 2, 0, 3, 1, 3])}
+Test CustomData Files: 813
+Test Data Files: 21
+Test Data Sample
+Some weights of the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic were not used when initializing Wav2Vec2ForSequenceClassification: ['lm_head.weight', 'lm_head.bias']
+- This IS expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of Wav2Vec2ForSequenceClassification were not initialized from the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic and are newly initialized: ['classifier.bias', 'projector.weight', 'projector.bias', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Using cuda_amp half precision backend
+{'input_values': tensor([[-0.6754,  0.4478,  1.4024,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0137, -0.0078, -0.0129,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0677, -0.0702, -0.0585,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [ 0.0563,  0.0702,  0.1428,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.4667, -0.4770, -0.4922,  ..., -0.9354, -0.7075, -0.1023],
+        [-0.3196, -0.0851,  0.1663,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1, 2, 2, 0, 0, 2, 0, 2, 2, 2, 2, 3, 0, 2, 0, 1, 2, 2, 0, 2, 1, 0, 1, 1,
+        2, 2, 1, 1, 0, 3, 3, 3, 0, 3, 1, 3, 0, 3, 2, 3])}
+Test CustomData Files: 398
+Test Data Files: 10
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Loading pre-trained checkpoint...
+-------- Setting up Model --------
+GPUs Used :  3 GPUs!
+SUCCESS: Pre-trained checkpoint loaded.
+--> Defining Custom Trainer Class...
+
+------> STARTING TRAINING... ----------------------------------------- 
+
+Trainable Parameters : 324664
+Traceback (most recent call last):
+  File "run_cnn_downstream.py", line 748, in <module>
+    trainer.fit(trainDataLoader, testDataLoader, set_num_train_epochs)
+  File "run_cnn_downstream.py", line 565, in fit
+    train_loss, train_acc = self._train(
+  File "run_cnn_downstream.py", line 591, in _train
+    loss, acc = self._compute_loss(model, inputs, labels)
+  File "run_cnn_downstream.py", line 633, in _compute_loss
+    prediction = model(**inputs).logits
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/data_parallel.py", line 168, in forward
+    outputs = self.parallel_apply(replicas, inputs, kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/data_parallel.py", line 178, in parallel_apply
+    return parallel_apply(replicas, inputs, kwargs, self.device_ids[:len(replicas)])
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/parallel_apply.py", line 86, in parallel_apply
+    output.reraise()
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/_utils.py", line 457, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in replica 0 on device 0.
+Original Traceback (most recent call last):
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/parallel_apply.py", line 61, in _worker
+    output = module(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 1817, in forward
+    logits = self.classifier(pooled_output)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/container.py", line 141, in forward
+    input = module(input)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/conv.py", line 447, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/conv.py", line 443, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+RuntimeError: Expected 3D (unbatched) or 4D (batched) input to conv2d, but got input of size: [14, 256]
+
+Sat Oct 29 10:27:29 AEDT 2022
+------------------------------------------------------------------------
+                         run_cnn_downstream.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_cnn_downstream.py
+Started: 29/10/2022 10:27:42
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: ADI17-xlsr-cnn
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+test data path: /srv/scratch/z5208494/dataset/train_segments/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: u_train_700f
+train_filename: u_train_700f
+validation_filename: dev_u_200f
+evaluation_filename: test_u_100f
+use_checkpoint: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+number_of_worker: 1
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.1
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: no
+batch_size: 40
+gradient_accumulation_steps: 2
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 100
+max_steps: -1
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 500
+save_total_limit: 40
+fp16: True
+eval_steps: 100
+load_best_model_at_end: False
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/u_train_700f.csv
+--> data_test_fp: data/dev_u_200f.csv
+--> data_test_fp: data/test_u_100f.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/u_train_700f_local/ADI17-xlsr-cnn
+--> finetuned_results_fp: /srv/scratch/z5208494/output/u_train_700f_local/ADI17-xlsr-cnn_finetuned_results.csv
+--> pretrained_mod: elgeish/wav2vec2-large-xlsr-53-arabic
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 10 s
+Sampling Rate: 16000
+Target Sampling Rate: 16000
+Create a custom dataset ---> 
+Check data has been processed correctly... 
+Train Data Sample
+{'input_values': tensor([[-0.3586, -0.5142, -0.5108,  ..., -0.4769, -1.0368, -1.3173],
+        [ 0.4490,  0.4499,  0.4502,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.7365,  0.9317,  1.1028,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [-0.1951, -0.1897, -0.1796,  ...,  0.0000,  0.0000,  0.0000],
+        [-1.1847, -1.3190, -0.2584,  ..., -0.3825, -1.4639, -0.0808],
+        [-0.7002, -0.9879, -1.1958,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([2, 3, 2, 0, 2, 2, 1, 1, 0, 0, 2, 1, 2, 3, 2, 0, 3, 3, 0, 3, 3, 3, 1, 0,
+        0, 3, 2, 2, 0, 2, 3, 1, 3, 0, 2, 0, 2, 2, 2, 2])}
+Training DataCustom Files: 10502
+Training Data Files: 263
+Val Data Sample
+{'input_values': tensor([[ 0.2346, -0.5193, -0.9985,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.1043, -0.0726,  0.0185,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.1297, -0.1292, -0.1086,  ...,  0.0058, -0.0282, -0.0105],
+        ...,
+        [ 0.3587,  0.5046,  0.6434,  ...,  0.2170,  0.2271,  0.1709],
+        [-0.0524,  0.0046, -0.1674,  ..., -0.3514, -0.3691, -0.3372],
+        [-0.0212, -0.0645, -0.0885,  ..., -0.3442, -0.3365, -0.3628]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1],
+        ...,
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 1, 1, 1]]), 'labels': tensor([0, 0, 0, 3, 0, 1, 1, 1, 3, 1, 3, 1, 3, 3, 2, 0, 0, 2, 1, 0, 2, 0, 2, 2,
+        0, 0, 2, 1, 3, 1, 2, 1, 3, 3, 0, 2, 2, 0, 0, 3])}
+Test CustomData Files: 813
+Test Data Files: 21
+Test Data Sample
+Some weights of the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic were not used when initializing Wav2Vec2ForSequenceClassification: ['lm_head.weight', 'lm_head.bias']
+- This IS expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of Wav2Vec2ForSequenceClassification were not initialized from the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic and are newly initialized: ['classifier.weight', 'classifier.bias', 'projector.bias', 'projector.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Using cuda_amp half precision backend
+{'input_values': tensor([[ 4.5873e-02, -1.0009e-03, -8.2639e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [ 4.5872e-01,  5.0416e-01,  2.7148e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-1.1880e+00, -1.3231e+00, -1.1240e+00,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        ...,
+        [ 1.7611e-02, -1.2645e-01,  3.7724e-01,  ..., -3.1485e-01,
+         -2.7484e-01, -2.4782e-01],
+        [ 2.0525e-01, -1.5311e-01, -3.9708e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-2.8204e-01, -1.3065e-01, -3.0069e-02,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1, 3, 1, 3, 2, 1, 2, 3, 1, 2, 1, 2, 2, 0, 2, 2, 3, 0, 0, 2, 0, 3, 2, 2,
+        0, 1, 2, 0, 2, 2, 0, 2, 1, 0, 3, 3, 2, 3, 0, 2])}
+Test CustomData Files: 398
+Test Data Files: 10
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Loading pre-trained checkpoint...
+-------- Setting up Model --------
+GPUs Used :  3 GPUs!
+SUCCESS: Pre-trained checkpoint loaded.
+--> Defining Custom Trainer Class...
+
+------> STARTING TRAINING... ----------------------------------------- 
+
+Trainable Parameters : 324664
+Traceback (most recent call last):
+  File "run_cnn_downstream.py", line 747, in <module>
+    trainer.fit(trainDataLoader, testDataLoader, set_num_train_epochs)
+  File "run_cnn_downstream.py", line 564, in fit
+    train_loss, train_acc = self._train(
+  File "run_cnn_downstream.py", line 590, in _train
+    loss, acc = self._compute_loss(model, inputs, labels)
+  File "run_cnn_downstream.py", line 632, in _compute_loss
+    prediction = model(**inputs).logits
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/data_parallel.py", line 168, in forward
+    outputs = self.parallel_apply(replicas, inputs, kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/data_parallel.py", line 178, in parallel_apply
+    return parallel_apply(replicas, inputs, kwargs, self.device_ids[:len(replicas)])
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/parallel_apply.py", line 86, in parallel_apply
+    output.reraise()
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/_utils.py", line 457, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in replica 0 on device 0.
+Original Traceback (most recent call last):
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/parallel_apply.py", line 61, in _worker
+    output = module(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 1817, in forward
+    logits = self.classifier(pooled_output)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/container.py", line 141, in forward
+    input = module(input)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/conv.py", line 447, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/conv.py", line 443, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+RuntimeError: Expected 3D (unbatched) or 4D (batched) input to conv2d, but got input of size: [14, 256]
+
+Mon Oct 31 21:15:02 AEDT 2022
+------------------------------------------------------------------------
+                         run_cnn_downstream.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_cnn_downstream.py
+Started: 31/10/2022 21:15:16
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: ADI17-xlsr-cnn
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+test data path: /srv/scratch/z5208494/dataset/train_segments/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: u_train_700f
+train_filename: u_train_700f
+validation_filename: dev_u_200f
+evaluation_filename: test_u_100f
+use_checkpoint: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+number_of_worker: 1
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.1
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: no
+batch_size: 40
+gradient_accumulation_steps: 2
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 100
+max_steps: -1
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 500
+save_total_limit: 40
+fp16: True
+eval_steps: 100
+load_best_model_at_end: False
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/u_train_700f.csv
+--> data_test_fp: data/dev_u_200f.csv
+--> data_test_fp: data/test_u_100f.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/u_train_700f_local/ADI17-xlsr-cnn
+--> finetuned_results_fp: /srv/scratch/z5208494/output/u_train_700f_local/ADI17-xlsr-cnn_finetuned_results.csv
+--> pretrained_mod: elgeish/wav2vec2-large-xlsr-53-arabic
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 10 s
+Sampling Rate: 16000
+Target Sampling Rate: 16000
+Create a custom dataset ---> 
+Check data has been processed correctly... 
+Train Data Sample
+{'input_values': tensor([[ 2.8685,  3.3831,  3.8772,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.6980, -1.0066, -1.2843,  ...,  0.0000,  0.0000,  0.0000],
+        [ 2.1043,  2.2331,  2.2915,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [-0.1869, -0.1808, -0.1545,  ...,  0.0000,  0.0000,  0.0000],
+        [ 3.1241,  3.0401,  3.2485,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.4061,  0.2895,  0.1225,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([3, 3, 1, 1, 2, 2, 2, 2, 0, 3, 2, 3, 3, 3, 2, 2, 0, 3, 2, 1, 3, 1, 1, 2,
+        2, 2, 2, 2, 3, 1, 0, 2, 3, 3, 1, 2, 2, 3, 2, 2])}
+Training DataCustom Files: 10502
+Training Data Files: 263
+Val Data Sample
+{'input_values': tensor([[ 0.0888,  0.0105,  0.0833,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0695, -0.0732, -0.0720,  ...,  0.0000,  0.0000,  0.0000],
+        [ 2.6221,  1.8426,  0.8049,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [ 4.7518,  3.7885,  2.7126,  ...,  0.5291,  0.6804,  0.8088],
+        [-1.8282, -1.7756, -2.3723,  ...,  1.5148,  1.7838,  1.9206],
+        [ 2.1796,  1.7781,  1.2719,  ..., -0.0271,  0.2405,  0.4139]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 1, 1, 1]]), 'labels': tensor([2, 1, 0, 2, 2, 3, 1, 3, 1, 2, 1, 1, 2, 0, 3, 0, 0, 0, 0, 3, 0, 0, 2, 2,
+        2, 0, 0, 2, 0, 3, 2, 1, 2, 2, 0, 3, 0, 3, 3, 0])}
+Test CustomData Files: 813
+Test Data Files: 21
+Test Data Sample
+Some weights of the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic were not used when initializing Wav2Vec2ForSequenceClassification: ['lm_head.weight', 'lm_head.bias']
+- This IS expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of Wav2Vec2ForSequenceClassification were not initialized from the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic and are newly initialized: ['classifier.bias', 'projector.weight', 'classifier.weight', 'projector.bias']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Using cuda_amp half precision backend
+{'input_values': tensor([[-0.4901, -0.5992, -0.6270,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.4776,  1.0704,  1.5637,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.1157,  1.0266,  0.8192,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [ 0.2081,  0.3479,  0.3962,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.3196, -0.0851,  0.1663,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0475,  0.0438,  0.0150,  ...,  0.9946,  1.0753,  1.1569]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1]]), 'labels': tensor([2, 1, 1, 0, 3, 3, 1, 3, 0, 1, 1, 1, 2, 0, 1, 2, 0, 1, 3, 3, 2, 0, 1, 2,
+        0, 1, 1, 1, 2, 3, 0, 0, 2, 3, 1, 1, 2, 2, 3, 2])}
+Test CustomData Files: 398
+Test Data Files: 10
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Loading pre-trained checkpoint...
+-------- Setting up Model --------
+GPUs Used :  3 GPUs!
+SUCCESS: Pre-trained checkpoint loaded.
+--> Defining Custom Trainer Class...
+
+------> STARTING TRAINING... ----------------------------------------- 
+
+Trainable Parameters : 324664
+Traceback (most recent call last):
+  File "run_cnn_downstream.py", line 753, in <module>
+    trainer.fit(trainDataLoader, testDataLoader, set_num_train_epochs)
+  File "run_cnn_downstream.py", line 570, in fit
+    train_loss, train_acc = self._train(
+  File "run_cnn_downstream.py", line 596, in _train
+    loss, acc = self._compute_loss(model, inputs, labels)
+  File "run_cnn_downstream.py", line 638, in _compute_loss
+    prediction = model(**inputs).logits
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/data_parallel.py", line 168, in forward
+    outputs = self.parallel_apply(replicas, inputs, kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/data_parallel.py", line 178, in parallel_apply
+    return parallel_apply(replicas, inputs, kwargs, self.device_ids[:len(replicas)])
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/parallel_apply.py", line 86, in parallel_apply
+    output.reraise()
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/_utils.py", line 457, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in replica 0 on device 0.
+Original Traceback (most recent call last):
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/parallel_apply.py", line 61, in _worker
+    output = module(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 1817, in forward
+    logits = self.classifier(pooled_output)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/container.py", line 141, in forward
+    input = module(input)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/conv.py", line 447, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/conv.py", line 443, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+RuntimeError: Expected 3D (unbatched) or 4D (batched) input to conv2d, but got input of size: [14, 256]
+
+Tue Nov 1 01:51:46 AEDT 2022
+------------------------------------------------------------------------
+                         run_cnn_downstream.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_cnn_downstream.py
+Started: 01/11/2022 01:52:11
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: ADI17-xlsr-cnn
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+test data path: /srv/scratch/z5208494/dataset/train_segments/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: u_train_700f
+train_filename: u_train_700f
+validation_filename: dev_u_200f
+evaluation_filename: test_u_100f
+use_checkpoint: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+number_of_worker: 1
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.1
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: no
+batch_size: 40
+gradient_accumulation_steps: 2
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 100
+max_steps: -1
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 500
+save_total_limit: 40
+fp16: True
+eval_steps: 100
+load_best_model_at_end: False
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/u_train_700f.csv
+--> data_test_fp: data/dev_u_200f.csv
+--> data_test_fp: data/test_u_100f.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/u_train_700f_local/ADI17-xlsr-cnn
+--> finetuned_results_fp: /srv/scratch/z5208494/output/u_train_700f_local/ADI17-xlsr-cnn_finetuned_results.csv
+--> pretrained_mod: elgeish/wav2vec2-large-xlsr-53-arabic
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 10 s
+Sampling Rate: 16000
+Target Sampling Rate: 16000
+Create a custom dataset ---> 
+Check data has been processed correctly... 
+Train Data Sample
+{'input_values': tensor([[-0.0790, -0.0938, -0.0710,  ...,  0.0540,  0.0540,  0.0298],
+        [ 0.0176,  0.0115,  0.0139,  ...,  0.0000,  0.0000,  0.0000],
+        [ 1.6196,  1.8756,  1.9982,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [ 0.3401,  0.1347, -0.0174,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0564, -0.0736, -0.0756,  ...,  0.0000,  0.0000,  0.0000],
+        [-1.2568, -1.0194, -0.6248,  ...,  0.4221,  1.0809,  1.6493]]), 'attention_mask': tensor([[1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1]]), 'labels': tensor([3, 2, 2, 3, 0, 0, 2, 2, 0, 3, 3, 3, 1, 2, 2, 2, 2, 2, 2, 3, 3, 0, 2, 1,
+        2, 2, 2, 2, 0, 1, 3, 2, 0, 1, 0, 0, 3, 3, 2, 0])}
+Training DataCustom Files: 10502
+Training Data Files: 263
+Val Data Sample
+{'input_values': tensor([[-0.0882, -0.0970, -0.0215,  ..., -0.7461, -0.9324, -1.0962],
+        [ 0.2661,  0.2906,  0.3283,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0977, -0.1161, -0.1240,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [ 0.0462,  0.0324,  0.0365,  ..., -0.1670, -0.1345, -0.0928],
+        [-0.3016, -0.1438, -0.0116,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.1261, -0.0904, -0.0581,  ..., -0.1006, -0.0578,  0.0177]]), 'attention_mask': tensor([[1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1]]), 'labels': tensor([1, 3, 3, 3, 1, 1, 1, 0, 2, 2, 3, 0, 3, 1, 0, 1, 1, 0, 0, 3, 1, 3, 3, 0,
+        0, 0, 1, 2, 0, 2, 3, 0, 3, 1, 0, 1, 1, 3, 2, 2])}
+Test CustomData Files: 813
+Test Data Files: 21
+Test Data Sample
+Some weights of the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic were not used when initializing Wav2Vec2ForSequenceClassification: ['lm_head.bias', 'lm_head.weight']
+- This IS expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of Wav2Vec2ForSequenceClassification were not initialized from the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic and are newly initialized: ['projector.weight', 'classifier.bias', 'projector.bias', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Using cuda_amp half precision backend
+{'input_values': tensor([[-0.1013, -0.1371, -0.1340,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.2072, -0.2131, -0.2381,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.3915, -0.1187,  0.1507,  ...,  0.1375,  0.0724,  0.0578],
+        ...,
+        [-0.4667, -0.4770, -0.4922,  ..., -0.9354, -0.7075, -0.1023],
+        [-0.1185, -0.1481, -0.1487,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.8380, -0.8204, -0.7205,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1],
+        ...,
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([2, 0, 0, 3, 0, 1, 3, 1, 2, 0, 2, 2, 2, 3, 2, 3, 2, 3, 0, 3, 3, 3, 2, 1,
+        1, 2, 1, 0, 1, 3, 3, 3, 2, 3, 0, 2, 0, 2, 1, 0])}
+Test CustomData Files: 398
+Test Data Files: 10
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Loading pre-trained checkpoint...
+-------- Setting up Model --------
+GPUs Used :  3 GPUs!
+SUCCESS: Pre-trained checkpoint loaded.
+--> Defining Custom Trainer Class...
+
+------> STARTING TRAINING... ----------------------------------------- 
+
+Trainable Parameters : 314664
+Traceback (most recent call last):
+  File "run_cnn_downstream.py", line 753, in <module>
+    trainer.fit(trainDataLoader, testDataLoader, set_num_train_epochs)
+  File "run_cnn_downstream.py", line 570, in fit
+    train_loss, train_acc = self._train(
+  File "run_cnn_downstream.py", line 596, in _train
+    loss, acc = self._compute_loss(model, inputs, labels)
+  File "run_cnn_downstream.py", line 638, in _compute_loss
+    prediction = model(**inputs).logits
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/data_parallel.py", line 168, in forward
+    outputs = self.parallel_apply(replicas, inputs, kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/data_parallel.py", line 178, in parallel_apply
+    return parallel_apply(replicas, inputs, kwargs, self.device_ids[:len(replicas)])
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/parallel_apply.py", line 86, in parallel_apply
+    output.reraise()
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/_utils.py", line 457, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in replica 0 on device 0.
+Original Traceback (most recent call last):
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/parallel_apply.py", line 61, in _worker
+    output = module(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 1817, in forward
+    logits = self.classifier(pooled_output)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/container.py", line 141, in forward
+    input = module(input)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/conv.py", line 447, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/conv.py", line 443, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+RuntimeError: Expected 3D (unbatched) or 4D (batched) input to conv2d, but got input of size: [14, 256]
+
+Tue Nov 1 02:20:53 AEDT 2022
+------------------------------------------------------------------------
+                         run_cnn_downstream.py                            
+------------------------------------------------------------------------
+Running:  /home/z5208494/thesis/run_cnn_downstream.py
+Started: 01/11/2022 02:21:11
+
+------> IMPORTING PACKAGES.... ---------------------------------------
+
+-->Importing datasets...
+-->Importing random...
+-->Importing pandas & numpy...
+-->Importing json...
+-->Importing Wav2Vec transformers...
+-->Importing torchaudio...
+-->Importing torch, dataclasses & typing...
+-->Importing from transformers for training...
+-->Importing pyarrow for loading dataset...
+-->SUCCESS! All packages imported.
+
+------> EXPERIMENT ARGUMENTS ----------------------------------------- 
+
+training: True
+experiment_id: ADI17-xlsr-cnn
+datasetdict_id: myST-eval
+data path: /srv/scratch/z5208494/dataset/
+test data path: /srv/scratch/z5208494/dataset/train_segments/
+training data path: /srv/scratch/z5208494/dataset/dev_segments/
+test data path: /srv/scratch/z5208494/dataset/test_segments/
+base_fp: /srv/scratch/z5208494/output/
+train_name: u_train_700f
+train_filename: u_train_700f
+validation_filename: dev_u_200f
+evaluation_filename: test_u_100f
+use_checkpoint: False
+
+------> MODEL ARGUMENTS... -------------------------------------------
+
+number_of_worker: 1
+hidden_dropout: 0.1
+activation_dropout: 0.1
+attention_dropoutput: 0.1
+feat_proj_dropout: 0.0
+layerdrop: 0.1
+mask_time_prob: 0.065
+mask_time_length: 10
+ctc_loss_reduction: mean
+ctc_zero_infinity: False
+gradient_checkpointing: False
+pooling_mode: mean
+
+------> TRAINING ARGUMENTS... ----------------------------------------
+
+evaluation strategy: no
+batch_size: 40
+gradient_accumulation_steps: 2
+learning_rate: 4e-05
+weight_decay: 0.01
+adam_beta1: 0.9
+adam_beta2: 0.98
+adam_epsilon: 1e-08
+unfreezing_step: 10
+num_train_epochs: 100
+max_steps: -1
+lr_scheduler_type: linear
+warmup_ratio: 0.1
+logging_strategy: steps
+logging_steps: 10
+save_strategy: epoch
+save_steps: 500
+save_total_limit: 40
+fp16: True
+eval_steps: 100
+load_best_model_at_end: False
+metric_for_best_model: accuracy
+greater_is_better: False
+group_by_length: True
+push_to_hub: False
+
+------> GENERATING FILEPATHS... --------------------------------------
+
+--> data_train_fp: data/u_train_700f.csv
+--> data_test_fp: data/dev_u_200f.csv
+--> data_test_fp: data/test_u_100f.csv
+--> data_cache_fp: /srv/scratch/z5208494/cache/huggingface/datasets/myST-eval
+--> model_fp: ../output/u_train_700f_local/ADI17-xlsr-cnn
+--> finetuned_results_fp: /srv/scratch/z5208494/output/u_train_700f_local/ADI17-xlsr-cnn_finetuned_results.csv
+--> pretrained_mod: elgeish/wav2vec2-large-xlsr-53-arabic
+
+------> PREPARING DATASET LABELS... ------------------------------------
+
+
+------> PRE-PROCESSING DATA... ----------------------------------------- 
+
+Max Duration: 10 s
+Sampling Rate: 16000
+Target Sampling Rate: 16000
+Create a custom dataset ---> 
+Check data has been processed correctly... 
+Train Data Sample
+{'input_values': tensor([[ 3.1859e+00,  3.4211e+00,  3.5660e+00,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [ 5.9355e-01,  5.4463e-01,  4.7972e-01,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [-2.0640e-01, -5.6246e-01, -1.1323e+00,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        ...,
+        [ 2.7322e-02,  3.0168e-02, -8.7243e-03,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00],
+        [ 3.0421e-02,  3.7811e-04,  4.7803e-02,  ..., -6.1853e-02,
+         -1.1936e-01, -6.8506e-02],
+        [ 1.6234e+00,  1.4684e+00,  1.1927e+00,  ...,  0.0000e+00,
+          0.0000e+00,  0.0000e+00]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([3, 2, 3, 3, 0, 2, 3, 2, 2, 3, 3, 0, 2, 2, 0, 1, 2, 2, 3, 3, 3, 3, 0, 3,
+        3, 2, 2, 2, 2, 3, 1, 2, 3, 1, 3, 0, 2, 2, 3, 3])}
+Training DataCustom Files: 10502
+Training Data Files: 263
+Val Data Sample
+{'input_values': tensor([[-0.0023,  0.0030,  0.0037,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.2176,  0.2613,  0.2858,  ..., -0.0908, -0.0916, -0.0968],
+        [ 0.3924,  0.3638,  0.2206,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [-0.2347, -0.2176, -0.0863,  ...,  0.0000,  0.0000,  0.0000],
+        [ 0.0047,  0.0297, -0.0226,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.1968, -0.2108, -0.1891,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([1, 3, 3, 2, 0, 0, 3, 3, 0, 0, 3, 2, 2, 1, 0, 2, 1, 2, 2, 0, 0, 1, 3, 0,
+        3, 0, 2, 3, 1, 1, 2, 1, 1, 3, 0, 0, 1, 2, 1, 2])}
+Test CustomData Files: 813
+Test Data Files: 21
+Test Data Sample
+Some weights of the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic were not used when initializing Wav2Vec2ForSequenceClassification: ['lm_head.bias', 'lm_head.weight']
+- This IS expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model trained on another task or with another architecture (e.g. initializing a BertForSequenceClassification model from a BertForPreTraining model).
+- This IS NOT expected if you are initializing Wav2Vec2ForSequenceClassification from the checkpoint of a model that you expect to be exactly identical (initializing a BertForSequenceClassification model from a BertForSequenceClassification model).
+Some weights of Wav2Vec2ForSequenceClassification were not initialized from the model checkpoint at elgeish/wav2vec2-large-xlsr-53-arabic and are newly initialized: ['projector.weight', 'projector.bias', 'classifier.weight', 'classifier.bias']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+Using cuda_amp half precision backend
+{'input_values': tensor([[ 0.7782,  0.7331,  0.6194,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.0670, -0.2170, -0.1622,  ...,  0.0000,  0.0000,  0.0000],
+        [-0.1013, -0.0475, -0.0355,  ...,  0.0000,  0.0000,  0.0000],
+        ...,
+        [ 0.8125,  0.5474,  0.4316,  ...,  0.0000,  0.0000,  0.0000],
+        [ 1.3109,  1.6283,  1.7908,  ..., -0.8191, -0.3386,  0.0529],
+        [ 1.6677,  1.5194,  0.9645,  ...,  0.0000,  0.0000,  0.0000]]), 'attention_mask': tensor([[1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 0, 0, 0],
+        ...,
+        [1, 1, 1,  ..., 0, 0, 0],
+        [1, 1, 1,  ..., 1, 1, 1],
+        [1, 1, 1,  ..., 0, 0, 0]]), 'labels': tensor([0, 3, 2, 0, 0, 2, 3, 3, 1, 3, 1, 2, 0, 2, 0, 0, 3, 0, 1, 2, 2, 2, 1, 2,
+        2, 1, 2, 2, 0, 1, 2, 2, 1, 2, 2, 3, 0, 2, 2, 0])}
+Test CustomData Files: 398
+Test Data Files: 10
+SUCCESS: Data ready for training and evaluation.
+
+------> PREPARING FOR TRAINING & EVALUATION... ----------------------- 
+
+--> Defining pooling layer...
+Number of labels: 4
+--> Loading pre-trained checkpoint...
+-------- Setting up Model --------
+GPUs Used :  3 GPUs!
+SUCCESS: Pre-trained checkpoint loaded.
+--> Defining Custom Trainer Class...
+
+------> STARTING TRAINING... ----------------------------------------- 
+
+Trainable Parameters : 274872
+Traceback (most recent call last):
+  File "run_cnn_downstream.py", line 752, in <module>
+    trainer.fit(trainDataLoader, testDataLoader, set_num_train_epochs)
+  File "run_cnn_downstream.py", line 569, in fit
+    train_loss, train_acc = self._train(
+  File "run_cnn_downstream.py", line 595, in _train
+    loss, acc = self._compute_loss(model, inputs, labels)
+  File "run_cnn_downstream.py", line 637, in _compute_loss
+    prediction = model(**inputs).logits
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/data_parallel.py", line 168, in forward
+    outputs = self.parallel_apply(replicas, inputs, kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/data_parallel.py", line 178, in parallel_apply
+    return parallel_apply(replicas, inputs, kwargs, self.device_ids[:len(replicas)])
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/parallel_apply.py", line 86, in parallel_apply
+    output.reraise()
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/_utils.py", line 457, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in replica 0 on device 0.
+Original Traceback (most recent call last):
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/parallel/parallel_apply.py", line 61, in _worker
+    output = module(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/transformers/models/wav2vec2/modeling_wav2vec2.py", line 1817, in forward
+    logits = self.classifier(pooled_output)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/container.py", line 141, in forward
+    input = module(input)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/module.py", line 1110, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/conv.py", line 447, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "/home/z5208494/.local/lib/python3.8/site-packages/torch/nn/modules/conv.py", line 443, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+RuntimeError: Expected 3D (unbatched) or 4D (batched) input to conv2d, but got input of size: [14, 256]
+

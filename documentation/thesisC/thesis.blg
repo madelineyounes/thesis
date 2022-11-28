@@ -1,0 +1,64 @@
+This is BibTeX, Version 0.99d (TeX Live 2018)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: thesis.aux
+A level-1 auxiliary file: cover.aux
+A level-1 auxiliary file: acknowledgements.aux
+A level-1 auxiliary file: abbreviations.aux
+A level-1 auxiliary file: introduction.aux
+A level-1 auxiliary file: background.aux
+A level-1 auxiliary file: litreview.aux
+A level-1 auxiliary file: method.aux
+A level-1 auxiliary file: experiments.aux
+A level-1 auxiliary file: conclusion.aux
+The style file: plain.bst
+A level-1 auxiliary file: appendix.aux
+Database file #1: myrefs.bib
+Warning--to sort, need author or key in noauthor_xls-r_nodate
+Warning--there's a month but no year in noauthor_xls-r_nodate
+Warning--empty booktitle in biadsy_dialect_2011
+Warning--empty journal in fan_exploring_2020
+Warning--empty booktitle in lounnas_building_2019
+Warning--empty year in michael_ellis_accent_nodate
+Warning--empty booktitle in sanket_shah_firstworkshop_2020
+You've used 73 entries,
+            2118 wiz_defined-function locations,
+            891 strings with 21251 characters,
+and the built_in function-call counts, 27708 in all, are:
+= -- 2619
+> -- 1836
+< -- 17
++ -- 731
+- -- 650
+* -- 2073
+:= -- 4760
+add.period$ -- 264
+call.type$ -- 73
+change.case$ -- 542
+chr.to.int$ -- 0
+cite$ -- 80
+duplicate$ -- 930
+empty$ -- 1725
+format.name$ -- 650
+if$ -- 5613
+int.to.chr$ -- 0
+int.to.str$ -- 73
+missing$ -- 64
+newline$ -- 400
+num.names$ -- 144
+pop$ -- 570
+preamble$ -- 1
+purify$ -- 471
+quote$ -- 0
+skip$ -- 718
+stack$ -- 0
+substring$ -- 1042
+swap$ -- 226
+text.length$ -- 17
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 292
+warning$ -- 7
+while$ -- 205
+width$ -- 75
+write$ -- 840
+(There were 7 warnings)

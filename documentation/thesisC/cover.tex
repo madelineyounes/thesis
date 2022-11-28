@@ -1,0 +1,41 @@
+
+\begin{center}
+\includegraphics{PortraitColourPos-eps-converted-to.pdf}\\[0.5cm]
+\textbf{\large SCHOOL OF ELECTRICAL ENGINEERING\\
+AND TELECOMMUNICATIONS}\\[2cm]
+{\addtolength{\baselineskip}{0.5cm}
+\textbf{\Huge
+Exploring Transfer Learning for Arabic Dialect Identification} \\[0.5cm]
+}
+{\Large by}\\[0.5cm]
+\textit{\huge
+Madeline Younes}\\[0.5cm]
+{\Large
+Student ID: z5208494}\\[1.5cm]
+{\Large
+Thesis submitted as a requirement for the degree\\
+Bachelor of Engineering (Electrical Engineering)\\[2ex]
+\vfill
+Submitted: \today\\
+Supervisor: Dr Beena Ahmed
+\vspace*{-1cm}
+}
+\end{center}
+
+\begin{abstract}
+    This thesis presents a novel approach to Dialectal Identification 
+    (DID) through leveraging pre-trained speech recognition models for low 
+    resource dialects, particularly Arabic. It focuses on designing an umbrella DID which is able to classify four umbrella Arabic dialects, and then 
+    it's adaptability to a regional DID with seventeen dialects. Its key aims are to assess the minimum amount of data required to create a viable system through training with varying utterance lengths and amounts of training data. 
+    As well as investigate how different design or fine-tuning techniques such as unfreezing encoder layers and inserting downstream layers may improve the performance of the DID. 
+    The performance of Arabic DIDs have been limited by the scarcity of available datasets and the linguistic similarities 
+    between the dialects. Thereby, there is a need for a system that has low data requirements and is able to take advantage of the existing systems 
+    trained on higher resource languages. The method proposed explores 
+    wav2vec 2.0 and it's variants as pre-trained models which can be fine-tuned for the Arabic DID downstream task. 
+    It investigated the effectiveness of inserting downstream models and other fine-tuning techniques to improve the system's 
+    performance. Results found that using XLSR Arabic which was fine-tuned with unfrozen encoder layers at step 50 with 10s utterances \
+    produced the highest performance umbrella DID with a weighted average F1-Score of 76\%. When adapted to a finer grain task of regional dialectal identification, the DID had a weighted 
+    average F1-Score of 58\%. Compared to traditional machine learning's accuracy of 85.1\% the transfer learning DID was not on par. Although, for some dialects 
+    compared to the phonetic approach it produced higher performance results with 10s utterances. With a 96\% for Iraqi (IQ) compared to phonemic model's 56\% and for Levantine (LEV) Arabic 
+    the system's F1-Scores were 81\% and 78\% respectively. Further work is encouraged on building an Arabic DID using transfer learning techniques as the method shows promise.
+\end{abstract}

@@ -1,0 +1,28 @@
+\chapter{Conclusion}\label{ch:conclusion}
+The paper has investigated the challenges designing a reliable Arabic DID and the need for 
+more accurate systems. It has provided the relevant background information on the theory of DIDs, the wav2vec model and a literature review of current methodologies for LID and DID
+systems. This thesis has outlined the proposed method, tested it through experimentation and analysed the results. The report has provided some suggestions for 
+future work and discussed the broader impact the thesis may have. Finally, this thesis has shown for the first time that a transfer learning approach could be a potential method of overcoming the challenges of both regional and umbrella Arabic Dialectical Identification (DID). 
+
+\section{Future Work}\label{sect:futwrk}
+
+The work presented in this thesis provides insight into further areas of exploration and future work. Some next steps include: 
+\begin{itemize}
+    \item Further experiment with downstream model structures other than those explored in Section \ref{sect:downExp}. Such as adding a CNN or BiLSTM network. 
+    \item Conduct more robust testing and training using audio files which contain code switching between dialects. 
+    \item Allocate more resources to train with longer audio files. 
+    \item Explore adding contextual identification to the system pipeline, by using the probabilities of adjacent utterances from the same audio file. Then taking them into consideration when predicting an utterance's class. This grouping method could increase performance of the DID. 
+    \item Test against multilingual datasets, mixed with dialectal Arabic to determine the system's effectiveness at distinguishing Dialectal Arabic from other languages.
+    \item Integrate the Arabic DID with a segmentation system where live audio is able to be segmented into utterances and the dialect present identified. 
+\end{itemize}
+
+\section{Broader Impact}\label{sect:impact}
+
+This thesis has shown that transfer learning with a pretrained model designed for one task can be fine-tuned for a loosely related downstream task. It has achieved this by 
+implementing an Arabic DID with pretrained models originally designed for ASR. 
+Transfer learning can be leveraged to improve the performance of downstream tasks with low resource datasets.
+While this thesis has a focus for the use case of dialectal Arabic, it could be directly applied to creating a LID or DID for other low resource languages and dialects. 
+
+The methods and theory of this thesis should be further examined for other limited resourced use cases and downstream tasks. 
+
+
